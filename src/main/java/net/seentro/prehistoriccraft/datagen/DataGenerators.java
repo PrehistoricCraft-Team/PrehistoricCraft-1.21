@@ -8,6 +8,7 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParamSet;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
@@ -28,9 +29,17 @@ public class DataGenerators {
 
         generator.addProvider(event.includeServer(), new LootTableProvider(packOutput, Collections.emptySet(),
                 List.of(new LootTableProvider.SubProviderEntry(PrehistoricBlockLootTableProvider::new, LootContextParamSets.BLOCK)), lookupProvider));
+        generator.addProvider(event.includeServer(), new PrehistoricRecipeProvider(packOutput, lookupProvider));
 
+        BlockTagsProvider blockTagsProvider = new PrehistoricBlockTagProvider(packOutput, lookupProvider, existingFileHelper);
+        generator.addProvider(event.includeServer(), blockTagsProvider);
+        generator.addProvider(event.includeServer(), new PrehistoricItemTagProvider(packOutput, lookupProvider, blockTagsProvider.contentsGetter(), existingFileHelper));
+
+        generator.addProvider(event.includeServer(), new PrehistoricDataMapProvider(packOutput, lookupProvider));
 
         generator.addProvider(event.includeClient(), new PrehistoricBlockStateProvider(packOutput, existingFileHelper));
         generator.addProvider(event.includeClient(), new PrehistoricItemModelProvider(packOutput, existingFileHelper));
+
+
     }
 }
