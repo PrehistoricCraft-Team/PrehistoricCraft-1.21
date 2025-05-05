@@ -49,7 +49,11 @@ public class PrehistoricBlocks {
     public static final DeferredBlock<Block> PLASTERED_TRIASSIC_FOSSILIFEROUS_STONE = registerBlock("plastered_triassic_fossiliferous_stone", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE).requiresCorrectToolForDrops()));
 
     /* AMBER */
-    public static final DeferredBlock<Block> AMBER_BLOCK = registerBlock("amber_block", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)));
+    public static final DeferredBlock<Block> AMBER_BLOCK = registerBlock("amber_block", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK)));
+    /* CRACKED DIRT */
+    public static final DeferredBlock<Block> CRACKED_DIRT = registerBlock("cracked_dirt", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.COARSE_DIRT).strength(1.1f).requiresCorrectToolForDrops()));
+
+
 
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block) {
         DeferredBlock<T> toReturn = BLOCKS.register(name, block);

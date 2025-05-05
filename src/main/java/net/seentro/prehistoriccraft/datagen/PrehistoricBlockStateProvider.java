@@ -42,7 +42,10 @@ public class PrehistoricBlockStateProvider extends BlockStateProvider {
         blockWithItem(PrehistoricBlocks.PLASTERED_SILURIAN_FOSSILIFEROUS_STONE);
         blockWithItem(PrehistoricBlocks.PLASTERED_TRIASSIC_FOSSILIFEROUS_STONE);
 
+        /* AMBER BLOCK */
         blockWithItem(PrehistoricBlocks.AMBER_BLOCK);
+        /* CRACKED DIRT */
+        blockWithItem(PrehistoricBlocks.CRACKED_DIRT);
     }
 
     /* HELPER METHODS */
