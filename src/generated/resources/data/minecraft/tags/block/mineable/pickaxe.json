@@ -1,3 +1,16 @@
 {
-  "values": []
+  "values": [
+    "prehistoriccraft:cambrian_fossiliferous_stone",
+    "prehistoriccraft:carboniferous_fossiliferous_stone",
+    "prehistoriccraft:cretaceous_fossiliferous_stone",
+    "prehistoriccraft:devonian_fossiliferous_stone",
+    "prehistoriccraft:jurassic_fossiliferous_stone",
+    "prehistoriccraft:neogene_fossiliferous_stone",
+    "prehistoriccraft:ordovician_fossiliferous_stone",
+    "prehistoriccraft:paleogene_fossiliferous_stone",
+    "prehistoriccraft:permian_fossiliferous_stone",
+    "prehistoriccraft:precambrian_fossiliferous_stone",
+    "prehistoriccraft:silurian_fossiliferous_stone",
+    "prehistoriccraft:triassic_fossiliferous_stone"
+  ]
 }

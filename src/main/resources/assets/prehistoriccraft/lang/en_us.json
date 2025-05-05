@@ -1,3 +1,17 @@
 {
-  "block.prehistoriccraft.amber_block": "Amber Block"
+  "block.prehistoriccraft.cambrian_fossiliferous_stone": "Cambrian Fossiliferous Stone",
+  "block.prehistoriccraft.carboniferous_fossiliferous_stone": "Carboniferous Fossiliferous Stone",
+  "block.prehistoriccraft.cretaceous_fossiliferous_stone": "Cretaceous Fossiliferous Stone",
+  "block.prehistoriccraft.devonian_fossiliferous_stone": "Devonian Fossiliferous Stone",
+  "block.prehistoriccraft.jurassic_fossiliferous_stone": "Jurassic Fossiliferous Stone",
+  "block.prehistoriccraft.neogene_fossiliferous_stone": "Neogene Fossiliferous Stone",
+  "block.prehistoriccraft.ordovician_fossiliferous_stone": "Ordovician Fossiliferous Stone",
+  "block.prehistoriccraft.paleogene_fossiliferous_stone": "Paleogene Fossiliferous Stone",
+  "block.prehistoriccraft.permian_fossiliferous_stone": "Permian Fossiliferous Stone",
+  "block.prehistoriccraft.precambrian_fossiliferous_stone": "Precambrian Fossiliferous Stone",
+  "block.prehistoriccraft.silurian_fossiliferous_stone": "Silurian Fossiliferous Stone",
+  "block.prehistoriccraft.triassic_fossiliferous_stone": "Triassic Fossiliferous Stone",
+
+  "block.prehistoriccraft.amber_block": "Amber Block",
+  "tabs.prehistoriccraft.fossil_tab": "Fossil Tab"
 }

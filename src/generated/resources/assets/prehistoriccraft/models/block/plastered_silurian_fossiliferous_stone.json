@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "prehistoriccraft:block/plastered_silurian_fossiliferous_stone"
+  }
+}

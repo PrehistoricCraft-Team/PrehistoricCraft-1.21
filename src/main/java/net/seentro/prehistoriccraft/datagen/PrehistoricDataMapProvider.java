@@ -16,7 +16,7 @@ public class PrehistoricDataMapProvider extends DataMapProvider {
 
     @Override
     protected void gather(HolderLookup.Provider provider) {
-        /*this.builder(NeoForgeDataMaps.COMPOSTABLES)
+        /*this.builder(NeoForgeDataMaps.FURNACE_FUELS)
                 .add(PrehistoricBlocks.AMBER_BLOCK.getId(), new Compostable(0.25f), false);*/
     }
 }

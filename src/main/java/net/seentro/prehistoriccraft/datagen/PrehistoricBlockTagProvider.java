@@ -18,11 +18,37 @@ public class PrehistoricBlockTagProvider extends BlockTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
-        /* MINING*/
-        tag(BlockTags.MINEABLE_WITH_PICKAXE);
-        tag(BlockTags.NEEDS_IRON_TOOL)
-                .add(PrehistoricBlocks.AMBER_BLOCK.get());
+        /* FOSSILIFEROUS STONE */
+        tag(BlockTags.MINEABLE_WITH_PICKAXE)
+                .add(PrehistoricBlocks.CAMBRIAN_FOSSILIFEROUS_STONE.get())
+                .add(PrehistoricBlocks.CARBONIFEROUS_FOSSILIFEROUS_STONE.get())
+                .add(PrehistoricBlocks.CRETACEOUS_FOSSILIFEROUS_STONE.get())
+                .add(PrehistoricBlocks.DEVONIAN_FOSSILIFEROUS_STONE.get())
+                .add(PrehistoricBlocks.JURASSIC_FOSSILIFEROUS_STONE.get())
+                .add(PrehistoricBlocks.NEOGENE_FOSSILIFEROUS_STONE.get())
+                .add(PrehistoricBlocks.ORDOVICIAN_FOSSILIFEROUS_STONE.get())
+                .add(PrehistoricBlocks.PALEOGENE_FOSSILIFEROUS_STONE.get())
+                .add(PrehistoricBlocks.PERMIAN_FOSSILIFEROUS_STONE.get())
+                .add(PrehistoricBlocks.PRECAMBRIAN_FOSSILIFEROUS_STONE.get())
+                .add(PrehistoricBlocks.SILURIAN_FOSSILIFEROUS_STONE.get())
+                .add(PrehistoricBlocks.TRIASSIC_FOSSILIFEROUS_STONE.get());
 
-        /*OTHER*/
+        tag(BlockTags.NEEDS_IRON_TOOL)
+                .add(PrehistoricBlocks.CAMBRIAN_FOSSILIFEROUS_STONE.get())
+                .add(PrehistoricBlocks.CARBONIFEROUS_FOSSILIFEROUS_STONE.get())
+                .add(PrehistoricBlocks.CRETACEOUS_FOSSILIFEROUS_STONE.get())
+                .add(PrehistoricBlocks.DEVONIAN_FOSSILIFEROUS_STONE.get())
+                .add(PrehistoricBlocks.JURASSIC_FOSSILIFEROUS_STONE.get())
+                .add(PrehistoricBlocks.NEOGENE_FOSSILIFEROUS_STONE.get())
+                .add(PrehistoricBlocks.ORDOVICIAN_FOSSILIFEROUS_STONE.get())
+                .add(PrehistoricBlocks.PALEOGENE_FOSSILIFEROUS_STONE.get())
+                .add(PrehistoricBlocks.PERMIAN_FOSSILIFEROUS_STONE.get())
+                .add(PrehistoricBlocks.PRECAMBRIAN_FOSSILIFEROUS_STONE.get())
+                .add(PrehistoricBlocks.SILURIAN_FOSSILIFEROUS_STONE.get())
+                .add(PrehistoricBlocks.TRIASSIC_FOSSILIFEROUS_STONE.get());
+
+        /* AMBER */
+
+        /* OTHER */
     }
 }

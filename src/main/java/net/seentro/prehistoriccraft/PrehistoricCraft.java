@@ -1,6 +1,7 @@
 package net.seentro.prehistoriccraft;
 
 import net.seentro.prehistoriccraft.registry.PrehistoricBlocks;
+import net.seentro.prehistoriccraft.registry.PrehistoricCreativeTabs;
 import net.seentro.prehistoriccraft.registry.PrehistoricItems;
 import org.slf4j.Logger;
 
@@ -46,6 +47,7 @@ public class PrehistoricCraft {
 
         PrehistoricBlocks.register(modEventBus);
         PrehistoricItems.register(modEventBus);
+        PrehistoricCreativeTabs.register(modEventBus);
 
         NeoForge.EVENT_BUS.register(this);
     }
