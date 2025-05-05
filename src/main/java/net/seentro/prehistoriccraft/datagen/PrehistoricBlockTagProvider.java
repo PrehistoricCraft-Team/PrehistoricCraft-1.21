@@ -50,5 +50,8 @@ public class PrehistoricBlockTagProvider extends BlockTagsProvider {
         /* AMBER */
 
         /* OTHER */
+        tag(BlockTags.DIRT)
+                .add(PrehistoricBlocks.CRACKED_DIRT.get());
+
     }
 }
