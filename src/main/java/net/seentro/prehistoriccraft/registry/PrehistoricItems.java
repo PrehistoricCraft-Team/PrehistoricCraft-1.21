@@ -2,6 +2,8 @@ package net.seentro.prehistoriccraft.registry;
 
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.PickaxeItem;
+import net.minecraft.world.item.Tiers;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -25,13 +27,12 @@ public class PrehistoricItems {
     public static final DeferredItem<Item> SILURIAN_FOSSIL = ITEMS.register("silurian_fossil", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> TRIASSIC_FOSSIL   = ITEMS.register("triassic_fossil", () -> new Item(new Item.Properties()));
 
-    public static final DeferredItem<Item> EXCAVATOR_PICKAXE   = ITEMS.register("excavator_pickaxe", () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> EXCAVATOR_PICKAXE   = ITEMS.register("excavator_pickaxe", () -> new PickaxeItem(Tiers.IRON, new Item.Properties()));
 
     /* GYPSUM & PLASTER */
     public static final DeferredItem<Item> GYPSUM_POWDER = ITEMS.register("gypsum_powder", () -> new Item(new Item.Properties()));
-    public static final DeferredItem<Item> PARIS_PLASTER_POWDER = ITEMS.register("paris_plaster_powder", () -> new Item(new Item.Properties()));
-    public static final DeferredItem<Item> PLASTER_WRAPS = ITEMS.register("plaster_wraps", () -> new Item(new Item.Properties()));
-    public static final DeferredItem<Item> PLASTER_BUCKET = ITEMS.register("plaster_bucket", () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> PLASTER_POWDER = ITEMS.register("plaster_powder", () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> PLASTER_WRAP = ITEMS.register("plaster_wrap", () -> new Item(new Item.Properties()));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

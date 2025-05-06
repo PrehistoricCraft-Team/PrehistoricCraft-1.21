@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/cube_all",
-  "textures": {
-    "all": "prehistoriccraft:block/plastered_cretaceous_fossiliferous_stone"
-  }
-}

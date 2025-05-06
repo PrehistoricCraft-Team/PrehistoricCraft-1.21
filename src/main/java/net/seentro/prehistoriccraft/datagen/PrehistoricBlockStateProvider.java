@@ -29,26 +29,35 @@ public class PrehistoricBlockStateProvider extends BlockStateProvider {
         blockWithItem(PrehistoricBlocks.TRIASSIC_FOSSILIFEROUS_STONE);
 
         /* PLASTERED FOSSILIFEROUS STONE */
-        blockWithItem(PrehistoricBlocks.PLASTERED_CAMBRIAN_FOSSILIFEROUS_STONE);
-        blockWithItem(PrehistoricBlocks.PLASTERED_CARBONIFEROUS_FOSSILIFEROUS_STONE);
-        blockWithItem(PrehistoricBlocks.PLASTERED_CRETACEOUS_FOSSILIFEROUS_STONE);
-        blockWithItem(PrehistoricBlocks.PLASTERED_DEVONIAN_FOSSILIFEROUS_STONE);
-        blockWithItem(PrehistoricBlocks.PLASTERED_JURASSIC_FOSSILIFEROUS_STONE);
-        blockWithItem(PrehistoricBlocks.PLASTERED_NEOGENE_FOSSILIFEROUS_STONE);
-        blockWithItem(PrehistoricBlocks.PLASTERED_ORDOVICIAN_FOSSILIFEROUS_STONE);
-        blockWithItem(PrehistoricBlocks.PLASTERED_PALEOGENE_FOSSILIFEROUS_STONE);
-        blockWithItem(PrehistoricBlocks.PLASTERED_PERMIAN_FOSSILIFEROUS_STONE);
-        blockWithItem(PrehistoricBlocks.PLASTERED_PRECAMBRIAN_FOSSILIFEROUS_STONE);
-        blockWithItem(PrehistoricBlocks.PLASTERED_SILURIAN_FOSSILIFEROUS_STONE);
-        blockWithItem(PrehistoricBlocks.PLASTERED_TRIASSIC_FOSSILIFEROUS_STONE);
+        blockWithItemPlasterTexture(PrehistoricBlocks.PLASTERED_CAMBRIAN_FOSSILIFEROUS_STONE);
+        blockWithItemPlasterTexture(PrehistoricBlocks.PLASTERED_CARBONIFEROUS_FOSSILIFEROUS_STONE);
+        blockWithItemPlasterTexture(PrehistoricBlocks.PLASTERED_CRETACEOUS_FOSSILIFEROUS_STONE);
+        blockWithItemPlasterTexture(PrehistoricBlocks.PLASTERED_DEVONIAN_FOSSILIFEROUS_STONE);
+        blockWithItemPlasterTexture(PrehistoricBlocks.PLASTERED_JURASSIC_FOSSILIFEROUS_STONE);
+        blockWithItemPlasterTexture(PrehistoricBlocks.PLASTERED_NEOGENE_FOSSILIFEROUS_STONE);
+        blockWithItemPlasterTexture(PrehistoricBlocks.PLASTERED_ORDOVICIAN_FOSSILIFEROUS_STONE);
+        blockWithItemPlasterTexture(PrehistoricBlocks.PLASTERED_PALEOGENE_FOSSILIFEROUS_STONE);
+        blockWithItemPlasterTexture(PrehistoricBlocks.PLASTERED_PERMIAN_FOSSILIFEROUS_STONE);
+        blockWithItemPlasterTexture(PrehistoricBlocks.PLASTERED_PRECAMBRIAN_FOSSILIFEROUS_STONE);
+        blockWithItemPlasterTexture(PrehistoricBlocks.PLASTERED_SILURIAN_FOSSILIFEROUS_STONE);
+        blockWithItemPlasterTexture(PrehistoricBlocks.PLASTERED_TRIASSIC_FOSSILIFEROUS_STONE);
 
         /* AMBER BLOCK */
         blockWithItem(PrehistoricBlocks.AMBER_BLOCK);
-        /* CRACKED DIRT */
+
+        /* GYPSUM */
+        blockWithItem(PrehistoricBlocks.GYPSUM_CRYSTAL);
+        blockWithItem(PrehistoricBlocks.GYPSUM_CRYSTAL_BLOCK);
+
+        /* DIRT */
         blockWithItem(PrehistoricBlocks.CRACKED_DIRT);
     }
 
     /* HELPER METHODS */
+
+    private void blockWithItemPlasterTexture(DeferredBlock<?> block) {
+        simpleBlockWithItem(block.get(), models().cubeAll("plastered_fossiliferous_stone", modLoc("block/plastered_fossiliferous_stone")));
+    }
 
     private void blockWithItem(DeferredBlock<?> block) {
         simpleBlockWithItem(block.get(), cubeAll(block.get()));

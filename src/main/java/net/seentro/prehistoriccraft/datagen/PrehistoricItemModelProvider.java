@@ -32,11 +32,8 @@ public class PrehistoricItemModelProvider extends ItemModelProvider {
         basicItem(PrehistoricItems.EXCAVATOR_PICKAXE.get());
 
         /* GYPSUM & PLASTER */
-        /*basicItem(PrehistoricItems.GYPSUM_POWDER.get());
-        basicItem(PrehistoricItems.PARIS_PLASTER_POWDER.get());
-        basicItem(PrehistoricItems.PLASTER_WRAPS.get());
-        basicItem(PrehistoricItems.PLASTER_BUCKET.get());
-
-         */
+        basicItem(PrehistoricItems.GYPSUM_POWDER.get());
+        basicItem(PrehistoricItems.PLASTER_POWDER.get());
+        basicItem(PrehistoricItems.PLASTER_WRAP.get());
     }
 }

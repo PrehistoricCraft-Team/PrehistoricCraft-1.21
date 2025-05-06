@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "prehistoriccraft:block/plastered_cretaceous_fossiliferous_stone"
+      "model": "prehistoriccraft:block/plastered_fossiliferous_stone"
     }
   }
 }

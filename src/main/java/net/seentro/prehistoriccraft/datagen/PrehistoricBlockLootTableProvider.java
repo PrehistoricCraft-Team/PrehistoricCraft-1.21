@@ -50,34 +50,26 @@ public class PrehistoricBlockLootTableProvider extends BlockLootSubProvider {
         dropOther(PrehistoricBlocks.TRIASSIC_FOSSILIFEROUS_STONE.get(), Blocks.STONE);
 
         /* PLASTERED FOSSILIFEROUS STONE */
-        /*dropMultipleItemsWithToolRequirement(PrehistoricBlocks.PLASTERED_CAMBRIAN_FOSSILIFEROUS_STONE.get(),
-                PrehistoricItems.EXCAVATOR_PICKAXE.get(), PrehistoricItems.CAMBRIAN_FOSSIL.get(), 2, 4);
-         */
-        dropMultipleItemsWithToolRequirement(PrehistoricBlocks.PLASTERED_CARBONIFEROUS_FOSSILIFEROUS_STONE.get(),
-                PrehistoricItems.EXCAVATOR_PICKAXE.get(), PrehistoricItems.CARBONIFEROUS_FOSSIL.get(), 1, 3);
-        dropMultipleItemsWithToolRequirement(PrehistoricBlocks.PLASTERED_CRETACEOUS_FOSSILIFEROUS_STONE.get(),
-                PrehistoricItems.EXCAVATOR_PICKAXE.get(),  PrehistoricItems.CRETACEOUS_FOSSIL.get(), 1, 3);
-        dropMultipleItemsWithToolRequirement(PrehistoricBlocks.PLASTERED_DEVONIAN_FOSSILIFEROUS_STONE.get(),
-                PrehistoricItems.EXCAVATOR_PICKAXE.get(),  PrehistoricItems.DEVONIAN_FOSSIL.get(), 1, 3);
-        dropMultipleItemsWithToolRequirement(PrehistoricBlocks.PLASTERED_JURASSIC_FOSSILIFEROUS_STONE.get(),
-                PrehistoricItems.EXCAVATOR_PICKAXE.get(),  PrehistoricItems.JURASSIC_FOSSIL.get(), 1, 3);
-        dropMultipleItemsWithToolRequirement(PrehistoricBlocks.PLASTERED_NEOGENE_FOSSILIFEROUS_STONE.get(),
-                PrehistoricItems.EXCAVATOR_PICKAXE.get(),  PrehistoricItems.NEOGENE_FOSSIL.get(), 1, 3);
-        dropMultipleItemsWithToolRequirement(PrehistoricBlocks.PLASTERED_ORDOVICIAN_FOSSILIFEROUS_STONE.get(),
-                PrehistoricItems.EXCAVATOR_PICKAXE.get(),  PrehistoricItems.ORDOVICIAN_FOSSIL.get(), 1, 3);
-        dropMultipleItemsWithToolRequirement(PrehistoricBlocks.PLASTERED_PALEOGENE_FOSSILIFEROUS_STONE.get(),
-                PrehistoricItems.EXCAVATOR_PICKAXE.get(),  PrehistoricItems.PALEOGENE_FOSSIL.get(), 1, 3);
-        dropMultipleItemsWithToolRequirement(PrehistoricBlocks.PLASTERED_PERMIAN_FOSSILIFEROUS_STONE.get(),
-                PrehistoricItems.EXCAVATOR_PICKAXE.get(),  PrehistoricItems.PERMIAN_FOSSIL.get(), 1, 3);
-        dropMultipleItemsWithToolRequirement(PrehistoricBlocks.PLASTERED_PRECAMBRIAN_FOSSILIFEROUS_STONE.get(),
-                PrehistoricItems.EXCAVATOR_PICKAXE.get(),  PrehistoricItems.PRECAMBRIAN_FOSSIL.get(), 1, 3);
-        dropMultipleItemsWithToolRequirement(PrehistoricBlocks.PLASTERED_SILURIAN_FOSSILIFEROUS_STONE.get(),
-                PrehistoricItems.EXCAVATOR_PICKAXE.get(),  PrehistoricItems.SILURIAN_FOSSIL.get(), 1, 3);
-        dropMultipleItemsWithToolRequirement(PrehistoricBlocks.PLASTERED_TRIASSIC_FOSSILIFEROUS_STONE.get(),
-                PrehistoricItems.EXCAVATOR_PICKAXE.get(),  PrehistoricItems.TRIASSIC_FOSSIL.get(), 1, 3);
+        dropFossilToolMatching(PrehistoricBlocks.PLASTERED_CAMBRIAN_FOSSILIFEROUS_STONE.get(), PrehistoricItems.CAMBRIAN_FOSSIL.get());
+        dropFossilToolMatching(PrehistoricBlocks.PLASTERED_CARBONIFEROUS_FOSSILIFEROUS_STONE.get(), PrehistoricItems.CARBONIFEROUS_FOSSIL.get());
+        dropFossilToolMatching(PrehistoricBlocks.PLASTERED_CRETACEOUS_FOSSILIFEROUS_STONE.get(), PrehistoricItems.CRETACEOUS_FOSSIL.get());
+        dropFossilToolMatching(PrehistoricBlocks.PLASTERED_DEVONIAN_FOSSILIFEROUS_STONE.get(), PrehistoricItems.DEVONIAN_FOSSIL.get());
+        dropFossilToolMatching(PrehistoricBlocks.PLASTERED_JURASSIC_FOSSILIFEROUS_STONE.get(), PrehistoricItems.JURASSIC_FOSSIL.get());
+        dropFossilToolMatching(PrehistoricBlocks.PLASTERED_NEOGENE_FOSSILIFEROUS_STONE.get(), PrehistoricItems.NEOGENE_FOSSIL.get());
+        dropFossilToolMatching(PrehistoricBlocks.PLASTERED_ORDOVICIAN_FOSSILIFEROUS_STONE.get(), PrehistoricItems.ORDOVICIAN_FOSSIL.get());
+        dropFossilToolMatching(PrehistoricBlocks.PLASTERED_PALEOGENE_FOSSILIFEROUS_STONE.get(), PrehistoricItems.PALEOGENE_FOSSIL.get());
+        dropFossilToolMatching(PrehistoricBlocks.PLASTERED_PERMIAN_FOSSILIFEROUS_STONE.get(), PrehistoricItems.PERMIAN_FOSSIL.get());
+        dropFossilToolMatching(PrehistoricBlocks.PLASTERED_PRECAMBRIAN_FOSSILIFEROUS_STONE.get(), PrehistoricItems.PRECAMBRIAN_FOSSIL.get());
+        dropFossilToolMatching(PrehistoricBlocks.PLASTERED_SILURIAN_FOSSILIFEROUS_STONE.get(), PrehistoricItems.SILURIAN_FOSSIL.get());
+        dropFossilToolMatching(PrehistoricBlocks.PLASTERED_TRIASSIC_FOSSILIFEROUS_STONE.get(), PrehistoricItems.TRIASSIC_FOSSIL.get());
 
         /* AMBER */
         dropSelf(PrehistoricBlocks.AMBER_BLOCK.get());
+
+        /* GYPSUM */
+        dropSelf(PrehistoricBlocks.GYPSUM_CRYSTAL.get());
+        dropSelf(PrehistoricBlocks.GYPSUM_CRYSTAL_BLOCK.get());
+
         /* CRACKED DIRT */
         dropSelf(PrehistoricBlocks.CRACKED_DIRT.get());
     }
@@ -98,21 +90,22 @@ public class PrehistoricBlockLootTableProvider extends BlockLootSubProvider {
         this.add(block, this.createMultipleOreDrop(block, item, minDrops, maxDrops));
     }
 
-    protected LootTable.Builder createMultipleOreDropWithToolRequirement(Block block, Item requiredTool, ItemLike dropItem, float minDrops, float maxDrops) {
-        HolderLookup.RegistryLookup<Enchantment> enchantmentRegistry = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
-
-        LootPoolEntryContainer.Builder<?> fallbackEntry = this.applyExplosionDecay(block,
-                        LootItem.lootTableItem(dropItem)
+    protected LootTable.Builder createMatchingToolNumberedDrop(Block block, ItemLike item, ItemLike tool, float minDrops, float maxDrops) {
+        return LootTable.lootTable()
+                .withPool(LootPool.lootPool()
+                        .setRolls(ConstantValue.exactly(1.0F))
+                        .add(LootItem.lootTableItem(item)
+                                .when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(tool)))
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(minDrops, maxDrops)))
-                                .apply(ApplyBonusCount.addOreBonusCount(enchantmentRegistry.getOrThrow(Enchantments.FORTUNE)))
-                )
-                .when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(requiredTool)));
-
-        return this.createSilkTouchDispatchTable(block, fallbackEntry);
+                                .otherwise(this.applyExplosionDecay(block, LootItem.lootTableItem(block)))));
     }
 
-    protected void dropMultipleItemsWithToolRequirement(Block block, Item tool, ItemLike item, float minDrops, float maxDrops) {
-        this.add(block, this.createMultipleOreDropWithToolRequirement(block, tool, item, minDrops, maxDrops));
+    protected void dropOtherToolMatching(Block block, ItemLike item, ItemLike tool, float minDrops, float maxDrops) {
+        this.add(block, this.createMatchingToolNumberedDrop(block, item, tool, minDrops, maxDrops));
+    }
+
+    protected void dropFossilToolMatching(Block block, ItemLike item) {
+        this.add(block, this.createMatchingToolNumberedDrop(block, item, PrehistoricItems.EXCAVATOR_PICKAXE.get(), 1, 3));
     }
 
     @Override

@@ -13,27 +13,6 @@
                 {
                   "condition": "minecraft:match_tool",
                   "predicate": {
-                    "predicates": {
-                      "minecraft:enchantments": [
-                        {
-                          "enchantments": "minecraft:silk_touch",
-                          "levels": {
-                            "min": 1
-                          }
-                        }
-                      ]
-                    }
-                  }
-                }
-              ],
-              "name": "prehistoriccraft:plastered_triassic_fossiliferous_stone"
-            },
-            {
-              "type": "minecraft:item",
-              "conditions": [
-                {
-                  "condition": "minecraft:match_tool",
-                  "predicate": {
                     "items": "prehistoriccraft:excavator_pickaxe"
                   }
                 }
@@ -47,17 +26,18 @@
                     "min": 1.0
                   },
                   "function": "minecraft:set_count"
-                },
-                {
-                  "enchantment": "minecraft:fortune",
-                  "formula": "minecraft:ore_drops",
-                  "function": "minecraft:apply_bonus"
-                },
+                }
+              ],
+              "name": "prehistoriccraft:triassic_fossil"
+            },
+            {
+              "type": "minecraft:item",
+              "functions": [
                 {
                   "function": "minecraft:explosion_decay"
                 }
               ],
-              "name": "prehistoriccraft:triassic_fossil"
+              "name": "prehistoriccraft:plastered_triassic_fossiliferous_stone"
             }
           ]
         }

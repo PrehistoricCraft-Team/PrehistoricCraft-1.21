@@ -18,8 +18,9 @@ public class PrehistoricBlockTagProvider extends BlockTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
-        /* FOSSILIFEROUS STONE */
+        /* MINEABLES */
         tag(BlockTags.MINEABLE_WITH_PICKAXE)
+                /* FOSSILIFEROUS STONE */
                 .add(PrehistoricBlocks.CAMBRIAN_FOSSILIFEROUS_STONE.get())
                 .add(PrehistoricBlocks.CARBONIFEROUS_FOSSILIFEROUS_STONE.get())
                 .add(PrehistoricBlocks.CRETACEOUS_FOSSILIFEROUS_STONE.get())
@@ -31,7 +32,20 @@ public class PrehistoricBlockTagProvider extends BlockTagsProvider {
                 .add(PrehistoricBlocks.PERMIAN_FOSSILIFEROUS_STONE.get())
                 .add(PrehistoricBlocks.PRECAMBRIAN_FOSSILIFEROUS_STONE.get())
                 .add(PrehistoricBlocks.SILURIAN_FOSSILIFEROUS_STONE.get())
-                .add(PrehistoricBlocks.TRIASSIC_FOSSILIFEROUS_STONE.get());
+                .add(PrehistoricBlocks.TRIASSIC_FOSSILIFEROUS_STONE.get())
+                /* PLASTERED FOSSILIFEROUS STONE */
+                .add(PrehistoricBlocks.PLASTERED_CAMBRIAN_FOSSILIFEROUS_STONE.get())
+                .add(PrehistoricBlocks.PLASTERED_CARBONIFEROUS_FOSSILIFEROUS_STONE.get())
+                .add(PrehistoricBlocks.PLASTERED_CRETACEOUS_FOSSILIFEROUS_STONE.get())
+                .add(PrehistoricBlocks.PLASTERED_DEVONIAN_FOSSILIFEROUS_STONE.get())
+                .add(PrehistoricBlocks.PLASTERED_JURASSIC_FOSSILIFEROUS_STONE.get())
+                .add(PrehistoricBlocks.PLASTERED_NEOGENE_FOSSILIFEROUS_STONE.get())
+                .add(PrehistoricBlocks.PLASTERED_ORDOVICIAN_FOSSILIFEROUS_STONE.get())
+                .add(PrehistoricBlocks.PLASTERED_PALEOGENE_FOSSILIFEROUS_STONE.get())
+                .add(PrehistoricBlocks.PLASTERED_PERMIAN_FOSSILIFEROUS_STONE.get())
+                .add(PrehistoricBlocks.PLASTERED_PRECAMBRIAN_FOSSILIFEROUS_STONE.get())
+                .add(PrehistoricBlocks.PLASTERED_SILURIAN_FOSSILIFEROUS_STONE.get())
+                .add(PrehistoricBlocks.PLASTERED_TRIASSIC_FOSSILIFEROUS_STONE.get());
 
         tag(BlockTags.NEEDS_IRON_TOOL)
                 .add(PrehistoricBlocks.CAMBRIAN_FOSSILIFEROUS_STONE.get())
@@ -46,8 +60,6 @@ public class PrehistoricBlockTagProvider extends BlockTagsProvider {
                 .add(PrehistoricBlocks.PRECAMBRIAN_FOSSILIFEROUS_STONE.get())
                 .add(PrehistoricBlocks.SILURIAN_FOSSILIFEROUS_STONE.get())
                 .add(PrehistoricBlocks.TRIASSIC_FOSSILIFEROUS_STONE.get());
-
-        /* AMBER */
 
         /* OTHER */
     }
