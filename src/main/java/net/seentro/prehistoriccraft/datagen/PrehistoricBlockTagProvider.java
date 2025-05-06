@@ -62,5 +62,8 @@ public class PrehistoricBlockTagProvider extends BlockTagsProvider {
                 .add(PrehistoricBlocks.TRIASSIC_FOSSILIFEROUS_STONE.get());
 
         /* OTHER */
+        tag(BlockTags.DIRT)
+                .add(PrehistoricBlocks.CRACKED_DIRT.get());
+
     }
 }
