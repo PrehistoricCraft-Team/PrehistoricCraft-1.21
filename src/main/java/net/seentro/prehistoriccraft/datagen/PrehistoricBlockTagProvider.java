@@ -3,6 +3,7 @@ package net.seentro.prehistoriccraft.datagen;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
@@ -45,7 +46,10 @@ public class PrehistoricBlockTagProvider extends BlockTagsProvider {
                 .add(PrehistoricBlocks.PLASTERED_PERMIAN_FOSSILIFEROUS_STONE.get())
                 .add(PrehistoricBlocks.PLASTERED_PRECAMBRIAN_FOSSILIFEROUS_STONE.get())
                 .add(PrehistoricBlocks.PLASTERED_SILURIAN_FOSSILIFEROUS_STONE.get())
-                .add(PrehistoricBlocks.PLASTERED_TRIASSIC_FOSSILIFEROUS_STONE.get());
+                .add(PrehistoricBlocks.PLASTERED_TRIASSIC_FOSSILIFEROUS_STONE.get())
+                /* GYPSUM */
+                .add(PrehistoricBlocks.GYPSUM_CRYSTAL.get())
+                .add(PrehistoricBlocks.GYPSUM_CRYSTAL_BLOCK.get());
 
         tag(BlockTags.NEEDS_IRON_TOOL)
                 .add(PrehistoricBlocks.CAMBRIAN_FOSSILIFEROUS_STONE.get())
@@ -60,6 +64,10 @@ public class PrehistoricBlockTagProvider extends BlockTagsProvider {
                 .add(PrehistoricBlocks.PRECAMBRIAN_FOSSILIFEROUS_STONE.get())
                 .add(PrehistoricBlocks.SILURIAN_FOSSILIFEROUS_STONE.get())
                 .add(PrehistoricBlocks.TRIASSIC_FOSSILIFEROUS_STONE.get());
+
+        tag(BlockTags.NEEDS_STONE_TOOL)
+                .add(PrehistoricBlocks.GYPSUM_CRYSTAL.get())
+                .add(PrehistoricBlocks.GYPSUM_CRYSTAL_BLOCK.get());
 
         /* OTHER */
         tag(BlockTags.DIRT)

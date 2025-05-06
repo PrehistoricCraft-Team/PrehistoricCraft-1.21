@@ -67,8 +67,8 @@ public class PrehistoricBlockLootTableProvider extends BlockLootSubProvider {
         dropSelf(PrehistoricBlocks.AMBER_BLOCK.get());
 
         /* GYPSUM */
-        dropSelf(PrehistoricBlocks.GYPSUM_CRYSTAL.get());
-        dropSelf(PrehistoricBlocks.GYPSUM_CRYSTAL_BLOCK.get());
+        dropMultipleItems(PrehistoricBlocks.GYPSUM_CRYSTAL.get(), PrehistoricItems.GYPSUM_POWDER.get(), 1, 2);
+        dropMultipleItems(PrehistoricBlocks.GYPSUM_CRYSTAL_BLOCK.get(), PrehistoricItems.GYPSUM_POWDER.get(), 1, 2);
 
         /* CRACKED DIRT */
         dropSelf(PrehistoricBlocks.CRACKED_DIRT.get());
