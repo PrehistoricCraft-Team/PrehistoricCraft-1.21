@@ -2,47 +2,53 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "bonus_rolls": 0.0,
+      "rolls": 1.0,
       "entries": [
         {
           "type": "minecraft:alternatives",
           "children": [
             {
               "type": "minecraft:item",
+              "name": "prehistoriccraft:silurian_fossil",
               "conditions": [
                 {
                   "condition": "minecraft:match_tool",
                   "predicate": {
-                    "items": "prehistoriccraft:excavator_pickaxe"
+                    "items": ["prehistoriccraft:excavator_pickaxe"]
                   }
                 }
               ],
               "functions": [
                 {
-                  "add": false,
+                  "function": "minecraft:set_count",
                   "count": {
                     "type": "minecraft:uniform",
-                    "max": 3.0,
-                    "min": 1.0
-                  },
-                  "function": "minecraft:set_count"
+                    "min": 1.0,
+                    "max": 3.0
+                  }
                 }
-              ],
-              "name": "prehistoriccraft:silurian_fossil"
+              ]
             },
             {
               "type": "minecraft:item",
+              "name": "prehistoriccraft:silurian_fossiliferous_stone",
+              "conditions": [
+                {
+                  "condition": "minecraft:match_tool",
+                  "predicate": {
+                    "tag": "minecraft:pickaxes"
+                  }
+                }
+              ],
               "functions": [
                 {
                   "function": "minecraft:explosion_decay"
                 }
-              ],
-              "name": "prehistoriccraft:plastered_silurian_fossiliferous_stone"
+              ]
             }
           ]
         }
-      ],
-      "rolls": 1.0
+      ]
     }
   ],
   "random_sequence": "prehistoriccraft:blocks/plastered_silurian_fossiliferous_stone"

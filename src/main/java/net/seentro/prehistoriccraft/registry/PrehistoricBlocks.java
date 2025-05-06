@@ -2,6 +2,7 @@ package net.seentro.prehistoriccraft.registry;
 
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
@@ -32,18 +33,18 @@ public class PrehistoricBlocks {
     public static final DeferredBlock<Block> TRIASSIC_FOSSILIFEROUS_STONE = registerBlock("triassic_fossiliferous_stone", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)));
 
     /* PLASTERED FOSSILIFEROUS STONE */
-    public static final DeferredBlock<Block> PLASTERED_CAMBRIAN_FOSSILIFEROUS_STONE = registerBlock("plastered_cambrian_fossiliferous_stone", () -> new Block(BlockBehaviour.Properties.of().strength(3.0F, 6.0F).sound(SoundType.DEEPSLATE)));
-    public static final DeferredBlock<Block> PLASTERED_CARBONIFEROUS_FOSSILIFEROUS_STONE = registerBlock("plastered_carboniferous_fossiliferous_stone", () -> new Block(BlockBehaviour.Properties.of().strength(3.0F, 6.0F).sound(SoundType.DEEPSLATE)));
-    public static final DeferredBlock<Block> PLASTERED_CRETACEOUS_FOSSILIFEROUS_STONE = registerBlock("plastered_cretaceous_fossiliferous_stone", () -> new Block(BlockBehaviour.Properties.of().strength(1.5F, 6.0F).sound(SoundType.STONE)));
-    public static final DeferredBlock<Block> PLASTERED_DEVONIAN_FOSSILIFEROUS_STONE = registerBlock("plastered_devonian_fossiliferous_stone", () -> new Block(BlockBehaviour.Properties.of().strength(3.0F, 6.0F).sound(SoundType.DEEPSLATE)));
-    public static final DeferredBlock<Block> PLASTERED_JURASSIC_FOSSILIFEROUS_STONE = registerBlock("plastered_jurassic_fossiliferous_stone", () -> new Block(BlockBehaviour.Properties.of().strength(1.5F, 6.0F).sound(SoundType.STONE)));
-    public static final DeferredBlock<Block> PLASTERED_NEOGENE_FOSSILIFEROUS_STONE = registerBlock("plastered_neogene_fossiliferous_stone", () -> new Block(BlockBehaviour.Properties.of().strength(1.5F, 6.0F).sound(SoundType.STONE)));
-    public static final DeferredBlock<Block> PLASTERED_ORDOVICIAN_FOSSILIFEROUS_STONE = registerBlock("plastered_ordovician_fossiliferous_stone", () -> new Block(BlockBehaviour.Properties.of().strength(3.0F, 6.0F).sound(SoundType.DEEPSLATE)));
-    public static final DeferredBlock<Block> PLASTERED_PALEOGENE_FOSSILIFEROUS_STONE = registerBlock("plastered_paleogene_fossiliferous_stone", () -> new Block(BlockBehaviour.Properties.of().strength(1.5F, 6.0F).sound(SoundType.STONE)));
-    public static final DeferredBlock<Block> PLASTERED_PERMIAN_FOSSILIFEROUS_STONE = registerBlock("plastered_permian_fossiliferous_stone", () -> new Block(BlockBehaviour.Properties.of().strength(1.5F, 6.0F).sound(SoundType.STONE)));
-    public static final DeferredBlock<Block> PLASTERED_PRECAMBRIAN_FOSSILIFEROUS_STONE = registerBlock("plastered_precambrian_fossiliferous_stone", () -> new Block(BlockBehaviour.Properties.of().strength(3.0F, 6.0F).sound(SoundType.DEEPSLATE)));
-    public static final DeferredBlock<Block> PLASTERED_SILURIAN_FOSSILIFEROUS_STONE = registerBlock("plastered_silurian_fossiliferous_stone", () -> new Block(BlockBehaviour.Properties.of().strength(3.0F, 6.0F).sound(SoundType.DEEPSLATE)));
-    public static final DeferredBlock<Block> PLASTERED_TRIASSIC_FOSSILIFEROUS_STONE = registerBlock("plastered_triassic_fossiliferous_stone", () -> new Block(BlockBehaviour.Properties.of().strength(1.5F, 6.0F).sound(SoundType.STONE)));
+    public static final DeferredBlock<Block> PLASTERED_CAMBRIAN_FOSSILIFEROUS_STONE = registerBlock("plastered_cambrian_fossiliferous_stone", () -> new Block(BlockBehaviour.Properties.of().strength(3.0F, 6.0F).sound(SoundType.DEEPSLATE).requiresCorrectToolForDrops()));
+    public static final DeferredBlock<Block> PLASTERED_CARBONIFEROUS_FOSSILIFEROUS_STONE = registerBlock("plastered_carboniferous_fossiliferous_stone", () -> new Block(BlockBehaviour.Properties.of().strength(3.0F, 6.0F).sound(SoundType.DEEPSLATE).requiresCorrectToolForDrops()));
+    public static final DeferredBlock<Block> PLASTERED_CRETACEOUS_FOSSILIFEROUS_STONE = registerBlock("plastered_cretaceous_fossiliferous_stone", () -> new Block(BlockBehaviour.Properties.of().strength(1.5F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops()));
+    public static final DeferredBlock<Block> PLASTERED_DEVONIAN_FOSSILIFEROUS_STONE = registerBlock("plastered_devonian_fossiliferous_stone", () -> new Block(BlockBehaviour.Properties.of().strength(3.0F, 6.0F).sound(SoundType.DEEPSLATE).requiresCorrectToolForDrops()));
+    public static final DeferredBlock<Block> PLASTERED_JURASSIC_FOSSILIFEROUS_STONE = registerBlock("plastered_jurassic_fossiliferous_stone", () -> new Block(BlockBehaviour.Properties.of().strength(1.5F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops()));
+    public static final DeferredBlock<Block> PLASTERED_NEOGENE_FOSSILIFEROUS_STONE = registerBlock("plastered_neogene_fossiliferous_stone", () -> new Block(BlockBehaviour.Properties.of().strength(1.5F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops()));
+    public static final DeferredBlock<Block> PLASTERED_ORDOVICIAN_FOSSILIFEROUS_STONE = registerBlock("plastered_ordovician_fossiliferous_stone", () -> new Block(BlockBehaviour.Properties.of().strength(3.0F, 6.0F).sound(SoundType.DEEPSLATE).requiresCorrectToolForDrops()));
+    public static final DeferredBlock<Block> PLASTERED_PALEOGENE_FOSSILIFEROUS_STONE = registerBlock("plastered_paleogene_fossiliferous_stone", () -> new Block(BlockBehaviour.Properties.of().strength(1.5F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops()));
+    public static final DeferredBlock<Block> PLASTERED_PERMIAN_FOSSILIFEROUS_STONE = registerBlock("plastered_permian_fossiliferous_stone", () -> new Block(BlockBehaviour.Properties.of().strength(1.5F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops()));
+    public static final DeferredBlock<Block> PLASTERED_PRECAMBRIAN_FOSSILIFEROUS_STONE = registerBlock("plastered_precambrian_fossiliferous_stone", () -> new Block(BlockBehaviour.Properties.of().strength(3.0F, 6.0F).sound(SoundType.DEEPSLATE).requiresCorrectToolForDrops()));
+    public static final DeferredBlock<Block> PLASTERED_SILURIAN_FOSSILIFEROUS_STONE = registerBlock("plastered_silurian_fossiliferous_stone", () -> new Block(BlockBehaviour.Properties.of().strength(3.0F, 6.0F).sound(SoundType.DEEPSLATE).requiresCorrectToolForDrops()));
+    public static final DeferredBlock<Block> PLASTERED_TRIASSIC_FOSSILIFEROUS_STONE = registerBlock("plastered_triassic_fossiliferous_stone", () -> new Block(BlockBehaviour.Properties.of().strength(1.5F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops()));
 
     /* AMBER */
     public static final DeferredBlock<Block> AMBER_BLOCK = registerBlock("amber_block", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK)));
