@@ -57,8 +57,8 @@ public class PrehistoricCreativeTabs {
 
             }).build());
 
-    public static final Supplier<CreativeModeTab> NATURAL_BLOCKS = CREATIVE_MODE_TABS.register("natural_blocks", () -> CreativeModeTab.builder().icon(() -> new ItemStack(PrehistoricItems.PLASTER_WRAP.get()))
-            .title(Component.translatable("tabs.prehistoriccraft.natural_blocks")).displayItems((displayParameters, output) -> {
+    public static final Supplier<CreativeModeTab> PREHISTORICCRAFT_NATURAL_BLOCKS = CREATIVE_MODE_TABS.register("prehistoriccraft_natural_blocks", () -> CreativeModeTab.builder().icon(() -> new ItemStack(PrehistoricItems.PLASTER_WRAP.get()))
+            .title(Component.translatable("tabs.prehistoriccraft.prehistoriccraft_natural_blocks")).displayItems((displayParameters, output) -> {
                 output.accept(PrehistoricBlocks.GYPSUM_CRYSTAL.get());
                 output.accept(PrehistoricBlocks.GYPSUM_CRYSTAL_BLOCK.get());
                 output.accept(PrehistoricItems.GYPSUM_POWDER.get());
