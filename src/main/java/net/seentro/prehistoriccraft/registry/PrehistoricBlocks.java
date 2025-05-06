@@ -2,7 +2,6 @@ package net.seentro.prehistoriccraft.registry;
 
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
@@ -11,7 +10,8 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
-import net.seentro.prehistoriccraft.common.block.FossiliferousStoneBlock;
+import net.seentro.prehistoriccraft.common.block.GypsumCrystalBlock;
+import net.seentro.prehistoriccraft.common.block.fossiliferousStone.FossiliferousStoneBlock;
 
 import java.util.function.Supplier;
 
@@ -53,7 +53,7 @@ public class PrehistoricBlocks {
     public static final DeferredBlock<Block> AMBER_BLOCK = registerBlock("amber_block", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK)));
 
     /* GYPSUM & PLASTER */
-    public static final DeferredBlock<Block> GYPSUM_CRYSTAL = registerBlock("gypsum_crystal", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)));
+    public static final DeferredBlock<Block> GYPSUM_CRYSTAL = registerBlock("gypsum_crystal", () -> new GypsumCrystalBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.AMETHYST_CLUSTER).sound(SoundType.DEEPSLATE).offsetType(BlockBehaviour.OffsetType.XZ).dynamicShape()));
     public static final DeferredBlock<Block> GYPSUM_CRYSTAL_BLOCK = registerBlock("gypsum_crystal_block", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)));
 
     /* DIRT */

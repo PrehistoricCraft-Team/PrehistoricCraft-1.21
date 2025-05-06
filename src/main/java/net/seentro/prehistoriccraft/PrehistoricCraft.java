@@ -1,5 +1,7 @@
 package net.seentro.prehistoriccraft;
 
+import net.neoforged.neoforge.client.RenderTypeHelper;
+import net.neoforged.neoforge.client.model.renderable.ITextureRenderTypeLookup;
 import net.seentro.prehistoriccraft.registry.PrehistoricBlocks;
 import net.seentro.prehistoriccraft.registry.PrehistoricCreativeTabs;
 import net.seentro.prehistoriccraft.registry.PrehistoricDataComponents;
@@ -65,7 +67,6 @@ public class PrehistoricCraft {
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
-
         }
     }
 }

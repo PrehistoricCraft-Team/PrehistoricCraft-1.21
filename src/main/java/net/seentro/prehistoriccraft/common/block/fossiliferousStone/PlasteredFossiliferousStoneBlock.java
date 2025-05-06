@@ -1,11 +1,10 @@
-package net.seentro.prehistoriccraft.common.block;
+package net.seentro.prehistoriccraft.common.block.fossiliferousStone;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.seentro.prehistoriccraft.registry.PrehistoricDataComponents;
 
 public class PlasteredFossiliferousStoneBlock extends Block {
     public PlasteredFossiliferousStoneBlock(Properties properties) {

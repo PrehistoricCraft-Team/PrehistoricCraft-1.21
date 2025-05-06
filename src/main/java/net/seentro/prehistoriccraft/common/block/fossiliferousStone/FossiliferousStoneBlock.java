@@ -1,4 +1,4 @@
-package net.seentro.prehistoriccraft.common.block;
+package net.seentro.prehistoriccraft.common.block.fossiliferousStone;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
@@ -10,8 +10,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.neoforged.neoforge.registries.DeferredBlock;
-import net.seentro.prehistoriccraft.registry.PrehistoricBlocks;
-import net.seentro.prehistoriccraft.registry.PrehistoricDataComponents;
+import net.seentro.prehistoriccraft.common.block.FossilTypes;
 import net.seentro.prehistoriccraft.registry.PrehistoricItems;
 
 import static net.seentro.prehistoriccraft.registry.PrehistoricBlocks.*;

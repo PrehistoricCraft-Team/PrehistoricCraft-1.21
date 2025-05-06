@@ -1,6 +1,7 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/cross",
+  "render_type": "minecraft:cutout",
   "textures": {
-    "all": "prehistoriccraft:block/gypsum_crystal"
+    "cross": "prehistoriccraft:block/gypsum_crystal"
   }
 }

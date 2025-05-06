@@ -1,7 +1,9 @@
 package net.seentro.prehistoriccraft.datagen;
 
 import net.minecraft.data.PackOutput;
+import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
+import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
@@ -46,7 +48,7 @@ public class PrehistoricBlockStateProvider extends BlockStateProvider {
         blockWithItem(PrehistoricBlocks.AMBER_BLOCK);
 
         /* GYPSUM */
-        blockWithItem(PrehistoricBlocks.GYPSUM_CRYSTAL);
+        crossBlockWithItem(PrehistoricBlocks.GYPSUM_CRYSTAL);
         blockWithItem(PrehistoricBlocks.GYPSUM_CRYSTAL_BLOCK);
 
         /* DIRT */
@@ -57,6 +59,12 @@ public class PrehistoricBlockStateProvider extends BlockStateProvider {
 
     private void blockWithItemPlasterTexture(DeferredBlock<?> block) {
         simpleBlockWithItem(block.get(), models().cubeAll("plastered_fossiliferous_stone", modLoc("block/plastered_fossiliferous_stone")));
+    }
+
+    private void crossBlockWithItem(DeferredBlock<?> block) {
+        simpleBlock(block.get(), models().cross(block.getId().getPath(), modLoc("block/" + block.getId().getPath())).renderType("minecraft:cutout"));
+        itemModels().withExistingParent(block.getId().getPath(), mcLoc("item/generated"))
+                .texture("layer0", modLoc("block/" + block.getId().getPath()));
     }
 
     private void blockWithItem(DeferredBlock<?> block) {

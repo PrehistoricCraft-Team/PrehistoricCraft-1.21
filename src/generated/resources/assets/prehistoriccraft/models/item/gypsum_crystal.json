@@ -1,3 +1,6 @@
 {
-  "parent": "prehistoriccraft:block/gypsum_crystal"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "prehistoriccraft:block/gypsum_crystal"
+  }
 }
