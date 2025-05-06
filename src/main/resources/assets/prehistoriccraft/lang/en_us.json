@@ -12,7 +12,45 @@
   "block.prehistoriccraft.silurian_fossiliferous_stone": "Silurian Fossiliferous Stone",
   "block.prehistoriccraft.triassic_fossiliferous_stone": "Triassic Fossiliferous Stone",
 
+  "block.prehistoriccraft.plastered_cambrian_fossiliferous_stone": "Plastered Cambrian Fossiliferous Stone",
+  "block.prehistoriccraft.plastered_carboniferous_fossiliferous_stone": "Plastered Carboniferous Fossiliferous Stone",
+  "block.prehistoriccraft.plastered_cretaceous_fossiliferous_stone": "Plastered Cretaceous Fossiliferous Stone",
+  "block.prehistoriccraft.plastered_devonian_fossiliferous_stone": "Plastered Devonian Fossiliferous Stone",
+  "block.prehistoriccraft.plastered_jurassic_fossiliferous_stone": "Plastered Jurassic Fossiliferous Stone",
+  "block.prehistoriccraft.plastered_neogene_fossiliferous_stone": "Plastered Neogene Fossiliferous Stone",
+  "block.prehistoriccraft.plastered_ordovician_fossiliferous_stone": "Plastered Ordovician Fossiliferous Stone",
+  "block.prehistoriccraft.plastered_paleogene_fossiliferous_stone": "Plastered Paleogene Fossiliferous Stone",
+  "block.prehistoriccraft.plastered_permian_fossiliferous_stone": "Plastered Permian Fossiliferous Stone",
+  "block.prehistoriccraft.plastered_precambrian_fossiliferous_stone": "Plastered Precambrian Fossiliferous Stone",
+  "block.prehistoriccraft.plastered_silurian_fossiliferous_stone": "Plastered Silurian Fossiliferous Stone",
+  "block.prehistoriccraft.plastered_triassic_fossiliferous_stone": "Plastered Triassic Fossiliferous Stone",
+
+  "item.prehistoriccraft.cambrian_fossil": "Cambrian Fossil",
+  "item.prehistoriccraft.carboniferous_fossil": "Carboniferous Fossil",
+  "item.prehistoriccraft.cretaceous_fossil": "Cretaceous Fossil",
+  "item.prehistoriccraft.devonian_fossil": "Devonian Fossil",
+  "item.prehistoriccraft.jurassic_fossil": "Jurassic Fossil",
+  "item.prehistoriccraft.neogene_fossil": "Neogene Fossil",
+  "item.prehistoriccraft.ordovician_fossil": "Ordovician Fossil",
+  "item.prehistoriccraft.paleogene_fossil": "Paleogene Fossil",
+  "item.prehistoriccraft.permian_fossil": "Permian Fossil",
+  "item.prehistoriccraft.precambrian_fossil": "Precambrian Fossil",
+  "item.prehistoriccraft.silurian_fossil": "Silurian Fossil",
+  "item.prehistoriccraft.triassic_fossil": "Triassic Fossil",
+
+  "item.prehistoriccraft.excavator_pickaxe": "Excavator Pickaxe",
+
+  "block.prehistoriccraft.gypsum_crystal": "Gypsum Crystal",
+  "block.prehistoriccraft.gypsum_crystal_block": "Gypsum Crystal Block",
+  "item.prehistoriccraft.gypsum_powder": "Gypsum Powder",
+  "item.prehistoriccraft.plaster_powder": "Plaster Powder",
+  "item.prehistoriccraft.plaster_wrap": "Plaster Wrap",
+
   "block.prehistoriccraft.amber_block": "Amber Block",
+
   "block.prehistoriccraft.cracked_dirt": "Cracked Dirt",
-  "tabs.prehistoriccraft.fossil_tab": "Fossil Tab"
+
+  "tabs.prehistoriccraft.fossil_tab": "Fossil Tab",
+  "tabs.prehistoriccraft.natural_blocks": "Natural Blocks",
+  "tabs.prehistoriccraft.prehistoriccraft_items": "Prehistoriccraft Items"
 }
