@@ -6,6 +6,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -53,7 +54,7 @@ public class PrehistoricBlocks {
     public static final DeferredBlock<Block> AMBER_BLOCK = registerBlock("amber_block", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK)));
 
     /* GYPSUM & PLASTER */
-    public static final DeferredBlock<Block> GYPSUM_CRYSTAL = registerBlock("gypsum_crystal", () -> new GypsumCrystalBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.AMETHYST_CLUSTER).sound(SoundType.DEEPSLATE).requiresCorrectToolForDrops()));
+    public static final DeferredBlock<Block> GYPSUM_CRYSTAL = registerBlock("gypsum_crystal", () -> new GypsumCrystalBlock(BlockBehaviour.Properties.of().sound(SoundType.DEEPSLATE).noOcclusion().strength(1.5F).pushReaction(PushReaction.DESTROY).requiresCorrectToolForDrops()));
     public static final DeferredBlock<Block> GYPSUM_CRYSTAL_BLOCK = registerBlock("gypsum_crystal_block", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE).requiresCorrectToolForDrops()));
 
     /* DIRT */

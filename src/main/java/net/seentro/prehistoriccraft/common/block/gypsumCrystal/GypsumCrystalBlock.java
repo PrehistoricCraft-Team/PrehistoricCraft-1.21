@@ -51,25 +51,19 @@ public class GypsumCrystalBlock extends Block implements SimpleWaterloggedBlock 
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        BlockState state = this.defaultBlockState();
+        BlockState state = this.defaultBlockState()
+                .setValue(WATERLOGGED, context.getLevel().getFluidState(context.getClickedPos()).getType() == Fluids.WATER);
+
         LevelReader level = context.getLevel();
         BlockPos pos = context.getClickedPos();
         Direction[] directions = context.getNearestLookingDirections();
 
         for (Direction direction : directions) {
-            if (direction.getAxis().isHorizontal()) {
                 Direction direction1 = direction.getOpposite();
                 state = state.setValue(FACING, direction1);
                 if (state.canSurvive(level, pos)) {
                     return state;
                 }
-            } else {
-                Direction direction1 = direction.getOpposite();
-                state = state.setValue(FACING, direction1);
-                if (state.canSurvive(level, pos)) {
-                    return state;
-                }
-            }
         }
 
         return null;
@@ -79,6 +73,7 @@ public class GypsumCrystalBlock extends Block implements SimpleWaterloggedBlock 
     protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block neighborBlock, BlockPos neighborPos, boolean movedByPiston) {
         if (!state.canSurvive(level, pos)) {
             level.removeBlock(pos, false);
+            level.updateNeighborsAt(pos, level.getBlockState(pos).getBlock());
         }
     }
 
