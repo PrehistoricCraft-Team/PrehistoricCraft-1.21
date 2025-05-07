@@ -2,6 +2,7 @@ package net.seentro.prehistoriccraft.datagen;
 
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
@@ -62,7 +63,7 @@ public class PrehistoricBlockStateProvider extends BlockStateProvider {
     }
 
     private void crossBlockWithItem(DeferredBlock<?> block) {
-        simpleBlock(block.get(), models().cross(block.getId().getPath(), modLoc("block/" + block.getId().getPath())).renderType("minecraft:cutout"));
+        directionalBlock(block.get(), models().cross(block.getId().getPath(), modLoc("block/" + block.getId().getPath())).renderType("minecraft:cutout"));
         itemModels().withExistingParent(block.getId().getPath(), mcLoc("item/generated"))
                 .texture("layer0", modLoc("block/" + block.getId().getPath()));
     }
