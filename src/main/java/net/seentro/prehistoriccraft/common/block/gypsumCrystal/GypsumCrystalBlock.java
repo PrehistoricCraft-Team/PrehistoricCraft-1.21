@@ -13,14 +13,17 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
 import java.util.Map;
 
-public class GypsumCrystalBlock extends Block {
+public class GypsumCrystalBlock extends Block implements SimpleWaterloggedBlock {
     private static final Map<Direction, VoxelShape> BOUNDING_BOXES = Util.make(
             Maps.newEnumMap(Direction.class),
             map -> {
@@ -33,10 +36,11 @@ public class GypsumCrystalBlock extends Block {
             }
     );
     public static final DirectionProperty FACING = BlockStateProperties.FACING;
+    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     public GypsumCrystalBlock(Properties properties) {
         super(properties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, Boolean.FALSE));
     }
 
     @Override
@@ -79,6 +83,15 @@ public class GypsumCrystalBlock extends Block {
     }
 
     @Override
+    protected BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
+        if (state.getValue(WATERLOGGED)) {
+            level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+        }
+
+        return state;
+    }
+
+    @Override
     protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
         return canSurvive(level, pos, state.getValue(FACING));
     }
@@ -87,6 +100,11 @@ public class GypsumCrystalBlock extends Block {
         BlockPos blockpos = pos.relative(facing.getOpposite());
         BlockState blockstate = level.getBlockState(blockpos);
         return blockstate.isFaceSturdy(level, blockpos, facing);
+    }
+
+    @Override
+    protected FluidState getFluidState(BlockState state) {
+        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 
     @Override
@@ -100,6 +118,6 @@ public class GypsumCrystalBlock extends Block {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING);
+        builder.add(FACING, WATERLOGGED);
     }
 }
