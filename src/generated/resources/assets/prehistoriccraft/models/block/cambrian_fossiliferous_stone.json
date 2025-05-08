@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "prehistoriccraft:block/cambrian_fossiliferous_stone"
+  }
+}

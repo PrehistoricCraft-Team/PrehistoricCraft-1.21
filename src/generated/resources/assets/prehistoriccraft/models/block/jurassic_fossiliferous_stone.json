@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "prehistoriccraft:block/jurassic_fossiliferous_stone"
+  }
+}

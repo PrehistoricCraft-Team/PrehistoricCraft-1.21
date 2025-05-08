@@ -1,6 +1,10 @@
 package net.seentro.prehistoriccraft;
 
+import net.neoforged.neoforge.client.RenderTypeHelper;
+import net.neoforged.neoforge.client.model.renderable.ITextureRenderTypeLookup;
 import net.seentro.prehistoriccraft.registry.PrehistoricBlocks;
+import net.seentro.prehistoriccraft.registry.PrehistoricCreativeTabs;
+import net.seentro.prehistoriccraft.registry.PrehistoricDataComponents;
 import net.seentro.prehistoriccraft.registry.PrehistoricItems;
 import org.slf4j.Logger;
 
@@ -46,6 +50,8 @@ public class PrehistoricCraft {
 
         PrehistoricBlocks.register(modEventBus);
         PrehistoricItems.register(modEventBus);
+        PrehistoricCreativeTabs.register(modEventBus);
+        PrehistoricDataComponents.register(modEventBus);
 
         NeoForge.EVENT_BUS.register(this);
     }
@@ -61,7 +67,6 @@ public class PrehistoricCraft {
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
-
         }
     }
 }
