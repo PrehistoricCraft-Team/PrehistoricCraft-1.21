@@ -47,11 +47,13 @@ public class PrehistoricBlockTagProvider extends BlockTagsProvider {
                 .add(PrehistoricBlocks.PLASTERED_PRECAMBRIAN_FOSSILIFEROUS_STONE.get())
                 .add(PrehistoricBlocks.PLASTERED_SILURIAN_FOSSILIFEROUS_STONE.get())
                 .add(PrehistoricBlocks.PLASTERED_TRIASSIC_FOSSILIFEROUS_STONE.get())
+
                 /* GYPSUM */
                 .add(PrehistoricBlocks.GYPSUM_CRYSTAL.get())
                 .add(PrehistoricBlocks.GYPSUM_CRYSTAL_BLOCK.get());
 
         tag(BlockTags.NEEDS_IRON_TOOL)
+                /* FOSSILIFEROUS STONE */
                 .add(PrehistoricBlocks.CAMBRIAN_FOSSILIFEROUS_STONE.get())
                 .add(PrehistoricBlocks.CARBONIFEROUS_FOSSILIFEROUS_STONE.get())
                 .add(PrehistoricBlocks.CRETACEOUS_FOSSILIFEROUS_STONE.get())
