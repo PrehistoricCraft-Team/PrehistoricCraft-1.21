@@ -11,6 +11,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
+import net.seentro.prehistoriccraft.common.block.fossilAnalysisTable.FossilAnalysisTableBlock;
 import net.seentro.prehistoriccraft.common.block.fossiliferousStone.FossiliferousStoneBlock;
 import net.seentro.prehistoriccraft.common.block.gypsumCrystal.GypsumCrystalBlock;
 
@@ -53,14 +54,15 @@ public class PrehistoricBlocks {
     /* AMBER */
     public static final DeferredBlock<Block> AMBER_BLOCK = registerBlock("amber_block", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK)));
 
+    /* BLOCK ENTITIES */
+    public static final DeferredBlock<Block> FOSSIL_ANALYSIS_TABLE = registerBlock("fossil_analysis_table", () -> new FossilAnalysisTableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG)));
+
     /* GYPSUM & PLASTER */
     public static final DeferredBlock<Block> GYPSUM_CRYSTAL = registerBlock("gypsum_crystal", () -> new GypsumCrystalBlock(BlockBehaviour.Properties.of().sound(SoundType.DEEPSLATE).noOcclusion().strength(1.5F).pushReaction(PushReaction.DESTROY).requiresCorrectToolForDrops()));
     public static final DeferredBlock<Block> GYPSUM_CRYSTAL_BLOCK = registerBlock("gypsum_crystal_block", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE).requiresCorrectToolForDrops()));
 
     /* DIRT */
     public static final DeferredBlock<Block> CRACKED_DIRT = registerBlock("cracked_dirt", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.COARSE_DIRT).strength(1.1F)));
-
-
 
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block) {
         DeferredBlock<T> toReturn = BLOCKS.register(name, block);
