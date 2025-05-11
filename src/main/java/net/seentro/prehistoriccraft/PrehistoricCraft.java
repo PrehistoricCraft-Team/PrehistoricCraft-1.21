@@ -1,7 +1,11 @@
 package net.seentro.prehistoriccraft;
 
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.neoforged.neoforge.client.RenderTypeHelper;
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.model.renderable.ITextureRenderTypeLookup;
+import net.seentro.prehistoriccraft.common.screen.fossilAnalysisTable.FossilAnalysisTableMenu;
+import net.seentro.prehistoriccraft.common.screen.fossilAnalysisTable.FossilAnalysisTableScreen;
 import net.seentro.prehistoriccraft.registry.*;
 import org.slf4j.Logger;
 
@@ -50,6 +54,7 @@ public class PrehistoricCraft {
         PrehistoricCreativeTabs.register(modEventBus);
         PrehistoricDataComponents.register(modEventBus);
         PrehistoricBlockEntityTypes.register(modEventBus);
+        PrehistoricMenuTypes.register(modEventBus);
 
         NeoForge.EVENT_BUS.register(this);
     }
@@ -65,6 +70,11 @@ public class PrehistoricCraft {
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
+        }
+
+        @SubscribeEvent
+        public static void registerScreens(RegisterMenuScreensEvent event) {
+            event.register(PrehistoricMenuTypes.FOSSIL_ANALYSIS_TABLE_MENU.get(), FossilAnalysisTableScreen::new);
         }
     }
 }

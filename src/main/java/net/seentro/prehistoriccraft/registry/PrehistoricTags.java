@@ -2,7 +2,9 @@ package net.seentro.prehistoriccraft.registry;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
 
@@ -14,7 +16,8 @@ public class PrehistoricTags {
     }
 
     public static class Items {
-        //  For custom item tags later
+        public static final TagKey<Item> FOSSILS =
+                ItemTags.create(ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID, "fossils"));
     }
 }
 

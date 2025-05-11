@@ -4,6 +4,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
+import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.registries.DeferredBlock;
@@ -45,7 +46,7 @@ public class PrehistoricBlockStateProvider extends BlockStateProvider {
         blockWithItemPlasterTexture(PrehistoricBlocks.PLASTERED_SILURIAN_FOSSILIFEROUS_STONE);
         blockWithItemPlasterTexture(PrehistoricBlocks.PLASTERED_TRIASSIC_FOSSILIFEROUS_STONE);
 
-        /* AMBER BLOCK */
+        /* AMBER */
         blockWithItem(PrehistoricBlocks.AMBER_BLOCK);
 
         /* GYPSUM */
@@ -57,7 +58,6 @@ public class PrehistoricBlockStateProvider extends BlockStateProvider {
     }
 
     /* HELPER METHODS */
-
     private void blockWithItemPlasterTexture(DeferredBlock<?> block) {
         simpleBlockWithItem(block.get(), models().cubeAll("plastered_fossiliferous_stone", modLoc("block/plastered_fossiliferous_stone")));
     }

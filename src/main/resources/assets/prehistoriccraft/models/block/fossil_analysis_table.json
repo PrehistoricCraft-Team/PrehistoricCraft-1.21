@@ -1,0 +1,13 @@
+{
+  "loader": "neoforge:obj",
+  "model": "prehistoriccraft:models/obj/fossil_analysis_table.obj",
+  "flip_v": true,
+  "mtl_override": "prehistoriccraft:models/obj/mtl/fossil_analysis_table.mtl",
+  "render_type": "cutout",
+  "automatic_culling": false,
+  "textures": {
+    "texture0": "prehistoriccraft:block/fossil_analysis_table",
+    "particle": "prehistoriccraft:block/fossil_analysis_table"
+  },
+  "parent": "block/block"
+}
