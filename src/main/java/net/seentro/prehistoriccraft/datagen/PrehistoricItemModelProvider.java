@@ -6,6 +6,7 @@ import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
+import net.seentro.prehistoriccraft.registry.PrehistoricBlocks;
 import net.seentro.prehistoriccraft.registry.PrehistoricItems;
 
 public class PrehistoricItemModelProvider extends ItemModelProvider {
@@ -30,6 +31,9 @@ public class PrehistoricItemModelProvider extends ItemModelProvider {
         basicItem(PrehistoricItems.TRIASSIC_FOSSIL.get());
 
         basicItem(PrehistoricItems.EXCAVATOR_PICKAXE.get());
+
+        /* BLOCK ENTITIES */
+        simpleBlockItem(PrehistoricBlocks.FOSSIL_ANALYSIS_TABLE.get());
 
         /* GYPSUM & PLASTER */
         basicItem(PrehistoricItems.GYPSUM_POWDER.get());
