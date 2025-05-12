@@ -4,6 +4,9 @@ import com.google.common.collect.Maps;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -15,6 +18,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -71,9 +75,10 @@ public class GypsumCrystalBlock extends Block implements SimpleWaterloggedBlock 
 
     @Override
     protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block neighborBlock, BlockPos neighborPos, boolean movedByPiston) {
-        if (!state.canSurvive(level, pos)) {
-            level.removeBlock(pos, false);
-            level.updateNeighborsAt(pos, level.getBlockState(pos).getBlock());
+        if (!state.canSurvive(level, pos) && !level.isClientSide()) {
+            level.destroyBlock(pos, true);
+            level.gameEvent(GameEvent.BLOCK_DESTROY, pos, GameEvent.Context.of(state));
+            level.updateNeighborsAt(pos, Blocks.AIR);
         }
     }
 
