@@ -17,7 +17,7 @@ import net.seentro.prehistoriccraft.common.block.gypsumCrystal.GypsumCrystalBloc
 
 import java.util.function.Supplier;
 
-import static net.seentro.prehistoriccraft.common.block.FossilTypes.*;
+import static net.seentro.prehistoriccraft.core.enumerators.FossilTypes.*;
 
 public class PrehistoricBlocks {
     public static final DeferredRegister.Blocks BLOCKS =

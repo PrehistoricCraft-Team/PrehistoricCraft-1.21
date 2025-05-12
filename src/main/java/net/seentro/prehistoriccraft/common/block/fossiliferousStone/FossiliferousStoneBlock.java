@@ -10,7 +10,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.neoforged.neoforge.registries.DeferredBlock;
-import net.seentro.prehistoriccraft.common.block.FossilTypes;
+import net.seentro.prehistoriccraft.core.enumerators.FossilTypes;
 import net.seentro.prehistoriccraft.registry.PrehistoricItems;
 
 import static net.seentro.prehistoriccraft.registry.PrehistoricBlocks.*;

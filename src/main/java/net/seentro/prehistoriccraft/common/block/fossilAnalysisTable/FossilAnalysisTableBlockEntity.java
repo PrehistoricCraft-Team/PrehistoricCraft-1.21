@@ -23,6 +23,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
 import net.seentro.prehistoriccraft.common.screen.fossilAnalysisTable.FossilAnalysisTableMenu;
+import net.seentro.prehistoriccraft.core.systems.WeightedRandom;
 import net.seentro.prehistoriccraft.registry.PrehistoricBlockEntityTypes;
 import net.seentro.prehistoriccraft.registry.PrehistoricDataComponents;
 import net.seentro.prehistoriccraft.registry.PrehistoricTags;
@@ -131,13 +132,15 @@ public class FossilAnalysisTableBlockEntity extends BlockEntity implements MenuP
 
     private @Nullable List<ItemStack> qualityFossils;
     private int validInputSlot = -1;
+    private int lastInputCount = -1;
 
     public void tick(Level level, BlockPos pos, BlockState state) {
-        if (qualityFossils == null) {
-            initializeRecipe(level);
+        if (!tryInitializeRecipe()) {
+            reset();
+            return;
         }
 
-        if (qualityFossils != null && hasRecipe()) {
+        if (hasRecipe()) {
             progress++;
             setChanged(level, pos, state);
 
@@ -150,35 +153,45 @@ public class FossilAnalysisTableBlockEntity extends BlockEntity implements MenuP
         }
     }
 
-    private void initializeRecipe(Level level) {
+    private boolean tryInitializeRecipe() {
         for (int i = 0; i < 9; i++) {
             ItemStack in = itemHandler.getStackInSlot(i);
             if (in.is(PrehistoricTags.Items.FOSSILS) && !in.has(PrehistoricDataComponents.FOSSIL_QUALITY)) {
-                validInputSlot = i;
-                qualityFossils = generateQualityList(in, level);
-                return;
+                if (validInputSlot != i || lastInputCount != in.getCount()) {
+                    validInputSlot = i;
+                    lastInputCount = in.getCount();
+                    qualityFossils = generateQualityList(in);
+                }
+                return true;
             }
         }
+        return false;
     }
 
-    private List<ItemStack> generateQualityList(ItemStack input, Level level) {
+    private List<ItemStack> generateQualityList(ItemStack input) {
         List<ItemStack> list = new ArrayList<>(input.getCount());
         for (int j = 0; j < input.getCount(); j++) {
             ItemStack single = input.copy();
             single.setCount(1);
-            list.add(assignRandomQuality(single, level));
+            list.add(assignRandomQuality(single));
         }
         return list;
     }
 
-    private ItemStack assignRandomQuality(ItemStack fossil, Level level) {
-        switch (level.random.nextInt(5)) {
-            case 0 -> fossil.set(PrehistoricDataComponents.FOSSIL_QUALITY, "damaged");
-            case 1 -> fossil.set(PrehistoricDataComponents.FOSSIL_QUALITY, "incomplete");
-            case 2 -> fossil.set(PrehistoricDataComponents.FOSSIL_QUALITY, "fragmentary");
-            case 3 -> fossil.set(PrehistoricDataComponents.FOSSIL_QUALITY, "decent");
-            default -> fossil.set(PrehistoricDataComponents.FOSSIL_QUALITY, "rich");
-        }
+    private ItemStack assignRandomQuality(ItemStack fossil) {
+        WeightedRandom<String> qualities = new WeightedRandom<>();
+
+        qualities.addItem("damaged", 10);
+        qualities.addItem("incomplete", 20);
+        qualities.addItem("fragmentary", 30);
+        qualities.addItem("decent", 40);
+        qualities.addItem("rich", 50);
+
+        String selectedQuality = qualities.getRandomItem();
+        PrehistoricCraft.LOGGER.debug(selectedQuality);
+
+        fossil.set(PrehistoricDataComponents.FOSSIL_QUALITY, selectedQuality);
+
         return fossil;
     }
 
@@ -251,5 +264,6 @@ public class FossilAnalysisTableBlockEntity extends BlockEntity implements MenuP
         progress = 0;
         qualityFossils = null;
         validInputSlot = -1;
+        lastInputCount = -1;
     }
 }
