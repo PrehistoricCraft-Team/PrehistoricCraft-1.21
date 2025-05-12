@@ -1,7 +1,10 @@
 package net.seentro.prehistoriccraft.common.item;
 
 import com.google.common.base.Strings;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.TextColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -24,8 +27,20 @@ public class FossilItem extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-        tooltipComponents.add(Component.literal("Fossil Quality: " + capitalizeNames(stack.getOrDefault(PrehistoricDataComponents.FOSSIL_QUALITY, "Unknown"))));
+        Style color = switch (stack.getOrDefault(PrehistoricDataComponents.FOSSIL_QUALITY, "Unknown")) {
+            case "damaged" -> Style.EMPTY.withColor(0xFF5555);
+            case "incomplete" -> Style.EMPTY.withColor(0xFFA500);
+            case "fragmentary" -> Style.EMPTY.withColor(0xFFFF55);
+            case "decent" -> Style.EMPTY.withColor(0x55FF55);
+            case "rich" -> Style.EMPTY.withColor(0x55FFFF);
 
+            default -> Style.EMPTY.withColor(0xD3D3D3);
+        };
+
+        Component indicator = Component.literal("Fossil Quality: ").setStyle(Style.EMPTY.withColor(0xD3D3D3));
+        Component quality = Component.literal(capitalizeNames(stack.getOrDefault(PrehistoricDataComponents.FOSSIL_QUALITY, "Unknown"))).setStyle(color);
+
+        tooltipComponents.add(Component.empty().append(indicator).append(quality));
         super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
     }
 }

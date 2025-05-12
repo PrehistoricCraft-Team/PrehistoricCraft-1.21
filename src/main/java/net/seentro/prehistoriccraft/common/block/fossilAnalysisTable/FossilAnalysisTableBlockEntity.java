@@ -182,10 +182,10 @@ public class FossilAnalysisTableBlockEntity extends BlockEntity implements MenuP
         WeightedRandom<String> qualities = new WeightedRandom<>();
 
         qualities.addItem("damaged", 10);
-        qualities.addItem("incomplete", 20);
+        qualities.addItem("incomplete", 15);
         qualities.addItem("fragmentary", 30);
-        qualities.addItem("decent", 40);
-        qualities.addItem("rich", 50);
+        qualities.addItem("decent", 35);
+        qualities.addItem("rich", 10);
 
         String selectedQuality = qualities.getRandomItem();
         PrehistoricCraft.LOGGER.debug(selectedQuality);
