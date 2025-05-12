@@ -14,7 +14,6 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -29,6 +28,7 @@ import net.seentro.prehistoriccraft.registry.PrehistoricDataComponents;
 import net.seentro.prehistoriccraft.registry.PrehistoricTags;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FossilAnalysisTableBlockEntity extends BlockEntity implements MenuProvider {
@@ -66,8 +66,10 @@ public class FossilAnalysisTableBlockEntity extends BlockEntity implements MenuP
             @Override
             public void set(int index, int value) {
                 switch (index) {
-                    case 0: FossilAnalysisTableBlockEntity.this.progress = value;
-                    case 1: FossilAnalysisTableBlockEntity.this.maxProgress = value;
+                    case 0:
+                        FossilAnalysisTableBlockEntity.this.progress = value;
+                    case 1:
+                        FossilAnalysisTableBlockEntity.this.maxProgress = value;
                 }
             }
 
@@ -78,7 +80,7 @@ public class FossilAnalysisTableBlockEntity extends BlockEntity implements MenuP
         };
     }
 
-    /* INVENTORY & SAVING */
+    /* SAVING */
 
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
@@ -98,7 +100,7 @@ public class FossilAnalysisTableBlockEntity extends BlockEntity implements MenuP
 
     @Override
     public @Nullable Packet<ClientGamePacketListener> getUpdatePacket() {
-       return ClientboundBlockEntityDataPacket.create(this);
+        return ClientboundBlockEntityDataPacket.create(this);
     }
 
     @Override
@@ -118,140 +120,136 @@ public class FossilAnalysisTableBlockEntity extends BlockEntity implements MenuP
 
     public void drop() {
         SimpleContainer container = new SimpleContainer(itemHandler.getSlots());
-        for(int i = 0; i < itemHandler.getSlots(); i++) {
+        for (int i = 0; i < itemHandler.getSlots(); i++) {
             container.setItem(i, itemHandler.getStackInSlot(i));
         }
 
         Containers.dropContents(this.level, this.worldPosition, container);
     }
 
-    private ItemStack qualityFossil;
+    /* INVENTORY & PROCESSING */
 
-    public void tick(Level level, BlockPos blockPos, BlockState blockState) {
-        if (qualityFossil == null)
-            qualityFossil = createRandomQualityFossil(level);
+    private @Nullable List<ItemStack> qualityFossils;
+    private int validInputSlot = -1;
 
-        if (hasRecipe(qualityFossil)) {
-            increaseCraftingProgress();
-            setChanged(level, blockPos, blockState);
-            PrehistoricCraft.LOGGER.info("Has recipe");
+    public void tick(Level level, BlockPos pos, BlockState state) {
+        if (qualityFossils == null) {
+            initializeRecipe(level);
+        }
 
-            if (craftingFinished()) {
-                PrehistoricCraft.LOGGER.info("Crafting finished");
-                craftStack(qualityFossil);
-                resetProgress();
+        if (qualityFossils != null && hasRecipe()) {
+            progress++;
+            setChanged(level, pos, state);
+
+            if (progress >= maxProgress) {
+                craftOutputs();
+                reset();
             }
         } else {
-            resetProgress();
+            reset();
         }
     }
 
-    private void craftStack(ItemStack output) {
-        int firstAvailableValidInputSlot = -1;
+    private void initializeRecipe(Level level) {
         for (int i = 0; i < 9; i++) {
-            if (itemHandler.getStackInSlot(i).is(PrehistoricTags.Items.FOSSILS) && !itemHandler.getStackInSlot(i).has(PrehistoricDataComponents.FOSSIL_QUALITY)) {
-                firstAvailableValidInputSlot = i;
-                break;
-            }
-        }
-
-        if (firstAvailableValidInputSlot != -1) {
-            int inputStackSize = itemHandler.getStackInSlot(firstAvailableValidInputSlot).getCount();
-            if (canInsertAmountIntoOutputSlots(output, inputStackSize)) {
-                int remaining = inputStackSize;
-                itemHandler.extractItem(firstAvailableValidInputSlot, inputStackSize, false);
-
-                for (int i = 10; i < 19 && remaining > 0; i++) {
-                    ItemStack slotStack = itemHandler.getStackInSlot(i);
-
-                    if (slotStack.isEmpty()) {
-                        int toInsert = Math.min(output.getMaxStackSize(), remaining);
-                        ItemStack newStack = output.copy();
-                        newStack.setCount(toInsert);
-                        itemHandler.insertItem(i, newStack, false);
-                        remaining -= toInsert;
-                    } else if (ItemStack.isSameItemSameComponents(slotStack, output)) {
-                        int space = slotStack.getMaxStackSize() - slotStack.getCount();
-                        if (space > 0) {
-                            int toInsert = Math.min(space, remaining);
-                            slotStack.grow(toInsert);
-                            remaining -= toInsert;
-                        }
-                    }
-
-                    PrehistoricCraft.LOGGER.info("Crafted {} x {}", inputStackSize, output);
-                }
-
-                qualityFossil = null;
+            ItemStack in = itemHandler.getStackInSlot(i);
+            if (in.is(PrehistoricTags.Items.FOSSILS) && !in.has(PrehistoricDataComponents.FOSSIL_QUALITY)) {
+                validInputSlot = i;
+                qualityFossils = generateQualityList(in, level);
+                return;
             }
         }
     }
 
-    private void resetProgress() {
-        progress = 0;
-        qualityFossil = null;
-    }
-
-    private boolean craftingFinished() {
-        return this.progress >= this.maxProgress;
-    }
-
-    private void increaseCraftingProgress() {
-        progress++;
-    }
-
-    private ItemStack createRandomQualityFossil(Level level) {
-        ItemStack fossil = ItemStack.EMPTY;
-        for (int i = 0; i < 9; i++) {
-            if (itemHandler.getStackInSlot(i).is(PrehistoricTags.Items.FOSSILS)) {
-                fossil = itemHandler.getStackInSlot(i).copy();
-                break;
-            }
+    private List<ItemStack> generateQualityList(ItemStack input, Level level) {
+        List<ItemStack> list = new ArrayList<>(input.getCount());
+        for (int j = 0; j < input.getCount(); j++) {
+            ItemStack single = input.copy();
+            single.setCount(1);
+            list.add(assignRandomQuality(single, level));
         }
+        return list;
+    }
 
-        if (!fossil.isEmpty())
-            switch (level.random.nextInt(5)) {
-                case 0 -> fossil.set(PrehistoricDataComponents.FOSSIL_QUALITY, "damaged");
-                case 1 -> fossil.set(PrehistoricDataComponents.FOSSIL_QUALITY, "incomplete");
-                case 2 -> fossil.set(PrehistoricDataComponents.FOSSIL_QUALITY, "fragmentary");
-                case 3 -> fossil.set(PrehistoricDataComponents.FOSSIL_QUALITY, "decent");
-                case 4 -> fossil.set(PrehistoricDataComponents.FOSSIL_QUALITY, "rich");
-            }
-
+    private ItemStack assignRandomQuality(ItemStack fossil, Level level) {
+        switch (level.random.nextInt(5)) {
+            case 0 -> fossil.set(PrehistoricDataComponents.FOSSIL_QUALITY, "damaged");
+            case 1 -> fossil.set(PrehistoricDataComponents.FOSSIL_QUALITY, "incomplete");
+            case 2 -> fossil.set(PrehistoricDataComponents.FOSSIL_QUALITY, "fragmentary");
+            case 3 -> fossil.set(PrehistoricDataComponents.FOSSIL_QUALITY, "decent");
+            default -> fossil.set(PrehistoricDataComponents.FOSSIL_QUALITY, "rich");
+        }
         return fossil;
     }
 
-    private boolean hasRecipe(ItemStack output) {
-        for (int i = 0; i < 9; i++) {
-            ItemStack input = itemHandler.getStackInSlot(i);
-            if (input.is(PrehistoricTags.Items.FOSSILS) && !input.has(PrehistoricDataComponents.FOSSIL_QUALITY)) {
-                if (canInsertAmountIntoOutputSlots(output, input.getCount()) && canInsertItemIntoOutputSlots(output)) {
-                    return true;
+    private boolean hasRecipe() {
+        if (validInputSlot < 0 || qualityFossils == null || qualityFossils.isEmpty()) return false;
+
+        ItemStack input = itemHandler.getStackInSlot(validInputSlot);
+        if (input.isEmpty() || !input.is(PrehistoricTags.Items.FOSSILS) || input.has(PrehistoricDataComponents.FOSSIL_QUALITY)) {
+            return false;
+        }
+
+        List<ItemStack> sim = new ArrayList<>();
+        for (int i = 10; i < 19; i++) {
+            sim.add(itemHandler.getStackInSlot(i).copy());
+        }
+
+        for (ItemStack out : qualityFossils) {
+            boolean placed = false;
+
+            for (ItemStack slot : sim) {
+                if (!slot.isEmpty() && ItemStack.isSameItemSameComponents(slot, out) && slot.getCount() < slot.getMaxStackSize()) {
+                    slot.grow(1);
+                    placed = true;
+                    break;
+                }
+            }
+
+            if (!placed) {
+                for (int k = 0; k < sim.size(); k++) {
+                    if (sim.get(k).isEmpty()) {
+                        sim.set(k, out.copy());
+                        placed = true;
+                        break;
+                    }
+                }
+            }
+
+            if (!placed) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private void craftOutputs() {
+        itemHandler.extractItem(validInputSlot, qualityFossils.size(), false);
+
+        for (ItemStack out : qualityFossils) {
+            boolean done = false;
+            for (int i = 10; i < 19 && !done; i++) {
+                ItemStack slot = itemHandler.getStackInSlot(i);
+                if (!slot.isEmpty() && ItemStack.isSameItemSameComponents(slot, out) && slot.getCount() < slot.getMaxStackSize()) {
+                    slot.grow(1);
+                    done = true;
+                }
+            }
+            if (!done) {
+                for (int i = 10; i < 19; i++) {
+                    if (itemHandler.getStackInSlot(i).isEmpty()) {
+                        itemHandler.insertItem(i, out.copy(), false);
+                        break;
+                    }
                 }
             }
         }
-        return false;
     }
 
-    private boolean canInsertItemIntoOutputSlots(ItemStack output) {
-        for (int i = 10; i < 19; i++) {
-            if (itemHandler.getStackInSlot(i).isEmpty()) return true;
-            if (ItemStack.isSameItemSameComponents(itemHandler.getStackInSlot(i), output)) return true;
-        }
-        return false;
-    }
-
-    private boolean canInsertAmountIntoOutputSlots(ItemStack output, int count) {
-        int totalSpace = 0;
-        for (int i = 10; i < 19; i++) {
-            ItemStack slotStack = itemHandler.getStackInSlot(i);
-            if (slotStack.isEmpty()) {
-                totalSpace += 64;
-            } else if (ItemStack.isSameItemSameComponents(slotStack, output)) {
-                totalSpace += slotStack.getMaxStackSize() - slotStack.getCount();
-            }
-            if (totalSpace >= count) return true;
-        }
-        return false;
+    private void reset() {
+        progress = 0;
+        qualityFossils = null;
+        validInputSlot = -1;
     }
 }
