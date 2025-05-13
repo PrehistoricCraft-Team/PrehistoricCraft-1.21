@@ -1,0 +1,61 @@
+{
+  "block.prehistoriccraft.cambrian_fossiliferous_stone": "Skała Kambryjska zawierająca skamieliny",
+  "block.prehistoriccraft.carboniferous_fossiliferous_stone": "Skała Karbońska zawierająca skamieliny",
+  "block.prehistoriccraft.cretaceous_fossiliferous_stone": "Skała Kredowa zawierająca skamieliny",
+  "block.prehistoriccraft.devonian_fossiliferous_stone": "Skała Dewońska zawierająca skamieliny",
+  "block.prehistoriccraft.jurassic_fossiliferous_stone": "Skała Jurajska zawierająca skamieliny",
+  "block.prehistoriccraft.neogene_fossiliferous_stone": "Skała Neogeniczna zawierająca skamieliny",
+  "block.prehistoriccraft.ordovician_fossiliferous_stone": "Skała Ordowicka zawierająca skamieliny",
+  "block.prehistoriccraft.paleogene_fossiliferous_stone": "Skała Paleogeniczna zawierająca skamieliny",
+  "block.prehistoriccraft.permian_fossiliferous_stone": "Skała Permska zawierająca skamieliny",
+  "block.prehistoriccraft.precambrian_fossiliferous_stone": "Skała Prekambryjska zawierająca skamieliny",
+  "block.prehistoriccraft.silurian_fossiliferous_stone": "Skała Sylurska zawierająca skamieliny",
+  "block.prehistoriccraft.triassic_fossiliferous_stone": "Skała Triasowa zawierająca skamieliny",
+
+  "block.prehistoriccraft.plastered_cambrian_fossiliferous_stone": "Otynkowana Skała Kambryjska zawierająca skamieliny",
+  "block.prehistoriccraft.plastered_carboniferous_fossiliferous_stone": "Otynkowana Skała Karbońska zawierająca skamieliny",
+  "block.prehistoriccraft.plastered_cretaceous_fossiliferous_stone": "Otynkowana Skała Kredowa zawierająca skamieliny",
+  "block.prehistoriccraft.plastered_devonian_fossiliferous_stone": "Otynkowana Skała Dewońska zawierająca skamieliny",
+  "block.prehistoriccraft.plastered_jurassic_fossiliferous_stone": "Otynkowana Skała Jurajska zawierająca skamieliny",
+  "block.prehistoriccraft.plastered_neogene_fossiliferous_stone": "Otynkowana Skała Neogeniczna zawierająca skamieliny",
+  "block.prehistoriccraft.plastered_ordovician_fossiliferous_stone": "Otynkowana Skała Ordowicka zawierająca skamieliny",
+  "block.prehistoriccraft.plastered_paleogene_fossiliferous_stone": "Otynkowana Skała Paleogeniczna zawierająca skamieliny",
+  "block.prehistoriccraft.plastered_permian_fossiliferous_stone": "Otynkowana Skała Permska zawierająca skamieliny",
+  "block.prehistoriccraft.plastered_precambrian_fossiliferous_stone": "Otynkowana Skała Prekambryjska zawierająca skamieliny",
+  "block.prehistoriccraft.plastered_silurian_fossiliferous_stone": "Otynkowana Skała Sylurska zawierająca skamieliny",
+  "block.prehistoriccraft.plastered_triassic_fossiliferous_stone": "Otynkowana Skała Triasowa zawierająca skamieliny",
+
+  "item.prehistoriccraft.cambrian_fossil": "Kambryjska Skamielina",
+  "item.prehistoriccraft.carboniferous_fossil": "Karbońska Skamielina",
+  "item.prehistoriccraft.cretaceous_fossil": "Kredowa Skamielina",
+  "item.prehistoriccraft.devonian_fossil": "Dewońska Skamielina",
+  "item.prehistoriccraft.jurassic_fossil": "Jurajska Skamielina",
+  "item.prehistoriccraft.neogene_fossil": "Neogeniczna Skamielina",
+  "item.prehistoriccraft.ordovician_fossil": "Ordowicka Skamielina",
+  "item.prehistoriccraft.paleogene_fossil": "Paleogeniczna Skamielina",
+  "item.prehistoriccraft.permian_fossil": "Permska Skamielina",
+  "item.prehistoriccraft.precambrian_fossil": "Prekambryjska Skamielina",
+  "item.prehistoriccraft.silurian_fossil": "Sylurska Skamielina",
+  "item.prehistoriccraft.triassic_fossil": "Triasowa Skamielina",
+
+  "item.prehistoriccraft.excavator_pickaxe": "Młotek Geologiczny",
+
+  "block.prehistoriccraft.gypsum_crystal": "Kryształ Gipsu",
+  "block.prehistoriccraft.gypsum_crystal_block": "Odłam Kryształu Gipsu",
+  "item.prehistoriccraft.gypsum_powder": "Gips w proszku",
+  "item.prehistoriccraft.plaster_powder": "Gips Paryski w proszku",
+  "item.prehistoriccraft.plaster_wrap": "Rolka Gipsu Paryskiego",
+
+  "block.prehistoriccraft.fossil_analysis_table": "Stół do analizy skamielin",
+
+  "block.prehistoriccraft.amber_block": "Blok Bursztynu",
+  "block.prehistoriccraft.deepslate_amber_ore": "Łupkowa Ruda Bursztynu",
+
+  "block.prehistoriccraft.cracked_dirt": "Popękana Ziemia",
+
+  "tabs.prehistoriccraft.fossil_tab": "Skamieliny",
+  "tabs.prehistoriccraft.prehistoriccraft_natural_blocks": "PrehistoricCraft Bloki Naturalne",
+  "tabs.prehistoriccraft.prehistoriccraft_items": "PrehistoricCraft Rzeczy",
+  "tabs.prehistoriccraft.prehistoriccraft_blocks": "PrehistoricCraft Bloki",
+  "tabs.prehistoriccraft.prehistoriccraft_functional_blocks": "PrehistoricCraft Bloki z funkcją"
+}

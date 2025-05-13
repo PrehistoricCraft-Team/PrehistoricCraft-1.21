@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 85,
+  "experience": 0.35,
+  "group": "plaster_powder",
+  "ingredient": {
+    "item": "prehistoriccraft:gypsum_powder"
+  },
+  "result": {
+    "count": 1,
+    "id": "prehistoriccraft:plaster_powder"
+  }
+}

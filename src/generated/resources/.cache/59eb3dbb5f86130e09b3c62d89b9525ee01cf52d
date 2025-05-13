@@ -1,9 +1,10 @@
-// 1.21.1	2025-05-11T15:06:41.7450327	Loot Tables
+// 1.21.1	2025-05-13T19:28:17.465153808	Loot Tables
 3c34bb7179c80d80367a3e0663f64b25dc563fc4 data/prehistoriccraft/loot_table/blocks/amber_block.json
 8c82406a1df7c83712890ce2a9671fe7a4cbb0ca data/prehistoriccraft/loot_table/blocks/cambrian_fossiliferous_stone.json
 c652f1e62c2c5448525bf42296b201e39d542bc4 data/prehistoriccraft/loot_table/blocks/carboniferous_fossiliferous_stone.json
 486820df60e90f1066d28872c718ecc51079406d data/prehistoriccraft/loot_table/blocks/cracked_dirt.json
 0c5f41f35aceff861e012a57ff9cf57cfc06728d data/prehistoriccraft/loot_table/blocks/cretaceous_fossiliferous_stone.json
+018a35fa23f9c27e91c16600bdd1f7ddb8b08b9c data/prehistoriccraft/loot_table/blocks/deepslate_amber_ore.json
 297eb9a8abdabd0eb932067764d8b13d0a91a749 data/prehistoriccraft/loot_table/blocks/devonian_fossiliferous_stone.json
 3c958e637f3a244bea2ac4b007ab0cf543f319f8 data/prehistoriccraft/loot_table/blocks/fossil_analysis_table.json
 16c7139d4cee82d888ab18905ba2f01a63951565 data/prehistoriccraft/loot_table/blocks/gypsum_crystal.json

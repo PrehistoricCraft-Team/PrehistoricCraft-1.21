@@ -67,6 +67,13 @@ public class PrehistoricBlockTagProvider extends BlockTagsProvider {
                 .add(PrehistoricBlocks.SILURIAN_FOSSILIFEROUS_STONE.get())
                 .add(PrehistoricBlocks.TRIASSIC_FOSSILIFEROUS_STONE.get());
 
+
+
+
+
+
+
+
         tag(BlockTags.NEEDS_STONE_TOOL)
                 .add(PrehistoricBlocks.GYPSUM_CRYSTAL.get())
                 .add(PrehistoricBlocks.GYPSUM_CRYSTAL_BLOCK.get());

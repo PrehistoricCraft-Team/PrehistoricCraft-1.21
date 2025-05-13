@@ -49,10 +49,14 @@
   "block.prehistoriccraft.fossil_analysis_table": "Fossil Analysis Table",
 
   "block.prehistoriccraft.amber_block": "Amber Block",
+  "block.prehistoriccraft.deepslate_amber_ore": "Deepslate Amber Ore",
+  "item.prehistoriccraft.amber": "Amber",
 
   "block.prehistoriccraft.cracked_dirt": "Cracked Dirt",
 
   "tabs.prehistoriccraft.fossil_tab": "Fossil Tab",
   "tabs.prehistoriccraft.prehistoriccraft_natural_blocks": "PrehistoricCraft Natural Blocks",
-  "tabs.prehistoriccraft.prehistoriccraft_items": "PrehistoricCraft Items"
+  "tabs.prehistoriccraft.prehistoriccraft_items": "PrehistoricCraft Items",
+  "tabs.prehistoriccraft.prehistoriccraft_blocks": "PrehistoricCraft Blocks",
+  "tabs.prehistoriccraft.prehistoriccraft_functional_blocks": "PrehistoricCraft Functional Blocks"
 }

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_gypsum_powder": {
+      "conditions": {
+        "items": [
+          {
+            "items": "prehistoriccraft:gypsum_powder"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "prehistoriccraft:plaster_powder_from_blasting_gypsum_powder"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_gypsum_powder"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "prehistoriccraft:plaster_powder_from_blasting_gypsum_powder"
+    ]
+  }
+}

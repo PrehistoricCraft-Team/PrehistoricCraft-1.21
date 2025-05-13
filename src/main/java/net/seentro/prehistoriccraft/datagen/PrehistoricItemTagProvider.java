@@ -37,5 +37,8 @@ public class PrehistoricItemTagProvider extends ItemTagsProvider {
                 .add(PrehistoricItems.PRECAMBRIAN_FOSSIL.get())
                 .add(PrehistoricItems.SILURIAN_FOSSIL.get())
                 .add(PrehistoricItems.TRIASSIC_FOSSIL.get());
+
+        tag(PrehistoricTags.Items.AMBER)
+                .add(PrehistoricItems.AMBER.get());
     }
 }

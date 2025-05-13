@@ -1,1 +1,9 @@
-// 1.21.1	2025-05-05T15:17:25.3566612	Recipes
+// 1.21.1	2025-05-13T17:46:07.734585979	Recipes
+3650585b156f20901f9f8484c4522205e8a622de data/prehistoriccraft/advancement/recipes/misc/fossil_analysis_table.json
+c69c4e2e990ba8dd94bb225b22d7ebf968357f9d data/prehistoriccraft/advancement/recipes/misc/plaster_powder_from_blasting_gypsum_powder.json
+e206a9b021fe2d3a4da9a4ee61bfb67f133937ff data/prehistoriccraft/advancement/recipes/misc/plaster_powder_from_smelting_gypsum_powder.json
+cef6443e3b4bdb42eb2da744f2d9061a1b98db31 data/prehistoriccraft/advancement/recipes/misc/plaster_wrap.json
+746dd8a9dac9a0f9cf7afc935afaae8bb72e88e2 data/prehistoriccraft/recipe/fossil_analysis_table.json
+194dcf5af5de4785a3c81b4336948ae23317438e data/prehistoriccraft/recipe/plaster_powder_from_blasting_gypsum_powder.json
+94462bdfa8bbcdc70652ab582d2e425cae08268d data/prehistoriccraft/recipe/plaster_powder_from_smelting_gypsum_powder.json
+175117a011429d6319ce8d17c202915562b76ca8 data/prehistoriccraft/recipe/plaster_wrap.json

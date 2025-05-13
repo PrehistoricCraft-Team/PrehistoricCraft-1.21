@@ -57,21 +57,35 @@ public class PrehistoricCreativeTabs {
 
             }).build());
 
-    public static final Supplier<CreativeModeTab> PREHISTORICCRAFT_NATURAL_BLOCKS = CREATIVE_MODE_TABS.register("prehistoriccraft_natural_blocks", () -> CreativeModeTab.builder().icon(() -> new ItemStack(PrehistoricItems.PLASTER_WRAP.get()))
+    public static final Supplier<CreativeModeTab> PREHISTORICCRAFT_NATURAL_BLOCKS = CREATIVE_MODE_TABS.register("prehistoriccraft_natural_blocks", () -> CreativeModeTab.builder().icon(() -> new ItemStack(PrehistoricBlocks.GYPSUM_CRYSTAL.get()))
             .title(Component.translatable("tabs.prehistoriccraft.prehistoriccraft_natural_blocks")).displayItems((displayParameters, output) -> {
                 output.accept(PrehistoricBlocks.GYPSUM_CRYSTAL.get());
                 output.accept(PrehistoricBlocks.GYPSUM_CRYSTAL_BLOCK.get());
-                output.accept(PrehistoricItems.GYPSUM_POWDER.get());
-                output.accept(PrehistoricItems.PLASTER_POWDER.get());
-                output.accept(PrehistoricItems.PLASTER_WRAP.get());
+                output.accept(PrehistoricBlocks.CRACKED_DIRT.get());
             }).build());
 
     public static final Supplier<CreativeModeTab> PREHISTORICCRAFT_ITEMS = CREATIVE_MODE_TABS.register("prehistoriccraft_items", () -> CreativeModeTab.builder().icon(() -> new ItemStack(PrehistoricItems.EXCAVATOR_PICKAXE.get()))
             .title(Component.translatable("tabs.prehistoriccraft.prehistoriccraft_items")).displayItems((displayParameters, output) -> {
                 output.accept(PrehistoricItems.EXCAVATOR_PICKAXE.get());
+                output.accept(PrehistoricItems.PLASTER_WRAP.get());
+                output.accept(PrehistoricItems.GYPSUM_POWDER.get());
+                output.accept(PrehistoricItems.PLASTER_POWDER.get());
+                output.accept(PrehistoricItems.AMBER.get());
             }).build());
 
+    public static final Supplier<CreativeModeTab> PREHISTORICCRAFT_BLOCKS = CREATIVE_MODE_TABS.register("prehistoriccraft_blocks", () -> CreativeModeTab.builder().icon(() -> new ItemStack(PrehistoricBlocks.AMBER_BLOCK.get()))
+            .title(Component.translatable("tabs.prehistoriccraft.prehistoriccraft_blocks")).displayItems((displayParameters, output) -> {
+                output.accept(PrehistoricBlocks.AMBER_BLOCK.get());
+                output.accept(PrehistoricBlocks.DEEPSLATE_AMBER_ORE.get());
+            }).build());
+
+    public static final Supplier<CreativeModeTab> PREHISTORICCRAFT_FUNCTIONAL_BLOCKS = CREATIVE_MODE_TABS.register("prehistoriccraft_functional_blocks", () -> CreativeModeTab.builder().icon(() -> new ItemStack(PrehistoricBlocks.FOSSIL_ANALYSIS_TABLE.get()))
+            .title(Component.translatable("tabs.prehistoriccraft.prehistoriccraft_functional_blocks")).displayItems((displayParameters, output) -> {
+                output.accept(PrehistoricBlocks.FOSSIL_ANALYSIS_TABLE.get());
+            }).build());
+
+
     public static void register(IEventBus eventBus) {
-        CREATIVE_MODE_TABS.register(eventBus);
+        PrehistoricCreativeTabs.CREATIVE_MODE_TABS.register(eventBus);
     }
 }

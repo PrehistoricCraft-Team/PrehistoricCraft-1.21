@@ -5,6 +5,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.ItemLike;
@@ -17,13 +18,46 @@ import net.seentro.prehistoriccraft.registry.PrehistoricItems;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-public class PrehistoricRecipeProvider extends RecipeProvider implements IConditionBuilder {
+public class PrehistoricRecipeProvider extends RecipeProvider {
     public PrehistoricRecipeProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
         super(output, registries);
     }
 
     @Override
     protected void buildRecipes(RecipeOutput recipeOutput) {
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, PrehistoricItems.PLASTER_WRAP.get(),8)
+                .pattern("SPS")
+                .pattern("PWP")
+                .pattern("SPS")
+                .define('S', PrehistoricItems.PLASTER_POWDER)
+                .define('P', Items.PAPER)
+                .define('W', Items.WATER_BUCKET)
+                .unlockedBy("has_paper", has(Items.PAPER))
+                .unlockedBy("has_water_bucket", has(Items.WATER_BUCKET))
+                .unlockedBy("has_plaster_powder", has(PrehistoricItems.PLASTER_POWDER))
+                .save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, PrehistoricBlocks.FOSSIL_ANALYSIS_TABLE.get())
+                .pattern("BPR")
+                .pattern("WWW")
+                .pattern("F F")
+                .define('B', Items.BOOK)
+                .define('P', Items.IRON_PICKAXE)
+                .define('R', Blocks.FLOWER_POT)
+                .define('W', Blocks.WHITE_CARPET)
+                .define('F', ItemTags.FENCES)
+                .unlockedBy("has_book", has(Items.BOOK))
+                .unlockedBy("has_iron_pickaxe", has(Items.IRON_PICKAXE))
+                .unlockedBy("has_white_carpet", has(Blocks.WHITE_CARPET))
+                .unlockedBy("has_fence", has(ItemTags.FENCES))
+                .save(recipeOutput);
+
+        oreSmelting(recipeOutput, List.of(PrehistoricItems.GYPSUM_POWDER.get()), RecipeCategory.MISC, PrehistoricItems.PLASTER_POWDER.get(), 0.35f, 85, "plaster_powder");
+        oreBlasting(recipeOutput, List.of(PrehistoricItems.GYPSUM_POWDER.get()), RecipeCategory.MISC, PrehistoricItems.PLASTER_POWDER.get(), 0.35f, 35, "plaster_powder");
+
+
+
         /* PRESET RECIPES */
         /*ShapedRecipeBuilder.shaped(RecipeCategory.MISC, PrehistoricBlocks.AMBER_BLOCK.get())
                 .pattern("SSS")
@@ -55,6 +89,7 @@ public class PrehistoricRecipeProvider extends RecipeProvider implements ICondit
 
     /* HELPER METHODS */
 
+
     protected static void oreSmelting(RecipeOutput recipeOutput, List<ItemLike> pIngredients, RecipeCategory pCategory, ItemLike pResult,
                                       float pExperience, int pCookingTIme, String pGroup) {
         oreCooking(recipeOutput, RecipeSerializer.SMELTING_RECIPE, SmeltingRecipe::new, pIngredients, pCategory, pResult,
@@ -69,9 +104,12 @@ public class PrehistoricRecipeProvider extends RecipeProvider implements ICondit
 
     protected static <T extends AbstractCookingRecipe> void oreCooking(RecipeOutput recipeOutput, RecipeSerializer<T> pCookingSerializer, AbstractCookingRecipe.Factory<T> factory,
                                                                        List<ItemLike> pIngredients, RecipeCategory pCategory, ItemLike pResult, float pExperience, int pCookingTime, String pGroup, String pRecipeName) {
-        for(ItemLike itemlike : pIngredients) {
+        for (ItemLike itemlike : pIngredients) {
             SimpleCookingRecipeBuilder.generic(Ingredient.of(itemlike), pCategory, pResult, pExperience, pCookingTime, pCookingSerializer, factory).group(pGroup).unlockedBy(getHasName(itemlike), has(itemlike))
                     .save(recipeOutput, PrehistoricCraft.MODID + ":" + getItemName(pResult) + pRecipeName + "_" + getItemName(itemlike));
+
+
         }
     }
 }
+

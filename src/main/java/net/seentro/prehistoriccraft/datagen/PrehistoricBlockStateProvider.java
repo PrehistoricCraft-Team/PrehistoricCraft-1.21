@@ -48,6 +48,7 @@ public class PrehistoricBlockStateProvider extends BlockStateProvider {
 
         /* AMBER */
         blockWithItem(PrehistoricBlocks.AMBER_BLOCK);
+        blockWithItem(PrehistoricBlocks.DEEPSLATE_AMBER_ORE);
 
         /* GYPSUM */
         crossBlockWithItem(PrehistoricBlocks.GYPSUM_CRYSTAL);

@@ -65,6 +65,7 @@ public class PrehistoricBlockLootTableProvider extends BlockLootSubProvider {
 
         /* AMBER */
         dropSelf(PrehistoricBlocks.AMBER_BLOCK.get());
+        dropOther(PrehistoricBlocks.DEEPSLATE_AMBER_ORE.get(), PrehistoricItems.AMBER.get());
 
         /* BLOCK ENTITIES */
         dropSelf(PrehistoricBlocks.FOSSIL_ANALYSIS_TABLE.get());

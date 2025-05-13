@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "minecraft:book"
+    },
+    "F": {
+      "tag": "minecraft:fences"
+    },
+    "P": {
+      "item": "minecraft:iron_pickaxe"
+    },
+    "R": {
+      "item": "minecraft:flower_pot"
+    },
+    "W": {
+      "item": "minecraft:white_carpet"
+    }
+  },
+  "pattern": [
+    "BPR",
+    "WWW",
+    "F F"
+  ],
+  "result": {
+    "count": 1,
+    "id": "prehistoriccraft:fossil_analysis_table"
+  }
+}

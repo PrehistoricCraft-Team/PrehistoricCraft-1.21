@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "P": {
+      "item": "minecraft:paper"
+    },
+    "S": {
+      "item": "prehistoriccraft:plaster_powder"
+    },
+    "W": {
+      "item": "minecraft:water_bucket"
+    }
+  },
+  "pattern": [
+    "SPS",
+    "PWP",
+    "SPS"
+  ],
+  "result": {
+    "count": 8,
+    "id": "prehistoriccraft:plaster_wrap"
+  }
+}
