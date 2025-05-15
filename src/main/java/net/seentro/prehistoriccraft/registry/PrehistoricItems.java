@@ -28,7 +28,9 @@ public class PrehistoricItems {
     public static final DeferredItem<Item> SILURIAN_FOSSIL = ITEMS.register("silurian_fossil", () -> new FossilItem(new Item.Properties()));
     public static final DeferredItem<Item> TRIASSIC_FOSSIL   = ITEMS.register("triassic_fossil", () -> new FossilItem(new Item.Properties()));
 
+    /* TOOLS */
     public static final DeferredItem<Item> EXCAVATOR_PICKAXE   = ITEMS.register("excavator_pickaxe", () -> new PickaxeItem(Tiers.IRON, new Item.Properties()));
+    public static final DeferredItem<Item> MAGNIFYING_GLASS   = ITEMS.register("magnifying_glass", () -> new Item(new Item.Properties().durability(192)));
 
     /* GYPSUM & PLASTER */
     public static final DeferredItem<Item> GYPSUM_POWDER = ITEMS.register("gypsum_powder", () -> new Item(new Item.Properties()));

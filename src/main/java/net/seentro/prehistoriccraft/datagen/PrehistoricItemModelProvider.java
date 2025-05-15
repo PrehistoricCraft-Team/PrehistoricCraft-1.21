@@ -30,7 +30,9 @@ public class PrehistoricItemModelProvider extends ItemModelProvider {
         basicItem(PrehistoricItems.SILURIAN_FOSSIL.get());
         basicItem(PrehistoricItems.TRIASSIC_FOSSIL.get());
 
+        /* TOOLS */
         basicItem(PrehistoricItems.EXCAVATOR_PICKAXE.get());
+        basicItem(PrehistoricItems.MAGNIFYING_GLASS.get());
 
         /* BLOCK ENTITIES */
         simpleBlockItem(PrehistoricBlocks.FOSSIL_ANALYSIS_TABLE.get());

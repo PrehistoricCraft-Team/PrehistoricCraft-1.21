@@ -1,4 +1,4 @@
-// 1.21.1	2025-05-13T19:28:17.466712682	Item Models: prehistoriccraft
+// 1.21.1	2025-05-15T20:01:44.3065949	Item Models: prehistoriccraft
 45d11e3b53db99e8496d59a036ce7e7d09184f8f assets/prehistoriccraft/models/item/amber.json
 75370d1058ba1cb7f792c0af7b8780abbe54cd20 assets/prehistoriccraft/models/item/cambrian_fossil.json
 49fe64401509b53da9d725cbd3f0db072f39712b assets/prehistoriccraft/models/item/carboniferous_fossil.json
@@ -8,6 +8,7 @@ b3a807511f1df47cfb337911323f960ba3f62f2e assets/prehistoriccraft/models/item/dev
 1ed95045a35ef224d2d4d86f6633251a4e3237db assets/prehistoriccraft/models/item/fossil_analysis_table.json
 2027dac7c3e0997141ecfdd893d75e1e78c46dab assets/prehistoriccraft/models/item/gypsum_powder.json
 e395e349abe112817380e91f926f04f57ccfc55b assets/prehistoriccraft/models/item/jurassic_fossil.json
+50c4a580005a1e05c5b5df75ae46635073d1f19e assets/prehistoriccraft/models/item/magnifying_glass.json
 ca204f1b60e3884801bb65c15db77f67911f4fe3 assets/prehistoriccraft/models/item/neogene_fossil.json
 f0f68653e941b39ddacb1f7bc81b7cb983f021fc assets/prehistoriccraft/models/item/ordovician_fossil.json
 51ab5aaa8126abe7bea4b7bceb631ebaab0ab954 assets/prehistoriccraft/models/item/paleogene_fossil.json

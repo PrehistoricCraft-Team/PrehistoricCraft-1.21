@@ -26,6 +26,7 @@ import net.seentro.prehistoriccraft.common.screen.fossilAnalysisTable.FossilAnal
 import net.seentro.prehistoriccraft.core.systems.WeightedRandom;
 import net.seentro.prehistoriccraft.registry.PrehistoricBlockEntityTypes;
 import net.seentro.prehistoriccraft.registry.PrehistoricDataComponents;
+import net.seentro.prehistoriccraft.registry.PrehistoricItems;
 import net.seentro.prehistoriccraft.registry.PrehistoricTags;
 import org.jetbrains.annotations.Nullable;
 
@@ -44,7 +45,7 @@ public class FossilAnalysisTableBlockEntity extends BlockEntity implements MenuP
 
         @Override
         public boolean isItemValid(int slot, ItemStack stack) {
-            return slot == 9 ? stack.getItem() == Items.STICK : super.isItemValid(slot, stack);
+            return slot == 9 ? stack.getItem() == PrehistoricItems.MAGNIFYING_GLASS.get() : super.isItemValid(slot, stack);
         }
     };
 
@@ -203,6 +204,11 @@ public class FossilAnalysisTableBlockEntity extends BlockEntity implements MenuP
             return false;
         }
 
+        ItemStack magnifier = itemHandler.getStackInSlot(9);
+        if (!magnifier.is(PrehistoricItems.MAGNIFYING_GLASS)) return false;
+
+        if (magnifier.getMaxDamage() - magnifier.getDamageValue() < qualityFossils.size()) return false;
+
         List<ItemStack> sim = new ArrayList<>();
         for (int i = 10; i < 19; i++) {
             sim.add(itemHandler.getStackInSlot(i).copy());
@@ -239,8 +245,17 @@ public class FossilAnalysisTableBlockEntity extends BlockEntity implements MenuP
 
     private void craftOutputs() {
         itemHandler.extractItem(validInputSlot, qualityFossils.size(), false);
+        ItemStack magnifier = itemHandler.getStackInSlot(9);
 
         for (ItemStack out : qualityFossils) {
+            if (magnifier.isDamageableItem()) {
+                magnifier.setDamageValue(magnifier.getDamageValue() + 1);
+
+                if (magnifier.getDamageValue() >= magnifier.getMaxDamage()) {
+                    itemHandler.setStackInSlot(9, ItemStack.EMPTY);
+                }
+            }
+
             boolean done = false;
             for (int i = 10; i < 19 && !done; i++) {
                 ItemStack slot = itemHandler.getStackInSlot(i);
@@ -249,6 +264,7 @@ public class FossilAnalysisTableBlockEntity extends BlockEntity implements MenuP
                     done = true;
                 }
             }
+
             if (!done) {
                 for (int i = 10; i < 19; i++) {
                     if (itemHandler.getStackInSlot(i).isEmpty()) {
