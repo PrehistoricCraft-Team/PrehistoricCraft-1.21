@@ -57,7 +57,7 @@ public class PrehistoricCreativeTabs {
 
             }).build());
 
-    public static final Supplier<CreativeModeTab> PREHISTORICCRAFT_NATURAL_BLOCKS = CREATIVE_MODE_TABS.register("prehistoriccraft_natural_blocks", () -> CreativeModeTab.builder().icon(() -> new ItemStack(PrehistoricBlocks.GYPSUM_CRYSTAL.get()))
+    public static final Supplier<CreativeModeTab> PREHISTORICCRAFT_NATURAL_BLOCKS = CREATIVE_MODE_TABS.register("prehistoriccraft_natural_blocks", () -> CreativeModeTab.builder().icon(() -> new ItemStack(PrehistoricBlocks.GYPSUM_CRYSTAL_BLOCK.get()))
             .title(Component.translatable("tabs.prehistoriccraft.prehistoriccraft_natural_blocks")).displayItems((displayParameters, output) -> {
                 output.accept(PrehistoricBlocks.GYPSUM_CRYSTAL.get());
                 output.accept(PrehistoricBlocks.GYPSUM_CRYSTAL_BLOCK.get());
@@ -67,6 +67,7 @@ public class PrehistoricCreativeTabs {
     public static final Supplier<CreativeModeTab> PREHISTORICCRAFT_ITEMS = CREATIVE_MODE_TABS.register("prehistoriccraft_items", () -> CreativeModeTab.builder().icon(() -> new ItemStack(PrehistoricItems.EXCAVATOR_PICKAXE.get()))
             .title(Component.translatable("tabs.prehistoriccraft.prehistoriccraft_items")).displayItems((displayParameters, output) -> {
                 output.accept(PrehistoricItems.EXCAVATOR_PICKAXE.get());
+                output.accept(PrehistoricItems.MAGNIFYING_GLASS.get());
                 output.accept(PrehistoricItems.PLASTER_WRAP.get());
                 output.accept(PrehistoricItems.GYPSUM_POWDER.get());
                 output.accept(PrehistoricItems.PLASTER_POWDER.get());
