@@ -39,6 +39,7 @@
   "item.prehistoriccraft.triassic_fossil": "Triassic Fossil",
 
   "item.prehistoriccraft.excavator_pickaxe": "Excavator Pickaxe",
+  "item.prehistoriccraft.magnifying_glass": "Magnifying Glass",
 
   "block.prehistoriccraft.gypsum_crystal": "Gypsum Crystal",
   "block.prehistoriccraft.gypsum_crystal_block": "Gypsum Crystal Block",
@@ -51,6 +52,7 @@
   "block.prehistoriccraft.amber_block": "Amber Block",
   "block.prehistoriccraft.deepslate_amber_ore": "Deepslate Amber Ore",
   "item.prehistoriccraft.amber": "Amber",
+
 
   "block.prehistoriccraft.cracked_dirt": "Cracked Dirt",
 
