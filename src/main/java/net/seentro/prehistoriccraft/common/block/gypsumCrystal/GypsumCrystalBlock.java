@@ -76,7 +76,7 @@ public class GypsumCrystalBlock extends Block implements SimpleWaterloggedBlock 
     @Override
     protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block neighborBlock, BlockPos neighborPos, boolean movedByPiston) {
         if (!state.canSurvive(level, pos) && !level.isClientSide()) {
-            level.destroyBlock(pos, true);
+            level.destroyBlock(pos, false);
             level.gameEvent(GameEvent.BLOCK_DESTROY, pos, GameEvent.Context.of(state));
             level.updateNeighborsAt(pos, Blocks.AIR);
         }
