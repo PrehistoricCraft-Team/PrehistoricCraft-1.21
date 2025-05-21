@@ -1,0 +1,38 @@
+{
+    "ambientocclusion": false,
+	"render_type": "minecraft:cutout",
+	"textures": {
+		"0": "prehistoriccraft:block/gypsum_crystal",
+		"particle": "prehistoriccraft:block/gypsum_crystal"
+	},
+	"elements": [
+		{
+            "shade": false,
+			"from": [-3, 0, 8.25],
+			"to": [17.5, 7, 8.25],
+			"rotation": {"angle": -45, "axis": "y", "origin": [8, 1, 9]},
+			"faces": {
+				"north": {"uv": [0, 9, 16, 16], "texture": "#0"},
+				"east": {"uv": [0, 0, 0, 7], "texture": "#missing"},
+				"south": {"uv": [0, 9, 16, 16], "texture": "#0"},
+				"west": {"uv": [0, 0, 0, 7], "texture": "#missing"},
+				"up": {"uv": [0, 0, 16, 0], "texture": "#missing"},
+				"down": {"uv": [0, 0, 16, 0], "texture": "#missing"}
+			}
+		},
+		{
+            "shade": false,
+			"from": [7.25, 0, -2],
+			"to": [7.25, 7, 18.5],
+			"rotation": {"angle": -45, "axis": "y", "origin": [8, 1, 9]},
+			"faces": {
+				"north": {"uv": [0, 0, 0, 7], "texture": "#missing"},
+				"east": {"uv": [0, 9, 16, 16], "texture": "#0"},
+				"south": {"uv": [0, 0, 0, 7], "texture": "#missing"},
+				"west": {"uv": [0, 9, 16, 16], "texture": "#0"},
+				"up": {"uv": [0, 0, 16, 0], "rotation": 90, "texture": "#missing"},
+				"down": {"uv": [0, 0, 16, 0], "rotation": 270, "texture": "#missing"}
+			}
+		}
+	]
+}

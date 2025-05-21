@@ -1,5 +1,6 @@
 package net.seentro.prehistoriccraft.datagen;
 
+import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
@@ -51,7 +52,8 @@ public class PrehistoricBlockStateProvider extends BlockStateProvider {
         blockWithItem(PrehistoricBlocks.DEEPSLATE_AMBER_ORE);
 
         /* GYPSUM */
-        crossBlockWithItem(PrehistoricBlocks.GYPSUM_CRYSTAL);
+        itemModels().withExistingParent(PrehistoricBlocks.GYPSUM_CRYSTAL.getId().getPath(), mcLoc("item/generated"))
+                        .texture("layer0", modLoc("block/" + PrehistoricBlocks.GYPSUM_CRYSTAL.getId().getPath()));
         blockWithItem(PrehistoricBlocks.GYPSUM_CRYSTAL_BLOCK);
 
         /* DIRT */

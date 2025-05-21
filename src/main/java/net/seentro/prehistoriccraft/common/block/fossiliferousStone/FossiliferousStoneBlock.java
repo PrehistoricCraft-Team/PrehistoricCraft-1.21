@@ -1,6 +1,7 @@
 package net.seentro.prehistoriccraft.common.block.fossiliferousStone;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -39,6 +40,10 @@ public class FossiliferousStoneBlock extends Block {
                 case SILURIAN -> setBlockAtPosition(level, pos, PLASTERED_SILURIAN_FOSSILIFEROUS_STONE);
                 case TRIASSIC -> setBlockAtPosition(level, pos, PLASTERED_TRIASSIC_FOSSILIFEROUS_STONE);
             }
+        }
+
+        if (!level.isClientSide()) {
+            player.displayClientMessage(Component.literal(String.valueOf(level.getBiome(pos).value().getBaseTemperature())), true);
         }
         return ItemInteractionResult.sidedSuccess(level.isClientSide());
     }
