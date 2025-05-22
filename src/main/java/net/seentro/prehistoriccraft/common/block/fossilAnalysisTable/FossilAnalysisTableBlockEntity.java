@@ -24,10 +24,7 @@ import net.neoforged.neoforge.items.ItemStackHandler;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
 import net.seentro.prehistoriccraft.common.screen.fossilAnalysisTable.FossilAnalysisTableMenu;
 import net.seentro.prehistoriccraft.core.systems.WeightedRandom;
-import net.seentro.prehistoriccraft.registry.PrehistoricBlockEntityTypes;
-import net.seentro.prehistoriccraft.registry.PrehistoricDataComponents;
-import net.seentro.prehistoriccraft.registry.PrehistoricItems;
-import net.seentro.prehistoriccraft.registry.PrehistoricTags;
+import net.seentro.prehistoriccraft.registry.*;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -51,7 +48,7 @@ public class FossilAnalysisTableBlockEntity extends BlockEntity implements MenuP
 
     protected final ContainerData data;
     private int progress = 0;
-    private int maxProgress = 600;
+    private int maxProgress = 0;
 
     public FossilAnalysisTableBlockEntity(BlockPos pos, BlockState blockState) {
         super(PrehistoricBlockEntityTypes.FOSSIL_ANALYSIS_TABLE_BLOCK_ENTITY.get(), pos, blockState);
@@ -143,6 +140,8 @@ public class FossilAnalysisTableBlockEntity extends BlockEntity implements MenuP
 
         if (hasRecipe()) {
             progress++;
+            maxProgress = lastInputCount * 10;
+            PrehistoricCraft.LOGGER.info("{}, {}", maxProgress, lastInputCount);
             setChanged(level, pos, state);
 
             if (progress >= maxProgress) {
@@ -156,12 +155,12 @@ public class FossilAnalysisTableBlockEntity extends BlockEntity implements MenuP
 
     private boolean tryInitializeRecipe() {
         for (int i = 0; i < 9; i++) {
-            ItemStack in = itemHandler.getStackInSlot(i);
-            if (in.is(PrehistoricTags.Items.FOSSILS) && !in.has(PrehistoricDataComponents.FOSSIL_QUALITY)) {
-                if (validInputSlot != i || lastInputCount != in.getCount()) {
+            ItemStack input = itemHandler.getStackInSlot(i);
+            if (input.is(PrehistoricTags.Items.FOSSILS) && !input.has(PrehistoricDataComponents.FOSSIL_QUALITY)) {
+                if (validInputSlot != i || lastInputCount != input.getCount()) {
                     validInputSlot = i;
-                    lastInputCount = in.getCount();
-                    qualityFossils = generateQualityList(in);
+                    lastInputCount = input.getCount();
+                    qualityFossils = generateQualityList(input);
                 }
                 return true;
             }
@@ -189,7 +188,6 @@ public class FossilAnalysisTableBlockEntity extends BlockEntity implements MenuP
         qualities.addItem("rich", 10);
 
         String selectedQuality = qualities.getRandomItem();
-        PrehistoricCraft.LOGGER.debug(selectedQuality);
 
         fossil.set(PrehistoricDataComponents.FOSSIL_QUALITY, selectedQuality);
 
