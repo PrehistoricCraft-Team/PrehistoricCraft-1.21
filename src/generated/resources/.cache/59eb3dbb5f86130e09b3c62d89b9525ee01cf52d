@@ -1,4 +1,4 @@
-// 1.21.1	2025-05-21T17:25:50.7983754	Loot Tables
+// 1.21.1	2025-05-25T15:12:38.4257833	Loot Tables
 3c34bb7179c80d80367a3e0663f64b25dc563fc4 data/prehistoriccraft/loot_table/blocks/amber_block.json
 8c82406a1df7c83712890ce2a9671fe7a4cbb0ca data/prehistoriccraft/loot_table/blocks/cambrian_fossiliferous_stone.json
 c652f1e62c2c5448525bf42296b201e39d542bc4 data/prehistoriccraft/loot_table/blocks/carboniferous_fossiliferous_stone.json
@@ -28,4 +28,5 @@ cf10f19d1ebfa3c1e5ace28a1f2cf55ca656162d data/prehistoriccraft/loot_table/blocks
 7ab7b8c13ed7d859e7b4d779af1b34b0adc4caaf data/prehistoriccraft/loot_table/blocks/plastered_triassic_fossiliferous_stone.json
 e573acd7cff192aa03f34fa68c38f2b7ff300249 data/prehistoriccraft/loot_table/blocks/precambrian_fossiliferous_stone.json
 d39f4aa709058889c59849405033d2ca97bace23 data/prehistoriccraft/loot_table/blocks/silurian_fossiliferous_stone.json
+7b2840d1ddb39e6fc757af1858738a8b0655daa0 data/prehistoriccraft/loot_table/blocks/tissue_extraction_chamber.json
 2f319941fe72c291b4866acb6f1ed09ff1075545 data/prehistoriccraft/loot_table/blocks/triassic_fossiliferous_stone.json

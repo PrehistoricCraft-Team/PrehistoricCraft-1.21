@@ -9,6 +9,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
 import net.seentro.prehistoriccraft.common.block.fossilAnalysisTable.FossilAnalysisTableBlockEntity;
+import net.seentro.prehistoriccraft.common.block.tissueExtractionChamber.TissueExtractionChamberBlockEntity;
 
 import java.util.Set;
 import java.util.function.Supplier;
@@ -22,6 +23,12 @@ public class PrehistoricBlockEntityTypes {
             () -> BlockEntityType.Builder.of(
                     FossilAnalysisTableBlockEntity::new, PrehistoricBlocks.FOSSIL_ANALYSIS_TABLE.get())
                     .build(null));
+
+    public static final Supplier<BlockEntityType<TissueExtractionChamberBlockEntity>> TISSUE_EXTRACTION_CHAMBER_BLOCK_ENTITY =
+            BLOCK_ENTITY_TYPES.register("tissue_extraction_chamber_block_entity",
+                    () -> BlockEntityType.Builder.of(
+                                    TissueExtractionChamberBlockEntity::new, PrehistoricBlocks.TISSUE_EXTRACTION_CHAMBER.get())
+                            .build(null));
 
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITY_TYPES.register(eventBus);

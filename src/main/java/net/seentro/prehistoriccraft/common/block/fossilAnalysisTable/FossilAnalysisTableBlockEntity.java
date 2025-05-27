@@ -23,6 +23,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
 import net.seentro.prehistoriccraft.common.screen.fossilAnalysisTable.FossilAnalysisTableMenu;
+import net.seentro.prehistoriccraft.common.screen.tissueExtractionChamber.TissueExtractionChamberMenu;
 import net.seentro.prehistoriccraft.core.systems.WeightedRandom;
 import net.seentro.prehistoriccraft.registry.*;
 import org.jetbrains.annotations.Nullable;
@@ -117,6 +118,8 @@ public class FossilAnalysisTableBlockEntity extends BlockEntity implements MenuP
         return new FossilAnalysisTableMenu(containerId, playerInventory, this, this.data);
     }
 
+    /* INVENTORY & PROCESSING */
+
     public void drop() {
         SimpleContainer container = new SimpleContainer(itemHandler.getSlots());
         for (int i = 0; i < itemHandler.getSlots(); i++) {
@@ -125,8 +128,6 @@ public class FossilAnalysisTableBlockEntity extends BlockEntity implements MenuP
 
         Containers.dropContents(this.level, this.worldPosition, container);
     }
-
-    /* INVENTORY & PROCESSING */
 
     private @Nullable List<ItemStack> qualityFossils;
     private int validInputSlot = -1;

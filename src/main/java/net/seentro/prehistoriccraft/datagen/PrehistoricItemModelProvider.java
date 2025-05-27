@@ -36,6 +36,7 @@ public class PrehistoricItemModelProvider extends ItemModelProvider {
 
         /* BLOCK ENTITIES */
         simpleBlockItem(PrehistoricBlocks.FOSSIL_ANALYSIS_TABLE.get());
+        simpleBlockItem(PrehistoricBlocks.TISSUE_EXTRACTION_CHAMBER.get());
 
         /* GYPSUM & PLASTER */
         basicItem(PrehistoricItems.GYPSUM_POWDER.get());

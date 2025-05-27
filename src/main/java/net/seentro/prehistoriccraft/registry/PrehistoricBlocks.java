@@ -1,12 +1,9 @@
 package net.seentro.prehistoriccraft.registry;
 
-import net.minecraft.util.valueproviders.IntProvider;
-import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.DropExperienceBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.PushReaction;
@@ -17,10 +14,11 @@ import net.seentro.prehistoriccraft.PrehistoricCraft;
 import net.seentro.prehistoriccraft.common.block.fossilAnalysisTable.FossilAnalysisTableBlock;
 import net.seentro.prehistoriccraft.common.block.fossiliferousStone.FossiliferousStoneBlock;
 import net.seentro.prehistoriccraft.common.block.gypsumCrystal.GypsumCrystalBlock;
+import net.seentro.prehistoriccraft.common.block.tissueExtractionChamber.TissueExtractionChamberBlock;
 
 import java.util.function.Supplier;
 
-import static net.seentro.prehistoriccraft.core.enumerators.FossilTypes.*;
+import static net.seentro.prehistoriccraft.core.enums.FossilTypes.*;
 
 public class PrehistoricBlocks {
     public static final DeferredRegister.Blocks BLOCKS =
@@ -60,6 +58,7 @@ public class PrehistoricBlocks {
 
     /* BLOCK ENTITIES */
     public static final DeferredBlock<Block> FOSSIL_ANALYSIS_TABLE = registerBlock("fossil_analysis_table", () -> new FossilAnalysisTableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).noOcclusion()));
+    public static final DeferredBlock<Block> TISSUE_EXTRACTION_CHAMBER = registerBlock("tissue_extraction_chamber", () -> new TissueExtractionChamberBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.COBBLESTONE).noOcclusion()));
 
     /* GYPSUM & PLASTER */
     public static final DeferredBlock<Block> GYPSUM_CRYSTAL = registerBlock("gypsum_crystal", () -> new GypsumCrystalBlock(BlockBehaviour.Properties.of().sound(SoundType.DEEPSLATE).noOcclusion().strength(1.5F).pushReaction(PushReaction.DESTROY).requiresCorrectToolForDrops()));

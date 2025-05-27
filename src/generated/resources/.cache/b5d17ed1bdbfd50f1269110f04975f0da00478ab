@@ -1,4 +1,4 @@
-// 1.21.1	2025-05-15T20:01:44.3065949	Item Models: prehistoriccraft
+// 1.21.1	2025-05-25T15:12:38.428812	Item Models: prehistoriccraft
 45d11e3b53db99e8496d59a036ce7e7d09184f8f assets/prehistoriccraft/models/item/amber.json
 75370d1058ba1cb7f792c0af7b8780abbe54cd20 assets/prehistoriccraft/models/item/cambrian_fossil.json
 49fe64401509b53da9d725cbd3f0db072f39712b assets/prehistoriccraft/models/item/carboniferous_fossil.json
@@ -17,4 +17,5 @@ f117dbd7d203ace97ff93f1aa861110b9dd8328b assets/prehistoriccraft/models/item/pla
 5dedbb22c02af510c6c799fd69c749ac11708125 assets/prehistoriccraft/models/item/plaster_wrap.json
 892fbffafc9feff1d736ba647558dd4ae760f605 assets/prehistoriccraft/models/item/precambrian_fossil.json
 ffb01eff0ecc9b93f6edea648a408f0d1013607c assets/prehistoriccraft/models/item/silurian_fossil.json
+511b262728cd95d4805223bced7fd96eeaa1a1cf assets/prehistoriccraft/models/item/tissue_extraction_chamber.json
 8c7c8fd539ae246d2d9bc1fbbca01285a00f26cd assets/prehistoriccraft/models/item/triassic_fossil.json

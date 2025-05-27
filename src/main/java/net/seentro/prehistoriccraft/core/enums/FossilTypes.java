@@ -1,4 +1,4 @@
-package net.seentro.prehistoriccraft.core.enumerators;
+package net.seentro.prehistoriccraft.core.enums;
 
 public enum FossilTypes {
     CAMBRIAN,
