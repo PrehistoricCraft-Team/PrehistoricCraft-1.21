@@ -49,7 +49,7 @@ public class FossilAnalysisTableBlockEntity extends BlockEntity implements MenuP
 
     protected final ContainerData data;
     private int progress = 0;
-    private int maxProgress = 120;
+    private int maxProgress = 20;
 
     public FossilAnalysisTableBlockEntity(BlockPos pos, BlockState blockState) {
         super(PrehistoricBlockEntityTypes.FOSSIL_ANALYSIS_TABLE_BLOCK_ENTITY.get(), pos, blockState);
@@ -138,15 +138,19 @@ public class FossilAnalysisTableBlockEntity extends BlockEntity implements MenuP
             return;
         }
 
-        if (hasRecipe()) {
-            progress++;
-            setChanged(level, pos, state);
-
-            if (progress >= maxProgress) {
-                craft();
+        if (!hasRecipe()) {
+            ItemStack input = validInputSlot >= 0 ? itemHandler.getStackInSlot(validInputSlot) : ItemStack.EMPTY;
+            if (input.isEmpty() || !input.is(PrehistoricTags.Items.FOSSILS) || input.has(PrehistoricDataComponents.FOSSIL_QUALITY)) {
                 reset();
             }
-        } else {
+            return;
+        }
+
+        progress++;
+        setChanged(level, pos, state);
+
+        if (progress >= maxProgress) {
+            craft();
             reset();
         }
     }
@@ -155,17 +159,21 @@ public class FossilAnalysisTableBlockEntity extends BlockEntity implements MenuP
         for (int i = 0; i < 9; i++) {
             ItemStack input = itemHandler.getStackInSlot(i);
             if (input.is(PrehistoricTags.Items.FOSSILS) && !input.has(PrehistoricDataComponents.FOSSIL_QUALITY)) {
-                ItemStack inputCopy = input.copy();
-                inputCopy.setCount(1);
-                ItemStack candidate = assignRandomQuality(inputCopy);
-
-                if (canOutput(candidate)) {
-                    validInputSlot = i;
-                    qualityFossil = candidate;
+                if (validInputSlot == i && qualityFossil != null) {
                     return true;
                 }
+
+                ItemStack singleInput = input.copy();
+                singleInput.setCount(1);
+                ItemStack test = assignRandomQuality(singleInput);
+
+                validInputSlot = i;
+                qualityFossil = test;
+
+                return true;
             }
         }
+
         return false;
     }
 
