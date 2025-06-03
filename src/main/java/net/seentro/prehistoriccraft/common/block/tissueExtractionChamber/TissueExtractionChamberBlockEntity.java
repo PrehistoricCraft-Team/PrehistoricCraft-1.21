@@ -7,6 +7,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
@@ -33,6 +34,8 @@ import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.*;
+import software.bernie.geckolib.constant.DataTickets;
+import software.bernie.geckolib.constant.dataticket.DataTicket;
 import software.bernie.geckolib.util.GeckoLibUtil;
 import software.bernie.geckolib.util.RenderUtil;
 
@@ -102,7 +105,6 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
         tag.put("inventory", itemHandler.serializeNBT(registries));
         tag.putInt("progress", progress);
         tag.putInt("maxProgress", maxProgress);
-        tag.putBoolean("isCrafting", isCrafting);
     }
 
     @Override
@@ -111,7 +113,6 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
         itemHandler.deserializeNBT(registries, tag.getCompound("inventory"));
         progress = tag.getInt("progress");
         maxProgress = tag.getInt("maxProgress");
-        isCrafting = tag.getBoolean("isCrafting");
     }
 
     @Override
@@ -136,9 +137,6 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
 
     /* GECKOLIB */
 
-    private boolean batchActive = false;
-    private boolean stopRequested = false;
-    private boolean wasCrafting = false;
     private final RawAnimation START_TO_WORK = RawAnimation.begin().then("work_start", Animation.LoopType.PLAY_ONCE).thenLoop("working");
     private final RawAnimation STOP_WORKING = RawAnimation.begin().then("work_end", Animation.LoopType.PLAY_ONCE);
 
@@ -148,19 +146,6 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
     }
 
     private <T extends GeoAnimatable> PlayState progressPredicate(AnimationState<T> state) {
-        boolean currentlyCrafting = this.isCrafting;
-        PrehistoricCraft.LOGGER.info("Currently crafting: {}", isCrafting);
-
-        if (currentlyCrafting && !wasCrafting) {
-            wasCrafting = true;
-            state.getController().forceAnimationReset();
-            state.getController().setAnimation(START_TO_WORK);
-        } else if (!currentlyCrafting && wasCrafting) {
-            wasCrafting = false;
-            state.getController().forceAnimationReset();
-            state.getController().setAnimation(STOP_WORKING);
-        }
-
         return PlayState.CONTINUE;
     }
 
@@ -195,7 +180,6 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
 
         if (hasRecipe()) {
             progress++;
-            isCrafting = true;
             setChanged(level, pos, state);
 
             if (progress >= maxProgress) {
@@ -259,7 +243,6 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
     private void fullReset(Level level, BlockPos pos, BlockState state) {
         progress = 0;
         validInputSlot = -1;
-        isCrafting = false;
         setChanged(level, pos, state);
     }
 }

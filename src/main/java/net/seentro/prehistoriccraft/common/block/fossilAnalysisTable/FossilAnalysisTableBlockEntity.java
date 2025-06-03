@@ -49,7 +49,7 @@ public class FossilAnalysisTableBlockEntity extends BlockEntity implements MenuP
 
     protected final ContainerData data;
     private int progress = 0;
-    private int maxProgress = 0;
+    private int maxProgress = 120;
 
     public FossilAnalysisTableBlockEntity(BlockPos pos, BlockState blockState) {
         super(PrehistoricBlockEntityTypes.FOSSIL_ANALYSIS_TABLE_BLOCK_ENTITY.get(), pos, blockState);
@@ -129,9 +129,8 @@ public class FossilAnalysisTableBlockEntity extends BlockEntity implements MenuP
         Containers.dropContents(this.level, this.worldPosition, container);
     }
 
-    private @Nullable List<ItemStack> qualityFossils;
+    private @Nullable ItemStack qualityFossil;
     private int validInputSlot = -1;
-    private int lastInputCount = -1;
 
     public void tick(Level level, BlockPos pos, BlockState state) {
         if (!tryInitializeRecipe()) {
@@ -141,12 +140,10 @@ public class FossilAnalysisTableBlockEntity extends BlockEntity implements MenuP
 
         if (hasRecipe()) {
             progress++;
-            maxProgress = lastInputCount * 10;
-            PrehistoricCraft.LOGGER.info("{}, {}", maxProgress, lastInputCount);
             setChanged(level, pos, state);
 
             if (progress >= maxProgress) {
-                craftOutputs();
+                craft();
                 reset();
             }
         } else {
@@ -158,25 +155,18 @@ public class FossilAnalysisTableBlockEntity extends BlockEntity implements MenuP
         for (int i = 0; i < 9; i++) {
             ItemStack input = itemHandler.getStackInSlot(i);
             if (input.is(PrehistoricTags.Items.FOSSILS) && !input.has(PrehistoricDataComponents.FOSSIL_QUALITY)) {
-                if (validInputSlot != i || lastInputCount != input.getCount()) {
+                ItemStack inputCopy = input.copy();
+                inputCopy.setCount(1);
+                ItemStack candidate = assignRandomQuality(inputCopy);
+
+                if (canOutput(candidate)) {
                     validInputSlot = i;
-                    lastInputCount = input.getCount();
-                    qualityFossils = generateQualityList(input);
+                    qualityFossil = candidate;
+                    return true;
                 }
-                return true;
             }
         }
         return false;
-    }
-
-    private List<ItemStack> generateQualityList(ItemStack input) {
-        List<ItemStack> list = new ArrayList<>(input.getCount());
-        for (int j = 0; j < input.getCount(); j++) {
-            ItemStack single = input.copy();
-            single.setCount(1);
-            list.add(assignRandomQuality(single));
-        }
-        return list;
     }
 
     private ItemStack assignRandomQuality(ItemStack fossil) {
@@ -196,89 +186,51 @@ public class FossilAnalysisTableBlockEntity extends BlockEntity implements MenuP
     }
 
     private boolean hasRecipe() {
-        if (validInputSlot < 0 || qualityFossils == null || qualityFossils.isEmpty()) return false;
+        if (validInputSlot < 0 || qualityFossil == null) return false;
 
         ItemStack input = itemHandler.getStackInSlot(validInputSlot);
-        if (input.isEmpty() || !input.is(PrehistoricTags.Items.FOSSILS) || input.has(PrehistoricDataComponents.FOSSIL_QUALITY)) {
-            return false;
-        }
+        if (input.isEmpty() || !input.is(PrehistoricTags.Items.FOSSILS) || input.has(PrehistoricDataComponents.FOSSIL_QUALITY)) return false;
 
         ItemStack magnifier = itemHandler.getStackInSlot(9);
         if (!magnifier.is(PrehistoricItems.MAGNIFYING_GLASS)) return false;
+        if (magnifier.getMaxDamage() - magnifier.getDamageValue() < 1) return false;
 
-        if (magnifier.getMaxDamage() - magnifier.getDamageValue() < qualityFossils.size()) return false;
-
-        List<ItemStack> sim = new ArrayList<>();
-        for (int i = 10; i < 19; i++) {
-            sim.add(itemHandler.getStackInSlot(i).copy());
-        }
-
-        for (ItemStack out : qualityFossils) {
-            boolean placed = false;
-
-            for (ItemStack slot : sim) {
-                if (!slot.isEmpty() && ItemStack.isSameItemSameComponents(slot, out) && slot.getCount() < slot.getMaxStackSize()) {
-                    slot.grow(1);
-                    placed = true;
-                    break;
-                }
-            }
-
-            if (!placed) {
-                for (int k = 0; k < sim.size(); k++) {
-                    if (sim.get(k).isEmpty()) {
-                        sim.set(k, out.copy());
-                        placed = true;
-                        break;
-                    }
-                }
-            }
-
-            if (!placed) {
-                return false;
-            }
-        }
-
-        return true;
+        return canOutput(qualityFossil);
     }
 
-    private void craftOutputs() {
-        itemHandler.extractItem(validInputSlot, qualityFossils.size(), false);
+    private boolean canOutput(ItemStack output) {
+        for (int i = 10; i < 19; i++) {
+            ItemStack outputCopy = itemHandler.insertItem(i, output.copy(), true);
+            if (outputCopy.isEmpty()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void craft() {
+        itemHandler.extractItem(validInputSlot, 1, false);
         ItemStack magnifier = itemHandler.getStackInSlot(9);
 
-        for (ItemStack out : qualityFossils) {
-            if (magnifier.isDamageableItem()) {
-                magnifier.setDamageValue(magnifier.getDamageValue() + 1);
+        if (magnifier.isDamageableItem()) {
+            magnifier.setDamageValue(magnifier.getDamageValue() + 1);
 
-                if (magnifier.getDamageValue() >= magnifier.getMaxDamage()) {
-                    itemHandler.setStackInSlot(9, ItemStack.EMPTY);
-                }
+            if (magnifier.getDamageValue() >= magnifier.getMaxDamage()) {
+                itemHandler.setStackInSlot(9, ItemStack.EMPTY);
             }
+        }
 
-            boolean done = false;
-            for (int i = 10; i < 19 && !done; i++) {
-                ItemStack slot = itemHandler.getStackInSlot(i);
-                if (!slot.isEmpty() && ItemStack.isSameItemSameComponents(slot, out) && slot.getCount() < slot.getMaxStackSize()) {
-                    slot.grow(1);
-                    done = true;
-                }
-            }
-
-            if (!done) {
-                for (int i = 10; i < 19; i++) {
-                    if (itemHandler.getStackInSlot(i).isEmpty()) {
-                        itemHandler.insertItem(i, out.copy(), false);
-                        break;
-                    }
-                }
+        for (int i = 10; i < 19; i++) {
+            ItemStack leftover = itemHandler.insertItem(i, qualityFossil.copy(), false);
+            if (leftover.isEmpty()) {
+                break;
             }
         }
     }
 
     private void reset() {
         progress = 0;
-        qualityFossils = null;
+        qualityFossil = null;
         validInputSlot = -1;
-        lastInputCount = -1;
     }
 }
