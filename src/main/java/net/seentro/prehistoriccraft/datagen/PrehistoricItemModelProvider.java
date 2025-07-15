@@ -42,6 +42,7 @@ public class PrehistoricItemModelProvider extends ItemModelProvider {
         basicItem(PrehistoricItems.GYPSUM_POWDER.get());
         basicItem(PrehistoricItems.PLASTER_POWDER.get());
         basicItem(PrehistoricItems.PLASTER_WRAP.get());
+
         /* AMBER */
         basicItem(PrehistoricItems.AMBER.get());
     }

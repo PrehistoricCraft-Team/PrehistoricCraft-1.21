@@ -23,6 +23,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
 import net.seentro.prehistoriccraft.common.screen.tissueExtractionChamber.TissueExtractionChamberMenu;
@@ -69,6 +70,7 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
     protected final ContainerData data;
     private int progress = 0;
     private int maxProgress = 120;
+    private boolean working;
 
     public TissueExtractionChamberBlockEntity(BlockPos pos, BlockState blockState) {
         super(PrehistoricBlockEntityTypes.TISSUE_EXTRACTION_CHAMBER_BLOCK_ENTITY.get(), pos, blockState);
@@ -105,6 +107,7 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
         tag.put("inventory", itemHandler.serializeNBT(registries));
         tag.putInt("progress", progress);
         tag.putInt("maxProgress", maxProgress);
+        tag.putBoolean("working", working);
     }
 
     @Override
@@ -113,6 +116,7 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
         itemHandler.deserializeNBT(registries, tag.getCompound("inventory"));
         progress = tag.getInt("progress");
         maxProgress = tag.getInt("maxProgress");
+        working = tag.getBoolean("working");
     }
 
     @Override
@@ -137,15 +141,24 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
 
     /* GECKOLIB */
 
-    private final RawAnimation START_TO_WORK = RawAnimation.begin().then("work_start", Animation.LoopType.PLAY_ONCE).thenLoop("working");
-    private final RawAnimation STOP_WORKING = RawAnimation.begin().then("work_end", Animation.LoopType.PLAY_ONCE);
+    private final RawAnimation START_WORKING = RawAnimation.begin().thenPlay("work_start").thenPlay("working");
+    private final RawAnimation STOP_WORKING = RawAnimation.begin().thenPlay("work_end");
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "controller", 0, this::progressPredicate));
+        controllers.add(new AnimationController<>(this, "controller", 0, this::progressPredicate)
+                .triggerableAnim("start_working", START_WORKING).triggerableAnim("stop_working", STOP_WORKING));
     }
 
     private <T extends GeoAnimatable> PlayState progressPredicate(AnimationState<T> state) {
+        /*PrehistoricCraft.LOGGER.info("Predicate: {}", working);
+        if (working) {
+            state.getController().setAnimation(START_WORKING);
+        } else if (!working) {
+            state.getController().setAnimation(STOP_WORKING);
+        }
+         */
+
         return PlayState.CONTINUE;
     }
 
@@ -173,18 +186,23 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
     private int validInputSlot = -1;
 
     public void tick(Level level, BlockPos pos, BlockState state) {
+        PrehistoricCraft.LOGGER.info("Tick: {}", working);
         if (!tryInitializeRecipe()) {
-            fullReset(level, pos, state);
+            reset();
+            setChanged(level, pos, state);
             return;
         }
 
         if (hasRecipe()) {
+            working = true;
+            this.triggerAnim("controller", "start_working");
             progress++;
             setChanged(level, pos, state);
 
             if (progress >= maxProgress) {
                 craft();
-                reset();
+                progress = 0;
+                validInputSlot = -1;
             }
         } else {
             reset();
@@ -238,11 +256,11 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
     private void reset() {
         progress = 0;
         validInputSlot = -1;
-    }
 
-    private void fullReset(Level level, BlockPos pos, BlockState state) {
-        progress = 0;
-        validInputSlot = -1;
-        setChanged(level, pos, state);
+        if (working) {
+            this.stopTriggeredAnim("controller", "start_working");
+            this.triggerAnim("controller", "stop_working");
+            working = false;
+        }
     }
 }

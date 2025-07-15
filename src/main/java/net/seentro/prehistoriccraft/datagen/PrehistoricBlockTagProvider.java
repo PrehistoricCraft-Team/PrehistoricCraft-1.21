@@ -19,9 +19,7 @@ public class PrehistoricBlockTagProvider extends BlockTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
-        /* MINEABLES */
         tag(BlockTags.MINEABLE_WITH_PICKAXE)
-                /* FOSSILIFEROUS STONE */
                 .add(PrehistoricBlocks.CAMBRIAN_FOSSILIFEROUS_STONE.get())
                 .add(PrehistoricBlocks.CARBONIFEROUS_FOSSILIFEROUS_STONE.get())
                 .add(PrehistoricBlocks.CRETACEOUS_FOSSILIFEROUS_STONE.get())
@@ -34,7 +32,7 @@ public class PrehistoricBlockTagProvider extends BlockTagsProvider {
                 .add(PrehistoricBlocks.PRECAMBRIAN_FOSSILIFEROUS_STONE.get())
                 .add(PrehistoricBlocks.SILURIAN_FOSSILIFEROUS_STONE.get())
                 .add(PrehistoricBlocks.TRIASSIC_FOSSILIFEROUS_STONE.get())
-                /* PLASTERED FOSSILIFEROUS STONE */
+
                 .add(PrehistoricBlocks.PLASTERED_CAMBRIAN_FOSSILIFEROUS_STONE.get())
                 .add(PrehistoricBlocks.PLASTERED_CARBONIFEROUS_FOSSILIFEROUS_STONE.get())
                 .add(PrehistoricBlocks.PLASTERED_CRETACEOUS_FOSSILIFEROUS_STONE.get())
@@ -48,12 +46,15 @@ public class PrehistoricBlockTagProvider extends BlockTagsProvider {
                 .add(PrehistoricBlocks.PLASTERED_SILURIAN_FOSSILIFEROUS_STONE.get())
                 .add(PrehistoricBlocks.PLASTERED_TRIASSIC_FOSSILIFEROUS_STONE.get())
 
-                /* GYPSUM */
                 .add(PrehistoricBlocks.GYPSUM_CRYSTAL.get())
-                .add(PrehistoricBlocks.GYPSUM_CRYSTAL_BLOCK.get());
+                .add(PrehistoricBlocks.GYPSUM_CRYSTAL_BLOCK.get())
+
+                .add(PrehistoricBlocks.TISSUE_EXTRACTION_CHAMBER.get());
+
+        tag(BlockTags.MINEABLE_WITH_AXE)
+                .add(PrehistoricBlocks.FOSSIL_ANALYSIS_TABLE.get());
 
         tag(BlockTags.NEEDS_IRON_TOOL)
-                /* FOSSILIFEROUS STONE */
                 .add(PrehistoricBlocks.CAMBRIAN_FOSSILIFEROUS_STONE.get())
                 .add(PrehistoricBlocks.CARBONIFEROUS_FOSSILIFEROUS_STONE.get())
                 .add(PrehistoricBlocks.CRETACEOUS_FOSSILIFEROUS_STONE.get())
@@ -65,22 +66,17 @@ public class PrehistoricBlockTagProvider extends BlockTagsProvider {
                 .add(PrehistoricBlocks.PERMIAN_FOSSILIFEROUS_STONE.get())
                 .add(PrehistoricBlocks.PRECAMBRIAN_FOSSILIFEROUS_STONE.get())
                 .add(PrehistoricBlocks.SILURIAN_FOSSILIFEROUS_STONE.get())
-                .add(PrehistoricBlocks.TRIASSIC_FOSSILIFEROUS_STONE.get());
+                .add(PrehistoricBlocks.TRIASSIC_FOSSILIFEROUS_STONE.get())
 
-
-
-
-
-
-
+                .add(PrehistoricBlocks.TISSUE_EXTRACTION_CHAMBER.get());
 
         tag(BlockTags.NEEDS_STONE_TOOL)
                 .add(PrehistoricBlocks.GYPSUM_CRYSTAL.get())
-                .add(PrehistoricBlocks.GYPSUM_CRYSTAL_BLOCK.get());
+                .add(PrehistoricBlocks.GYPSUM_CRYSTAL_BLOCK.get())
 
-        /* OTHER */
+                .add(PrehistoricBlocks.FOSSIL_ANALYSIS_TABLE.get());
+
         tag(BlockTags.DIRT)
                 .add(PrehistoricBlocks.CRACKED_DIRT.get());
-
     }
 }

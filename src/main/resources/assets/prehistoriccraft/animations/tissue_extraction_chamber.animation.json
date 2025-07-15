@@ -27,7 +27,7 @@
 			}
 		},
 		"work_end": {
-			"loop": true,
+			"loop": "hold_on_last_frame",
 			"animation_length": 0.7083,
 			"bones": {
 				"Solvent": {
@@ -118,7 +118,6 @@
 			}
 		},
 		"work_start": {
-			"loop": "hold_on_last_frame",
 			"animation_length": 0.75,
 			"bones": {
 				"Solvent": {
@@ -174,7 +173,6 @@
 			"animation_length": 2
 		},
 		"closing": {
-			"loop": "hold_on_last_frame",
 			"animation_length": 0.5,
 			"bones": {
 				"BottomSlot": {
@@ -228,7 +226,6 @@
 			}
 		},
 		"opening": {
-			"loop": "hold_on_last_frame",
 			"animation_length": 0.5,
 			"bones": {
 				"BottomSlot": {
