@@ -34,12 +34,17 @@ public class TissueExtractionChamberScreen extends AbstractContainerScreen<Tissu
         guiGraphics.blit(GUI, x, y, 0, 0, 184, 195);
 
         renderProgressArrow(guiGraphics, x, y);
+        renderBliceBar(guiGraphics, x, y);
     }
 
     private void renderProgressArrow(GuiGraphics guiGraphics, int x, int y) {
         if (menu.isCrafting()) {
             guiGraphics.blit(GUI, x + 55, y + 43, 183, 195, 72, menu.getScaledArrowProgress());
         }
+    }
+
+    private void renderBliceBar(GuiGraphics guiGraphics, int x, int y) {
+        guiGraphics.blit(GUI, x + 106, y + 10, 183, 211, menu.getScaledBliceFill(), 9);
     }
 
     @Override

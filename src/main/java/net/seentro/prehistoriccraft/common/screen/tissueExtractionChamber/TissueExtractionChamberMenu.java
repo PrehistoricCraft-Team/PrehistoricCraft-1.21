@@ -19,7 +19,7 @@ public class TissueExtractionChamberMenu extends AbstractContainerMenu {
     private final ContainerData data;
 
     public TissueExtractionChamberMenu(int containerId, Inventory inv, FriendlyByteBuf byteBuf) {
-        this(containerId, inv, inv.player.level().getBlockEntity(byteBuf.readBlockPos()), new SimpleContainerData(2));
+        this(containerId, inv, inv.player.level().getBlockEntity(byteBuf.readBlockPos()), new SimpleContainerData(4));
     }
 
     public TissueExtractionChamberMenu(int containerId, Inventory inv, BlockEntity blockEntity, ContainerData data) {
@@ -61,6 +61,14 @@ public class TissueExtractionChamberMenu extends AbstractContainerMenu {
         int arrowPixelSize = 16;
 
         return maxProgress != 0 && progress != 0 ? progress * arrowPixelSize / maxProgress : 0;
+    }
+
+    public int getScaledBliceFill() {
+        int blice = data.get(2);
+        int maxBlice = data.get(3);
+        int bliceBarLength = 65;
+
+        return maxBlice != 0 ? blice * bliceBarLength / maxBlice : 0;
     }
 
     //CREDIT FOR THIS PART GOES TO: diesieben07

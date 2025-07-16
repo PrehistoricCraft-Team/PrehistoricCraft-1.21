@@ -1,5 +1,6 @@
 package net.seentro.prehistoriccraft.common.block.tissueExtractionChamber;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -23,6 +24,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
@@ -70,6 +72,8 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
     protected final ContainerData data;
     private int progress = 0;
     private int maxProgress = 120;
+    private int blice = 0;
+    private int maxBlice = 2750;
     private boolean working;
 
     public TissueExtractionChamberBlockEntity(BlockPos pos, BlockState blockState) {
@@ -80,6 +84,8 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
                 return switch (index) {
                     case 0 -> TissueExtractionChamberBlockEntity.this.progress;
                     case 1 -> TissueExtractionChamberBlockEntity.this.maxProgress;
+                    case 2 -> TissueExtractionChamberBlockEntity.this.blice;
+                    case 3 -> TissueExtractionChamberBlockEntity.this.maxBlice;
                     default -> 0;
                 };
             }
@@ -89,12 +95,14 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
                 switch (index) {
                     case 0 -> TissueExtractionChamberBlockEntity.this.progress = value;
                     case 1 -> TissueExtractionChamberBlockEntity.this.maxProgress = value;
+                    case 2 -> TissueExtractionChamberBlockEntity.this.blice = value;
+                    case 3 -> TissueExtractionChamberBlockEntity.this.maxBlice = value;
                 }
             }
 
             @Override
             public int getCount() {
-                return 2;
+                return 4;
             }
         };
     }
@@ -107,6 +115,8 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
         tag.put("inventory", itemHandler.serializeNBT(registries));
         tag.putInt("progress", progress);
         tag.putInt("maxProgress", maxProgress);
+        tag.putInt("blice", blice);
+        tag.putInt("maxBlice", maxBlice);
         tag.putBoolean("working", working);
     }
 
@@ -116,6 +126,8 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
         itemHandler.deserializeNBT(registries, tag.getCompound("inventory"));
         progress = tag.getInt("progress");
         maxProgress = tag.getInt("maxProgress");
+        blice = tag.getInt("blice");
+        maxBlice = tag.getInt("maxBlice");
         working = tag.getBoolean("working");
     }
 
@@ -186,7 +198,13 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
     private int validInputSlot = -1;
 
     public void tick(Level level, BlockPos pos, BlockState state) {
-        PrehistoricCraft.LOGGER.info("Tick: {}", working);
+        if (itemHandler.getStackInSlot(0).is(Items.HONEY_BOTTLE)) {
+            if (maxBlice - blice >= 250) {
+                itemHandler.extractItem(0, 1, false);
+                blice = blice + 250;
+            }
+        }
+
         if (!tryInitializeRecipe()) {
             reset();
             setChanged(level, pos, state);
@@ -226,6 +244,7 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
         if (validInputSlot < 0) return false;
         if (input.isEmpty() || !input.is(Items.STICK)) return false;
 
+        if (blice < 45) return false;
         //Todo: Check if it has the required fluid
 
         return canOutput(new ItemStack(Items.COBBLESTONE));
@@ -243,6 +262,7 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
 
     private void craft() {
         itemHandler.extractItem(validInputSlot, 1, false);
+        blice = blice - 45;
         ItemStack toOutput = new ItemStack(Items.COBBLESTONE);
 
         for (int i = 5; i < 21; i++) {
