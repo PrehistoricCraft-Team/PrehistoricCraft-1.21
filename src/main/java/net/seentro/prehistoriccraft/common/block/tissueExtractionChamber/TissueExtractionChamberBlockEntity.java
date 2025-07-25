@@ -9,6 +9,7 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
@@ -19,8 +20,10 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -29,9 +32,14 @@ import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
 import net.seentro.prehistoriccraft.common.screen.tissueExtractionChamber.TissueExtractionChamberMenu;
+import net.seentro.prehistoriccraft.core.enums.FossilTypes;
 import net.seentro.prehistoriccraft.core.enums.TissueExtractionChamberStates;
+import net.seentro.prehistoriccraft.core.enums.species.*;
+import net.seentro.prehistoriccraft.core.systems.WeightedRandom;
 import net.seentro.prehistoriccraft.registry.PrehistoricBlockEntityTypes;
+import net.seentro.prehistoriccraft.registry.PrehistoricDataComponents;
 import net.seentro.prehistoriccraft.registry.PrehistoricItems;
+import net.seentro.prehistoriccraft.registry.PrehistoricTags;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
@@ -42,9 +50,9 @@ import software.bernie.geckolib.constant.dataticket.DataTicket;
 import software.bernie.geckolib.util.GeckoLibUtil;
 import software.bernie.geckolib.util.RenderUtil;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.function.Supplier;
 
 import static net.seentro.prehistoriccraft.core.enums.TissueExtractionChamberStates.*;
 
@@ -75,6 +83,22 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
     private int blice = 0;
     private int maxBlice = 2750;
     private boolean working;
+    private static final Map<String, Supplier<Enum<?>[]>> PERIOD_TO_SPECIES = new HashMap<>();
+
+    static {
+        PERIOD_TO_SPECIES.put("cambrian", CambrianSpecies::values);
+        PERIOD_TO_SPECIES.put("carboniferous", CarboniferousSpecies::values);
+        PERIOD_TO_SPECIES.put("cretaceous", CretaceousSpecies::values);
+        PERIOD_TO_SPECIES.put("devonian", DevonianSpecies::values);
+        PERIOD_TO_SPECIES.put("jurassic", JurassicSpecies::values);
+        PERIOD_TO_SPECIES.put("neogene", NeogeneSpecies::values);
+        PERIOD_TO_SPECIES.put("ordovician", OrdovicianSpecies::values);
+        PERIOD_TO_SPECIES.put("paleogene", PaleogeneSpecies::values);
+        PERIOD_TO_SPECIES.put("permian", PermianSpecies::values);
+        PERIOD_TO_SPECIES.put("precambrian", PrecambrianSpecies::values);
+        PERIOD_TO_SPECIES.put("silurian", SilurianSpecies::values);
+        PERIOD_TO_SPECIES.put("triassic", TriassicSpecies::values);
+    }
 
     public TissueExtractionChamberBlockEntity(BlockPos pos, BlockState blockState) {
         super(PrehistoricBlockEntityTypes.TISSUE_EXTRACTION_CHAMBER_BLOCK_ENTITY.get(), pos, blockState);
@@ -195,6 +219,7 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
         Containers.dropContents(this.level, this.worldPosition, container);
     }
 
+    private @Nullable ItemStack result;
     private int validInputSlot = -1;
 
     public void tick(Level level, BlockPos pos, BlockState state) {
@@ -230,8 +255,28 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
     private boolean tryInitializeRecipe() {
         for (int i = 1; i < 5; i++) {
             ItemStack input = itemHandler.getStackInSlot(i);
-            if (input.is(Items.STICK)) {
+            if (input.is(PrehistoricTags.Items.FOSSILS) && input.has(PrehistoricDataComponents.FOSSIL_QUALITY) || input.is(PrehistoricTags.Items.AMBER)) {
+                if (validInputSlot == i && result != null) return true;
+
                 validInputSlot = i;
+                Random random = new Random();
+
+                if (random.nextBoolean()) {
+                    WeightedRandom<ItemLike> waste = new WeightedRandom<>();
+                    waste.addItem(Blocks.GRAVEL, 35);
+                    waste.addItem(Items.FLINT, 35);
+                    waste.addItem(Items.BONE, 20);
+                    waste.addItem(Blocks.BONE_BLOCK, 10);
+
+                    result = new ItemStack(waste.getRandomItem());
+                    return true;
+                }
+
+                String period = getFossilPeriod(input);
+                ItemStack singleInput = input.copy();
+                singleInput.setCount(1);
+                result = getSpeciesFromPeriod(period, singleInput);
+
                 return true;
             }
         }
@@ -242,12 +287,12 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
         ItemStack input = itemHandler.getStackInSlot(validInputSlot);
 
         if (validInputSlot < 0) return false;
-        if (input.isEmpty() || !input.is(Items.STICK)) return false;
+        if (input.isEmpty() || !(input.is(PrehistoricTags.Items.FOSSILS) && input.has(PrehistoricDataComponents.FOSSIL_QUALITY))
+                && !input.is(PrehistoricTags.Items.AMBER)) return false;
 
         if (blice < 45) return false;
-        //Todo: Check if it has the required fluid
 
-        return canOutput(new ItemStack(Items.COBBLESTONE));
+        return canOutput(result);
     }
 
     private boolean canOutput(ItemStack output) {
@@ -263,10 +308,9 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
     private void craft() {
         itemHandler.extractItem(validInputSlot, 1, false);
         blice = blice - 45;
-        ItemStack toOutput = new ItemStack(Items.COBBLESTONE);
 
         for (int i = 5; i < 21; i++) {
-            ItemStack leftover = itemHandler.insertItem(i, toOutput.copy(), false);
+            ItemStack leftover = itemHandler.insertItem(i, result.copy(), false);
             if (leftover.isEmpty()) {
                 break;
             }
@@ -282,5 +326,37 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
             this.triggerAnim("controller", "stop_working");
             working = false;
         }
+    }
+
+    private String getFossilPeriod(ItemStack fossil) {
+        if (fossil.is(PrehistoricItems.CAMBRIAN_FOSSIL)) return "cambrian";
+        if (fossil.is(PrehistoricItems.CARBONIFEROUS_FOSSIL)) return "carboniferous";
+        if (fossil.is(PrehistoricItems.CRETACEOUS_FOSSIL)) return "cretaceous";
+        if (fossil.is(PrehistoricItems.DEVONIAN_FOSSIL)) return "devonian";
+        if (fossil.is(PrehistoricItems.JURASSIC_FOSSIL)) return "jurassic";
+        if (fossil.is(PrehistoricItems.NEOGENE_FOSSIL)) return "neogene";
+        if (fossil.is(PrehistoricItems.ORDOVICIAN_FOSSIL)) return "ordovician";
+        if (fossil.is(PrehistoricItems.PALEOGENE_FOSSIL)) return "paleogene";
+        if (fossil.is(PrehistoricItems.PERMIAN_FOSSIL)) return "permian";
+        if (fossil.is(PrehistoricItems.PRECAMBRIAN_FOSSIL)) return "precambrian";
+        if (fossil.is(PrehistoricItems.SILURIAN_FOSSIL)) return "silurian";
+        if (fossil.is(PrehistoricItems.TRIASSIC_FOSSIL)) return "triassic";
+        return "unknown";
+    }
+
+    private ItemStack getSpeciesFromPeriod(String period, ItemStack fossil) {
+        Random random = new Random();
+
+        Supplier<Enum<?>[]> supplier = PERIOD_TO_SPECIES.get(period);
+        if (supplier != null) {
+            Enum<?>[] species = supplier.get();
+            String speciesName = ((StringRepresentable) species[random.nextInt(species.length)]).getSerializedName();
+            fossil.set(PrehistoricDataComponents.FOSSIL_SPECIES, speciesName);
+        } else {
+            fossil.set(PrehistoricDataComponents.FOSSIL_SPECIES, "Unknown");
+            PrehistoricCraft.LOGGER.error("Couldn't find the fossil period!");
+        }
+
+        return fossil;
     }
 }

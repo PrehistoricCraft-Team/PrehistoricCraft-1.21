@@ -5,11 +5,11 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
 
 public class PrehistoricTags {
-
     public static class Blocks {
         public static final TagKey<Block> PLASTERED_FOSSIL =
                 BlockTags.create(ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID, "plastered_fossils"));
@@ -18,7 +18,7 @@ public class PrehistoricTags {
     public static class Items {
         public static final TagKey<Item> FOSSILS =
                 ItemTags.create(ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID, "fossils"));
-        public static final  TagKey<Item> AMBER =
+        public static final TagKey<Item> AMBER =
                 ItemTags.create(ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID, "amber"));
     }
 }

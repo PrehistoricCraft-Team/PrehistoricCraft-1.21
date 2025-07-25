@@ -19,6 +19,9 @@ public class PrehistoricDataComponents {
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<String>> FOSSIL_QUALITY = register("fossil_quality",
             builder -> builder.persistent(Codec.STRING));
 
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<String>> FOSSIL_SPECIES = register("fossil_species",
+            builder -> builder.persistent(Codec.STRING));
+
     private static <T>DeferredHolder<DataComponentType<?>, DataComponentType<T>> register(String name, UnaryOperator<DataComponentType.Builder<T>> builderOperator) {
         return DATA_COMPONENT_TYPES.register(name, () -> builderOperator.apply(DataComponentType.builder()).build());
     }

@@ -165,10 +165,10 @@ public class FossilAnalysisTableBlockEntity extends BlockEntity implements MenuP
 
                 ItemStack singleInput = input.copy();
                 singleInput.setCount(1);
-                ItemStack test = assignRandomQuality(singleInput);
+                ItemStack selectedQuality = assignRandomQuality(singleInput);
 
                 validInputSlot = i;
-                qualityFossil = test;
+                qualityFossil = selectedQuality;
 
                 return true;
             }
