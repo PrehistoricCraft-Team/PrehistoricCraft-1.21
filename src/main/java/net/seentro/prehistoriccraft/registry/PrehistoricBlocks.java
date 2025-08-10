@@ -18,7 +18,7 @@ import net.seentro.prehistoriccraft.common.block.tissueExtractionChamber.TissueE
 
 import java.util.function.Supplier;
 
-import static net.seentro.prehistoriccraft.core.enums.FossilTypes.*;
+import static net.seentro.prehistoriccraft.core.FossilTypes.*;
 
 public class PrehistoricBlocks {
     public static final DeferredRegister.Blocks BLOCKS =

@@ -8,6 +8,7 @@ import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
 import net.seentro.prehistoriccraft.common.item.FossilItem;
+import net.seentro.prehistoriccraft.common.item.TissueItem;
 
 
 public class PrehistoricItems {
@@ -28,6 +29,11 @@ public class PrehistoricItems {
     public static final DeferredItem<Item> SILURIAN_FOSSIL = ITEMS.register("silurian_fossil", () -> new FossilItem(new Item.Properties()));
     public static final DeferredItem<Item> TRIASSIC_FOSSIL   = ITEMS.register("triassic_fossil", () -> new FossilItem(new Item.Properties()));
 
+    /* TISSUE */
+    public static final DeferredItem<Item> ANIMAL_TISSUE = ITEMS.register("animal_tissue", () -> new TissueItem(new Item.Properties()));
+    public static final DeferredItem<Item> PLANT_TISSUE = ITEMS.register("plant_tissue", () -> new TissueItem(new Item.Properties()));
+    public static final DeferredItem<Item> BLOOD_CELL = ITEMS.register("blood_cell", () -> new TissueItem(new Item.Properties()));
+
     /* TOOLS */
     public static final DeferredItem<Item> EXCAVATOR_PICKAXE   = ITEMS.register("excavator_pickaxe", () -> new PickaxeItem(Tiers.IRON, new Item.Properties()));
     public static final DeferredItem<Item> MAGNIFYING_GLASS   = ITEMS.register("magnifying_glass", () -> new Item(new Item.Properties().durability(192)));
@@ -36,6 +42,7 @@ public class PrehistoricItems {
     public static final DeferredItem<Item> GYPSUM_POWDER = ITEMS.register("gypsum_powder", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> PLASTER_POWDER = ITEMS.register("plaster_powder", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> PLASTER_WRAP = ITEMS.register("plaster_wrap", () -> new Item(new Item.Properties()));
+
     /* AMBER */
     public static final DeferredItem<Item> AMBER = ITEMS.register("amber", () -> new Item(new Item.Properties()));
 

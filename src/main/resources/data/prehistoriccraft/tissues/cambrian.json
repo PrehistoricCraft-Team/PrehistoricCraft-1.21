@@ -1,0 +1,17 @@
+{
+  "time_period": "cambrian",
+  "tissues": [
+    {
+      "display_name": "horsie",
+      "tissue_type": "animal"
+    },
+    {
+      "display_name": "phtotosynthesis",
+      "tissue_type": "plant"
+    },
+    {
+      "display_name": "theLastOfUs",
+      "tissue_type": "fungus"
+    }
+  ]
+}

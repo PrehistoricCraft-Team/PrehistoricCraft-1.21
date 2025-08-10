@@ -1,4 +1,4 @@
-package net.seentro.prehistoriccraft.core.enums;
+package net.seentro.prehistoriccraft.common.block.tissueExtractionChamber.enums;
 
 public enum TissueExtractionChamberStates {
     IDLE,

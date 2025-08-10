@@ -1,15 +1,14 @@
 package net.seentro.prehistoriccraft.common.block.tissueExtractionChamber;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.util.StringRepresentable;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
@@ -25,16 +24,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
-import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 import net.neoforged.neoforge.items.ItemStackHandler;
-import net.seentro.prehistoriccraft.PrehistoricCraft;
 import net.seentro.prehistoriccraft.common.screen.tissueExtractionChamber.TissueExtractionChamberMenu;
-import net.seentro.prehistoriccraft.core.enums.FossilTypes;
-import net.seentro.prehistoriccraft.core.enums.TissueExtractionChamberStates;
-import net.seentro.prehistoriccraft.core.enums.species.*;
+import net.seentro.prehistoriccraft.core.json.tissueExtractionChamber.TimePeriodTissueLoader;
+import net.seentro.prehistoriccraft.core.json.tissueExtractionChamber.TissueEntry;
 import net.seentro.prehistoriccraft.core.systems.WeightedRandom;
 import net.seentro.prehistoriccraft.registry.PrehistoricBlockEntityTypes;
 import net.seentro.prehistoriccraft.registry.PrehistoricDataComponents;
@@ -45,16 +39,12 @@ import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.*;
-import software.bernie.geckolib.constant.DataTickets;
-import software.bernie.geckolib.constant.dataticket.DataTicket;
 import software.bernie.geckolib.util.GeckoLibUtil;
 import software.bernie.geckolib.util.RenderUtil;
 
 import java.util.*;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Supplier;
-
-import static net.seentro.prehistoriccraft.core.enums.TissueExtractionChamberStates.*;
 
 public class TissueExtractionChamberBlockEntity extends BlockEntity implements MenuProvider, GeoBlockEntity {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
@@ -79,26 +69,10 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
 
     protected final ContainerData data;
     private int progress = 0;
-    private int maxProgress = 120;
+    private int maxProgress = 250;
     private int blice = 0;
     private int maxBlice = 2750;
     private boolean working;
-    private static final Map<String, Supplier<Enum<?>[]>> PERIOD_TO_SPECIES = new HashMap<>();
-
-    static {
-        PERIOD_TO_SPECIES.put("cambrian", CambrianSpecies::values);
-        PERIOD_TO_SPECIES.put("carboniferous", CarboniferousSpecies::values);
-        PERIOD_TO_SPECIES.put("cretaceous", CretaceousSpecies::values);
-        PERIOD_TO_SPECIES.put("devonian", DevonianSpecies::values);
-        PERIOD_TO_SPECIES.put("jurassic", JurassicSpecies::values);
-        PERIOD_TO_SPECIES.put("neogene", NeogeneSpecies::values);
-        PERIOD_TO_SPECIES.put("ordovician", OrdovicianSpecies::values);
-        PERIOD_TO_SPECIES.put("paleogene", PaleogeneSpecies::values);
-        PERIOD_TO_SPECIES.put("permian", PermianSpecies::values);
-        PERIOD_TO_SPECIES.put("precambrian", PrecambrianSpecies::values);
-        PERIOD_TO_SPECIES.put("silurian", SilurianSpecies::values);
-        PERIOD_TO_SPECIES.put("triassic", TriassicSpecies::values);
-    }
 
     public TissueExtractionChamberBlockEntity(BlockPos pos, BlockState blockState) {
         super(PrehistoricBlockEntityTypes.TISSUE_EXTRACTION_CHAMBER_BLOCK_ENTITY.get(), pos, blockState);
@@ -260,8 +234,9 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
 
                 validInputSlot = i;
                 Random random = new Random();
+                double wasteChance = getWasteChance(input.getOrDefault(PrehistoricDataComponents.FOSSIL_QUALITY, "error"));
 
-                if (random.nextBoolean()) {
+                if (random.nextDouble() >= wasteChance) {
                     WeightedRandom<ItemLike> waste = new WeightedRandom<>();
                     waste.addItem(Blocks.GRAVEL, 35);
                     waste.addItem(Items.FLINT, 35);
@@ -272,10 +247,20 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
                     return true;
                 }
 
-                String period = getFossilPeriod(input);
-                ItemStack singleInput = input.copy();
-                singleInput.setCount(1);
-                result = getSpeciesFromPeriod(period, singleInput);
+                String timePeriod = getTimePeriod(input);
+
+                getRandomTissue(timePeriod, random).ifPresent(tissueEntry -> {
+                    Item tissueType = null;
+                    switch (tissueEntry.tissueType()) {
+                        case "animal" -> tissueType = PrehistoricItems.ANIMAL_TISSUE.get();
+                        case "plant" -> tissueType = PrehistoricItems.PLANT_TISSUE.get();
+                        case "fungus" -> tissueType = PrehistoricItems.BLOOD_CELL.get();
+                    }
+
+                    ItemStack toOutput = new ItemStack(tissueType);
+                    toOutput.set(PrehistoricDataComponents.FOSSIL_SPECIES, tissueEntry.name());
+                    this.result = toOutput;
+                });
 
                 return true;
             }
@@ -317,6 +302,27 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
         }
     }
 
+    private double getWasteChance(String quality) {
+        return switch (quality) {
+            case "damaged" -> 0.10;
+            case "incomplete" -> 0.15;
+            case "fragmentary" -> 0.25;
+            case "decent" -> 0.45;
+            case "rich" -> 0.75;
+            default -> throw new IllegalStateException("Unexpected value: " + quality);
+        };
+    }
+
+    private String getTimePeriod(ItemStack fossil) {
+        ResourceLocation id = BuiltInRegistries.ITEM.getKey(fossil.getItem());
+
+        String path = id.getPath();
+        if (path.endsWith("_fossil")) {
+            return path.substring(0, path.length() - "_fossil".length());
+        }
+        return path;
+    }
+
     private void reset() {
         progress = 0;
         validInputSlot = -1;
@@ -328,35 +334,9 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
         }
     }
 
-    private String getFossilPeriod(ItemStack fossil) {
-        if (fossil.is(PrehistoricItems.CAMBRIAN_FOSSIL)) return "cambrian";
-        if (fossil.is(PrehistoricItems.CARBONIFEROUS_FOSSIL)) return "carboniferous";
-        if (fossil.is(PrehistoricItems.CRETACEOUS_FOSSIL)) return "cretaceous";
-        if (fossil.is(PrehistoricItems.DEVONIAN_FOSSIL)) return "devonian";
-        if (fossil.is(PrehistoricItems.JURASSIC_FOSSIL)) return "jurassic";
-        if (fossil.is(PrehistoricItems.NEOGENE_FOSSIL)) return "neogene";
-        if (fossil.is(PrehistoricItems.ORDOVICIAN_FOSSIL)) return "ordovician";
-        if (fossil.is(PrehistoricItems.PALEOGENE_FOSSIL)) return "paleogene";
-        if (fossil.is(PrehistoricItems.PERMIAN_FOSSIL)) return "permian";
-        if (fossil.is(PrehistoricItems.PRECAMBRIAN_FOSSIL)) return "precambrian";
-        if (fossil.is(PrehistoricItems.SILURIAN_FOSSIL)) return "silurian";
-        if (fossil.is(PrehistoricItems.TRIASSIC_FOSSIL)) return "triassic";
-        return "unknown";
-    }
-
-    private ItemStack getSpeciesFromPeriod(String period, ItemStack fossil) {
-        Random random = new Random();
-
-        Supplier<Enum<?>[]> supplier = PERIOD_TO_SPECIES.get(period);
-        if (supplier != null) {
-            Enum<?>[] species = supplier.get();
-            String speciesName = ((StringRepresentable) species[random.nextInt(species.length)]).getSerializedName();
-            fossil.set(PrehistoricDataComponents.FOSSIL_SPECIES, speciesName);
-        } else {
-            fossil.set(PrehistoricDataComponents.FOSSIL_SPECIES, "Unknown");
-            PrehistoricCraft.LOGGER.error("Couldn't find the fossil period!");
-        }
-
-        return fossil;
+    public Optional<TissueEntry> getRandomTissue(String timePeriod, Random random) {
+        List<TissueEntry> pool = TimePeriodTissueLoader.TISSUE_POOLS.getOrDefault(timePeriod.toLowerCase(), List.of());
+        if (pool.isEmpty()) return Optional.empty();
+        return Optional.of(pool.get(random.nextInt(pool.size())));
     }
 }

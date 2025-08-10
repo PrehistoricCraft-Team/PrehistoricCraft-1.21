@@ -3,9 +3,11 @@ package net.seentro.prehistoriccraft;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import net.seentro.prehistoriccraft.common.block.tissueExtractionChamber.geckolib.TissueExtractionChamberRenderer;
 import net.seentro.prehistoriccraft.common.screen.fossilAnalysisTable.FossilAnalysisTableScreen;
 import net.seentro.prehistoriccraft.common.screen.tissueExtractionChamber.TissueExtractionChamberScreen;
+import net.seentro.prehistoriccraft.core.json.tissueExtractionChamber.TimePeriodTissueLoader;
 import net.seentro.prehistoriccraft.registry.*;
 import org.slf4j.Logger;
 
@@ -45,6 +47,11 @@ public class PrehistoricCraft {
 
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event) {
+    }
+
+    @SubscribeEvent
+    public void onAddReloadListener(AddReloadListenerEvent event) {
+        event.addListener(new TimePeriodTissueLoader());
     }
 
     @EventBusSubscriber(modid = MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
