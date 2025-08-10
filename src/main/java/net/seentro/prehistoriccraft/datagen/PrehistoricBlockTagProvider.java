@@ -81,5 +81,19 @@ public class PrehistoricBlockTagProvider extends BlockTagsProvider {
 
         tag(BlockTags.DIRT)
                 .add(PrehistoricBlocks.CRACKED_DIRT.get());
+
+        tag(PrehistoricTags.Blocks.PLASTERED_FOSSIL)
+                .add(PrehistoricBlocks.PLASTERED_CAMBRIAN_FOSSILIFEROUS_STONE.get())
+                .add(PrehistoricBlocks.PLASTERED_CARBONIFEROUS_FOSSILIFEROUS_STONE.get())
+                .add(PrehistoricBlocks.PLASTERED_CRETACEOUS_FOSSILIFEROUS_STONE.get())
+                .add(PrehistoricBlocks.PLASTERED_DEVONIAN_FOSSILIFEROUS_STONE.get())
+                .add(PrehistoricBlocks.PLASTERED_JURASSIC_FOSSILIFEROUS_STONE.get())
+                .add(PrehistoricBlocks.PLASTERED_NEOGENE_FOSSILIFEROUS_STONE.get())
+                .add(PrehistoricBlocks.PLASTERED_ORDOVICIAN_FOSSILIFEROUS_STONE.get())
+                .add(PrehistoricBlocks.PLASTERED_PALEOGENE_FOSSILIFEROUS_STONE.get())
+                .add(PrehistoricBlocks.PLASTERED_PERMIAN_FOSSILIFEROUS_STONE.get())
+                .add(PrehistoricBlocks.PLASTERED_PRECAMBRIAN_FOSSILIFEROUS_STONE.get())
+                .add(PrehistoricBlocks.PLASTERED_SILURIAN_FOSSILIFEROUS_STONE.get())
+                .add(PrehistoricBlocks.PLASTERED_TRIASSIC_FOSSILIFEROUS_STONE.get());
     }
 }

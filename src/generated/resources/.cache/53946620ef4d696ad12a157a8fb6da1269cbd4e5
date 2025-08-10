@@ -1,6 +1,7 @@
-// 1.21.1	2025-07-16T18:16:08.445837	Tags for minecraft:block mod id prehistoriccraft
+// 1.21.1	2025-08-10T17:02:30.8651297	Tags for minecraft:block mod id prehistoriccraft
 4a241edf276a5567a70457f7458bca703f30aa19 data/minecraft/tags/block/dirt.json
 31b5076a7c95cbcba0533ce49e4c05d429e48f66 data/minecraft/tags/block/mineable/axe.json
 856ef1671c1ae2b07c457c93a74a1c5630174431 data/minecraft/tags/block/mineable/pickaxe.json
 b010fbc73dd1f4bda4c99ef490e1804a74b36506 data/minecraft/tags/block/needs_iron_tool.json
 d3846e5de8338006aeb3a2a4806de3f4f6a7aecd data/minecraft/tags/block/needs_stone_tool.json
+63ce29deb8c988186ba4f96bba4a0c06c7edde3c data/prehistoriccraft/tags/block/plastered_fossils.json

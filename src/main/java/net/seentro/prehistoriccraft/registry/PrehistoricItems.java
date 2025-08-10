@@ -7,6 +7,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
+import net.seentro.prehistoriccraft.common.item.ExcavatorPickaxeItem;
 import net.seentro.prehistoriccraft.common.item.FossilItem;
 import net.seentro.prehistoriccraft.common.item.TissueItem;
 
@@ -35,7 +36,7 @@ public class PrehistoricItems {
     public static final DeferredItem<Item> BLOOD_CELL = ITEMS.register("blood_cell", () -> new TissueItem(new Item.Properties()));
 
     /* TOOLS */
-    public static final DeferredItem<Item> EXCAVATOR_PICKAXE   = ITEMS.register("excavator_pickaxe", () -> new PickaxeItem(Tiers.IRON, new Item.Properties()));
+    public static final DeferredItem<Item> EXCAVATOR_PICKAXE   = ITEMS.register("excavator_pickaxe", () -> new ExcavatorPickaxeItem(new Item.Properties().durability(250)));
     public static final DeferredItem<Item> MAGNIFYING_GLASS   = ITEMS.register("magnifying_glass", () -> new Item(new Item.Properties().durability(192)));
 
     /* GYPSUM & PLASTER */
