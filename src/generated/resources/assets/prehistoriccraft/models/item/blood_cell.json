@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "prehistoriccraft:item/blood_cell"
+  }
+}

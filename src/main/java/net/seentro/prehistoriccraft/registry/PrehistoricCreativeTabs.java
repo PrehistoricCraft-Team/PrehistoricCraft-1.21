@@ -16,8 +16,8 @@ public class PrehistoricCreativeTabs {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
             DeferredRegister.create(Registries.CREATIVE_MODE_TAB, PrehistoricCraft.MODID);
 
-    public static final Supplier<CreativeModeTab> FOSSIL_TAB = CREATIVE_MODE_TABS.register("fossil_tab", () -> CreativeModeTab.builder().icon(() -> new ItemStack(PrehistoricBlocks.CAMBRIAN_FOSSILIFEROUS_STONE.get()))
-            .title(Component.translatable("tabs.prehistoriccraft.fossil_tab")).displayItems((displayParameters, output) -> {
+    public static final Supplier<CreativeModeTab> PREHISTORICCRAFT_FOSSILS = CREATIVE_MODE_TABS.register("prehistoriccraft_fossils", () -> CreativeModeTab.builder().icon(() -> new ItemStack(PrehistoricBlocks.CAMBRIAN_FOSSILIFEROUS_STONE.get()))
+            .title(Component.translatable("tabs.prehistoriccraft.prehistoriccraft_fossils")).displayItems((displayParameters, output) -> {
                 output.accept(PrehistoricBlocks.CAMBRIAN_FOSSILIFEROUS_STONE.get());
                 output.accept(PrehistoricBlocks.CARBONIFEROUS_FOSSILIFEROUS_STONE.get());
                 output.accept(PrehistoricBlocks.CRETACEOUS_FOSSILIFEROUS_STONE.get());
@@ -54,6 +54,18 @@ public class PrehistoricCreativeTabs {
                 output.accept(PrehistoricItems.PRECAMBRIAN_FOSSIL.get());
                 output.accept(PrehistoricItems.SILURIAN_FOSSIL.get());
                 output.accept(PrehistoricItems.TRIASSIC_FOSSIL.get());
+                output.accept(PrehistoricItems.PRECAMBRIAN_FOSSIL_SAMPLE.get());
+                output.accept(PrehistoricItems.CAMBRIAN_FOSSIL_SAMPLE.get());
+                output.accept(PrehistoricItems.ORDOVICIAN_FOSSIL_SAMPLE.get());
+                output.accept(PrehistoricItems.SILURIAN_FOSSIL_SAMPLE.get());
+                output.accept(PrehistoricItems.DEVONIAN_FOSSIL_SAMPLE.get());
+                output.accept(PrehistoricItems.CARBONIFEROUS_FOSSIL_SAMPLE.get());
+                output.accept(PrehistoricItems.PERMIAN_FOSSIL_SAMPLE.get());
+                output.accept(PrehistoricItems.TRIASSIC_FOSSIL_SAMPLE.get());
+                output.accept(PrehistoricItems.JURASSIC_FOSSIL_SAMPLE.get());
+                output.accept(PrehistoricItems.CRETACEOUS_FOSSIL_SAMPLE.get());
+                output.accept(PrehistoricItems.PALEOGENE_FOSSIL_SAMPLE.get());
+                output.accept(PrehistoricItems.NEOGENE_FOSSIL_SAMPLE.get());
 
             }).build());
 
@@ -72,12 +84,26 @@ public class PrehistoricCreativeTabs {
                 output.accept(PrehistoricItems.GYPSUM_POWDER.get());
                 output.accept(PrehistoricItems.PLASTER_POWDER.get());
                 output.accept(PrehistoricItems.AMBER.get());
+                output.accept(PrehistoricItems.ANIMAL_TISSUE.get());
+                output.accept(PrehistoricItems.PLANT_TISSUE.get());
+                output.accept(PrehistoricItems.BLOOD_CELL.get());
+                output.accept(PrehistoricItems.OBSIDIAN_PLATE.get());
+                output.accept(PrehistoricItems.REINFORCED_OBSIDIAN_PLATE.get());
+                output.accept(PrehistoricItems.GOLD_PIPE.get());
+                output.accept(PrehistoricItems.BLOB_OF_BLICE.get());
+                output.accept(PrehistoricItems.BOTTLE_OF_BLICE.get());
+                output.accept(PrehistoricItems.VIAL.get());
+                output.accept(PrehistoricItems.JAR.get());
+                output.accept(PrehistoricItems.SYRINGE.get());
+                output.accept(PrehistoricItems.SULFUR.get());
             }).build());
 
     public static final Supplier<CreativeModeTab> PREHISTORICCRAFT_BLOCKS = CREATIVE_MODE_TABS.register("prehistoriccraft_blocks", () -> CreativeModeTab.builder().icon(() -> new ItemStack(PrehistoricBlocks.AMBER_BLOCK.get()))
             .title(Component.translatable("tabs.prehistoriccraft.prehistoriccraft_blocks")).displayItems((displayParameters, output) -> {
                 output.accept(PrehistoricBlocks.AMBER_BLOCK.get());
                 output.accept(PrehistoricBlocks.DEEPSLATE_AMBER_ORE.get());
+                output.accept(PrehistoricBlocks.SULFUR_ORE.get());
+                output.accept(PrehistoricBlocks.DEEPSLATE_SULFUR_ORE.get());
             }).build());
 
     public static final Supplier<CreativeModeTab> PREHISTORICCRAFT_FUNCTIONAL_BLOCKS = CREATIVE_MODE_TABS.register("prehistoriccraft_functional_blocks", () -> CreativeModeTab.builder().icon(() -> new ItemStack(PrehistoricBlocks.FOSSIL_ANALYSIS_TABLE.get()))

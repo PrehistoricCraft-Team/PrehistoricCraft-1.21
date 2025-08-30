@@ -45,5 +45,13 @@ public class PrehistoricItemModelProvider extends ItemModelProvider {
 
         /* AMBER */
         basicItem(PrehistoricItems.AMBER.get());
+
+        /* TISSUES */
+        basicItem(PrehistoricItems.ANIMAL_TISSUE.get());
+        basicItem(PrehistoricItems.PLANT_TISSUE.get());
+        basicItem(PrehistoricItems.BLOOD_CELL.get());
+
+        /* CRAFTING MATERIALS */
+
     }
 }

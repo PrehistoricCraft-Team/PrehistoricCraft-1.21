@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "all": "prehistoriccraft:block/mesozoic_fossil_sample"
+  }
+}

@@ -38,6 +38,19 @@
   "item.prehistoriccraft.silurian_fossil": "Silurian Fossil",
   "item.prehistoriccraft.triassic_fossil": "Triassic Fossil",
 
+  "item.prehistoriccraft.cambrian_fossil_sample": "Cambrian Fossil Sample",
+  "item.prehistoriccraft.carboniferous_fossil_sample": "Carboniferous Fossil Sample",
+  "item.prehistoriccraft.cretaceous_fossil_sample": "Cretaceous Fossil Sample",
+  "item.prehistoriccraft.devonian_fossil_sample": "Devonian Fossil Sample",
+  "item.prehistoriccraft.jurassic_fossil_sample": "Jurassic Fossil Sample",
+  "item.prehistoriccraft.neogene_fossil_sample": "Neogene Fossil Sample",
+  "item.prehistoriccraft.ordovician_fossil_sample": "Ordovician Fossil Sample",
+  "item.prehistoriccraft.paleogene_fossil_sample": "Paleogene Fossil Sample",
+  "item.prehistoriccraft.permian_fossil_sample": "Permian Fossil Sample",
+  "item.prehistoriccraft.precambrian_fossil_sample": "Precambrian Fossil Sample",
+  "item.prehistoriccraft.silurian_fossil_sample": "Silurian Fossil Sample",
+  "item.prehistoriccraft.triassic_fossil_sample": "Triassic Fossil Sample",
+
   "item.prehistoriccraft.excavator_pickaxe": "Excavator Pickaxe",
   "item.prehistoriccraft.magnifying_glass": "Magnifying Glass",
 
@@ -50,16 +63,34 @@
   "block.prehistoriccraft.fossil_analysis_table": "Fossil Analysis Table",
   "block.prehistoriccraft.tissue_extraction_chamber": "Tissue Extraction Chamber",
 
+  "item.prehistoriccraft.animal_tissue": "Animal Soft Tissue",
+  "item.prehistoriccraft.plant_tissue": "Plant Soft Tissue",
+  "item.prehistoriccraft.blood_cell": "Ancient Blood Cells",
+
+
   "block.prehistoriccraft.amber_block": "Amber Block",
   "block.prehistoriccraft.deepslate_amber_ore": "Deepslate Amber Ore",
   "item.prehistoriccraft.amber": "Amber",
 
+  "block.prehistoriccraft.sulfur_ore": "Sulfur Ore",
+  "block.prehistoriccraft.deepslate_sulfur_ore": "Deepslate Sulfur Ore",
+
 
   "block.prehistoriccraft.cracked_dirt": "Cracked Dirt",
 
-  "tabs.prehistoriccraft.fossil_tab": "Fossil Tab",
-  "tabs.prehistoriccraft.prehistoriccraft_natural_blocks": "PrehistoricCraft Natural Blocks",
-  "tabs.prehistoriccraft.prehistoriccraft_items": "PrehistoricCraft Items",
-  "tabs.prehistoriccraft.prehistoriccraft_blocks": "PrehistoricCraft Blocks",
-  "tabs.prehistoriccraft.prehistoriccraft_functional_blocks": "PrehistoricCraft Functional Blocks"
+  "tabs.prehistoriccraft.fossil_tab": "PC Fossils",
+  "tabs.prehistoriccraft.prehistoriccraft_natural_blocks": "PC Natural Blocks",
+  "tabs.prehistoriccraft.prehistoriccraft_items": "PC Items",
+  "tabs.prehistoriccraft.prehistoriccraft_blocks": "PC Blocks",
+  "tabs.prehistoriccraft.prehistoriccraft_functional_blocks": "PC Functional Blocks",
+
+  "item.prehistoriccraft.obsidian_plate": "Obsidian Plate",
+  "item.prehistoriccraft.reinforced_obsidian_plate": "Reinforced Obsidian Plate",
+  "item.prehistoriccraft.gold_pipe": "Gold Pipe",
+  "item.prehistoriccraft.blob_of_blice": "Blob of Blice",
+  "item.prehistoriccraft.bottle_of_blice": "Bottle of Blice",
+  "item.prehistoriccraft.jar": "Glass Jar",
+  "item.prehistoriccraft.vial": "Glass Vial",
+  "item.prehistoriccraft.syringe": "Glass Syringe",
+  "item.prehistoriccraft.sulfur": "Sulfur"
 }

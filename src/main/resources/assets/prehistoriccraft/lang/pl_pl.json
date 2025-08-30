@@ -38,6 +38,19 @@
   "item.prehistoriccraft.silurian_fossil": "Sylurska Skamielina",
   "item.prehistoriccraft.triassic_fossil": "Triasowa Skamielina",
 
+  "item.prehistoriccraft.cambrian_fossil_sample": "Próbka Kambryjskiej Skamieliny",
+  "item.prehistoriccraft.carboniferous_fossil_sample": "Próbka Karbońskiej Skamieliny",
+  "item.prehistoriccraft.cretaceous_fossil_sample": "Próbka Kredowej Skamieliny",
+  "item.prehistoriccraft.devonian_fossil_sample": "Próbka Dewońskiej Skamieliny",
+  "item.prehistoriccraft.jurassic_fossil_sample": "Próbka Jurajskiej Skamieliny",
+  "item.prehistoriccraft.neogene_fossil_sample": "Próbka Neogenicznej Skamieliny",
+  "item.prehistoriccraft.ordovician_fossil_sample": "Próbka Ordowickiej Skamieliny",
+  "item.prehistoriccraft.paleogene_fossil_sample": "Próbka Paleogenicznej Skamieliny",
+  "item.prehistoriccraft.permian_fossil_sample": "Próbka Permskiej Skamieliny",
+  "item.prehistoriccraft.precambrian_fossil_sample": "Próbka Prekambryjskiej Skamieliny",
+  "item.prehistoriccraft.silurian_fossil_sample": " Próbka Sylurskiej Skamieliny",
+  "item.prehistoriccraft.triassic_fossil_sample": "Próbka Triasowej Skamieliny",
+
   "item.prehistoriccraft.excavator_pickaxe": "Młotek Geologiczny",
   "item.prehistoriccraft.magnifying_glass": "Lupa",
 
@@ -48,16 +61,34 @@
   "item.prehistoriccraft.plaster_wrap": "Rolka Gipsu Paryskiego",
 
   "block.prehistoriccraft.fossil_analysis_table": "Stół do analizy skamielin",
+  "block.prehistoriccraft.tissue_extraction_chamber": "Komora do ekstrakcji tkanek",
+
+  "item.prehistoriccraft.animal_tissue": "Tkanka Miękka Zwierzęcia",
+  "item.prehistoriccraft.plant_tissue": "Tkanka Miękka Rośliny",
+  "item.prehistoriccraft.blood_cell": "Starożytne Skamieniałe Krwinki",
 
   "block.prehistoriccraft.amber_block": "Blok Bursztynu",
   "block.prehistoriccraft.deepslate_amber_ore": "Łupkowa Ruda Bursztynu",
   "item.prehistoriccraft.amber": "Bursztyn",
 
+  "block.prehistoriccraft.sulfur_ore": "Ruda Siarki",
+  "block.prehistoriccraft.deepslate_sulfur_ore": "Łupkowa Ruda Siarki",
+
   "block.prehistoriccraft.cracked_dirt": "Popękana Ziemia",
 
-  "tabs.prehistoriccraft.fossil_tab": "Skamieliny",
-  "tabs.prehistoriccraft.prehistoriccraft_natural_blocks": "PrehistoricCraft Bloki Naturalne",
-  "tabs.prehistoriccraft.prehistoriccraft_items": "PrehistoricCraft Rzeczy",
-  "tabs.prehistoriccraft.prehistoriccraft_blocks": "PrehistoricCraft Bloki",
-  "tabs.prehistoriccraft.prehistoriccraft_functional_blocks": "PrehistoricCraft Bloki z funkcją"
+  "tabs.prehistoriccraft.fossil_tab": "PC Skamieliny",
+  "tabs.prehistoriccraft.prehistoriccraft_natural_blocks": "PC Bloki Naturalne",
+  "tabs.prehistoriccraft.prehistoriccraft_items": "PC Rzeczy",
+  "tabs.prehistoriccraft.prehistoriccraft_blocks": "PC Bloki",
+  "tabs.prehistoriccraft.prehistoriccraft_functional_blocks": "PC Bloki z funkcją",
+
+  "item.prehistoriccraft.obsidian_plate": "Płyta z Obsydianiu",
+  "item.prehistoriccraft.reinforced_obsidian_plate": "Wzmocniona Płyta z Obsydianu",
+  "item.prehistoriccraft.gold_pipe": "Złota Pała",
+  "item.prehistoriccraft.blob_of_blice": "Kleks z Lodopłomu",
+  "item.prehistoriccraft.bottle_of_blice": "Butelka Lodopłomu",
+  "item.prehistoriccraft.jar": "Szklany Słoik",
+  "item.prehistoriccraft.vial": "Szklana Fiolka",
+  "item.prehistoriccraft.syringe": "Szklana Strzykawka",
+  "item.prehistoriccraft.sulfur": "Siarka"
 }

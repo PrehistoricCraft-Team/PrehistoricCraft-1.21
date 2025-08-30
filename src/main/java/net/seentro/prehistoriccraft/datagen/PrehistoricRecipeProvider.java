@@ -9,6 +9,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.conditions.IConditionBuilder;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
@@ -36,6 +37,95 @@ public class PrehistoricRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_paper", has(Items.PAPER))
                 .unlockedBy("has_water_bucket", has(Items.WATER_BUCKET))
                 .unlockedBy("has_plaster_powder", has(PrehistoricItems.PLASTER_POWDER))
+                .save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, PrehistoricItems.REINFORCED_OBSIDIAN_PLATE.get(),1)
+                .pattern("III")
+                .pattern("COC")
+                .pattern("III")
+                .define('I', Items.IRON_INGOT)
+                .define('C', Items.COPPER_INGOT)
+                .define('O', PrehistoricItems.OBSIDIAN_PLATE)
+                .unlockedBy("has_iron", has(Items.IRON_INGOT))
+                .unlockedBy("has_copper", has(Items.COPPER_INGOT))
+                .unlockedBy("has_obsidian_plate", has(PrehistoricItems.OBSIDIAN_PLATE))
+                .save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, PrehistoricItems.OBSIDIAN_PLATE.get(),2)
+                .pattern("OOO")
+                .pattern(" L ")
+                .pattern("OOO")
+                .define('O', Items.OBSIDIAN)
+                .define('L', Items.LAVA_BUCKET)
+                .unlockedBy("has_obsidian", has(Items.OBSIDIAN))
+                .unlockedBy("has_lava", has(Items.LAVA_BUCKET))
+                .save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, PrehistoricItems.BLOB_OF_BLICE.get(),4)
+                .pattern("BPB")
+                .pattern("PWP")
+                .pattern("BPB")
+                .define('P', Blocks.PACKED_ICE)
+                .define('B', Items.BLAZE_POWDER)
+                .define('W', Items.WATER_BUCKET)
+                .unlockedBy("has_packed_ice", has(Blocks.PACKED_ICE))
+                .unlockedBy("has_blaze_powder", has(Items.BLAZE_POWDER))
+                .unlockedBy("has_water_buucket", has(Items.WATER_BUCKET))
+                .save(recipeOutput, "prehistoriccraft:blice_from_bucket");
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, PrehistoricItems.GOLD_PIPE.get(),1)
+                .pattern("NGN")
+                .pattern(" G ")
+                .pattern("NGN")
+                .define('G', Items.GOLD_INGOT)
+                .define('N', Items.GOLD_NUGGET)
+                .unlockedBy("has_gold", has(Items.GOLD_INGOT))
+                .unlockedBy("has_gold_nugger", has(Items.GOLD_NUGGET))
+                .save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, PrehistoricItems.VIAL.get(),1)
+                .pattern("   ")
+                .pattern(" G ")
+                .pattern(" G ")
+                .define('G', Items.GLASS_PANE)
+                .unlockedBy("has_glass", has(Blocks.GLASS_PANE))
+                .save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, PrehistoricItems.SYRINGE.get(),1)
+                .pattern(" I ")
+                .pattern(" G ")
+                .pattern("III")
+                .define('G', Items.GLASS_PANE)
+                .define('I', Items.IRON_NUGGET)
+                .unlockedBy("has_glass", has(Blocks.GLASS_PANE))
+                .unlockedBy("has_glass", has(Items.IRON_NUGGET))
+                .save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, PrehistoricItems.JAR.get(),3)
+                .pattern("WWW")
+                .pattern("G G")
+                .pattern("GGG")
+                .define('G', Items.GLASS_PANE)
+                .define('W', ItemTags.WOODEN_SLABS)
+                .unlockedBy("has_glass", has(Blocks.GLASS_PANE))
+                .unlockedBy("has_wooden_slabs", has(ItemTags.WOODEN_SLABS))
+                .save(recipeOutput);
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, PrehistoricItems.BLOB_OF_BLICE, 1)
+                .requires(Items.BLAZE_POWDER)
+                .requires(Blocks.PACKED_ICE)
+                .requires(Items.POTION)
+                .unlockedBy("has_blaze_powder", has(Items.BLAZE_POWDER))
+                .unlockedBy("has_packed_ice", has(Blocks.PACKED_ICE))
+                .unlockedBy("has_potion", has(Items.POTION))
+                .save(recipeOutput, "prehistoriccraft:blice_from_bottle");
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, PrehistoricItems.BOTTLE_OF_BLICE, 1)
+                .requires(PrehistoricItems.BLOB_OF_BLICE)
+                .requires(PrehistoricItems.BLOB_OF_BLICE)
+                .requires(Items.POTION)
+                .unlockedBy("has_blob_of_blice", has(PrehistoricItems.BLOB_OF_BLICE))
+                .unlockedBy("has_potion", has(Items.POTION))
                 .save(recipeOutput);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, PrehistoricBlocks.FOSSIL_ANALYSIS_TABLE.get())
