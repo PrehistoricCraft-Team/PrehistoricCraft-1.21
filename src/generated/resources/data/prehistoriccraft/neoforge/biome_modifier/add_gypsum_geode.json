@@ -1,0 +1,9 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": [
+    "minecraft:plains",
+    "minecraft:savanna"
+  ],
+  "features": "prehistoriccraft:gypsum_geode_placed",
+  "step": "underground_structures"
+}

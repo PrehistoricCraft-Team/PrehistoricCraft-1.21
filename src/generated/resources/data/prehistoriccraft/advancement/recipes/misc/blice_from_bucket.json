@@ -1,0 +1,54 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_blaze_powder": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:blaze_powder"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_packed_ice": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:packed_ice"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "prehistoriccraft:blice_from_bucket"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_water_buucket": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:water_bucket"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_packed_ice",
+      "has_blaze_powder",
+      "has_water_buucket"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "prehistoriccraft:blice_from_bucket"
+    ]
+  }
+}

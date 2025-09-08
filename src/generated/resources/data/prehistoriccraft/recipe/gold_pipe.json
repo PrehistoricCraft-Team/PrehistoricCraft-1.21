@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "item": "minecraft:gold_ingot"
+    },
+    "N": {
+      "item": "minecraft:gold_nugget"
+    }
+  },
+  "pattern": [
+    "NGN",
+    " G ",
+    "NGN"
+  ],
+  "result": {
+    "count": 1,
+    "id": "prehistoriccraft:gold_pipe"
+  }
+}

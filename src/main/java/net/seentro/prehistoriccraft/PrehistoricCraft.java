@@ -1,7 +1,6 @@
 package net.seentro.prehistoriccraft;
 
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
-import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import net.seentro.prehistoriccraft.common.block.tissueExtractionChamber.geckolib.TissueExtractionChamberRenderer;

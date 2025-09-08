@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "minecraft:blaze_powder"
+    },
+    "P": {
+      "item": "minecraft:packed_ice"
+    },
+    "W": {
+      "item": "minecraft:water_bucket"
+    }
+  },
+  "pattern": [
+    "BPB",
+    "PWP",
+    "BPB"
+  ],
+  "result": {
+    "count": 4,
+    "id": "prehistoriccraft:blob_of_blice"
+  }
+}

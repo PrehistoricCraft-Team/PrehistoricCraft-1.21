@@ -11,7 +11,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "prehistoriccraft:sulfur"
+          "name": "prehistoriccraft:sulfur_ore"
         }
       ],
       "rolls": 1.0

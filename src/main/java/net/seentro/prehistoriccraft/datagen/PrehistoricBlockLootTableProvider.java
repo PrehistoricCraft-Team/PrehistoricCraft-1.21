@@ -63,9 +63,11 @@ public class PrehistoricBlockLootTableProvider extends BlockLootSubProvider {
         dropFossilToolMatching(PrehistoricBlocks.PLASTERED_SILURIAN_FOSSILIFEROUS_STONE.get(), PrehistoricItems.SILURIAN_FOSSIL.get());
         dropFossilToolMatching(PrehistoricBlocks.PLASTERED_TRIASSIC_FOSSILIFEROUS_STONE.get(), PrehistoricItems.TRIASSIC_FOSSIL.get());
 
-        /* AMBER */
+        /* ORES */
         dropSelf(PrehistoricBlocks.AMBER_BLOCK.get());
         dropOther(PrehistoricBlocks.DEEPSLATE_AMBER_ORE.get(), PrehistoricItems.AMBER.get());
+        dropSelf(PrehistoricBlocks.SULFUR_ORE.get());
+        dropOther(PrehistoricBlocks.DEEPSLATE_SULFUR_ORE.get(), PrehistoricItems.SULFUR.get());
 
         /* BLOCK ENTITIES */
         dropSelf(PrehistoricBlocks.FOSSIL_ANALYSIS_TABLE.get());

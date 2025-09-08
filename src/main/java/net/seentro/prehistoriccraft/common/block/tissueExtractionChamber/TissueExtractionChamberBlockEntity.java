@@ -156,19 +156,12 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "controller", 0, this::progressPredicate)
+        controllers.add(new AnimationController<>(this, "controller", 0, this::predicate)
                 .triggerableAnim("start_working", START_WORKING).triggerableAnim("stop_working", STOP_WORKING));
     }
 
-    private <T extends GeoAnimatable> PlayState progressPredicate(AnimationState<T> state) {
-        /*PrehistoricCraft.LOGGER.info("Predicate: {}", working);
-        if (working) {
-            state.getController().setAnimation(START_WORKING);
-        } else if (!working) {
-            state.getController().setAnimation(STOP_WORKING);
-        }
-         */
-
+    private PlayState predicate(AnimationState<TissueExtractionChamberBlockEntity> tissueExtractionChamberBlockEntityAnimationState) {
+        // I don't know how to make an animation controller without a predicate
         return PlayState.CONTINUE;
     }
 

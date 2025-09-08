@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "item": "minecraft:glass_pane"
+    },
+    "I": {
+      "item": "minecraft:iron_nugget"
+    }
+  },
+  "pattern": [
+    " I ",
+    " G ",
+    "III"
+  ],
+  "result": {
+    "count": 1,
+    "id": "prehistoriccraft:syringe"
+  }
+}

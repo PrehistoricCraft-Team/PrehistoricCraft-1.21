@@ -1,0 +1,26 @@
+{
+  "structures": [
+    {
+      "structure": "prehistoriccraft:gypsum_underground_1",
+      "weight": 1
+    },
+    {
+      "structure": "prehistoriccraft:gypsum_underground_2",
+      "weight": 1
+    },
+    {
+      "structure": "prehistoriccraft:gypsum_underground_3",
+      "weight": 1
+    },
+    {
+      "structure": "prehistoriccraft:gypsum_underground_4",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 1473659260,
+    "spacing": 5,
+    "separation": 2
+  }
+}
