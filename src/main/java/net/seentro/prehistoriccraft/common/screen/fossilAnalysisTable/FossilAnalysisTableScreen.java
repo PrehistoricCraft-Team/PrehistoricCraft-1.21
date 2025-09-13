@@ -20,8 +20,8 @@ public class FossilAnalysisTableScreen extends AbstractContainerScreen<FossilAna
     @Override
     protected void init() {
         super.init();
-        this.inventoryLabelX = 1000;
-        this.titleLabelX = 1000;
+        this.inventoryLabelX = 10000;
+        this.titleLabelX = 10000;
     }
 
     @Override

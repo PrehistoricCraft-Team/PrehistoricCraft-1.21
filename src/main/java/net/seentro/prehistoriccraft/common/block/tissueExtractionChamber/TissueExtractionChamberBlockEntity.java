@@ -151,18 +151,21 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
 
     /* GECKOLIB */
 
+    // PROCESSING
     private final RawAnimation START_WORKING = RawAnimation.begin().thenPlay("work_start").thenPlay("working");
     private final RawAnimation STOP_WORKING = RawAnimation.begin().thenPlay("work_end");
 
+    //
+    private final RawAnimation OPEN_DRAWERS = RawAnimation.begin().thenPlay("opening");
+    private final RawAnimation CLOSE_DRAWERS = RawAnimation.begin().thenPlay("closing");
+
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "controller", 0, this::predicate)
+        controllers.add(new AnimationController<>(this, "processingController", state -> PlayState.STOP)
                 .triggerableAnim("start_working", START_WORKING).triggerableAnim("stop_working", STOP_WORKING));
-    }
 
-    private PlayState predicate(AnimationState<TissueExtractionChamberBlockEntity> tissueExtractionChamberBlockEntityAnimationState) {
-        // I don't know how to make an animation controller without a predicate
-        return PlayState.CONTINUE;
+        controllers.add(new AnimationController<>(this, "drawerController", state -> PlayState.STOP)
+                .triggerableAnim("open_drawers", OPEN_DRAWERS).triggerableAnim("close_drawers", CLOSE_DRAWERS));
     }
 
     @Override
@@ -190,7 +193,7 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
     private int validInputSlot = -1;
 
     public void tick(Level level, BlockPos pos, BlockState state) {
-        if (itemHandler.getStackInSlot(0).is(Items.HONEY_BOTTLE)) {
+        if (itemHandler.getStackInSlot(0).is(PrehistoricItems.BOTTLE_OF_BLICE)) {
             if (maxBlice - blice >= 250) {
                 itemHandler.extractItem(0, 1, false);
                 blice = blice + 250;
@@ -205,7 +208,7 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
 
         if (hasRecipe()) {
             working = true;
-            this.triggerAnim("controller", "start_working");
+            this.triggerAnim("processingController", "start_working");
             progress++;
             setChanged(level, pos, state);
 
@@ -321,8 +324,8 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
         validInputSlot = -1;
 
         if (working) {
-            this.stopTriggeredAnim("controller", "start_working");
-            this.triggerAnim("controller", "stop_working");
+            this.stopTriggeredAnim("processingController", "start_working");
+            this.triggerAnim("processingController", "stop_working");
             working = false;
         }
     }

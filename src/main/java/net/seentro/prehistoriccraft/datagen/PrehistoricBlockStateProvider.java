@@ -47,16 +47,18 @@ public class PrehistoricBlockStateProvider extends BlockStateProvider {
         blockWithItemPlasterTexture(PrehistoricBlocks.PLASTERED_SILURIAN_FOSSILIFEROUS_STONE);
         blockWithItemPlasterTexture(PrehistoricBlocks.PLASTERED_TRIASSIC_FOSSILIFEROUS_STONE);
 
-        /* AMBER */
+        /* ORES */
         blockWithItem(PrehistoricBlocks.AMBER_BLOCK);
         blockWithItem(PrehistoricBlocks.DEEPSLATE_AMBER_ORE);
+        blockWithItem(PrehistoricBlocks.SULFUR_ORE);
+        blockWithItem(PrehistoricBlocks.DEEPSLATE_SULFUR_ORE);
 
         /* GYPSUM */
         itemModels().withExistingParent(PrehistoricBlocks.GYPSUM_CRYSTAL.getId().getPath(), mcLoc("item/generated"))
                         .texture("layer0", modLoc("block/" + PrehistoricBlocks.GYPSUM_CRYSTAL.getId().getPath()));
         blockWithItem(PrehistoricBlocks.GYPSUM_CRYSTAL_BLOCK);
 
-        /* DIRT */
+        /* NATURE */
         blockWithItem(PrehistoricBlocks.CRACKED_DIRT);
     }
 

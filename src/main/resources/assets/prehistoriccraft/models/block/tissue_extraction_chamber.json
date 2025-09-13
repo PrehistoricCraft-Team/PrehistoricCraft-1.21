@@ -1,3 +1,6 @@
 {
-  "parent": "prehistoriccraft:block/tissue_extraction_chamber"
+  "parent": "prehistoriccraft:block/tissue_extraction_chamber",
+  "textures": {
+    "particle": "minecraft:block/polished_blackstone"
+  }
 }

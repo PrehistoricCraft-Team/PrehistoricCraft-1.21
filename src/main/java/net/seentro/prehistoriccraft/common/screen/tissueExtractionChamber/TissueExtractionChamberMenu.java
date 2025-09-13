@@ -119,6 +119,11 @@ public class TissueExtractionChamberMenu extends AbstractContainerMenu {
         return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()), player, PrehistoricBlocks.TISSUE_EXTRACTION_CHAMBER.get());
     }
 
+    @Override
+    public void removed(Player player) {
+        blockEntity.triggerAnim("drawerController", "close_drawers");
+        super.removed(player);
+    }
 
     private void addPlayerInventory(Inventory playerInventory) {
         for (int row = 0; row < 3; ++row) {
