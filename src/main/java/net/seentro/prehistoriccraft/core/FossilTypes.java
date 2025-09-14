@@ -1,16 +1,16 @@
 package net.seentro.prehistoriccraft.core;
 
 public enum FossilTypes {
-    CAMBRIAN,
-    CARBONIFEROUS,
-    CRETACEOUS,
-    DEVONIAN,
-    JURASSIC,
-    NEOGENE,
-    ORDOVICIAN,
-    PALEOGENE,
-    PERMIAN,
     PRECAMBRIAN,
+    CAMBRIAN,
+    ORDOVICIAN,
     SILURIAN,
-    TRIASSIC
+    DEVONIAN,
+    CARBONIFEROUS,
+    PERMIAN,
+    TRIASSIC,
+    JURASSIC,
+    CRETACEOUS,
+    PALEOGENE,
+    NEOGENE,
 }

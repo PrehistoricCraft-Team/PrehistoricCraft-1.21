@@ -7,7 +7,7 @@
   "automatic_culling": false,
   "textures": {
     "texture0": "prehistoriccraft:block/fossil_analysis_table",
-    "particle": "prehistoriccraft:block/fossil_analysis_table"
+    "particle": "minecraft:block/oak_planks"
   },
   "parent": "block/block"
 }

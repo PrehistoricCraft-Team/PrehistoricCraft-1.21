@@ -2,6 +2,7 @@ package net.seentro.prehistoriccraft.common.block.tissueExtractionChamber;
 
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -79,12 +80,12 @@ public class TissueExtractionChamberBlock extends BaseEntityBlock {
 
     public TissueExtractionChamberBlock(Properties properties) {
         super(properties);
+        this.registerDefaultState(this.getStateDefinition().any().setValue(FACING, Direction.NORTH));
     }
 
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return switch(state.getValue(FACING)) {
-            case NORTH -> BOUNDING_BOX_NORTH;
             case SOUTH -> BOUNDING_BOX_SOUTH;
             case WEST -> BOUNDING_BOX_EAST;
             case EAST -> BOUNDING_BOX_WEST;
@@ -138,7 +139,7 @@ public class TissueExtractionChamberBlock extends BaseEntityBlock {
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         if (!level.isClientSide()) {
             if (level.getBlockEntity(pos) instanceof TissueExtractionChamberBlockEntity blockEntity) {
-                ((ServerPlayer) player).openMenu(new SimpleMenuProvider(blockEntity, Component.translatable("block.prehistoriccraft.tissue_extraction_chamber")), pos);
+                player.openMenu(new SimpleMenuProvider(blockEntity, Component.translatable("block.prehistoriccraft.tissue_extraction_chamber")), pos);
                 blockEntity.triggerAnim("drawerController", "open_drawers");
                 return ItemInteractionResult.SUCCESS;
             }

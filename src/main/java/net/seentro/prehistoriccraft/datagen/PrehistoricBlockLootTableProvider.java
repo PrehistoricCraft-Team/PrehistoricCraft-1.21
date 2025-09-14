@@ -36,32 +36,32 @@ public class PrehistoricBlockLootTableProvider extends BlockLootSubProvider {
     @Override
     protected void generate() {
         /* FOSSILIFEROUS STONE */
-        dropOther(PrehistoricBlocks.CAMBRIAN_FOSSILIFEROUS_STONE.get(), Blocks.DEEPSLATE);
-        dropOther(PrehistoricBlocks.CARBONIFEROUS_FOSSILIFEROUS_STONE.get(), Blocks.DEEPSLATE);
-        dropOther(PrehistoricBlocks.CRETACEOUS_FOSSILIFEROUS_STONE.get(), Blocks.STONE);
-        dropOther(PrehistoricBlocks.DEVONIAN_FOSSILIFEROUS_STONE.get(), Blocks.DEEPSLATE);
-        dropOther(PrehistoricBlocks.JURASSIC_FOSSILIFEROUS_STONE.get(), Blocks.STONE);
-        dropOther(PrehistoricBlocks.NEOGENE_FOSSILIFEROUS_STONE.get(), Blocks.STONE);
-        dropOther(PrehistoricBlocks.ORDOVICIAN_FOSSILIFEROUS_STONE.get(), Blocks.DEEPSLATE);
-        dropOther(PrehistoricBlocks.PALEOGENE_FOSSILIFEROUS_STONE.get(), Blocks.STONE);
-        dropOther(PrehistoricBlocks.PERMIAN_FOSSILIFEROUS_STONE.get(), Blocks.STONE);
         dropOther(PrehistoricBlocks.PRECAMBRIAN_FOSSILIFEROUS_STONE.get(), Blocks.DEEPSLATE);
+        dropOther(PrehistoricBlocks.CAMBRIAN_FOSSILIFEROUS_STONE.get(), Blocks.DEEPSLATE);
+        dropOther(PrehistoricBlocks.ORDOVICIAN_FOSSILIFEROUS_STONE.get(), Blocks.DEEPSLATE);
         dropOther(PrehistoricBlocks.SILURIAN_FOSSILIFEROUS_STONE.get(), Blocks.DEEPSLATE);
+        dropOther(PrehistoricBlocks.DEVONIAN_FOSSILIFEROUS_STONE.get(), Blocks.DEEPSLATE);
+        dropOther(PrehistoricBlocks.CARBONIFEROUS_FOSSILIFEROUS_STONE.get(), Blocks.DEEPSLATE);
+        dropOther(PrehistoricBlocks.PERMIAN_FOSSILIFEROUS_STONE.get(), Blocks.STONE);
         dropOther(PrehistoricBlocks.TRIASSIC_FOSSILIFEROUS_STONE.get(), Blocks.STONE);
+        dropOther(PrehistoricBlocks.JURASSIC_FOSSILIFEROUS_STONE.get(), Blocks.STONE);
+        dropOther(PrehistoricBlocks.CRETACEOUS_FOSSILIFEROUS_STONE.get(), Blocks.STONE);
+        dropOther(PrehistoricBlocks.PALEOGENE_FOSSILIFEROUS_STONE.get(), Blocks.STONE);
+        dropOther(PrehistoricBlocks.NEOGENE_FOSSILIFEROUS_STONE.get(), Blocks.STONE);
 
         /* PLASTERED FOSSILIFEROUS STONE */
-        dropFossilToolMatching(PrehistoricBlocks.PLASTERED_CAMBRIAN_FOSSILIFEROUS_STONE.get(), PrehistoricItems.CAMBRIAN_FOSSIL.get());
-        dropFossilToolMatching(PrehistoricBlocks.PLASTERED_CARBONIFEROUS_FOSSILIFEROUS_STONE.get(), PrehistoricItems.CARBONIFEROUS_FOSSIL.get());
-        dropFossilToolMatching(PrehistoricBlocks.PLASTERED_CRETACEOUS_FOSSILIFEROUS_STONE.get(), PrehistoricItems.CRETACEOUS_FOSSIL.get());
-        dropFossilToolMatching(PrehistoricBlocks.PLASTERED_DEVONIAN_FOSSILIFEROUS_STONE.get(), PrehistoricItems.DEVONIAN_FOSSIL.get());
-        dropFossilToolMatching(PrehistoricBlocks.PLASTERED_JURASSIC_FOSSILIFEROUS_STONE.get(), PrehistoricItems.JURASSIC_FOSSIL.get());
-        dropFossilToolMatching(PrehistoricBlocks.PLASTERED_NEOGENE_FOSSILIFEROUS_STONE.get(), PrehistoricItems.NEOGENE_FOSSIL.get());
-        dropFossilToolMatching(PrehistoricBlocks.PLASTERED_ORDOVICIAN_FOSSILIFEROUS_STONE.get(), PrehistoricItems.ORDOVICIAN_FOSSIL.get());
-        dropFossilToolMatching(PrehistoricBlocks.PLASTERED_PALEOGENE_FOSSILIFEROUS_STONE.get(), PrehistoricItems.PALEOGENE_FOSSIL.get());
-        dropFossilToolMatching(PrehistoricBlocks.PLASTERED_PERMIAN_FOSSILIFEROUS_STONE.get(), PrehistoricItems.PERMIAN_FOSSIL.get());
         dropFossilToolMatching(PrehistoricBlocks.PLASTERED_PRECAMBRIAN_FOSSILIFEROUS_STONE.get(), PrehistoricItems.PRECAMBRIAN_FOSSIL.get());
+        dropFossilToolMatching(PrehistoricBlocks.PLASTERED_CAMBRIAN_FOSSILIFEROUS_STONE.get(), PrehistoricItems.CAMBRIAN_FOSSIL.get());
+        dropFossilToolMatching(PrehistoricBlocks.PLASTERED_ORDOVICIAN_FOSSILIFEROUS_STONE.get(), PrehistoricItems.ORDOVICIAN_FOSSIL.get());
         dropFossilToolMatching(PrehistoricBlocks.PLASTERED_SILURIAN_FOSSILIFEROUS_STONE.get(), PrehistoricItems.SILURIAN_FOSSIL.get());
+        dropFossilToolMatching(PrehistoricBlocks.PLASTERED_DEVONIAN_FOSSILIFEROUS_STONE.get(), PrehistoricItems.DEVONIAN_FOSSIL.get());
+        dropFossilToolMatching(PrehistoricBlocks.PLASTERED_CARBONIFEROUS_FOSSILIFEROUS_STONE.get(), PrehistoricItems.CARBONIFEROUS_FOSSIL.get());
+        dropFossilToolMatching(PrehistoricBlocks.PLASTERED_PERMIAN_FOSSILIFEROUS_STONE.get(), PrehistoricItems.PERMIAN_FOSSIL.get());
         dropFossilToolMatching(PrehistoricBlocks.PLASTERED_TRIASSIC_FOSSILIFEROUS_STONE.get(), PrehistoricItems.TRIASSIC_FOSSIL.get());
+        dropFossilToolMatching(PrehistoricBlocks.PLASTERED_JURASSIC_FOSSILIFEROUS_STONE.get(), PrehistoricItems.JURASSIC_FOSSIL.get());
+        dropFossilToolMatching(PrehistoricBlocks.PLASTERED_CRETACEOUS_FOSSILIFEROUS_STONE.get(), PrehistoricItems.CRETACEOUS_FOSSIL.get());
+        dropFossilToolMatching(PrehistoricBlocks.PLASTERED_PALEOGENE_FOSSILIFEROUS_STONE.get(), PrehistoricItems.PALEOGENE_FOSSIL.get());
+        dropFossilToolMatching(PrehistoricBlocks.PLASTERED_NEOGENE_FOSSILIFEROUS_STONE.get(), PrehistoricItems.NEOGENE_FOSSIL.get());
 
         /* ORES */
         dropSelf(PrehistoricBlocks.AMBER_BLOCK.get());
@@ -72,6 +72,7 @@ public class PrehistoricBlockLootTableProvider extends BlockLootSubProvider {
         /* BLOCK ENTITIES */
         dropSelf(PrehistoricBlocks.FOSSIL_ANALYSIS_TABLE.get());
         dropSelf(PrehistoricBlocks.TISSUE_EXTRACTION_CHAMBER.get());
+        dropSelf(PrehistoricBlocks.ACID_CLEANING_CHAMBER.get());
 
         /* GYPSUM */
         dropMultipleItems(PrehistoricBlocks.GYPSUM_CRYSTAL.get(), PrehistoricItems.GYPSUM_POWDER.get(), 1, 2);

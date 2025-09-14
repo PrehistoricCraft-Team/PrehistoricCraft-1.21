@@ -25,18 +25,32 @@ public class PrehistoricItemTagProvider extends ItemTagsProvider {
                 .add(PrehistoricItems.EXCAVATOR_PICKAXE.get());
 
         tag(PrehistoricTags.Items.FOSSILS)
-                .add(PrehistoricItems.CAMBRIAN_FOSSIL.get())
-                .add(PrehistoricItems.CARBONIFEROUS_FOSSIL.get())
-                .add(PrehistoricItems.CRETACEOUS_FOSSIL.get())
-                .add(PrehistoricItems.DEVONIAN_FOSSIL.get())
-                .add(PrehistoricItems.JURASSIC_FOSSIL.get())
-                .add(PrehistoricItems.NEOGENE_FOSSIL.get())
-                .add(PrehistoricItems.ORDOVICIAN_FOSSIL.get())
-                .add(PrehistoricItems.PALEOGENE_FOSSIL.get())
-                .add(PrehistoricItems.PERMIAN_FOSSIL.get())
                 .add(PrehistoricItems.PRECAMBRIAN_FOSSIL.get())
+                .add(PrehistoricItems.CAMBRIAN_FOSSIL.get())
+                .add(PrehistoricItems.ORDOVICIAN_FOSSIL.get())
                 .add(PrehistoricItems.SILURIAN_FOSSIL.get())
-                .add(PrehistoricItems.TRIASSIC_FOSSIL.get());
+                .add(PrehistoricItems.DEVONIAN_FOSSIL.get())
+                .add(PrehistoricItems.CARBONIFEROUS_FOSSIL.get())
+                .add(PrehistoricItems.PERMIAN_FOSSIL.get())
+                .add(PrehistoricItems.TRIASSIC_FOSSIL.get())
+                .add(PrehistoricItems.JURASSIC_FOSSIL.get())
+                .add(PrehistoricItems.CRETACEOUS_FOSSIL.get())
+                .add(PrehistoricItems.PALEOGENE_FOSSIL.get())
+                .add(PrehistoricItems.NEOGENE_FOSSIL.get());
+
+        tag(PrehistoricTags.Items.FOSSIL_SAMPLES)
+                .add(PrehistoricItems.PRECAMBRIAN_FOSSIL_SAMPLE.get())
+                .add(PrehistoricItems.CAMBRIAN_FOSSIL_SAMPLE.get())
+                .add(PrehistoricItems.ORDOVICIAN_FOSSIL_SAMPLE.get())
+                .add(PrehistoricItems.SILURIAN_FOSSIL_SAMPLE.get())
+                .add(PrehistoricItems.DEVONIAN_FOSSIL_SAMPLE.get())
+                .add(PrehistoricItems.CARBONIFEROUS_FOSSIL_SAMPLE.get())
+                .add(PrehistoricItems.PERMIAN_FOSSIL_SAMPLE.get())
+                .add(PrehistoricItems.TRIASSIC_FOSSIL_SAMPLE.get())
+                .add(PrehistoricItems.JURASSIC_FOSSIL_SAMPLE.get())
+                .add(PrehistoricItems.CRETACEOUS_FOSSIL_SAMPLE.get())
+                .add(PrehistoricItems.PALEOGENE_FOSSIL_SAMPLE.get())
+                .add(PrehistoricItems.NEOGENE_FOSSIL_SAMPLE.get());
 
         tag(PrehistoricTags.Items.AMBER)
                 .add(PrehistoricItems.AMBER.get());

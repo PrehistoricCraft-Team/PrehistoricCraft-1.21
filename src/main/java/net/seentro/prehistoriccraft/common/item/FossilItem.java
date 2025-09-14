@@ -41,16 +41,7 @@ public class FossilItem extends Item {
         Component qualityIndicator = Component.literal("Fossil Quality: ").setStyle(Style.EMPTY.withColor(0xD3D3D3));
         Component quality = Component.literal(capitalizeNames(stack.getOrDefault(PrehistoricDataComponents.FOSSIL_QUALITY, "Unknown"))).setStyle(color);
 
-        Component speciesIndicator = Component.literal("Fossil Species: ").setStyle(Style.EMPTY.withColor(0xD3D3D3));
-        Component species = Component.literal(capitalizeNames(stack.getOrDefault(PrehistoricDataComponents.FOSSIL_SPECIES, "Unknown"))).setStyle(Style.EMPTY.withColor(0x6C6C6C));
-
-        if (Objects.equals(stack.get(PrehistoricDataComponents.FOSSIL_SPECIES), "Unknown")) {
-            Component errorMessage = Component.literal("Something went wrong, please report this to the developers!").setStyle(Style.EMPTY.withColor(0xFF0000));
-            tooltipComponents.add(errorMessage);
-        }
-
         tooltipComponents.add(Component.empty().append(qualityIndicator).append(quality));
-        tooltipComponents.add(Component.empty().append(speciesIndicator).append(species));
         super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
     }
 }

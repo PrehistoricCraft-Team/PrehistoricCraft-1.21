@@ -1,0 +1,16 @@
+{
+  "values": [
+    "prehistoriccraft:precambrian_fossil_sample",
+    "prehistoriccraft:cambrian_fossil_sample",
+    "prehistoriccraft:ordovician_fossil_sample",
+    "prehistoriccraft:silurian_fossil_sample",
+    "prehistoriccraft:devonian_fossil_sample",
+    "prehistoriccraft:carboniferous_fossil_sample",
+    "prehistoriccraft:permian_fossil_sample",
+    "prehistoriccraft:triassic_fossil_sample",
+    "prehistoriccraft:jurassic_fossil_sample",
+    "prehistoriccraft:cretaceous_fossil_sample",
+    "prehistoriccraft:paleogene_fossil_sample",
+    "prehistoriccraft:neogene_fossil_sample"
+  ]
+}

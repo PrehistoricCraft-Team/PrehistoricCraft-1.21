@@ -135,6 +135,7 @@ public class FossilAnalysisTableBlockEntity extends BlockEntity implements MenuP
     public void tick(Level level, BlockPos pos, BlockState state) {
         if (!tryInitializeRecipe()) {
             reset();
+            setChanged(level, pos, state);
             return;
         }
 
@@ -159,9 +160,7 @@ public class FossilAnalysisTableBlockEntity extends BlockEntity implements MenuP
         for (int i = 0; i < 9; i++) {
             ItemStack input = itemHandler.getStackInSlot(i);
             if (input.is(PrehistoricTags.Items.FOSSILS) && !input.has(PrehistoricDataComponents.FOSSIL_QUALITY)) {
-                if (validInputSlot == i && qualityFossil != null) {
-                    return true;
-                }
+                if (validInputSlot == i && qualityFossil != null) return true;
 
                 ItemStack singleInput = input.copy();
                 singleInput.setCount(1);

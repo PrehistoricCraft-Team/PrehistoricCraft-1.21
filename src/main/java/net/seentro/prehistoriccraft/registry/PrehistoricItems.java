@@ -17,18 +17,32 @@ public class PrehistoricItems {
             DeferredRegister.createItems(PrehistoricCraft.MODID);
 
     /* FOSSILS */
-    public static final DeferredItem<Item> CAMBRIAN_FOSSIL = ITEMS.register("cambrian_fossil", () -> new FossilItem(new Item.Properties()));
-    public static final DeferredItem<Item> CARBONIFEROUS_FOSSIL = ITEMS.register("carboniferous_fossil", () -> new FossilItem(new Item.Properties()));
-    public static final DeferredItem<Item> CRETACEOUS_FOSSIL = ITEMS.register("cretaceous_fossil", () -> new FossilItem(new Item.Properties()));
-    public static final DeferredItem<Item> DEVONIAN_FOSSIL = ITEMS.register("devonian_fossil", () -> new FossilItem(new Item.Properties()));
-    public static final DeferredItem<Item> JURASSIC_FOSSIL = ITEMS.register("jurassic_fossil", () -> new FossilItem(new Item.Properties()));
-    public static final DeferredItem<Item> NEOGENE_FOSSIL = ITEMS.register("neogene_fossil", () -> new FossilItem(new Item.Properties()));
-    public static final DeferredItem<Item> ORDOVICIAN_FOSSIL = ITEMS.register("ordovician_fossil", () -> new FossilItem(new Item.Properties()));
-    public static final DeferredItem<Item> PALEOGENE_FOSSIL = ITEMS.register("paleogene_fossil", () -> new FossilItem(new Item.Properties()));
-    public static final DeferredItem<Item> PERMIAN_FOSSIL = ITEMS.register("permian_fossil", () -> new FossilItem(new Item.Properties()));
     public static final DeferredItem<Item> PRECAMBRIAN_FOSSIL = ITEMS.register("precambrian_fossil", () -> new FossilItem(new Item.Properties()));
+    public static final DeferredItem<Item> CAMBRIAN_FOSSIL = ITEMS.register("cambrian_fossil", () -> new FossilItem(new Item.Properties()));
+    public static final DeferredItem<Item> ORDOVICIAN_FOSSIL = ITEMS.register("ordovician_fossil", () -> new FossilItem(new Item.Properties()));
     public static final DeferredItem<Item> SILURIAN_FOSSIL = ITEMS.register("silurian_fossil", () -> new FossilItem(new Item.Properties()));
-    public static final DeferredItem<Item> TRIASSIC_FOSSIL   = ITEMS.register("triassic_fossil", () -> new FossilItem(new Item.Properties()));
+    public static final DeferredItem<Item> DEVONIAN_FOSSIL = ITEMS.register("devonian_fossil", () -> new FossilItem(new Item.Properties()));
+    public static final DeferredItem<Item> CARBONIFEROUS_FOSSIL = ITEMS.register("carboniferous_fossil", () -> new FossilItem(new Item.Properties()));
+    public static final DeferredItem<Item> PERMIAN_FOSSIL = ITEMS.register("permian_fossil", () -> new FossilItem(new Item.Properties()));
+    public static final DeferredItem<Item> TRIASSIC_FOSSIL = ITEMS.register("triassic_fossil", () -> new FossilItem(new Item.Properties()));
+    public static final DeferredItem<Item> JURASSIC_FOSSIL = ITEMS.register("jurassic_fossil", () -> new FossilItem(new Item.Properties()));
+    public static final DeferredItem<Item> CRETACEOUS_FOSSIL = ITEMS.register("cretaceous_fossil", () -> new FossilItem(new Item.Properties()));
+    public static final DeferredItem<Item> PALEOGENE_FOSSIL = ITEMS.register("paleogene_fossil", () -> new FossilItem(new Item.Properties()));
+    public static final DeferredItem<Item> NEOGENE_FOSSIL   = ITEMS.register("neogene_fossil", () -> new FossilItem(new Item.Properties()));
+
+    /* FOSSIL SAMPLES */
+    public static final DeferredItem<Item> PRECAMBRIAN_FOSSIL_SAMPLE = ITEMS.register("precambrian_fossil_sample", () -> new FossilItem(new Item.Properties()));
+    public static final DeferredItem<Item> CAMBRIAN_FOSSIL_SAMPLE = ITEMS.register("cambrian_fossil_sample", () -> new FossilItem(new Item.Properties()));
+    public static final DeferredItem<Item> ORDOVICIAN_FOSSIL_SAMPLE = ITEMS.register("ordovician_fossil_sample", () -> new FossilItem(new Item.Properties()));
+    public static final DeferredItem<Item> SILURIAN_FOSSIL_SAMPLE = ITEMS.register("silurian_fossil_sample", () -> new FossilItem(new Item.Properties()));
+    public static final DeferredItem<Item> DEVONIAN_FOSSIL_SAMPLE = ITEMS.register("devonian_fossil_sample", () -> new FossilItem(new Item.Properties()));
+    public static final DeferredItem<Item> CARBONIFEROUS_FOSSIL_SAMPLE = ITEMS.register("carboniferous_fossil_sample", () -> new FossilItem(new Item.Properties()));
+    public static final DeferredItem<Item> PERMIAN_FOSSIL_SAMPLE = ITEMS.register("permian_fossil_sample", () -> new FossilItem(new Item.Properties()));
+    public static final DeferredItem<Item> TRIASSIC_FOSSIL_SAMPLE = ITEMS.register("triassic_fossil_sample", () -> new FossilItem(new Item.Properties()));
+    public static final DeferredItem<Item> JURASSIC_FOSSIL_SAMPLE = ITEMS.register("jurassic_fossil_sample", () -> new FossilItem(new Item.Properties()));
+    public static final DeferredItem<Item> CRETACEOUS_FOSSIL_SAMPLE = ITEMS.register("cretaceous_fossil_sample", () -> new FossilItem(new Item.Properties()));
+    public static final DeferredItem<Item> PALEOGENE_FOSSIL_SAMPLE = ITEMS.register("paleogene_fossil_sample", () -> new FossilItem(new Item.Properties()));
+    public static final DeferredItem<Item> NEOGENE_FOSSIL_SAMPLE = ITEMS.register("neogene_fossil_sample", () -> new FossilItem(new Item.Properties()));
 
     /* TISSUE */
     public static final DeferredItem<Item> ANIMAL_TISSUE = ITEMS.register("animal_tissue", () -> new TissueItem(new Item.Properties()));
@@ -56,20 +70,6 @@ public class PrehistoricItems {
     /* BLICE */
     public static final DeferredItem<Item> BLOB_OF_BLICE = ITEMS.register("blob_of_blice", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> BOTTLE_OF_BLICE = ITEMS.register("bottle_of_blice", () -> new Item(new Item.Properties()));
-
-    /* FOSSIL SAMPLES */
-    public static final DeferredItem<Item> PRECAMBRIAN_FOSSIL_SAMPLE = ITEMS.register("precambrian_fossil_sample", () -> new Item(new Item.Properties()));
-    public static final DeferredItem<Item> CAMBRIAN_FOSSIL_SAMPLE = ITEMS.register("cambrian_fossil_sample", () -> new Item(new Item.Properties()));
-    public static final DeferredItem<Item> ORDOVICIAN_FOSSIL_SAMPLE = ITEMS.register("ordovician_fossil_sample", () -> new Item(new Item.Properties()));
-    public static final DeferredItem<Item> SILURIAN_FOSSIL_SAMPLE = ITEMS.register("silurian_fossil_sample", () -> new Item(new Item.Properties()));
-    public static final DeferredItem<Item> DEVONIAN_FOSSIL_SAMPLE = ITEMS.register("devonian_fossil_sample", () -> new Item(new Item.Properties()));
-    public static final DeferredItem<Item> CARBONIFEROUS_FOSSIL_SAMPLE = ITEMS.register("carboniferous_fossil_sample", () -> new Item(new Item.Properties()));
-    public static final DeferredItem<Item> PERMIAN_FOSSIL_SAMPLE = ITEMS.register("permian_fossil_sample", () -> new Item(new Item.Properties()));
-    public static final DeferredItem<Item> TRIASSIC_FOSSIL_SAMPLE = ITEMS.register("triassic_fossil_sample", () -> new Item(new Item.Properties()));
-    public static final DeferredItem<Item> JURASSIC_FOSSIL_SAMPLE = ITEMS.register("jurassic_fossil_sample", () -> new Item(new Item.Properties()));
-    public static final DeferredItem<Item> CRETACEOUS_FOSSIL_SAMPLE = ITEMS.register("cretaceous_fossil_sample", () -> new Item(new Item.Properties()));
-    public static final DeferredItem<Item> PALEOGENE_FOSSIL_SAMPLE = ITEMS.register("paleogene_fossil_sample", () -> new Item(new Item.Properties()));
-    public static final DeferredItem<Item> NEOGENE_FOSSIL_SAMPLE = ITEMS.register("neogene_fossil_sample", () -> new Item(new Item.Properties()));
 
     /* GLASS INSTRUMENTS */
     public static final DeferredItem<Item> VIAL = ITEMS.register("vial", () -> new Item(new Item.Properties()));

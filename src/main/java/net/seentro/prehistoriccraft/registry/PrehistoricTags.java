@@ -18,6 +18,8 @@ public class PrehistoricTags {
     public static class Items {
         public static final TagKey<Item> FOSSILS =
                 ItemTags.create(ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID, "fossils"));
+        public static final TagKey<Item> FOSSIL_SAMPLES =
+                ItemTags.create(ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID, "fossil_samples"));
         public static final TagKey<Item> AMBER =
                 ItemTags.create(ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID, "amber"));
         public static final TagKey<Item> JAR =

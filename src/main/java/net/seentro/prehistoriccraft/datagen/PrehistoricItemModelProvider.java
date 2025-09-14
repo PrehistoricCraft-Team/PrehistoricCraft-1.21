@@ -3,7 +3,10 @@ package net.seentro.prehistoriccraft.datagen;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
+import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
@@ -18,33 +21,32 @@ public class PrehistoricItemModelProvider extends ItemModelProvider {
     @Override
     protected void registerModels() {
         /* FOSSILS */
-        basicItem(PrehistoricItems.CAMBRIAN_FOSSIL.get());
-        basicItem(PrehistoricItems.CARBONIFEROUS_FOSSIL.get());
-        basicItem(PrehistoricItems.CRETACEOUS_FOSSIL.get());
-        basicItem(PrehistoricItems.DEVONIAN_FOSSIL.get());
-        basicItem(PrehistoricItems.JURASSIC_FOSSIL.get());
-        basicItem(PrehistoricItems.NEOGENE_FOSSIL.get());
-        basicItem(PrehistoricItems.ORDOVICIAN_FOSSIL.get());
-        basicItem(PrehistoricItems.PALEOGENE_FOSSIL.get());
-        basicItem(PrehistoricItems.PERMIAN_FOSSIL.get());
         basicItem(PrehistoricItems.PRECAMBRIAN_FOSSIL.get());
+        basicItem(PrehistoricItems.CAMBRIAN_FOSSIL.get());
+        basicItem(PrehistoricItems.ORDOVICIAN_FOSSIL.get());
         basicItem(PrehistoricItems.SILURIAN_FOSSIL.get());
+        basicItem(PrehistoricItems.DEVONIAN_FOSSIL.get());
+        basicItem(PrehistoricItems.CARBONIFEROUS_FOSSIL.get());
+        basicItem(PrehistoricItems.PERMIAN_FOSSIL.get());
         basicItem(PrehistoricItems.TRIASSIC_FOSSIL.get());
+        basicItem(PrehistoricItems.JURASSIC_FOSSIL.get());
+        basicItem(PrehistoricItems.CRETACEOUS_FOSSIL.get());
+        basicItem(PrehistoricItems.PALEOGENE_FOSSIL.get());
+        basicItem(PrehistoricItems.NEOGENE_FOSSIL.get());
 
         /* FOSSIL SAMPLES */
-        /*basicItem(PrehistoricItems.CAMBRIAN_FOSSIL_SAMPLE.get());
-        basicItem(PrehistoricItems.CARBONIFEROUS_FOSSIL_SAMPLE.get());
-        basicItem(PrehistoricItems.CRETACEOUS_FOSSIL_SAMPLE.get());
-        basicItem(PrehistoricItems.DEVONIAN_FOSSIL_SAMPLE.get());
-        basicItem(PrehistoricItems.JURASSIC_FOSSIL_SAMPLE.get());
-        basicItem(PrehistoricItems.NEOGENE_FOSSIL_SAMPLE.get());
-        basicItem(PrehistoricItems.ORDOVICIAN_FOSSIL_SAMPLE.get());
-        basicItem(PrehistoricItems.PALEOGENE_FOSSIL_SAMPLE.get());
-        basicItem(PrehistoricItems.PERMIAN_FOSSIL_SAMPLE.get());
-        basicItem(PrehistoricItems.PRECAMBRIAN_FOSSIL_SAMPLE.get());
-        basicItem(PrehistoricItems.SILURIAN_FOSSIL_SAMPLE.get());
-        basicItem(PrehistoricItems.TRIASSIC_FOSSIL_SAMPLE.get());
-         */
+        basicFossilSample(PrehistoricItems.PRECAMBRIAN_FOSSIL_SAMPLE.get(), true);
+        basicFossilSample(PrehistoricItems.CAMBRIAN_FOSSIL_SAMPLE.get(), true);
+        basicFossilSample(PrehistoricItems.ORDOVICIAN_FOSSIL_SAMPLE.get(), true);
+        basicFossilSample(PrehistoricItems.SILURIAN_FOSSIL_SAMPLE.get(), true);
+        basicFossilSample(PrehistoricItems.DEVONIAN_FOSSIL_SAMPLE.get(), true);
+        basicFossilSample(PrehistoricItems.CARBONIFEROUS_FOSSIL_SAMPLE.get(), true);
+        basicFossilSample(PrehistoricItems.PERMIAN_FOSSIL_SAMPLE.get(), false);
+        basicFossilSample(PrehistoricItems.TRIASSIC_FOSSIL_SAMPLE.get(), false);
+        basicFossilSample(PrehistoricItems.JURASSIC_FOSSIL_SAMPLE.get(), false);
+        basicFossilSample(PrehistoricItems.CRETACEOUS_FOSSIL_SAMPLE.get(), false);
+        basicFossilSample(PrehistoricItems.PALEOGENE_FOSSIL_SAMPLE.get(), false);
+        basicFossilSample(PrehistoricItems.NEOGENE_FOSSIL_SAMPLE.get(), false);
 
         /* TOOLS */
         basicItem(PrehistoricItems.EXCAVATOR_PICKAXE.get());
@@ -53,6 +55,7 @@ public class PrehistoricItemModelProvider extends ItemModelProvider {
         /* BLOCK ENTITIES */
         simpleBlockItem(PrehistoricBlocks.FOSSIL_ANALYSIS_TABLE.get());
         basicItem(ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID, "tissue_extraction_chamber"));
+        basicItem(ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID, "acid_cleaning_chamber"));
 
         /* GYPSUM & PLASTER */
         basicItem(PrehistoricItems.GYPSUM_POWDER.get());
@@ -81,5 +84,21 @@ public class PrehistoricItemModelProvider extends ItemModelProvider {
         basicItem(PrehistoricItems.VIAL.get());
         basicItem(PrehistoricItems.SYRINGE.get());
         basicItem(PrehistoricItems.JAR.get());
+    }
+
+    /* HELPER METHODS */
+
+    public ItemModelBuilder basicItemOtherTexture(Item item, ResourceLocation texture) {
+        return getBuilder(item.toString())
+                .parent(new ModelFile.UncheckedModelFile("item/generated"))
+                .texture("layer0", texture);
+    }
+
+    public ItemModelBuilder basicFossilSample(Item item, boolean deepslate) {
+        if (deepslate) {
+            return basicItemOtherTexture(item, ResourceLocation.fromNamespaceAndPath("prehistoriccraft", "item/" + "paleozoic_fossil_sample"));
+        } else {
+            return basicItemOtherTexture(item, ResourceLocation.fromNamespaceAndPath("prehistoriccraft", "item/" + "mesozoic_fossil_sample"));
+        }
     }
 }

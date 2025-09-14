@@ -45,17 +45,17 @@ public class FossiliferousStoneBlock extends Block {
     }
 
     static {
-        fossilMap.put(FossilTypes.CAMBRIAN, PrehistoricBlocks.PLASTERED_CAMBRIAN_FOSSILIFEROUS_STONE);
-        fossilMap.put(FossilTypes.CARBONIFEROUS, PrehistoricBlocks.PLASTERED_CARBONIFEROUS_FOSSILIFEROUS_STONE);
-        fossilMap.put(FossilTypes.CRETACEOUS, PrehistoricBlocks.PLASTERED_CRETACEOUS_FOSSILIFEROUS_STONE);
-        fossilMap.put(FossilTypes.DEVONIAN, PrehistoricBlocks.PLASTERED_DEVONIAN_FOSSILIFEROUS_STONE);
-        fossilMap.put(FossilTypes.JURASSIC, PrehistoricBlocks.PLASTERED_JURASSIC_FOSSILIFEROUS_STONE);
-        fossilMap.put(FossilTypes.NEOGENE, PrehistoricBlocks.PLASTERED_NEOGENE_FOSSILIFEROUS_STONE);
-        fossilMap.put(FossilTypes.ORDOVICIAN, PrehistoricBlocks.PLASTERED_ORDOVICIAN_FOSSILIFEROUS_STONE);
-        fossilMap.put(FossilTypes.PALEOGENE, PrehistoricBlocks.PLASTERED_PALEOGENE_FOSSILIFEROUS_STONE);
-        fossilMap.put(FossilTypes.PERMIAN, PrehistoricBlocks.PLASTERED_PERMIAN_FOSSILIFEROUS_STONE);
         fossilMap.put(FossilTypes.PRECAMBRIAN, PrehistoricBlocks.PLASTERED_PRECAMBRIAN_FOSSILIFEROUS_STONE);
+        fossilMap.put(FossilTypes.CAMBRIAN, PrehistoricBlocks.PLASTERED_CAMBRIAN_FOSSILIFEROUS_STONE);
+        fossilMap.put(FossilTypes.ORDOVICIAN, PrehistoricBlocks.PLASTERED_ORDOVICIAN_FOSSILIFEROUS_STONE);
         fossilMap.put(FossilTypes.SILURIAN, PrehistoricBlocks.PLASTERED_SILURIAN_FOSSILIFEROUS_STONE);
+        fossilMap.put(FossilTypes.DEVONIAN, PrehistoricBlocks.PLASTERED_DEVONIAN_FOSSILIFEROUS_STONE);
+        fossilMap.put(FossilTypes.CARBONIFEROUS, PrehistoricBlocks.PLASTERED_CARBONIFEROUS_FOSSILIFEROUS_STONE);
+        fossilMap.put(FossilTypes.PERMIAN, PrehistoricBlocks.PLASTERED_PERMIAN_FOSSILIFEROUS_STONE);
         fossilMap.put(FossilTypes.TRIASSIC, PrehistoricBlocks.PLASTERED_TRIASSIC_FOSSILIFEROUS_STONE);
+        fossilMap.put(FossilTypes.JURASSIC, PrehistoricBlocks.PLASTERED_JURASSIC_FOSSILIFEROUS_STONE);
+        fossilMap.put(FossilTypes.CRETACEOUS, PrehistoricBlocks.PLASTERED_CRETACEOUS_FOSSILIFEROUS_STONE);
+        fossilMap.put(FossilTypes.PALEOGENE, PrehistoricBlocks.PLASTERED_PALEOGENE_FOSSILIFEROUS_STONE);
+        fossilMap.put(FossilTypes.NEOGENE, PrehistoricBlocks.PLASTERED_NEOGENE_FOSSILIFEROUS_STONE);
     }
 }

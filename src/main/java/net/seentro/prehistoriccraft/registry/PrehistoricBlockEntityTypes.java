@@ -8,6 +8,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
+import net.seentro.prehistoriccraft.common.block.acidCleaningChamber.AcidCleaningChamberBlockEntity;
 import net.seentro.prehistoriccraft.common.block.fossilAnalysisTable.FossilAnalysisTableBlockEntity;
 import net.seentro.prehistoriccraft.common.block.tissueExtractionChamber.TissueExtractionChamberBlockEntity;
 
@@ -28,6 +29,12 @@ public class PrehistoricBlockEntityTypes {
             BLOCK_ENTITY_TYPES.register("tissue_extraction_chamber_block_entity",
                     () -> BlockEntityType.Builder.of(
                                     TissueExtractionChamberBlockEntity::new, PrehistoricBlocks.TISSUE_EXTRACTION_CHAMBER.get())
+                            .build(null));
+
+    public static final Supplier<BlockEntityType<AcidCleaningChamberBlockEntity>> ACID_CLEANING_CHAMBER_BLOCK_ENTITY =
+            BLOCK_ENTITY_TYPES.register("acid_cleaning_chamber_block_entity",
+                    () -> BlockEntityType.Builder.of(
+                                    AcidCleaningChamberBlockEntity::new, PrehistoricBlocks.ACID_CLEANING_CHAMBER.get())
                             .build(null));
 
     public static void register(IEventBus eventBus) {

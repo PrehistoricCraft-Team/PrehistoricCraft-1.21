@@ -62,6 +62,7 @@
 
   "block.prehistoriccraft.fossil_analysis_table": "Stół do analizy skamielin",
   "block.prehistoriccraft.tissue_extraction_chamber": "Komora do ekstrakcji tkanek",
+  "block.prehistoriccraft.acid_cleaning_chamber": "Uhh",
 
   "item.prehistoriccraft.animal_tissue": "Tkanka Miękka Zwierzęcia",
   "item.prehistoriccraft.plant_tissue": "Tkanka Miękka Rośliny",
@@ -90,5 +91,6 @@
   "item.prehistoriccraft.jar": "Szklany Słoik",
   "item.prehistoriccraft.vial": "Szklana Fiolka",
   "item.prehistoriccraft.syringe": "Szklana Strzykawka",
-  "item.prehistoriccraft.sulfur": "Siarka"
+  "item.prehistoriccraft.sulfur": "Siarka",
+  "block.prehistoriccraft.acid_cleaning_chamber": "Tissue Extraction Chamber"
 }
