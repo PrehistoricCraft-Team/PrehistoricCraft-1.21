@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "prehistoriccraft:item/tissue_extraction_chamber"
-  }
-}

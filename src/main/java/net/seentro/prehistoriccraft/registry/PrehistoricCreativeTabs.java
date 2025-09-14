@@ -109,7 +109,7 @@ public class PrehistoricCreativeTabs {
     public static final Supplier<CreativeModeTab> PREHISTORICCRAFT_FUNCTIONAL_BLOCKS = CREATIVE_MODE_TABS.register("prehistoriccraft_functional_blocks", () -> CreativeModeTab.builder().icon(() -> new ItemStack(PrehistoricBlocks.FOSSIL_ANALYSIS_TABLE.get()))
             .title(Component.translatable("tabs.prehistoriccraft.prehistoriccraft_functional_blocks")).displayItems((displayParameters, output) -> {
                 output.accept(PrehistoricBlocks.FOSSIL_ANALYSIS_TABLE.get());
-                output.accept(PrehistoricBlocks.TISSUE_EXTRACTION_CHAMBER.get());
+                output.accept(PrehistoricBlocks.TISSUE_EXTRACTION_CHAMBER);
                 output.accept(PrehistoricBlocks.ACID_CLEANING_CHAMBER);
             }).build());
 

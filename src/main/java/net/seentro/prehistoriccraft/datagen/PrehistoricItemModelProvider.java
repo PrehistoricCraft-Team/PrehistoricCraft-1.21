@@ -54,8 +54,6 @@ public class PrehistoricItemModelProvider extends ItemModelProvider {
 
         /* BLOCK ENTITIES */
         simpleBlockItem(PrehistoricBlocks.FOSSIL_ANALYSIS_TABLE.get());
-        basicItem(ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID, "tissue_extraction_chamber"));
-        basicItem(ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID, "acid_cleaning_chamber"));
 
         /* GYPSUM & PLASTER */
         basicItem(PrehistoricItems.GYPSUM_POWDER.get());
