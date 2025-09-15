@@ -97,5 +97,38 @@ public class PrehistoricBlockTagProvider extends BlockTagsProvider {
                 .add(PrehistoricBlocks.PLASTERED_CRETACEOUS_FOSSILIFEROUS_STONE.get())
                 .add(PrehistoricBlocks.PLASTERED_PALEOGENE_FOSSILIFEROUS_STONE.get())
                 .add(PrehistoricBlocks.PLASTERED_NEOGENE_FOSSILIFEROUS_STONE.get());
+
+        tag(BlockTags.FENCES)
+                .add(PrehistoricBlocks.DAWN_REDWOOD_FENCE.get());
+
+        tag(BlockTags.FENCE_GATES)
+                .add(PrehistoricBlocks.DAWN_REDWOOD_FENCE_GATE.get());
+
+        tag(BlockTags.WOODEN_BUTTONS)
+                .add(PrehistoricBlocks.DAWN_REDWOOD_BUTTON.get());
+
+        tag(BlockTags.DOORS)
+                .add(PrehistoricBlocks.DAWN_REDWOOD_DOOR.get());
+
+        tag(BlockTags.TRAPDOORS)
+                .add(PrehistoricBlocks.DAWN_REDWOOD_TRAPDOOR.get());
+
+        tag(BlockTags.PRESSURE_PLATES)
+                .add(PrehistoricBlocks.DAWN_REDWOOD_PRESSURE_PLATE.get());
+
+        tag(BlockTags.SLABS)
+                .add(PrehistoricBlocks.DAWN_REDWOOD_SLAB.get());
+
+        tag(BlockTags.STAIRS)
+                .add(PrehistoricBlocks.DAWN_REDWOOD_STAIRS.get());
+
+        tag(BlockTags.LOGS_THAT_BURN)
+                .add(PrehistoricBlocks.DAWN_REDWOOD_LOG.get())
+                .add(PrehistoricBlocks.DAWN_REDWOOD_WOOD.get())
+                .add(PrehistoricBlocks.STRIPPED_DAWN_REDWOOD_LOG.get())
+                .add(PrehistoricBlocks.STRIPPED_DAWN_REDWOOD_WOOD.get());
+
+        tag(BlockTags.PLANKS)
+                .add(PrehistoricBlocks.DAWN_REDWOOD_PLANKS.get());
     }
 }

@@ -1,5 +1,6 @@
 package net.seentro.prehistoriccraft.registry;
 
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -14,7 +15,7 @@ import java.util.function.Supplier;
 
 public class PrehistoricCreativeTabs {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
-            DeferredRegister.create(Registries.CREATIVE_MODE_TAB, PrehistoricCraft.MODID);
+            DeferredRegister.create(BuiltInRegistries.CREATIVE_MODE_TAB, PrehistoricCraft.MODID);
 
     public static final Supplier<CreativeModeTab> PREHISTORICCRAFT_FOSSILS = CREATIVE_MODE_TABS.register("prehistoriccraft_fossils", () -> CreativeModeTab.builder().icon(() -> new ItemStack(PrehistoricBlocks.CAMBRIAN_FOSSILIFEROUS_STONE.get()))
             .title(Component.translatable("tabs.prehistoriccraft.prehistoriccraft_fossils")).displayItems((displayParameters, output) -> {
@@ -74,6 +75,22 @@ public class PrehistoricCreativeTabs {
                 output.accept(PrehistoricBlocks.GYPSUM_CRYSTAL.get());
                 output.accept(PrehistoricBlocks.GYPSUM_CRYSTAL_BLOCK.get());
                 output.accept(PrehistoricBlocks.CRACKED_DIRT.get());
+                output.accept(PrehistoricBlocks.DAWN_REDWOOD_LOG);
+                output.accept(PrehistoricBlocks.DAWN_REDWOOD_WOOD);
+                output.accept(PrehistoricBlocks.STRIPPED_DAWN_REDWOOD_LOG);
+                output.accept(PrehistoricBlocks.STRIPPED_DAWN_REDWOOD_WOOD);
+                output.accept(PrehistoricBlocks.DAWN_REDWOOD_LEAVES);
+                output.accept(PrehistoricBlocks.DAWN_REDWOOD_PLANKS);
+                output.accept(PrehistoricBlocks.DAWN_REDWOOD_STAIRS);
+                output.accept(PrehistoricBlocks.DAWN_REDWOOD_SLAB);
+                output.accept(PrehistoricBlocks.DAWN_REDWOOD_FENCE);
+                output.accept(PrehistoricBlocks.DAWN_REDWOOD_FENCE_GATE);
+                output.accept(PrehistoricBlocks.DAWN_REDWOOD_DOOR);
+                output.accept(PrehistoricBlocks.DAWN_REDWOOD_TRAPDOOR);
+                output.accept(PrehistoricBlocks.DAWN_REDWOOD_PRESSURE_PLATE);
+                output.accept(PrehistoricBlocks.DAWN_REDWOOD_BUTTON);
+                output.accept(PrehistoricItems.DAWN_REDWOOD_SIGN);
+                output.accept(PrehistoricBlocks.DAWN_REDWOOD_HANGING_SIGN);
             }).build());
 
     public static final Supplier<CreativeModeTab> PREHISTORICCRAFT_ITEMS = CREATIVE_MODE_TABS.register("prehistoriccraft_items", () -> CreativeModeTab.builder().icon(() -> new ItemStack(PrehistoricItems.EXCAVATOR_PICKAXE.get()))

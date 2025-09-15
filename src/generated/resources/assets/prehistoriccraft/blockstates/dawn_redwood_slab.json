@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "prehistoriccraft:block/dawn_redwood_slab"
+    },
+    "type=double": {
+      "model": "prehistoriccraft:block/dawn_redwood_planks"
+    },
+    "type=top": {
+      "model": "prehistoriccraft:block/dawn_redwood_slab_top"
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/button_pressed",
+  "textures": {
+    "texture": "prehistoriccraft:block/dawn_redwood_planks"
+  }
+}

@@ -11,13 +11,16 @@ import net.seentro.prehistoriccraft.PrehistoricCraft;
 import net.seentro.prehistoriccraft.common.block.acidCleaningChamber.AcidCleaningChamberBlockEntity;
 import net.seentro.prehistoriccraft.common.block.fossilAnalysisTable.FossilAnalysisTableBlockEntity;
 import net.seentro.prehistoriccraft.common.block.tissueExtractionChamber.TissueExtractionChamberBlockEntity;
+import net.seentro.prehistoriccraft.common.nature.signs.PrehistoricHangingSignBlockEntity;
+import net.seentro.prehistoriccraft.common.nature.signs.PrehistoricSignBlockEntity;
+import net.seentro.prehistoriccraft.common.nature.signs.PrehistoricStandingSignBlock;
 
 import java.util.Set;
 import java.util.function.Supplier;
 
 public class PrehistoricBlockEntityTypes {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPES =
-            DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, PrehistoricCraft.MODID);
+            DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE, PrehistoricCraft.MODID);
 
     public static final Supplier<BlockEntityType<FossilAnalysisTableBlockEntity>> FOSSIL_ANALYSIS_TABLE_BLOCK_ENTITY =
             BLOCK_ENTITY_TYPES.register("fossil_analysis_table_block_entity",
@@ -35,6 +38,20 @@ public class PrehistoricBlockEntityTypes {
             BLOCK_ENTITY_TYPES.register("acid_cleaning_chamber_block_entity",
                     () -> BlockEntityType.Builder.of(
                                     AcidCleaningChamberBlockEntity::new, PrehistoricBlocks.ACID_CLEANING_CHAMBER.get())
+                            .build(null));
+
+    // NATURE
+
+    public static final Supplier<BlockEntityType<PrehistoricSignBlockEntity>> PREHISTORIC_SIGN =
+            BLOCK_ENTITY_TYPES.register("prehistoric_sign",
+                    () -> BlockEntityType.Builder.of(
+                                    PrehistoricSignBlockEntity::new, PrehistoricBlocks.DAWN_REDWOOD_SIGN.get(), PrehistoricBlocks.DAWN_REDWOOD_WALL_SIGN.get())
+                            .build(null));
+
+    public static final Supplier<BlockEntityType<PrehistoricHangingSignBlockEntity>> PREHISTORIC_HANGING_SIGN =
+            BLOCK_ENTITY_TYPES.register("prehistoric_hanging_sign",
+                    () -> BlockEntityType.Builder.of(
+                                    PrehistoricHangingSignBlockEntity::new, PrehistoricBlocks.DAWN_REDWOOD_HANGING_SIGN.get(), PrehistoricBlocks.DAWN_REDWOOD_WALL_HANGING_SIGN.get())
                             .build(null));
 
     public static void register(IEventBus eventBus) {

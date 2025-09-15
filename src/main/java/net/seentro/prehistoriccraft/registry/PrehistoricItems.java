@@ -1,7 +1,7 @@
 package net.seentro.prehistoriccraft.registry;
 
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.entity.vehicle.Boat;
+import net.minecraft.world.item.*;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -16,6 +16,13 @@ import net.seentro.prehistoriccraft.common.item.TissueItem;
 public class PrehistoricItems {
     public static final DeferredRegister.Items ITEMS =
             DeferredRegister.createItems(PrehistoricCraft.MODID);
+
+    /* NATURE */
+
+    //DAWN REDWOOD
+    public static final DeferredItem<Item> DAWN_REDWOOD_SIGN = ITEMS.register("dawn_redwood_sign", () -> new SignItem(new Item.Properties().stacksTo(16), PrehistoricBlocks.DAWN_REDWOOD_SIGN.get(), PrehistoricBlocks.DAWN_REDWOOD_WALL_SIGN.get()));
+    public static final DeferredItem<Item> DAWN_REDWOOD_HANGING_SIGN = ITEMS.register("dawn_redwood_hanging_sign", () -> new HangingSignItem(PrehistoricBlocks.DAWN_REDWOOD_HANGING_SIGN.get(), PrehistoricBlocks.DAWN_REDWOOD_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16)));
+    public static final DeferredItem<Item> DAWN_REDWOOD_BOAT = ITEMS.register("dawn_redwood_boat", () -> new BoatItem(false, Boat.Type.OAK, new Item.Properties().stacksTo(1)));
 
     /* FOSSILS */
     public static final DeferredItem<Item> PRECAMBRIAN_FOSSIL = ITEMS.register("precambrian_fossil", () -> new FossilItem(new Item.Properties()));

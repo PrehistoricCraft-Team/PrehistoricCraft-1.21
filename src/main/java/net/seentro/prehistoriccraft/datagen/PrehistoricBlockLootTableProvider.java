@@ -35,6 +35,34 @@ public class PrehistoricBlockLootTableProvider extends BlockLootSubProvider {
 
     @Override
     protected void generate() {
+        /* NATURE */
+
+        //DAWN REDWOOD
+        dropSelf(PrehistoricBlocks.DAWN_REDWOOD_LOG.get());
+        dropSelf(PrehistoricBlocks.DAWN_REDWOOD_WOOD.get());
+        dropSelf(PrehistoricBlocks.STRIPPED_DAWN_REDWOOD_LOG.get());
+        dropSelf(PrehistoricBlocks.STRIPPED_DAWN_REDWOOD_WOOD.get());
+        dropSelf(PrehistoricBlocks.DAWN_REDWOOD_PLANKS.get());
+        dropSelf(PrehistoricBlocks.DAWN_REDWOOD_STAIRS.get());
+        dropSelf(PrehistoricBlocks.DAWN_REDWOOD_SLAB.get());
+        dropSelf(PrehistoricBlocks.DAWN_REDWOOD_FENCE.get());
+        dropSelf(PrehistoricBlocks.DAWN_REDWOOD_FENCE_GATE.get());
+        this.add(PrehistoricBlocks.DAWN_REDWOOD_DOOR.get(), this::createDoorTable);
+        dropSelf(PrehistoricBlocks.DAWN_REDWOOD_TRAPDOOR.get());
+        dropSelf(PrehistoricBlocks.DAWN_REDWOOD_PRESSURE_PLATE.get());
+        dropSelf(PrehistoricBlocks.DAWN_REDWOOD_BUTTON.get());
+
+        this.add(PrehistoricBlocks.DAWN_REDWOOD_LEAVES.get(), block ->
+                createLeavesDrops(block, PrehistoricBlocks.AMBER_BLOCK.get(), NORMAL_LEAVES_SAPLING_CHANCES));
+        this.add(PrehistoricBlocks.DAWN_REDWOOD_SIGN.get(), block ->
+                createSingleItemTable(PrehistoricItems.DAWN_REDWOOD_SIGN.get()));
+        this.add(PrehistoricBlocks.DAWN_REDWOOD_WALL_SIGN.get(), block ->
+                createSingleItemTable(PrehistoricItems.DAWN_REDWOOD_SIGN.get()));
+        this.add(PrehistoricBlocks.DAWN_REDWOOD_HANGING_SIGN.get(), block ->
+                createSingleItemTable(PrehistoricItems.DAWN_REDWOOD_HANGING_SIGN.get()));
+        this.add(PrehistoricBlocks.DAWN_REDWOOD_WALL_HANGING_SIGN.get(), block ->
+                createSingleItemTable(PrehistoricItems.DAWN_REDWOOD_HANGING_SIGN.get()));
+
         /* FOSSILIFEROUS STONE */
         dropOther(PrehistoricBlocks.PRECAMBRIAN_FOSSILIFEROUS_STONE.get(), Blocks.DEEPSLATE);
         dropOther(PrehistoricBlocks.CAMBRIAN_FOSSILIFEROUS_STONE.get(), Blocks.DEEPSLATE);
@@ -72,7 +100,7 @@ public class PrehistoricBlockLootTableProvider extends BlockLootSubProvider {
         /* BLOCK ENTITIES */
         dropSelf(PrehistoricBlocks.FOSSIL_ANALYSIS_TABLE.get());
         dropSelf(PrehistoricBlocks.TISSUE_EXTRACTION_CHAMBER.get());
-        dropSelf(PrehistoricBlocks.ACID_CLEANING_CHAMBER.get());
+        this.add(PrehistoricBlocks.ACID_CLEANING_CHAMBER.get(), this::createDoorTable);
 
         /* GYPSUM */
         dropMultipleItems(PrehistoricBlocks.GYPSUM_CRYSTAL.get(), PrehistoricItems.GYPSUM_POWDER.get(), 1, 2);

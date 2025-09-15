@@ -1,8 +1,18 @@
 package net.seentro.prehistoriccraft;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.color.block.BlockColors;
+import net.minecraft.client.renderer.BiomeColors;
+import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
+import net.minecraft.client.renderer.blockentity.SignRenderer;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.level.FoliageColor;
+import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
-import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import net.seentro.prehistoriccraft.common.block.acidCleaningChamber.geckolib.AcidCleaningChamberRenderer;
 import net.seentro.prehistoriccraft.common.block.tissueExtractionChamber.geckolib.TissueExtractionChamberRenderer;
@@ -26,6 +36,8 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 
+import javax.swing.text.html.parser.Entity;
+
 @Mod(PrehistoricCraft.MODID)
 public class PrehistoricCraft {
     public static final String MODID = "prehistoriccraft";
@@ -33,6 +45,8 @@ public class PrehistoricCraft {
 
     public PrehistoricCraft(IEventBus modEventBus, ModContainer modContainer) {
         modEventBus.addListener(this::commonSetup);
+        modEventBus.addListener(this::blockColorRegistrationEvent);
+        modEventBus.addListener(this::itemColorRegistrationEvent);
 
         PrehistoricBlocks.register(modEventBus);
         PrehistoricItems.register(modEventBus);
@@ -40,8 +54,29 @@ public class PrehistoricCraft {
         PrehistoricDataComponents.register(modEventBus);
         PrehistoricBlockEntityTypes.register(modEventBus);
         PrehistoricMenuTypes.register(modEventBus);
+        //PrehistoricEntityTypes.register(modEventBus);
 
         NeoForge.EVENT_BUS.register(this);
+    }
+
+    private void itemColorRegistrationEvent(RegisterColorHandlersEvent.Item itemEvent) {
+        BlockColors blockColors = Minecraft.getInstance().getBlockColors();
+
+        itemEvent.register(
+                (itemStack, color) -> {
+                    BlockState blockstate = ((BlockItem)itemStack.getItem()).getBlock().defaultBlockState();
+                    return blockColors.getColor(blockstate, null, null, color);
+                },
+                PrehistoricBlocks.DAWN_REDWOOD_LEAVES.get()
+        );
+    }
+
+    private void blockColorRegistrationEvent(RegisterColorHandlersEvent.Block blockEvent) {
+        blockEvent.register((state, tintGetter, pos, color) -> tintGetter != null && pos != null
+                        ? BiomeColors.getAverageFoliageColor(tintGetter, pos)
+                        : FoliageColor.getDefaultColor(),
+                PrehistoricBlocks.DAWN_REDWOOD_LEAVES.get()
+        );
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
@@ -62,6 +97,10 @@ public class PrehistoricCraft {
         public static void onClientSetup(FMLClientSetupEvent event) {
             BlockEntityRenderers.register(PrehistoricBlockEntityTypes.TISSUE_EXTRACTION_CHAMBER_BLOCK_ENTITY.get(), TissueExtractionChamberRenderer::new);
             BlockEntityRenderers.register(PrehistoricBlockEntityTypes.ACID_CLEANING_CHAMBER_BLOCK_ENTITY.get(), AcidCleaningChamberRenderer::new);
+
+            event.enqueueWork(() -> {
+                Sheets.addWoodType(PrehistoricWoodTypes.DAWN_REDWOOD);
+            });
         }
 
         @SubscribeEvent
@@ -69,6 +108,12 @@ public class PrehistoricCraft {
             event.register(PrehistoricMenuTypes.FOSSIL_ANALYSIS_TABLE_MENU.get(), FossilAnalysisTableScreen::new);
             event.register(PrehistoricMenuTypes.TISSUE_EXTRACTION_CHAMBER_MENU.get(), TissueExtractionChamberScreen::new);
             event.register(PrehistoricMenuTypes.ACID_CLEANING_CHAMBER_MENU.get(), AcidCleaningChamberScreen::new);
+        }
+
+        @SubscribeEvent
+        public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
+            event.registerBlockEntityRenderer(PrehistoricBlockEntityTypes.PREHISTORIC_SIGN.get(), SignRenderer::new);
+            event.registerBlockEntityRenderer(PrehistoricBlockEntityTypes.PREHISTORIC_HANGING_SIGN.get(), HangingSignRenderer::new);
         }
     }
 }

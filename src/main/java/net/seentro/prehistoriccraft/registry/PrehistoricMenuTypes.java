@@ -1,5 +1,6 @@
 package net.seentro.prehistoriccraft.registry;
 
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
@@ -15,7 +16,7 @@ import net.seentro.prehistoriccraft.common.screen.tissueExtractionChamber.Tissue
 
 public class PrehistoricMenuTypes {
     public static final DeferredRegister<MenuType<?>> MENU_TYPES =
-            DeferredRegister.create(Registries.MENU, PrehistoricCraft.MODID);
+            DeferredRegister.create(BuiltInRegistries.MENU, PrehistoricCraft.MODID);
 
     public static final DeferredHolder<MenuType<?>, MenuType<FossilAnalysisTableMenu>> FOSSIL_ANALYSIS_TABLE_MENU = registerMenuType("fossil_analysis_table_menu", FossilAnalysisTableMenu::new);
     public static final DeferredHolder<MenuType<?>, MenuType<TissueExtractionChamberMenu>> TISSUE_EXTRACTION_CHAMBER_MENU = registerMenuType("tissue_extraction_chamber_menu", TissueExtractionChamberMenu::new);

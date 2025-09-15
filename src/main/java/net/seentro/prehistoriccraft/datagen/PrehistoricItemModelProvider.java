@@ -20,6 +20,11 @@ public class PrehistoricItemModelProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
+        /* NATURE */
+        basicItem(PrehistoricItems.DAWN_REDWOOD_SIGN.get());
+        basicItem(PrehistoricItems.DAWN_REDWOOD_HANGING_SIGN.get());
+        basicItem(PrehistoricItems.DAWN_REDWOOD_BOAT.get());
+
         /* FOSSILS */
         basicItem(PrehistoricItems.PRECAMBRIAN_FOSSIL.get());
         basicItem(PrehistoricItems.CAMBRIAN_FOSSIL.get());
@@ -93,10 +98,8 @@ public class PrehistoricItemModelProvider extends ItemModelProvider {
     }
 
     public ItemModelBuilder basicFossilSample(Item item, boolean deepslate) {
-        if (deepslate) {
-            return basicItemOtherTexture(item, ResourceLocation.fromNamespaceAndPath("prehistoriccraft", "item/" + "paleozoic_fossil_sample"));
-        } else {
-            return basicItemOtherTexture(item, ResourceLocation.fromNamespaceAndPath("prehistoriccraft", "item/" + "mesozoic_fossil_sample"));
-        }
+        return deepslate
+                ? basicItemOtherTexture(item, ResourceLocation.fromNamespaceAndPath("prehistoriccraft", "item/" + "paleozoic_fossil_sample"))
+                : basicItemOtherTexture(item, ResourceLocation.fromNamespaceAndPath("prehistoriccraft", "item/" + "mesozoic_fossil_sample"));
     }
 }

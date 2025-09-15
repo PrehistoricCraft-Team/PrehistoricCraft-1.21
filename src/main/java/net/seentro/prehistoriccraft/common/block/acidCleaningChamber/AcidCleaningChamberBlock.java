@@ -24,6 +24,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
@@ -67,11 +68,27 @@ public class AcidCleaningChamberBlock extends BaseEntityBlock {
     /* DOUBLE BLOCK */
 
     @Override
+    protected BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor level, BlockPos currentPos, BlockPos facingPos) {
+        DoubleBlockHalf doubleblockhalf = state.getValue(HALF);
+        if (facing.getAxis() != Direction.Axis.Y
+                || doubleblockhalf == DoubleBlockHalf.LOWER != (facing == Direction.UP)
+                || facingState.is(this) && facingState.getValue(HALF) != doubleblockhalf) {
+            return doubleblockhalf == DoubleBlockHalf.LOWER && facing == Direction.DOWN && !state.canSurvive(level, currentPos)
+                    ? Blocks.AIR.defaultBlockState()
+                    : super.updateShape(state, facing, facingState, level, currentPos, facingPos);
+        } else {
+            return Blocks.AIR.defaultBlockState();
+        }
+    }
+
+    @Nullable
+    @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        BlockPos pos = context.getClickedPos();
+        BlockPos blockpos = context.getClickedPos();
         Level level = context.getLevel();
-        if (pos.getY() < level.getMaxBuildHeight() - 1 && level.getBlockState(pos.above()).canBeReplaced(context)) {
-            return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite())
+        if (blockpos.getY() < level.getMaxBuildHeight() - 1 && level.getBlockState(blockpos.above()).canBeReplaced(context)) {
+            return this.defaultBlockState()
+                    .setValue(FACING, context.getHorizontalDirection().getOpposite())
                     .setValue(HALF, DoubleBlockHalf.LOWER);
         }
         return null;
@@ -79,57 +96,28 @@ public class AcidCleaningChamberBlock extends BaseEntityBlock {
 
     @Override
     public void setPlacedBy(Level level, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
-        level.setBlock(pos.above(), state.setValue(HALF, DoubleBlockHalf.UPPER), 3);
+        BlockPos blockpos = pos.above();
+        level.setBlock(blockpos, state.setValue(HALF, DoubleBlockHalf.UPPER), 3);
     }
 
     @Override
     protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
-        if (state.getValue(HALF) == DoubleBlockHalf.LOWER) {
-            BlockPos below = pos.below();
-            return level.getBlockState(below).isFaceSturdy(level, below, Direction.UP);
+        if (state.getValue(HALF) != DoubleBlockHalf.UPPER) {
+            return super.canSurvive(state, level, pos);
         } else {
-            BlockState belowState = level.getBlockState(pos.below());
-            return belowState.is(this) && belowState.getValue(HALF) == DoubleBlockHalf.LOWER;
-        }
-    }
-
-    @Override
-    protected BlockState updateShape(BlockState state, Direction facing, BlockState facingState,
-                                     LevelAccessor level, BlockPos currentPos, BlockPos facingPos) {
-        DoubleBlockHalf half = state.getValue(HALF);
-
-        if (half == DoubleBlockHalf.LOWER && facing == Direction.UP && !state.canSurvive(level, currentPos)) {
-            return Blocks.AIR.defaultBlockState();
-        }
-        if (half == DoubleBlockHalf.UPPER && facing == Direction.DOWN && !state.canSurvive(level, currentPos)) {
-            return Blocks.AIR.defaultBlockState();
-        }
-
-        return super.updateShape(state, facing, facingState, level, currentPos, facingPos);
-    }
-
-    private static void breakOtherHalf(Level level, BlockPos pos, BlockState state, Player player) {
-        DoubleBlockHalf half = state.getValue(HALF);
-        BlockPos otherPos = half == DoubleBlockHalf.UPPER ? pos.below() : pos.above();
-        BlockState otherState = level.getBlockState(otherPos);
-
-        if (otherState.getBlock() == state.getBlock() && otherState.getValue(HALF) != half) {
-            if (!player.isCreative()) {
-                level.destroyBlock(otherPos, true);
-            } else {
-                level.setBlock(otherPos, Blocks.AIR.defaultBlockState(), 35);
-                level.levelEvent(player, 2001, otherPos, Block.getId(otherState));
-            }
+            BlockState blockstate = level.getBlockState(pos.below());
+            if (state.getBlock() != this) return super.canSurvive(state, level, pos); //Forge: This function is called during world gen and placement, before this block is set, so if we are not 'here' then assume it's the pre-check.
+            return blockstate.is(this) && blockstate.getValue(HALF) == DoubleBlockHalf.LOWER;
         }
     }
 
     @Override
     public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
         if (!level.isClientSide) {
-            breakOtherHalf(level, pos, state, player);
-
-                if (state.getValue(HALF) == DoubleBlockHalf.UPPER) {
-                level.levelEvent(player, 2001, pos, Block.getId(state));
+            if (player.isCreative()) {
+                preventDropFromBottomPart(level, pos, state, player);
+            } else {
+                dropResources(state, level, pos, null, player, player.getMainHandItem());
             }
         }
 
@@ -137,18 +125,21 @@ public class AcidCleaningChamberBlock extends BaseEntityBlock {
     }
 
     @Override
-    protected List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
-        Player player = builder.getOptionalParameter(LootContextParams.THIS_ENTITY) instanceof Player p ? p : null;
+    public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @javax.annotation.Nullable BlockEntity te, ItemStack stack) {
+        super.playerDestroy(level, player, pos, Blocks.AIR.defaultBlockState(), te, stack);
+    }
 
-        if (state.getValue(HALF) == DoubleBlockHalf.UPPER) {
-            return Collections.emptyList();
+    protected static void preventDropFromBottomPart(Level level, BlockPos pos, BlockState state, Player player) {
+        DoubleBlockHalf doubleblockhalf = state.getValue(HALF);
+        if (doubleblockhalf == DoubleBlockHalf.UPPER) {
+            BlockPos blockpos = pos.below();
+            BlockState blockstate = level.getBlockState(blockpos);
+            if (blockstate.is(state.getBlock()) && blockstate.getValue(HALF) == DoubleBlockHalf.LOWER) {
+                BlockState blockstate1 = blockstate.getFluidState().is(Fluids.WATER) ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState();
+                level.setBlock(blockpos, blockstate1, 35);
+                level.levelEvent(player, 2001, blockpos, Block.getId(blockstate));
+            }
         }
-
-        if (player != null && player.isCreative()) {
-            return Collections.emptyList();
-        }
-
-        return super.getDrops(state, builder);
     }
 
 

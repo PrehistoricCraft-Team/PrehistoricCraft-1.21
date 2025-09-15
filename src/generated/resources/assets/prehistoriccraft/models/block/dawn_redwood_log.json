@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "prehistoriccraft:block/dawn_redwood_log_top",
+    "side": "prehistoriccraft:block/dawn_redwood_log"
+  }
+}

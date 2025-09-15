@@ -1,6 +1,7 @@
 package net.seentro.prehistoriccraft.common.block.fossilAnalysisTable;
 
 import com.mojang.serialization.MapCodec;
+import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
