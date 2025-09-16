@@ -1,4 +1,4 @@
-// 1.21.1	2025-09-15T20:09:47.7645548	Block States: prehistoriccraft
+// 1.21.1	2025-09-16T17:43:53.1031529	Block States: prehistoriccraft
 ed3f56cac858cef5cc27b0c2d6997ad6a06041b6 assets/prehistoriccraft/blockstates/amber_block.json
 5e428450ad3de518d553fc7091efdfdeb282545e assets/prehistoriccraft/blockstates/cambrian_fossiliferous_stone.json
 49ed35c379dd7d65adc4ec9363437d42303ca477 assets/prehistoriccraft/blockstates/carboniferous_fossiliferous_stone.json
@@ -69,7 +69,7 @@ e065096e76cd11df9bda3fa982ee17d78d4619b0 assets/prehistoriccraft/models/block/da
 97fff8409c471a0ca6aa73dfb63cd18284e908ff assets/prehistoriccraft/models/block/dawn_redwood_fence_post.json
 9bc2f3e5a4eef5287898fcdbbb25475e8421b83c assets/prehistoriccraft/models/block/dawn_redwood_fence_side.json
 1a591189ba2ef6875e13e6d94844b26b57fc283e assets/prehistoriccraft/models/block/dawn_redwood_hanging_sign.json
-7b92ab6408d796411d660a83d119ab2d5adfbd03 assets/prehistoriccraft/models/block/dawn_redwood_leaves.json
+147e83c1ae924336bc8e3a7d31e955713f3b4340 assets/prehistoriccraft/models/block/dawn_redwood_leaves.json
 b5fdeb457bb69c8d5857d609d0748540a4a5ab61 assets/prehistoriccraft/models/block/dawn_redwood_log.json
 b409bbee796300c69f7c246aa895bd7aa546f247 assets/prehistoriccraft/models/block/dawn_redwood_log_horizontal.json
 7c1a4fb4f6438f94f26022ebf635d5344a466e5f assets/prehistoriccraft/models/block/dawn_redwood_planks.json

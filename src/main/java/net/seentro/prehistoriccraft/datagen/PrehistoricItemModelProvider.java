@@ -24,6 +24,7 @@ public class PrehistoricItemModelProvider extends ItemModelProvider {
         basicItem(PrehistoricItems.DAWN_REDWOOD_SIGN.get());
         basicItem(PrehistoricItems.DAWN_REDWOOD_HANGING_SIGN.get());
         basicItem(PrehistoricItems.DAWN_REDWOOD_BOAT.get());
+        basicItem(PrehistoricItems.DAWN_REDWOOD_CHEST_BOAT.get());
 
         /* FOSSILS */
         basicItem(PrehistoricItems.PRECAMBRIAN_FOSSIL.get());

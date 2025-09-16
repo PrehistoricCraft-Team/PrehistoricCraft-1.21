@@ -22,7 +22,8 @@ public class PrehistoricItems {
     //DAWN REDWOOD
     public static final DeferredItem<Item> DAWN_REDWOOD_SIGN = ITEMS.register("dawn_redwood_sign", () -> new SignItem(new Item.Properties().stacksTo(16), PrehistoricBlocks.DAWN_REDWOOD_SIGN.get(), PrehistoricBlocks.DAWN_REDWOOD_WALL_SIGN.get()));
     public static final DeferredItem<Item> DAWN_REDWOOD_HANGING_SIGN = ITEMS.register("dawn_redwood_hanging_sign", () -> new HangingSignItem(PrehistoricBlocks.DAWN_REDWOOD_HANGING_SIGN.get(), PrehistoricBlocks.DAWN_REDWOOD_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16)));
-    public static final DeferredItem<Item> DAWN_REDWOOD_BOAT = ITEMS.register("dawn_redwood_boat", () -> new BoatItem(false, Boat.Type.OAK, new Item.Properties().stacksTo(1)));
+    public static final DeferredItem<Item> DAWN_REDWOOD_BOAT = ITEMS.register("dawn_redwood_boat", () -> new BoatItem(false, PrehistoricEnumExtensions.DAWN_REDWOOD.getValue(), new Item.Properties().stacksTo(1)));
+    public static final DeferredItem<Item> DAWN_REDWOOD_CHEST_BOAT = ITEMS.register("dawn_redwood_chest_boat", () -> new BoatItem(true, PrehistoricEnumExtensions.DAWN_REDWOOD.getValue(), new Item.Properties().stacksTo(1)));
 
     /* FOSSILS */
     public static final DeferredItem<Item> PRECAMBRIAN_FOSSIL = ITEMS.register("precambrian_fossil", () -> new FossilItem(new Item.Properties()));

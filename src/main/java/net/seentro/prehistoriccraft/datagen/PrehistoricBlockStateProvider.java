@@ -6,15 +6,18 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.*;
-import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
-import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
-import net.neoforged.neoforge.client.model.generators.ModelBuilder;
-import net.neoforged.neoforge.client.model.generators.ModelFile;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.AttachFace;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.Property;
+import net.neoforged.neoforge.client.model.generators.*;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
 import net.seentro.prehistoriccraft.registry.PrehistoricBlocks;
+
+import java.util.function.Function;
 
 public class PrehistoricBlockStateProvider extends BlockStateProvider {
     public PrehistoricBlockStateProvider(PackOutput output, ExistingFileHelper exFileHelper) {
@@ -32,7 +35,7 @@ public class PrehistoricBlockStateProvider extends BlockStateProvider {
         axisBlock((RotatedPillarBlock) PrehistoricBlocks.DAWN_REDWOOD_WOOD.get(), blockTexture(PrehistoricBlocks.DAWN_REDWOOD_LOG.get()), blockTexture(PrehistoricBlocks.DAWN_REDWOOD_LOG.get()));
         logBlock((RotatedPillarBlock) PrehistoricBlocks.STRIPPED_DAWN_REDWOOD_LOG.get());
         axisBlock((RotatedPillarBlock) PrehistoricBlocks.STRIPPED_DAWN_REDWOOD_WOOD.get(), blockTexture(PrehistoricBlocks.STRIPPED_DAWN_REDWOOD_LOG.get()), blockTexture(PrehistoricBlocks.STRIPPED_DAWN_REDWOOD_LOG.get()));
-        leavesBlock(PrehistoricBlocks.DAWN_REDWOOD_LEAVES);
+        blockWithOverlayAllSides(PrehistoricBlocks.DAWN_REDWOOD_LEAVES.get(), modLoc("block/dawn_redwood_leaves_cones"));
         blockWithItem(PrehistoricBlocks.DAWN_REDWOOD_PLANKS);
         stairsBlock(PrehistoricBlocks.DAWN_REDWOOD_STAIRS.get(), blockTexture(PrehistoricBlocks.DAWN_REDWOOD_PLANKS.get()));
         slabBlock(PrehistoricBlocks.DAWN_REDWOOD_SLAB.get(), blockTexture(PrehistoricBlocks.DAWN_REDWOOD_PLANKS.get()), blockTexture(PrehistoricBlocks.DAWN_REDWOOD_PLANKS.get()));
@@ -106,7 +109,29 @@ public class PrehistoricBlockStateProvider extends BlockStateProvider {
 
     private void leavesBlock(DeferredBlock<?> block) {
         simpleBlockWithItem(block.get(), models().leaves(block.getId().getPath(), blockTexture(block.get())).renderType("cutout"));
-        blockItem(block);
+    }
+
+    public void blockWithOverlayAllSides(Block block, ResourceLocation overlay) {
+        String name = BuiltInRegistries.BLOCK.getKey(block).toString();
+        String path = BuiltInRegistries.BLOCK.getKey(block).getPath();
+        ResourceLocation texture = modLoc("block/" + path);
+
+        BlockModelBuilder model = models().getBuilder(name)
+                .parent(models().getExistingFile(mcLoc("block/block")))
+                .texture("particle", texture.toString())
+                .texture("texture", texture.toString())
+                .texture("overlay", overlay.toString())
+                .renderType("cutout");
+
+        model.element()
+                .from(0, 0, 0).to(16, 16, 16)
+                .allFaces((dir, face) -> face.texture("#texture").tintindex(0));
+
+        model.element()
+                .from(0, 0, 0).to(16, 16, 16)
+                .allFaces((dir, face) -> face.texture("#overlay"));
+
+        simpleBlockWithItem(block, model);
     }
 
     private void saplingBlock(DeferredBlock<?> block) {

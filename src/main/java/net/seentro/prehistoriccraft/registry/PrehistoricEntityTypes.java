@@ -9,6 +9,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
+import net.seentro.prehistoriccraft.common.entity.PrehistoricBoatRenderer;
 
 import java.util.function.Supplier;
 
@@ -16,8 +17,8 @@ public class PrehistoricEntityTypes {
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES =
             DeferredRegister.create(BuiltInRegistries.ENTITY_TYPE, PrehistoricCraft.MODID);
 
-    /*public static final Supplier<EntityType<PrehistoricBoatEntity>> PREHISTORIC_BOAT =
-            ENTITY_TYPES.register("prehistoric_boat", () -> EntityType.Builder.<PrehistoricBoatEntity>of(PrehistoricBoatEntity::new, MobCategory.MISC)
+    /*public static final Supplier<EntityType<PrehistoricBoatRenderer>> PREHISTORIC_BOAT =
+            ENTITY_TYPES.register("prehistoric_boat", () -> EntityType.Builder.<PrehistoricBoatRenderer>of(PrehistoricBoatRenderer::new, MobCategory.MISC)
                     .sized(1.375f, 0.5625f).build("prehistoric_boat"));
 
     public static final Supplier<EntityType<PrehistoricChestBoatEntity>> PREHISTORIC_CHEST_BOAT =

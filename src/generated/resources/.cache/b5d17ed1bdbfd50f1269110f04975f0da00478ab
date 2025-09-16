@@ -1,4 +1,4 @@
-// 1.21.1	2025-09-15T20:44:26.0655104	Item Models: prehistoriccraft
+// 1.21.1	2025-09-16T17:06:35.8052768	Item Models: prehistoriccraft
 45d11e3b53db99e8496d59a036ce7e7d09184f8f assets/prehistoriccraft/models/item/amber.json
 092ef5035850e79077ec6d0947f7e1a3791a1c94 assets/prehistoriccraft/models/item/animal_tissue.json
 fe2aa263b0ab0261db88b738423d6607aef14faf assets/prehistoriccraft/models/item/blob_of_blice.json
@@ -11,6 +11,7 @@ e50687cf170360967ce4bdde0ad77dcb08d70d0f assets/prehistoriccraft/models/item/blo
 44d34d22b6a8f5acc02549ab8944643d9b1e0cc3 assets/prehistoriccraft/models/item/cretaceous_fossil.json
 adc4d8138a916917a383b307714ec8e901a5bcb6 assets/prehistoriccraft/models/item/cretaceous_fossil_sample.json
 4f9d415d255eda1b4dd94a4571adef7c29577839 assets/prehistoriccraft/models/item/dawn_redwood_boat.json
+0e05f8b4024832b22d8d0de055676beb35b21514 assets/prehistoriccraft/models/item/dawn_redwood_chest_boat.json
 43107750a61b4cd46a74cd945a786d1a4d22998f assets/prehistoriccraft/models/item/dawn_redwood_hanging_sign.json
 b7e6ae0bf6f8cf4397c6255111c202d214e83089 assets/prehistoriccraft/models/item/dawn_redwood_sign.json
 b3a807511f1df47cfb337911323f960ba3f62f2e assets/prehistoriccraft/models/item/devonian_fossil.json
