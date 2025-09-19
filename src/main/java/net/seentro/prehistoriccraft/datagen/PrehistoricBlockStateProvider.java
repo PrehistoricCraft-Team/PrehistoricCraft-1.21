@@ -1,27 +1,28 @@
 package net.seentro.prehistoriccraft.datagen;
 
-import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.AttachFace;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.Property;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.TrapDoorBlock;
 import net.neoforged.neoforge.client.model.generators.*;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.registries.DeferredBlock;
-import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
 import net.seentro.prehistoriccraft.registry.PrehistoricBlocks;
-
-import java.util.function.Function;
 
 public class PrehistoricBlockStateProvider extends BlockStateProvider {
     public PrehistoricBlockStateProvider(PackOutput output, ExistingFileHelper exFileHelper) {
         super(output, PrehistoricCraft.MODID, exFileHelper);
+    }
+
+    private ResourceLocation key(Block block) {
+        return BuiltInRegistries.BLOCK.getKey(block);
+    }
+
+    private String name(Block block) {
+        return key(block).getPath();
     }
 
     @Override
@@ -47,7 +48,6 @@ public class PrehistoricBlockStateProvider extends BlockStateProvider {
         buttonBlock(PrehistoricBlocks.DAWN_REDWOOD_BUTTON.get(), blockTexture(PrehistoricBlocks.DAWN_REDWOOD_PLANKS.get()));
         signBlock(PrehistoricBlocks.DAWN_REDWOOD_SIGN.get(), PrehistoricBlocks.DAWN_REDWOOD_WALL_SIGN.get(), blockTexture(PrehistoricBlocks.DAWN_REDWOOD_PLANKS.get()));
         hangingSignBlock(PrehistoricBlocks.DAWN_REDWOOD_HANGING_SIGN.get(), PrehistoricBlocks.DAWN_REDWOOD_WALL_HANGING_SIGN.get(), blockTexture(PrehistoricBlocks.STRIPPED_DAWN_REDWOOD_LOG.get()));
-
         blockItem(PrehistoricBlocks.DAWN_REDWOOD_LOG);
         blockItem(PrehistoricBlocks.DAWN_REDWOOD_WOOD);
         blockItem(PrehistoricBlocks.STRIPPED_DAWN_REDWOOD_LOG);
@@ -107,13 +107,9 @@ public class PrehistoricBlockStateProvider extends BlockStateProvider {
         simpleBlockWithItem(block.get(), models().cubeAll("plastered_fossiliferous_stone", modLoc("block/plastered_fossiliferous_stone")));
     }
 
-    private void leavesBlock(DeferredBlock<?> block) {
-        simpleBlockWithItem(block.get(), models().leaves(block.getId().getPath(), blockTexture(block.get())).renderType("cutout"));
-    }
-
     public void blockWithOverlayAllSides(Block block, ResourceLocation overlay) {
         String name = BuiltInRegistries.BLOCK.getKey(block).toString();
-        String path = BuiltInRegistries.BLOCK.getKey(block).getPath();
+        String path = name(block);
         ResourceLocation texture = modLoc("block/" + path);
 
         BlockModelBuilder model = models().getBuilder(name)
@@ -171,7 +167,7 @@ public class PrehistoricBlockStateProvider extends BlockStateProvider {
     }
 
     private void customTrapdoorBlock(TrapDoorBlock block, ResourceLocation texture, ResourceLocation sideTexture, boolean orientable, String renderType) {
-        String name = BuiltInRegistries.BLOCK.getKey(block).toString();
+        String name = name(block);
         ModelFile bottom = customTrapdoorBottom(name + "_bottom", texture, sideTexture).renderType("minecraft:" + renderType);
         ModelFile top = customTrapdoorTop(name + "_top", texture, sideTexture).renderType("minecraft:" + renderType);
         ModelFile open = customTrapdoorOpen(name + "_open", texture, sideTexture).renderType("minecraft:" + renderType);

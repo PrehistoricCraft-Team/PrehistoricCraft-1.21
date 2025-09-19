@@ -10,12 +10,14 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
+import net.seentro.prehistoriccraft.common.block.InvisibleBlock;
 import net.seentro.prehistoriccraft.common.nature.*;
 import net.seentro.prehistoriccraft.common.block.acidCleaningChamber.AcidCleaningChamberBlock;
 import net.seentro.prehistoriccraft.common.block.fossilAnalysisTable.FossilAnalysisTableBlock;
 import net.seentro.prehistoriccraft.common.block.fossiliferousStone.FossiliferousStoneBlock;
 import net.seentro.prehistoriccraft.common.block.gypsumCrystal.GypsumCrystalBlock;
 import net.seentro.prehistoriccraft.common.block.tissueExtractionChamber.TissueExtractionChamberBlock;
+import net.seentro.prehistoriccraft.common.nature.dawnRedwood.DawnRedwoodSaplingStage3;
 import net.seentro.prehistoriccraft.common.nature.signs.PrehistoricHangingSignBlock;
 import net.seentro.prehistoriccraft.common.nature.signs.PrehistoricStandingSignBlock;
 import net.seentro.prehistoriccraft.common.nature.signs.PrehistoricWallHangingSignBlock;
@@ -50,6 +52,7 @@ public class PrehistoricBlocks {
     public static final DeferredBlock<PrehistoricWallSignBlock> DAWN_REDWOOD_WALL_SIGN = registerBlockOnly("dawn_redwood_wall_sign", () -> new PrehistoricWallSignBlock(PrehistoricWoodTypes.DAWN_REDWOOD, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_SIGN)));
     public static final DeferredBlock<PrehistoricHangingSignBlock> DAWN_REDWOOD_HANGING_SIGN = registerBlockOnly("dawn_redwood_hanging_sign", () -> new PrehistoricHangingSignBlock(PrehistoricWoodTypes.DAWN_REDWOOD, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_HANGING_SIGN)));
     public static final DeferredBlock<PrehistoricWallHangingSignBlock> DAWN_REDWOOD_WALL_HANGING_SIGN = registerBlockOnly("dawn_redwood_wall_hanging_sign", () -> new PrehistoricWallHangingSignBlock(PrehistoricWoodTypes.DAWN_REDWOOD, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN)));
+    public static final DeferredBlock<Block> DAWN_REDWOOD_SAPLING_STAGE_3 = registerBlock("dawn_redwood_sapling_stage_3", () -> new DawnRedwoodSaplingStage3(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).noOcclusion()));
 
     /* FOSSILIFEROUS STONE */
     public static final DeferredBlock<Block> PRECAMBRIAN_FOSSILIFEROUS_STONE = registerBlock("precambrian_fossiliferous_stone", () -> new FossiliferousStoneBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE), PRECAMBRIAN));
@@ -86,6 +89,7 @@ public class PrehistoricBlocks {
     public static final DeferredBlock<Block> DEEPSLATE_SULFUR_ORE = registerBlock("deepslate_sulfur_ore", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE_LAPIS_ORE).requiresCorrectToolForDrops()));
 
     /* BLOCK ENTITIES */
+    public static final DeferredBlock<Block> FOSSIL_ANALYSIS_TABLE_TEST = registerBlock("fossil_analysis_table_test", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES).noOcclusion()));
     public static final DeferredBlock<Block> FOSSIL_ANALYSIS_TABLE = registerBlock("fossil_analysis_table", () -> new FossilAnalysisTableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).noOcclusion()));
     public static final DeferredBlock<Block> TISSUE_EXTRACTION_CHAMBER = registerBlockOnly("tissue_extraction_chamber", () -> new TissueExtractionChamberBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.COBBLESTONE).noOcclusion()));
     public static final DeferredBlock<Block> ACID_CLEANING_CHAMBER = registerBlockOnly("acid_cleaning_chamber", () -> new AcidCleaningChamberBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.COBBLESTONE).noOcclusion()));
@@ -96,6 +100,8 @@ public class PrehistoricBlocks {
 
     /* DIRT */
     public static final DeferredBlock<Block> CRACKED_DIRT = registerBlock("cracked_dirt", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.COARSE_DIRT).strength(1.1F)));
+
+    public static final DeferredBlock<Block> INVISIBLE_BLOCK = registerBlock("invisible_block", () -> new InvisibleBlock(BlockBehaviour.Properties.of().replaceable().noCollission().noLootTable()));
 
     private static <T extends Block> DeferredBlock<T> registerBlockOnly(String name, Supplier<T> block) {
         return BLOCKS.register(name, block);

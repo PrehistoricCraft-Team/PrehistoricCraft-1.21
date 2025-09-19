@@ -1,23 +1,34 @@
 package net.seentro.prehistoriccraft;
 
+import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.block.BlockColors;
-import net.minecraft.client.model.BoatModel;
-import net.minecraft.client.model.geom.ModelLayers;
-import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
-import net.minecraft.client.renderer.entity.BoatRenderer;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.FoliageColor;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.AddReloadListenerEvent;
+import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.seentro.prehistoriccraft.common.block.acidCleaningChamber.geckolib.AcidCleaningChamberRenderer;
 import net.seentro.prehistoriccraft.common.block.tissueExtractionChamber.geckolib.TissueExtractionChamberRenderer;
 import net.seentro.prehistoriccraft.common.entity.PrehistoricBoatRenderer;
@@ -27,21 +38,7 @@ import net.seentro.prehistoriccraft.common.screen.tissueExtractionChamber.Tissue
 import net.seentro.prehistoriccraft.core.json.tissueExtractionChamber.TimePeriodTissueLoader;
 import net.seentro.prehistoriccraft.registry.*;
 import org.slf4j.Logger;
-
-import com.mojang.logging.LogUtils;
-
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.ModContainer;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.fml.common.Mod;
-import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
-import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.server.ServerStartingEvent;
-
-import javax.swing.text.html.parser.Entity;
+import software.bernie.geckolib.util.ClientUtil;
 
 @Mod(PrehistoricCraft.MODID)
 public class PrehistoricCraft {
@@ -78,10 +75,22 @@ public class PrehistoricCraft {
 
     private void blockColorRegistrationEvent(RegisterColorHandlersEvent.Block blockEvent) {
         blockEvent.register((state, tintGetter, pos, color) -> tintGetter != null && pos != null
-                        ? BiomeColors.getAverageFoliageColor(tintGetter, pos)
+                        ? getCustomFoliageColor(pos)
                         : FoliageColor.getDefaultColor(),
-                PrehistoricBlocks.DAWN_REDWOOD_LEAVES.get()
+                PrehistoricBlocks.DAWN_REDWOOD_LEAVES.get(),
+                PrehistoricBlocks.FOSSIL_ANALYSIS_TABLE_TEST.get()
         );
+    }
+
+    private int getCustomFoliageColor(BlockPos pos) {
+        Holder<Biome> biome = ClientUtil.getLevel().getBiome(pos);
+        if (biome.is(Biomes.PLAINS))
+            return 255;
+
+        if (biome.is(Biomes.RIVER))
+            return 4637141;
+
+        return 16711935;
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
