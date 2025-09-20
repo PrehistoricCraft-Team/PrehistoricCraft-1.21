@@ -8,7 +8,7 @@ import software.bernie.geckolib.model.GeoModel;
 public class AcidCleaningChamberModel extends GeoModel<AcidCleaningChamberBlockEntity> {
     @Override
     public ResourceLocation getModelResource(AcidCleaningChamberBlockEntity animatable) {
-        return ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID, "geo/acid_cleaning_chamber.geo.json");
+        return ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID, "geo/block/acid_cleaning_chamber.geo.json");
     }
 
     @Override

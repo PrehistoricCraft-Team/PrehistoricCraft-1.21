@@ -3,6 +3,7 @@ package net.seentro.prehistoriccraft;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.block.BlockColors;
+import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
@@ -32,6 +33,7 @@ import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.seentro.prehistoriccraft.common.block.acidCleaningChamber.geckolib.AcidCleaningChamberRenderer;
 import net.seentro.prehistoriccraft.common.block.tissueExtractionChamber.geckolib.TissueExtractionChamberRenderer;
 import net.seentro.prehistoriccraft.common.entity.PrehistoricBoatRenderer;
+import net.seentro.prehistoriccraft.common.nature.dawnRedwood.geckolib.DawnRedwoodSaplingRenderer;
 import net.seentro.prehistoriccraft.common.screen.acidCleaningChamber.AcidCleaningChamberScreen;
 import net.seentro.prehistoriccraft.common.screen.fossilAnalysisTable.FossilAnalysisTableScreen;
 import net.seentro.prehistoriccraft.common.screen.tissueExtractionChamber.TissueExtractionChamberScreen;
@@ -56,7 +58,6 @@ public class PrehistoricCraft {
         PrehistoricDataComponents.register(modEventBus);
         PrehistoricBlockEntityTypes.register(modEventBus);
         PrehistoricMenuTypes.register(modEventBus);
-        //PrehistoricEntityTypes.register(modEventBus);
 
         NeoForge.EVENT_BUS.register(this);
     }
@@ -74,11 +75,18 @@ public class PrehistoricCraft {
     }
 
     private void blockColorRegistrationEvent(RegisterColorHandlersEvent.Block blockEvent) {
+        // DAWN REDWOOD
         blockEvent.register((state, tintGetter, pos, color) -> tintGetter != null && pos != null
                         ? getCustomFoliageColor(pos)
                         : FoliageColor.getDefaultColor(),
-                PrehistoricBlocks.DAWN_REDWOOD_LEAVES.get(),
-                PrehistoricBlocks.FOSSIL_ANALYSIS_TABLE_TEST.get()
+                PrehistoricBlocks.DAWN_REDWOOD_LEAVES.get()
+        );
+
+        // VANILLA
+        blockEvent.register((state, tintGetter, pos, color) -> tintGetter != null && pos != null
+                        ? BiomeColors.getAverageFoliageColor(tintGetter, pos)
+                        : FoliageColor.getDefaultColor(),
+                PrehistoricBlocks.DAWN_REDWOOD_SAPLING.get()
         );
     }
 
@@ -111,6 +119,7 @@ public class PrehistoricCraft {
         public static void onClientSetup(FMLClientSetupEvent event) {
             BlockEntityRenderers.register(PrehistoricBlockEntityTypes.TISSUE_EXTRACTION_CHAMBER_BLOCK_ENTITY.get(), TissueExtractionChamberRenderer::new);
             BlockEntityRenderers.register(PrehistoricBlockEntityTypes.ACID_CLEANING_CHAMBER_BLOCK_ENTITY.get(), AcidCleaningChamberRenderer::new);
+            BlockEntityRenderers.register(PrehistoricBlockEntityTypes.DAWN_REDWOOD_SAPLING_BLOCK_ENTITY.get(), DawnRedwoodSaplingRenderer::new);
 
             event.enqueueWork(() -> {
                 Sheets.addWoodType(PrehistoricWoodTypes.DAWN_REDWOOD);

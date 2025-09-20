@@ -48,7 +48,7 @@ public class PrehistoricBlockLootTableProvider extends BlockLootSubProvider {
         dropSelf(PrehistoricBlocks.DAWN_REDWOOD_PRESSURE_PLATE.get());
         dropSelf(PrehistoricBlocks.DAWN_REDWOOD_BUTTON.get());
 
-        dropSelf(PrehistoricBlocks.DAWN_REDWOOD_SAPLING_STAGE_3.get());
+        dropSelf(PrehistoricBlocks.DAWN_REDWOOD_SAPLING.get());
 
         this.add(PrehistoricBlocks.DAWN_REDWOOD_LEAVES.get(), block ->
                 createLeavesDrops(block, PrehistoricBlocks.AMBER_BLOCK.get(), NORMAL_LEAVES_SAPLING_CHANCES));
