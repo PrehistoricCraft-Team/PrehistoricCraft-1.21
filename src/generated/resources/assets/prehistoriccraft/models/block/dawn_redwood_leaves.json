@@ -72,7 +72,7 @@
       ]
     }
   ],
-  "render_type": "minecraft:cutout",
+  "render_type": "minecraft:translucent",
   "textures": {
     "overlay": "prehistoriccraft:block/dawn_redwood_leaves_cones",
     "particle": "prehistoriccraft:block/dawn_redwood_leaves",
