@@ -11,7 +11,7 @@ import software.bernie.geckolib.model.GeoModel;
 public class TissueExtractionChamberModel extends GeoModel<TissueExtractionChamberBlockEntity> {
     @Override
     public ResourceLocation getModelResource(TissueExtractionChamberBlockEntity animatable) {
-        return ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID, "geo/block/tissue_extraction_chamber.geo.json");
+        return ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID, "geo/block/machine/tissue_extraction_chamber.geo.json");
     }
 
     @Override
@@ -21,6 +21,6 @@ public class TissueExtractionChamberModel extends GeoModel<TissueExtractionChamb
 
     @Override
     public ResourceLocation getAnimationResource(TissueExtractionChamberBlockEntity animatable) {
-        return ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID, "animations/tissue_extraction_chamber.animation.json");
+        return ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID, "animations/block/machine/tissue_extraction_chamber.animation.json");
     }
 }

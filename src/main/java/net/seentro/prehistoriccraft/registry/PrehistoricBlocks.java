@@ -52,7 +52,7 @@ public class PrehistoricBlocks {
     public static final DeferredBlock<PrehistoricWallSignBlock> DAWN_REDWOOD_WALL_SIGN = registerBlockOnly("dawn_redwood_wall_sign", () -> new PrehistoricWallSignBlock(PrehistoricWoodTypes.DAWN_REDWOOD, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_SIGN)));
     public static final DeferredBlock<PrehistoricHangingSignBlock> DAWN_REDWOOD_HANGING_SIGN = registerBlockOnly("dawn_redwood_hanging_sign", () -> new PrehistoricHangingSignBlock(PrehistoricWoodTypes.DAWN_REDWOOD, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_HANGING_SIGN)));
     public static final DeferredBlock<PrehistoricWallHangingSignBlock> DAWN_REDWOOD_WALL_HANGING_SIGN = registerBlockOnly("dawn_redwood_wall_hanging_sign", () -> new PrehistoricWallHangingSignBlock(PrehistoricWoodTypes.DAWN_REDWOOD, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN)));
-    public static final DeferredBlock<Block> DAWN_REDWOOD_SAPLING = registerBlock("dawn_redwood_sapling", () -> new DawnRedwoodSaplingBlock(TreeGrower.ACACIA, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES).noOcclusion()));
+    public static final DeferredBlock<Block> DAWN_REDWOOD_SAPLING = registerBlock("dawn_redwood_sapling", () -> new DawnRedwoodSaplingBlock(TreeGrower.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES).noOcclusion().replaceable().noCollission()));
 
     /* FOSSILIFEROUS STONE */
     public static final DeferredBlock<Block> PRECAMBRIAN_FOSSILIFEROUS_STONE = registerBlock("precambrian_fossiliferous_stone", () -> new FossiliferousStoneBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE), PRECAMBRIAN));

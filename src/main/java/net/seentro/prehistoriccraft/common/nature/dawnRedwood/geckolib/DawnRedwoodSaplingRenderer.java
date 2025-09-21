@@ -14,6 +14,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
+import net.seentro.prehistoriccraft.common.nature.dawnRedwood.DawnRedwoodSaplingBlock;
 import net.seentro.prehistoriccraft.common.nature.dawnRedwood.DawnRedwoodSaplingBlockEntity;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.cache.object.BakedGeoModel;
@@ -35,7 +36,11 @@ public class DawnRedwoodSaplingRenderer extends DynamicGeoBlockRenderer<DawnRedw
     @Override
     protected @Nullable ResourceLocation getTextureOverrideForBone(GeoBone bone, DawnRedwoodSaplingBlockEntity animatable, float partialTick) {
         if (bone.getName().equals("bb_overlay")) {
-            return ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID, "textures/block/dawn_redwood_sapling_3_wood.png");
+            return switch (animatable.getBlockState().getValue(DawnRedwoodSaplingBlock.STAGES)) {
+                case 2 -> ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID, "textures/block/dawn_redwood_sapling_2_wood.png");
+                case 3 -> ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID, "textures/block/dawn_redwood_sapling_3_wood.png");
+                default -> ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID, "textures/block/dawn_redwood_sapling_wood.png");
+            };
         }
 
         return super.getTextureOverrideForBone(bone, animatable, partialTick);
@@ -71,11 +76,21 @@ public class DawnRedwoodSaplingRenderer extends DynamicGeoBlockRenderer<DawnRedw
     @Override
     public AABB getRenderBoundingBox(DawnRedwoodSaplingBlockEntity blockEntity) {
         BlockPos pos = blockEntity.getBlockPos();
-        return new AABB(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1.0, pos.getY() + 5, pos.getZ() + 1.0);
+        AABB stage3 = new AABB(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1.0, pos.getY() + 5.0, pos.getZ() + 1.0);
+        AABB stage2 = new AABB(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1.0, pos.getY() + 1.0, pos.getZ() + 1.0);
+
+        return switch (blockEntity.getBlockState().getValue(DawnRedwoodSaplingBlock.STAGES)) {
+            case 2 -> stage2;
+            case 3 -> stage3;
+            default -> super.getRenderBoundingBox(blockEntity);
+        };
     }
 
     @Override
     public boolean shouldRender(DawnRedwoodSaplingBlockEntity blockEntity, Vec3 cameraPos) {
+        if (blockEntity.getBlockState().getValue(DawnRedwoodSaplingBlock.INVISIBLE))
+            return false;
+
         return Vec3.atCenterOf(blockEntity.getBlockPos()).multiply(1.0, 0.0, 1.0).closerThan(cameraPos.multiply(1.0, 0.0, 1.0), (double)this.getViewDistance());
     }
 
