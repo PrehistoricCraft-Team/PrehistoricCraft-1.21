@@ -3,10 +3,15 @@ package net.seentro.prehistoriccraft.common.nature.dawnRedwood;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -15,14 +20,18 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.neoforged.neoforge.common.util.TriState;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
 import net.seentro.prehistoriccraft.registry.PrehistoricBlocks;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiPredicate;
 
 public class DawnRedwoodSaplingBlock extends BaseEntityBlock implements BonemealableBlock {
     public static final MapCodec<DawnRedwoodSaplingBlock> CODEC = RecordCodecBuilder.mapCodec(
@@ -56,12 +65,19 @@ public class DawnRedwoodSaplingBlock extends BaseEntityBlock implements Bonemeal
         builder.add(STAGES, INVISIBLE);
     }
 
+    private int randomTickCount = 0;
+
     @Override
     protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         if (!level.isAreaLoaded(pos, 1)) return;
         if (state.getValue(INVISIBLE)) return;
 
-        this.advanceTree(level, pos, state, random);
+        if (randomTickCount == 30) {
+            this.advanceTree(level, pos, state, random);
+            randomTickCount = 0;
+        } else {
+            randomTickCount++;
+        }
     }
 
     public void advanceTree(ServerLevel level, BlockPos pos, BlockState state, RandomSource random) {
@@ -103,47 +119,59 @@ public class DawnRedwoodSaplingBlock extends BaseEntityBlock implements Bonemeal
         level.setBlock(pos, newBase, Block.UPDATE_ALL);
     }
 
-
+    protected boolean mayPlaceOn(BlockState state) {
+        return state.is(BlockTags.DIRT) || state.getBlock() instanceof FarmBlock;
+    }
 
     @Override
     public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
         int stage = state.getValue(STAGES);
         boolean invisible = state.getValue(INVISIBLE);
+        int required = requiredInvisibleForStage(stage);
+
+        BiPredicate<BlockState, BlockPos> canSaplingSurvive = (soilState, soilPos) -> {
+            TriState decision = soilState.canSustainPlant(level, soilPos, Direction.UP, state);
+            if (!decision.isDefault()) return decision.isTrue();
+            return this.mayPlaceOn(soilState);
+        };
 
         if (!invisible) {
-            int required = requiredInvisibleForStage(stage);
+            BlockPos soilPos = pos.below();
+            BlockState soilState = level.getBlockState(soilPos);
+            if (!canSaplingSurvive.test(soilState, soilPos)) return false;
+
             for (int i = 1; i <= required; i++) {
-                BlockPos requiredPos = pos.above(i);
-                BlockState requiredState = level.getBlockState(requiredPos);
-                if (requiredState.getBlock() != this) return false;
-                if (!requiredState.getValue(INVISIBLE)) return false;
-                if (requiredState.getValue(STAGES) != stage) return false;
+                BlockState above = level.getBlockState(pos.above(i));
+                if (above.getBlock() != this) return false;
+                if (!above.getValue(INVISIBLE)) return false;
+                if (above.getValue(STAGES) != stage) return false;
             }
             return true;
         }
 
         BlockPos current = pos;
-        final int MAX_DEPTH = 4;
-        for (int depth = 0; depth <= MAX_DEPTH; depth++) {
+        for (int depth = 0; depth <= 4; depth++) {
             BlockPos below = current.below();
             BlockState belowState = level.getBlockState(below);
 
-            if (belowState.getBlock() != this) {
-                return false;
-            }
+            if (belowState.getBlock() != this) return false;
 
             if (!belowState.getValue(INVISIBLE)) {
                 if (belowState.getValue(STAGES) != stage) return false;
-                int required = requiredInvisibleForStage(stage);
+
+                BlockPos soilPos = below.below();
+                BlockState soilState = level.getBlockState(soilPos);
+                if (!canSaplingSurvive.test(soilState, soilPos)) return false;
+
                 for (int i = 1; i <= required; i++) {
-                    BlockState requiredState = level.getBlockState(below.above(i));
-                    if (requiredState.getBlock() != this) return false;
-                    if (!requiredState.getValue(INVISIBLE)) return false;
-                    if (requiredState.getValue(STAGES) != stage) return false;
+                    BlockState above = level.getBlockState(below.above(i));
+                    if (above.getBlock() != this) return false;
+                    if (!above.getValue(INVISIBLE)) return false;
+                    if (above.getValue(STAGES) != stage) return false;
                 }
 
-                int yPos = pos.getY() - below.getY();
-                return yPos >= 1 && yPos <= required;
+                int yOffset = pos.getY() - below.getY();
+                return yOffset >= 1 && yOffset <= required;
             }
 
             current = below;
@@ -152,6 +180,10 @@ public class DawnRedwoodSaplingBlock extends BaseEntityBlock implements Bonemeal
         return false;
     }
 
+    @Override
+    protected VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        return state.getValue(STAGES).equals(3) ? state.getShape(level, pos) : Shapes.empty();
+    }
 
     @Override
     public void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
@@ -174,8 +206,8 @@ public class DawnRedwoodSaplingBlock extends BaseEntityBlock implements Bonemeal
             cur = cur.above();
         }
 
-        for (int i = 1; i < parts.size(); i++) {
-            level.removeBlock(parts.get(i), false);
+        for (BlockPos partPos : parts) {
+            level.destroyBlock(partPos, true);
         }
 
         level.destroyBlock(base, true);

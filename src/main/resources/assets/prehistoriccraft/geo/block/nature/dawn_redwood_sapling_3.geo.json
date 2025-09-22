@@ -7,8 +7,8 @@
 				"texture_width": 48,
 				"texture_height": 80,
 				"visible_bounds_width": 5,
-				"visible_bounds_height": 6.5,
-				"visible_bounds_offset": [0, 2.75, 0]
+				"visible_bounds_height": 7,
+				"visible_bounds_offset": [0, 2.5, 0]
 			},
 			"bones": [
 				{
@@ -18,7 +18,7 @@
 						{
 							"origin": [0, 0, -24],
 							"size": [0, 80, 48],
-							"inflate": 0.001,
+							"inflate": 0.01,
 							"uv": {
 								"north": {"uv": [0, 0], "uv_size": [48, 80]},
 								"east": {"uv": [48, 0], "uv_size": [-48, 80]},
@@ -31,7 +31,7 @@
 						{
 							"origin": [0, 0, -24],
 							"size": [0, 80, 48],
-							"inflate": 0.001,
+							"inflate": 0.01,
 							"pivot": [0, 40, 0],
 							"rotation": [0, -90, 0],
 							"uv": {
@@ -46,7 +46,7 @@
 						{
 							"origin": [0, 0, -24],
 							"size": [0, 80, 48],
-							"inflate": 0.001,
+							"inflate": 0.01,
 							"pivot": [0, 40, 0],
 							"rotation": [0, -45, 0],
 							"uv": {
@@ -61,7 +61,7 @@
 						{
 							"origin": [0, 0, -24],
 							"size": [0, 80, 48],
-							"inflate": 0.001,
+							"inflate": 0.01,
 							"pivot": [0, 40, 0],
 							"rotation": [-180, -45, 180],
 							"uv": {
