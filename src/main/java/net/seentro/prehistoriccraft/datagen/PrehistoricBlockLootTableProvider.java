@@ -61,7 +61,8 @@ public class PrehistoricBlockLootTableProvider extends BlockLootSubProvider {
         dropSelf(PrehistoricBlocks.DAWN_REDWOOD_PRESSURE_PLATE.get());
         dropSelf(PrehistoricBlocks.DAWN_REDWOOD_BUTTON.get());
 
-        this.add(PrehistoricBlocks.DAWN_REDWOOD_SAPLING.get(), this::createShearsInvisibleDrop);
+        this.add(PrehistoricBlocks.DAWN_REDWOOD_SAPLING.get(), this::createInvisibleDrop);
+        this.add(PrehistoricBlocks.POTTED_DAWN_REDWOOD_SAPLING.get(), createPotFlowerItemTable(PrehistoricBlocks.POTTED_DAWN_REDWOOD_SAPLING.get()));
 
         this.add(PrehistoricBlocks.DAWN_REDWOOD_LEAVES.get(), block ->
                 createLeavesDrops(block, PrehistoricBlocks.AMBER_BLOCK.get(), NORMAL_LEAVES_SAPLING_CHANCES));
@@ -155,10 +156,9 @@ public class PrehistoricBlockLootTableProvider extends BlockLootSubProvider {
         this.add(block, this.createMatchingToolNumberedDrop(block, item, PrehistoricItems.EXCAVATOR_PICKAXE.get(), 1, 3));
     }
 
-    protected LootTable.Builder createShearsInvisibleDrop(Block block) {
+    protected LootTable.Builder createInvisibleDrop(Block block) {
         LootPoolEntryContainer.Builder<?> builder = LootItem.lootTableItem(block)
-                .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)))
-                .when(HAS_SHEARS);
+                .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)));
 
         return LootTable.lootTable()
                 .withPool(

@@ -1,4 +1,4 @@
-// 1.21.1	2025-09-18T16:44:21.4357412	Block States: prehistoriccraft
+// 1.21.1	2025-09-22T15:14:34.8913971	Block States: prehistoriccraft
 ed3f56cac858cef5cc27b0c2d6997ad6a06041b6 assets/prehistoriccraft/blockstates/amber_block.json
 5e428450ad3de518d553fc7091efdfdeb282545e assets/prehistoriccraft/blockstates/cambrian_fossiliferous_stone.json
 49ed35c379dd7d65adc4ec9363437d42303ca477 assets/prehistoriccraft/blockstates/carboniferous_fossiliferous_stone.json
@@ -117,6 +117,7 @@ d3c214546acc10cace34307c8044885cd0dbf5ed assets/prehistoriccraft/models/item/daw
 60907e72f3040df4716718a22b944eac0140f37f assets/prehistoriccraft/models/item/dawn_redwood_log.json
 5bdabc412cb99aa3fec23960233b961b2590a83c assets/prehistoriccraft/models/item/dawn_redwood_planks.json
 11588ffa164b3fb979cec1848a5908b7c85762f7 assets/prehistoriccraft/models/item/dawn_redwood_pressure_plate.json
+0afd18455ff790de490f77dbda91c46b5c0d1c9b assets/prehistoriccraft/models/item/dawn_redwood_sapling.json
 1d202bc6f9e754b50ebb2c7756559361f95834dd assets/prehistoriccraft/models/item/dawn_redwood_slab.json
 75674aa4cbfd922314a0ad1d19862ab8fb41d0fb assets/prehistoriccraft/models/item/dawn_redwood_stairs.json
 f9e78c9698dc6f5231d90d44a41fb6d22423d596 assets/prehistoriccraft/models/item/dawn_redwood_trapdoor.json

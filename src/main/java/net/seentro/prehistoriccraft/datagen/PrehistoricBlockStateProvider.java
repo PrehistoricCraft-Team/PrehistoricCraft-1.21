@@ -60,6 +60,7 @@ public class PrehistoricBlockStateProvider extends BlockStateProvider {
         blockItemTrapdoor(PrehistoricBlocks.DAWN_REDWOOD_TRAPDOOR, "dawn_redwood_trapdoor_bottom");
         blockItem(PrehistoricBlocks.DAWN_REDWOOD_PRESSURE_PLATE);
         blockItemButton(PrehistoricBlocks.DAWN_REDWOOD_BUTTON, "dawn_redwood_planks");
+        blockItemWithItemTexture(PrehistoricBlocks.DAWN_REDWOOD_SAPLING, "dawn_redwood_sapling_item");
 
         /* FOSSILIFEROUS STONE */
         blockWithItem(PrehistoricBlocks.PRECAMBRIAN_FOSSILIFEROUS_STONE);

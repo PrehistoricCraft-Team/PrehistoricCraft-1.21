@@ -4,11 +4,12 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.item.component.SuspiciousStewEffects;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -20,30 +21,28 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.common.util.TriState;
-import net.seentro.prehistoriccraft.PrehistoricCraft;
-import net.seentro.prehistoriccraft.registry.PrehistoricBlocks;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiPredicate;
 
-public class DawnRedwoodSaplingBlock extends BaseEntityBlock implements BonemealableBlock {
+public class DawnRedwoodSaplingBlock extends FlowerBlock implements BonemealableBlock, EntityBlock {
     public static final MapCodec<DawnRedwoodSaplingBlock> CODEC = RecordCodecBuilder.mapCodec(
-            blockInstance -> blockInstance.group(TreeGrower.CODEC.fieldOf("tree").forGetter(saplingBlock -> saplingBlock.treeGrower), propertiesCodec())
+            blockInstance -> blockInstance.group(TreeGrower.CODEC.fieldOf("tree").forGetter(saplingBlock -> saplingBlock.treeGrower),
+                            EFFECTS_FIELD.forGetter(FlowerBlock::getSuspiciousEffects), propertiesCodec())
                     .apply(blockInstance, DawnRedwoodSaplingBlock::new));
 
     public static final IntegerProperty STAGES = IntegerProperty.create("stages", 1, 3);
     public static final BooleanProperty INVISIBLE = BooleanProperty.create("invisible");
     protected final TreeGrower treeGrower;
 
-    public DawnRedwoodSaplingBlock(TreeGrower treeGrower, Properties properties) {
-        super(properties);
+    public DawnRedwoodSaplingBlock(TreeGrower treeGrower, SuspiciousStewEffects effects, Properties properties) {
+        super(effects, properties);
         this.treeGrower = treeGrower;
         this.registerDefaultState(this.getStateDefinition().any().setValue(STAGES, 1).setValue(INVISIBLE, false));
     }
@@ -65,18 +64,13 @@ public class DawnRedwoodSaplingBlock extends BaseEntityBlock implements Bonemeal
         builder.add(STAGES, INVISIBLE);
     }
 
-    private int randomTickCount = 0;
-
     @Override
     protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         if (!level.isAreaLoaded(pos, 1)) return;
         if (state.getValue(INVISIBLE)) return;
 
-        if (randomTickCount == 30) {
+        if (random.nextInt(30) == 0) {
             this.advanceTree(level, pos, state, random);
-            randomTickCount = 0;
-        } else {
-            randomTickCount++;
         }
     }
 
@@ -84,7 +78,9 @@ public class DawnRedwoodSaplingBlock extends BaseEntityBlock implements Bonemeal
         int stage = state.getValue(STAGES);
 
         if (stage >= 3) {
-            treeGrower.growTree(level, level.getChunkSource().getGenerator(), pos, state, random);
+            BlockPos base = findBase(level, pos);
+            BlockState baseState = level.getBlockState(base);
+            treeGrower.growTree(level, level.getChunkSource().getGenerator(), base, baseState, random);
             return;
         }
 
@@ -144,7 +140,6 @@ public class DawnRedwoodSaplingBlock extends BaseEntityBlock implements Bonemeal
                 BlockState above = level.getBlockState(pos.above(i));
                 if (above.getBlock() != this) return false;
                 if (!above.getValue(INVISIBLE)) return false;
-                if (above.getValue(STAGES) != stage) return false;
             }
             return true;
         }
@@ -157,8 +152,6 @@ public class DawnRedwoodSaplingBlock extends BaseEntityBlock implements Bonemeal
             if (belowState.getBlock() != this) return false;
 
             if (!belowState.getValue(INVISIBLE)) {
-                if (belowState.getValue(STAGES) != stage) return false;
-
                 BlockPos soilPos = below.below();
                 BlockState soilState = level.getBlockState(soilPos);
                 if (!canSaplingSurvive.test(soilState, soilPos)) return false;
@@ -167,7 +160,6 @@ public class DawnRedwoodSaplingBlock extends BaseEntityBlock implements Bonemeal
                     BlockState above = level.getBlockState(below.above(i));
                     if (above.getBlock() != this) return false;
                     if (!above.getValue(INVISIBLE)) return false;
-                    if (above.getValue(STAGES) != stage) return false;
                 }
 
                 int yOffset = pos.getY() - below.getY();
@@ -180,6 +172,7 @@ public class DawnRedwoodSaplingBlock extends BaseEntityBlock implements Bonemeal
         return false;
     }
 
+
     @Override
     protected VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return state.getValue(STAGES).equals(3) ? state.getShape(level, pos) : Shapes.empty();
@@ -187,34 +180,46 @@ public class DawnRedwoodSaplingBlock extends BaseEntityBlock implements Bonemeal
 
     @Override
     public void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
-        if (!level.isClientSide() && !state.canSurvive(level, pos)) {
-            breakWholeSapling((ServerLevel) level, pos);
+        if (!level.isClientSide()) {
+            if (!state.getValue(INVISIBLE) && !state.canSurvive(level, pos)) {
+                breakWholeSapling((ServerLevel) level, pos);
+            }
         }
         super.neighborChanged(state, level, pos, block, fromPos, isMoving);
     }
 
+
+    private BlockPos findBase(LevelAccessor level, BlockPos pos) {
+        BlockPos cur = pos;
+
+        for (int i = 0; i < 5; i++) {
+            BlockState state = level.getBlockState(cur);
+            if (state.getBlock() != this) break;
+            if (!state.getValue(INVISIBLE)) return cur;
+            BlockPos below = cur.below();
+            BlockState belowState = level.getBlockState(below);
+            if (belowState.getBlock() != this) break;
+
+            cur = below;
+        }
+        return pos;
+    }
+
     private void breakWholeSapling(ServerLevel level, BlockPos pos) {
-        BlockPos base = pos;
-        while (level.getBlockState(base.below()).getBlock() == this) {
-            base = base.below();
+        BlockPos top = pos;
+        while (level.getBlockState(top.above()).getBlock() == this) {
+            top = top.above();
         }
 
-        List<BlockPos> parts = new ArrayList<>();
-        BlockPos cur = base;
+        BlockPos cur = top;
         while (level.getBlockState(cur).getBlock() == this) {
-            parts.add(cur);
-            cur = cur.above();
+            level.destroyBlock(cur, true);
+            cur = cur.below();
         }
-
-        for (BlockPos partPos : parts) {
-            level.destroyBlock(partPos, true);
-        }
-
-        level.destroyBlock(base, true);
     }
 
     @Override
-    protected MapCodec<? extends BaseEntityBlock> codec() {
+    public MapCodec<? extends FlowerBlock> codec() {
         return CODEC;
     }
 
@@ -235,6 +240,8 @@ public class DawnRedwoodSaplingBlock extends BaseEntityBlock implements Bonemeal
 
     @Override
     public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
+        if (state.getValue(INVISIBLE)) return;
+
         this.advanceTree(level, pos, state, random);
     }
 

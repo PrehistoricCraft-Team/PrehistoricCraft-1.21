@@ -15,6 +15,8 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.FoliageColor;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
@@ -63,12 +65,10 @@ public class PrehistoricCraft {
     }
 
     private void itemColorRegistrationEvent(RegisterColorHandlersEvent.Item itemEvent) {
-        BlockColors blockColors = Minecraft.getInstance().getBlockColors();
-
         itemEvent.register(
                 (itemStack, color) -> {
                     BlockState blockstate = ((BlockItem)itemStack.getItem()).getBlock().defaultBlockState();
-                    return blockColors.getColor(blockstate, null, null, color);
+                    return itemEvent.getBlockColors().getColor(blockstate, null, null, color);
                 },
                 PrehistoricBlocks.DAWN_REDWOOD_LEAVES.get()
         );
@@ -102,6 +102,9 @@ public class PrehistoricCraft {
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
+        event.enqueueWork(() -> {
+            ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(PrehistoricBlocks.DAWN_REDWOOD_SAPLING.getId(), PrehistoricBlocks.POTTED_DAWN_REDWOOD_SAPLING);
+        });
     }
 
     @SubscribeEvent

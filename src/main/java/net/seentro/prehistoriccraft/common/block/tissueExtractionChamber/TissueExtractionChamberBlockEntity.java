@@ -25,6 +25,9 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.seentro.prehistoriccraft.common.screen.tissueExtractionChamber.TissueExtractionChamberMenu;
 import net.seentro.prehistoriccraft.core.json.tissueExtractionChamber.TimePeriodTissueLoader;
@@ -59,7 +62,11 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
 
         @Override
         public boolean isItemValid(int slot, ItemStack stack) {
-            return super.isItemValid(slot, stack);
+            return switch (slot) {
+                case 0 -> stack.getCapability(Capabilities.FluidHandler.ITEM) != null;
+                case 5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21 -> false;
+                default -> super.isItemValid(slot, stack);
+            };
         }
     };
 
@@ -73,6 +80,26 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
     private int blice = 0;
     private int maxBlice = 2750;
     private boolean working;
+
+    private final FluidTank FLUID_TANK = createFluidTank();
+
+    private FluidTank createFluidTank() {
+        return new FluidTank(2750) {
+            @Override
+            protected void onContentsChanged() {
+                setChanged();
+                if (!level.isClientSide()) {
+                    level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), Block.UPDATE_ALL);
+                }
+            }
+
+            //TODO: Add custom fluid
+            @Override
+            public boolean isFluidValid(FluidStack stack) {
+                return true;
+            }
+        };
+    }
 
     public TissueExtractionChamberBlockEntity(BlockPos pos, BlockState blockState) {
         super(PrehistoricBlockEntityTypes.TISSUE_EXTRACTION_CHAMBER_BLOCK_ENTITY.get(), pos, blockState);
