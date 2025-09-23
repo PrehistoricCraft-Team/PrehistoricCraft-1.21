@@ -2,13 +2,15 @@ package net.seentro.prehistoriccraft.common.nature.dawnRedwood;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Holder;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.SuspiciousStewEffects;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -20,31 +22,35 @@ import net.minecraft.world.level.block.grower.TreeGrower;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.common.util.TriState;
+import net.seentro.prehistoriccraft.PrehistoricCraft;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.function.BiPredicate;
+import java.util.function.Predicate;
 
 public class DawnRedwoodSaplingBlock extends FlowerBlock implements BonemealableBlock, EntityBlock {
     public static final MapCodec<DawnRedwoodSaplingBlock> CODEC = RecordCodecBuilder.mapCodec(
-            blockInstance -> blockInstance.group(TreeGrower.CODEC.fieldOf("tree").forGetter(saplingBlock -> saplingBlock.treeGrower),
+            blockInstance -> blockInstance.group(
                             EFFECTS_FIELD.forGetter(FlowerBlock::getSuspiciousEffects), propertiesCodec())
                     .apply(blockInstance, DawnRedwoodSaplingBlock::new));
 
     public static final IntegerProperty STAGES = IntegerProperty.create("stages", 1, 3);
     public static final BooleanProperty INVISIBLE = BooleanProperty.create("invisible");
-    protected final TreeGrower treeGrower;
+    public static final BooleanProperty TWO_BY_TWO = BooleanProperty.create("two_by_two");
 
-    public DawnRedwoodSaplingBlock(TreeGrower treeGrower, SuspiciousStewEffects effects, Properties properties) {
+    public DawnRedwoodSaplingBlock(SuspiciousStewEffects effects, Properties properties) {
         super(effects, properties);
-        this.treeGrower = treeGrower;
-        this.registerDefaultState(this.getStateDefinition().any().setValue(STAGES, 1).setValue(INVISIBLE, false));
+        this.registerDefaultState(this.getStateDefinition().any().setValue(STAGES, 1).setValue(INVISIBLE, false).setValue(TWO_BY_TWO, false));
     }
 
     private static final VoxelShape STAGE_1 = Block.box(4.0, 0.0, 4.0, 12.0, 14.0, 12.0);
@@ -61,7 +67,7 @@ public class DawnRedwoodSaplingBlock extends FlowerBlock implements Bonemealable
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(STAGES, INVISIBLE);
+        builder.add(STAGES, INVISIBLE, TWO_BY_TWO);
     }
 
     @Override
@@ -78,9 +84,9 @@ public class DawnRedwoodSaplingBlock extends FlowerBlock implements Bonemealable
         int stage = state.getValue(STAGES);
 
         if (stage >= 3) {
-            BlockPos base = findBase(level, pos);
-            BlockState baseState = level.getBlockState(base);
-            treeGrower.growTree(level, level.getChunkSource().getGenerator(), base, baseState, random);
+            StructurePlaceSettings placeSettings = new StructurePlaceSettings();
+            placeTree(state.getValue(TWO_BY_TWO), placeSettings, level, pos, random);
+
             return;
         }
 
@@ -98,7 +104,23 @@ public class DawnRedwoodSaplingBlock extends FlowerBlock implements Bonemealable
             return;
         }
 
-        BlockState newBase = state.setValue(STAGES, nextStage).setValue(INVISIBLE, false);
+        boolean twoByTwoSapling = false;
+        if (level.getBlockState(pos).getValue(TWO_BY_TWO)) {
+            twoByTwoSapling = true;
+        } else if (stage == 1) {
+            for (int i = 0; i >= -1; i--) {
+                for (int j = 0; j >= -1; j--) {
+                    if (twoByTwoSapling) break;
+
+                    if (isTwoByTwoSapling(state, level, pos, i, j)) {
+                        destroyTwoByTwoSaplings(level, pos, i, j);
+                        twoByTwoSapling = true;
+                    }
+                }
+            }
+        }
+
+        BlockState newBase = twoByTwoSapling ? state.setValue(STAGES, nextStage).setValue(TWO_BY_TWO, true) : state.setValue(STAGES, nextStage);
         BlockState invisibleState = newBase.setValue(INVISIBLE, true);
 
         for (int i = required; i >= 1; i--) {
@@ -117,6 +139,26 @@ public class DawnRedwoodSaplingBlock extends FlowerBlock implements Bonemealable
 
     protected boolean mayPlaceOn(BlockState state) {
         return state.is(BlockTags.DIRT) || state.getBlock() instanceof FarmBlock;
+    }
+
+    private void placeTree(boolean isTwoByTwoSapling, StructurePlaceSettings placeSettings, ServerLevel level, BlockPos pos, RandomSource random) {
+        StructureTemplateManager manager = level.getStructureManager();
+
+        if (isTwoByTwoSapling) {
+            boolean canFindLargeTree = manager.get(ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID, "big_tree")).isPresent();
+            if (canFindLargeTree) {
+                level.setBlock(pos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
+                manager.get(ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID, "big_tree")).get()
+                        .placeInWorld(level, pos.offset(0, 0, 0), pos, placeSettings, random, Block.UPDATE_ALL);
+            }
+        } else {
+            boolean canFindSmallTree = manager.get(ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID, "small_tree")).isPresent();
+            if (canFindSmallTree) {
+                level.setBlock(pos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
+                manager.get(ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID, "small_tree")).get()
+                        .placeInWorld(level, pos.offset(-1, 0, -1), pos, placeSettings, random, Block.UPDATE_ALL);
+            }
+        }
     }
 
     @Override
@@ -145,7 +187,7 @@ public class DawnRedwoodSaplingBlock extends FlowerBlock implements Bonemealable
         }
 
         BlockPos current = pos;
-        for (int depth = 0; depth <= 4; depth++) {
+        for (int depth = 0; depth <= STAGES.getPossibleValues().size(); depth++) {
             BlockPos below = current.below();
             BlockState belowState = level.getBlockState(below);
 
@@ -172,7 +214,6 @@ public class DawnRedwoodSaplingBlock extends FlowerBlock implements Bonemealable
         return false;
     }
 
-
     @Override
     protected VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return state.getValue(STAGES).equals(3) ? state.getShape(level, pos) : Shapes.empty();
@@ -188,33 +229,43 @@ public class DawnRedwoodSaplingBlock extends FlowerBlock implements Bonemealable
         super.neighborChanged(state, level, pos, block, fromPos, isMoving);
     }
 
-
-    private BlockPos findBase(LevelAccessor level, BlockPos pos) {
-        BlockPos cur = pos;
-
-        for (int i = 0; i < 5; i++) {
-            BlockState state = level.getBlockState(cur);
-            if (state.getBlock() != this) break;
-            if (!state.getValue(INVISIBLE)) return cur;
-            BlockPos below = cur.below();
-            BlockState belowState = level.getBlockState(below);
-            if (belowState.getBlock() != this) break;
-
-            cur = below;
-        }
-        return pos;
-    }
-
+    //Destroy the whole sapling
     private void breakWholeSapling(ServerLevel level, BlockPos pos) {
         BlockPos top = pos;
         while (level.getBlockState(top.above()).getBlock() == this) {
             top = top.above();
         }
 
+        // Walk down and break all the blocks
         BlockPos cur = top;
         while (level.getBlockState(cur).getBlock() == this) {
             level.destroyBlock(cur, true);
             cur = cur.below();
+        }
+    }
+
+    @Override
+    public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
+        if (!level.isClientSide() && player.isCreative()) {
+            preventDropFromInvisible(level, pos, state, player);
+        }
+        return super.playerWillDestroy(level, pos, state, player);
+    }
+
+    protected void preventDropFromInvisible(Level level, BlockPos pos, BlockState state, Player player) {
+        boolean invisible = state.getValue(INVISIBLE);
+        if (invisible) {
+            BlockPos cur = pos;
+            while (level.getBlockState(cur).getBlock() == this && level.getBlockState(cur).getValue(INVISIBLE)) {
+                cur = cur.below();
+            }
+
+            BlockState curBlockState = level.getBlockState(cur);
+
+            if (curBlockState.is(state.getBlock()) && !curBlockState.getValue(INVISIBLE)) {
+                level.setBlock(cur, Blocks.AIR.defaultBlockState(), 35);
+                level.levelEvent(player, 2001, cur, Block.getId(Blocks.AIR.defaultBlockState()));
+            }
         }
     }
 
@@ -251,5 +302,30 @@ public class DawnRedwoodSaplingBlock extends FlowerBlock implements Bonemealable
             case 3 -> 3;
             default -> 0;
         };
+    }
+
+    private static boolean isTwoByTwoSapling(BlockState state, BlockGetter level, BlockPos pos, int xOffset, int yOffset) {
+        Block block = state.getBlock();
+        BlockPos offset = pos.offset(xOffset, 0, yOffset);
+        BlockPos offsetX = pos.offset(xOffset + 1, 0, yOffset);
+        BlockPos offsetY = pos.offset(xOffset, 0, yOffset + 1);
+        BlockPos offsetXY = pos.offset(xOffset + 1, 0, yOffset + 1);
+
+        return level.getBlockState(offset).is(block) && level.getBlockState(offset).getValue(STAGES) == 1
+                && level.getBlockState(offsetX).is(block) && level.getBlockState(offsetX).getValue(STAGES) == 1
+                && level.getBlockState(offsetY).is(block) && level.getBlockState(offsetY).getValue(STAGES) == 1
+                && level.getBlockState(offsetXY).is(block) && level.getBlockState(offsetXY).getValue(STAGES) == 1;
+    }
+
+    private void destroyTwoByTwoSaplings(ServerLevel level, BlockPos pos, int xOffset, int yOffset) {
+        BlockPos offset = pos.offset(xOffset, 0, yOffset);
+        BlockPos offsetX = pos.offset(xOffset + 1, 0, yOffset);
+        BlockPos offsetY = pos.offset(xOffset, 0, yOffset + 1);
+        BlockPos offsetXY = pos.offset(xOffset + 1, 0, yOffset + 1);
+
+        if (offset != pos) level.removeBlock(offset, false);
+        if (offsetX != pos) level.removeBlock(offsetX, false);
+        if (offsetY != pos) level.removeBlock(offsetY, false);
+        if (offsetXY != pos) level.removeBlock(offsetXY, false);
     }
 }
