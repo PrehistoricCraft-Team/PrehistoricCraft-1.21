@@ -1,6 +1,8 @@
 package net.seentro.prehistoriccraft.common.screen.tissueExtractionChamber;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
@@ -35,6 +37,22 @@ public class TissueExtractionChamberScreen extends AbstractContainerScreen<Tissu
 
         renderProgressArrow(guiGraphics, x, y);
         renderBliceBar(guiGraphics, x, y);
+        if (isMouseOverPoint(x + 106, y + 10, 66, 9, mouseX, mouseY)) {
+            drawToolTip(guiGraphics, mouseX, mouseY);
+        }
+    }
+
+    private void drawToolTip(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+        int fluidAmount = menu.getBlice();
+        int fluidCapacity = menu.getMaxBlice();
+
+        Font font = Minecraft.getInstance().font;
+        guiGraphics.renderTooltip(font, Component.literal("%s / %s mB".formatted(fluidAmount, fluidCapacity)), mouseX, mouseY);
+    }
+
+    private static boolean isMouseOverPoint(int x, int y, int width, int height, int mouseX, int mouseY) {
+        return mouseX >= x && mouseX <= x + width
+                && mouseY >= y && mouseY <= y + height;
     }
 
     private void renderProgressArrow(GuiGraphics guiGraphics, int x, int y) {

@@ -34,6 +34,14 @@ public class DawnRedwoodSaplingRenderer extends DynamicGeoBlockRenderer<DawnRedw
     }
 
     @Override
+    public void render(DawnRedwoodSaplingBlockEntity animatable, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
+        Vec3 offset = animatable.getBlockState().getOffset(animatable.getLevel(), animatable.getBlockPos());
+        poseStack.translate(offset.x, offset.y, offset.z);
+
+        super.render(animatable, partialTick, poseStack, bufferSource, packedLight, packedOverlay);
+    }
+
+    @Override
     protected @Nullable ResourceLocation getTextureOverrideForBone(GeoBone bone, DawnRedwoodSaplingBlockEntity animatable, float partialTick) {
         if (bone.getName().equals("bb_overlay")) {
             return switch (animatable.getBlockState().getValue(DawnRedwoodSaplingBlock.STAGES)) {

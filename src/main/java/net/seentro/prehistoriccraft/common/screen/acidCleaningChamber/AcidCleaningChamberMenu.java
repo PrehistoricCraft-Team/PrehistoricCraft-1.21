@@ -10,23 +10,21 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.SlotItemHandler;
 import net.seentro.prehistoriccraft.common.block.acidCleaningChamber.AcidCleaningChamberBlockEntity;
+import net.seentro.prehistoriccraft.common.screen.MachineMenu;
+import net.seentro.prehistoriccraft.common.screen.slotItemHandlers.OutputSlotItemHandler;
 import net.seentro.prehistoriccraft.registry.PrehistoricBlocks;
 import net.seentro.prehistoriccraft.registry.PrehistoricMenuTypes;
 
-public class AcidCleaningChamberMenu extends AbstractContainerMenu {
-    public final AcidCleaningChamberBlockEntity blockEntity;
+public class AcidCleaningChamberMenu extends MachineMenu<AcidCleaningChamberBlockEntity> {
     private final Level level;
-    private final ContainerData data;
 
     public AcidCleaningChamberMenu(int containerId, Inventory inv, FriendlyByteBuf byteBuf) {
         this(containerId, inv, inv.player.level().getBlockEntity(byteBuf.readBlockPos()), new SimpleContainerData(5));
     }
 
     public AcidCleaningChamberMenu(int containerId, Inventory inv, BlockEntity blockEntity, ContainerData data) {
-        super(PrehistoricMenuTypes.ACID_CLEANING_CHAMBER_MENU.get(), containerId);
-        this.blockEntity = (AcidCleaningChamberBlockEntity) blockEntity;
+        super(PrehistoricMenuTypes.ACID_CLEANING_CHAMBER_MENU.get(), containerId, (AcidCleaningChamberBlockEntity) blockEntity, data, 13);
         this.level = inv.player.level();
-        this.data = data;
 
         addPlayerInventory(inv);
         addPlayerHotbar(inv);
@@ -34,6 +32,8 @@ public class AcidCleaningChamberMenu extends AbstractContainerMenu {
         addDataSlots(data);
 
         IItemHandler handler = this.blockEntity.itemHandler;
+
+        setPosValues(12, 93, 12, 151);
 
         /* BOTTLE */
         this.addSlot(new SlotItemHandler(handler, 0, 143, 34));
@@ -48,17 +48,9 @@ public class AcidCleaningChamberMenu extends AbstractContainerMenu {
         /* OUTPUT SLOTS */
         for (int col = 0; col < 2; col++) {
             for (int row = 0; row < 3; row++) {
-                this.addSlot(new SlotItemHandler(handler, 7 + row * 2 + col, 100 + col * 19, 15 + row * 19));
+                this.addSlot(new OutputSlotItemHandler(handler, 7 + row * 2 + col, 100 + col * 19, 15 + row * 19));
             }
         }
-    }
-
-    public AcidCleaningChamberBlockEntity getBlockEntity() {
-        return this.blockEntity;
-    }
-
-    public boolean isCrafting() {
-        return data.get(0) > 0;
     }
 
     public int getScaledArrowProgress() {
@@ -79,47 +71,11 @@ public class AcidCleaningChamberMenu extends AbstractContainerMenu {
         return acid * acidBarHeight / maxAcid;
     }
 
-    //CREDIT FOR THIS PART GOES TO: diesieben07
-    private static final int HOTBAR_SLOT_COUNT = 9;
-    private static final int PLAYER_INVENTORY_ROW_COUNT = 3;
-    private static final int PLAYER_INVENTORY_COLUMN_COUNT = 9;
-    private static final int PLAYER_INVENTORY_SLOT_COUNT = PLAYER_INVENTORY_COLUMN_COUNT * PLAYER_INVENTORY_ROW_COUNT;
-    private static final int VANILLA_SLOT_COUNT = HOTBAR_SLOT_COUNT + PLAYER_INVENTORY_SLOT_COUNT;
-    private static final int VANILLA_FIRST_SLOT_INDEX = 0;
-    private static final int TE_INVENTORY_FIRST_SLOT_INDEX = VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT;
-
-    private static final int TE_INVENTORY_SLOT_COUNT = 13;
-    @Override
-    public ItemStack quickMoveStack(Player playerIn, int pIndex) {
-        Slot sourceSlot = slots.get(pIndex);
-        if (sourceSlot == null || !sourceSlot.hasItem()) return ItemStack.EMPTY;  //EMPTY_ITEM
-        ItemStack sourceStack = sourceSlot.getItem();
-        ItemStack copyOfSourceStack = sourceStack.copy();
-
-        // Check if the slot clicked is one of the vanilla container slots
-        if (pIndex < VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT) {
-            // This is a vanilla container slot so merge the stack into the tile inventory
-            if (!moveItemStackTo(sourceStack, TE_INVENTORY_FIRST_SLOT_INDEX, TE_INVENTORY_FIRST_SLOT_INDEX
-                    + TE_INVENTORY_SLOT_COUNT, false)) {
-                return ItemStack.EMPTY;  // EMPTY_ITEM
-            }
-        } else if (pIndex < TE_INVENTORY_FIRST_SLOT_INDEX + TE_INVENTORY_SLOT_COUNT) {
-            // This is a TE slot so merge the stack into the player inventory
-            if (!moveItemStackTo(sourceStack, VANILLA_FIRST_SLOT_INDEX, VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT, false)) {
-                return ItemStack.EMPTY;
-            }
-        } else {
-            System.out.println("Invalid slotIndex:" + pIndex);
-            return ItemStack.EMPTY;
-        }
-        // If stack size == 0 (the entire stack was moved) set slot contents to null
-        if (sourceStack.getCount() == 0) {
-            sourceSlot.set(ItemStack.EMPTY);
-        } else {
-            sourceSlot.setChanged();
-        }
-        sourceSlot.onTake(playerIn, sourceStack);
-        return copyOfSourceStack;
+    public int getMaxAcid() {
+        return data.get(3);
+    }
+    public int getAcid() {
+        return data.get(2);
     }
 
     @Override
@@ -133,19 +89,5 @@ public class AcidCleaningChamberMenu extends AbstractContainerMenu {
             blockEntity.triggerAnim("controller", "close_doors");
 
         super.removed(player);
-    }
-
-    private void addPlayerInventory(Inventory playerInventory) {
-        for (int row = 0; row < 3; ++row) {
-            for (int column = 0; column < 9; ++column) {
-                this.addSlot(new Slot(playerInventory, column + row * 9 + 9, 12 + column * 18, 93 + row * 18));
-            }
-        }
-    }
-
-    private void addPlayerHotbar(Inventory playerInventory) {
-        for (int i = 0; i < 9; ++i) {
-            this.addSlot(new Slot(playerInventory, i, 12 + i * 18, 151));
-        }
     }
 }

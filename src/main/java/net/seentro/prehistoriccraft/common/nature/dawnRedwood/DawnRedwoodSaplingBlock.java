@@ -27,6 +27,7 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -44,6 +45,7 @@ public class DawnRedwoodSaplingBlock extends FlowerBlock implements Bonemealable
                             EFFECTS_FIELD.forGetter(FlowerBlock::getSuspiciousEffects), propertiesCodec())
                     .apply(blockInstance, DawnRedwoodSaplingBlock::new));
 
+    protected static final float AABB_OFFSET = 3.0F;
     public static final IntegerProperty STAGES = IntegerProperty.create("stages", 1, 3);
     public static final BooleanProperty INVISIBLE = BooleanProperty.create("invisible");
     public static final BooleanProperty TWO_BY_TWO = BooleanProperty.create("two_by_two");
@@ -54,15 +56,17 @@ public class DawnRedwoodSaplingBlock extends FlowerBlock implements Bonemealable
     }
 
     private static final VoxelShape STAGE_1 = Block.box(4.0, 0.0, 4.0, 12.0, 14.0, 12.0);
-    private static final VoxelShape INVISIBLE_OTHER_STAGES = Block.box(7.0, 0.0, 7.0, 9.0, 16.0, 9.0);
+    private static final VoxelShape INVISIBLE_AND_OTHER_STAGES = Block.box(7.0, 0.0, 7.0, 9.0, 16.0, 9.0);
 
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        Vec3 offset = state.getOffset(level, pos);
+
         if (state.getValue(STAGES).equals(1)) {
-            return STAGE_1;
+            return STAGE_1.move(offset.x, offset.y, offset.z);
         }
 
-        return INVISIBLE_OTHER_STAGES;
+        return INVISIBLE_AND_OTHER_STAGES.move(offset.x, offset.y, offset.z);
     }
 
     @Override

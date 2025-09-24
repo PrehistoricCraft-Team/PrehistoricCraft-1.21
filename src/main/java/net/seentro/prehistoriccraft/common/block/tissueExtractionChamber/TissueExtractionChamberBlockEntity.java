@@ -62,11 +62,7 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
 
         @Override
         public boolean isItemValid(int slot, ItemStack stack) {
-            return switch (slot) {
-                case 0 -> stack.getCapability(Capabilities.FluidHandler.ITEM) != null;
-                case 5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21 -> false;
-                default -> super.isItemValid(slot, stack);
-            };
+            return slot == 0 ? stack.getItem() == PrehistoricItems.BOTTLE_OF_BLICE.get() : super.isItemValid(slot, stack);
         }
     };
 
