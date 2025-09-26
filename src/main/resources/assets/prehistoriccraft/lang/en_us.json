@@ -97,8 +97,8 @@
   "block.prehistoriccraft.sulfur_ore": "Sulfur Ore",
   "block.prehistoriccraft.deepslate_sulfur_ore": "Deepslate Sulfur Ore",
 
-
   "block.prehistoriccraft.cracked_dirt": "Cracked Dirt",
+
 
   "tabs.prehistoriccraft.prehistoriccraft_fossils": "PC Fossils",
   "tabs.prehistoriccraft.prehistoriccraft_natural_blocks": "PC Natural Blocks",
@@ -112,11 +112,16 @@
   "item.prehistoriccraft.nanopod": "Nanopod",
   "item.prehistoriccraft.blob_of_blice": "Blob of Blice",
   "item.prehistoriccraft.bottle_of_blice": "Bottle of Blice",
+  "item.prehistoriccraft.blice_fluid_bucket": "Bucket of Blice",
   "item.prehistoriccraft.jar": "Glass Jar",
   "item.prehistoriccraft.vial": "Glass Vial",
   "item.prehistoriccraft.syringe": "Glass Syringe",
   "item.prehistoriccraft.petri_dish": "Petri Dish",
   "item.prehistoriccraft.dna_in_a_petri_dish": "DNA Sample in a Petri Dish",
   "item.prehistoriccraft.sulfur": "Sulfur",
-  "item.prehistoriccraft.slime_zygote": "Slime Zygote"
+  "item.prehistoriccraft.acid_fluid_bucket": "Bucket of Acid",
+  "item.prehistoriccraft.slime_zygote": "Slime Zygote",
+
+  "fluid_type.prehistoriccraft.blice_fluid_type": "Blice",
+  "fluid_type.prehistoriccraft.acid_fluid_type": "Sulfuric Acid"
 }

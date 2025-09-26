@@ -34,6 +34,7 @@ public class DataGenerators {
         BlockTagsProvider blockTagsProvider = new PrehistoricBlockTagProvider(packOutput, lookupProvider, existingFileHelper);
         generator.addProvider(event.includeServer(), blockTagsProvider);
         generator.addProvider(event.includeServer(), new PrehistoricItemTagProvider(packOutput, lookupProvider, blockTagsProvider.contentsGetter(), existingFileHelper));
+        generator.addProvider(event.includeServer(), new PrehistoricFluidTagProvider(packOutput, lookupProvider, existingFileHelper));
         generator.addProvider(event.includeServer(), new PrehistoricDataMapProvider(packOutput, lookupProvider));
 
         generator.addProvider(event.includeClient(), new PrehistoricBlockStateProvider(packOutput, existingFileHelper));

@@ -1,8 +1,6 @@
 package net.seentro.prehistoriccraft;
 
 import com.mojang.logging.LogUtils;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
@@ -26,15 +24,20 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.seentro.prehistoriccraft.common.block.acidCleaningChamber.geckolib.AcidCleaningChamberRenderer;
 import net.seentro.prehistoriccraft.common.block.tissueExtractionChamber.geckolib.TissueExtractionChamberRenderer;
 import net.seentro.prehistoriccraft.common.entity.PrehistoricBoatRenderer;
+import net.seentro.prehistoriccraft.common.fluid.BaseFluidType;
+import net.seentro.prehistoriccraft.common.fluid.FluidBottleWrapper;
 import net.seentro.prehistoriccraft.common.nature.dawnRedwood.geckolib.DawnRedwoodSaplingRenderer;
 import net.seentro.prehistoriccraft.common.screen.acidCleaningChamber.AcidCleaningChamberScreen;
 import net.seentro.prehistoriccraft.common.screen.fossilAnalysisTable.FossilAnalysisTableScreen;
@@ -53,6 +56,7 @@ public class PrehistoricCraft {
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::blockColorRegistrationEvent);
         modEventBus.addListener(this::itemColorRegistrationEvent);
+        modEventBus.addListener(this::registerCapabilities);
 
         PrehistoricBlocks.register(modEventBus);
         PrehistoricItems.register(modEventBus);
@@ -60,8 +64,15 @@ public class PrehistoricCraft {
         PrehistoricDataComponents.register(modEventBus);
         PrehistoricBlockEntityTypes.register(modEventBus);
         PrehistoricMenuTypes.register(modEventBus);
+        PrehistoricFluidTypes.register(modEventBus);
+        PrehistoricFluids.register(modEventBus);
 
         NeoForge.EVENT_BUS.register(this);
+    }
+
+    private void registerCapabilities(RegisterCapabilitiesEvent event) {
+        event.registerItem(Capabilities.FluidHandler.ITEM, (stack, context) -> new FluidBottleWrapper(stack),
+                PrehistoricItems.BOTTLE_OF_BLICE.get());
     }
 
     private void itemColorRegistrationEvent(RegisterColorHandlersEvent.Item itemEvent) {
@@ -142,6 +153,14 @@ public class PrehistoricCraft {
             event.registerBlockEntityRenderer(PrehistoricBlockEntityTypes.PREHISTORIC_HANGING_SIGN.get(), HangingSignRenderer::new);
 
             event.registerEntityRenderer(EntityType.BOAT, context -> new PrehistoricBoatRenderer(context, false));
+        }
+
+        @SubscribeEvent
+        public static void registerClientExtensions(RegisterClientExtensionsEvent event) {
+            event.registerFluidType(((BaseFluidType) PrehistoricFluidTypes.BLICE_FLUID_TYPE.get()).getClientFluidTypeExtensions(),
+                    PrehistoricFluidTypes.BLICE_FLUID_TYPE.get());
+            event.registerFluidType(((BaseFluidType) PrehistoricFluidTypes.ACID_FLUID_TYPE.get()).getClientFluidTypeExtensions(),
+                    PrehistoricFluidTypes.ACID_FLUID_TYPE.get());
         }
     }
 }

@@ -13,13 +13,14 @@ import net.seentro.prehistoriccraft.common.block.acidCleaningChamber.AcidCleanin
 import net.seentro.prehistoriccraft.common.screen.MachineMenu;
 import net.seentro.prehistoriccraft.common.screen.slotItemHandlers.OutputSlotItemHandler;
 import net.seentro.prehistoriccraft.registry.PrehistoricBlocks;
+import net.seentro.prehistoriccraft.registry.PrehistoricItems;
 import net.seentro.prehistoriccraft.registry.PrehistoricMenuTypes;
 
 public class AcidCleaningChamberMenu extends MachineMenu<AcidCleaningChamberBlockEntity> {
     private final Level level;
 
     public AcidCleaningChamberMenu(int containerId, Inventory inv, FriendlyByteBuf byteBuf) {
-        this(containerId, inv, inv.player.level().getBlockEntity(byteBuf.readBlockPos()), new SimpleContainerData(5));
+        this(containerId, inv, inv.player.level().getBlockEntity(byteBuf.readBlockPos()), new SimpleContainerData(3));
     }
 
     public AcidCleaningChamberMenu(int containerId, Inventory inv, BlockEntity blockEntity, ContainerData data) {
@@ -62,8 +63,8 @@ public class AcidCleaningChamberMenu extends MachineMenu<AcidCleaningChamberBloc
     }
 
     public int getScaledAcidFill() {
-        int acid = data.get(2);
-        int maxAcid = data.get(3);
+        int acid = getAcid();
+        int maxAcid = getMaxAcid();
         int acidBarHeight = 57;
 
         if (maxAcid == 0) return 0;
@@ -71,11 +72,11 @@ public class AcidCleaningChamberMenu extends MachineMenu<AcidCleaningChamberBloc
         return acid * acidBarHeight / maxAcid;
     }
 
-    public int getMaxAcid() {
-        return data.get(3);
-    }
     public int getAcid() {
-        return data.get(2);
+        return blockEntity.getFluidAmount();
+    }
+    public int getMaxAcid() {
+        return blockEntity.getFluidCapacity();
     }
 
     @Override
@@ -85,7 +86,7 @@ public class AcidCleaningChamberMenu extends MachineMenu<AcidCleaningChamberBloc
 
     @Override
     public void removed(Player player) {
-        if (data.get(4) == 0)
+        if (data.get(2) == 0)
             blockEntity.triggerAnim("controller", "close_doors");
 
         super.removed(player);

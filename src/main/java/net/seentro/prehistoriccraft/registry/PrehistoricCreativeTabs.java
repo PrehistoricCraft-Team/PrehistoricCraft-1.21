@@ -112,12 +112,14 @@ public class PrehistoricCreativeTabs {
                 output.accept(PrehistoricItems.GOLD_PIPE.get());
                 output.accept(PrehistoricItems.BLOB_OF_BLICE.get());
                 output.accept(PrehistoricItems.BOTTLE_OF_BLICE.get());
+                output.accept(PrehistoricItems.BLICE_FLUID_BUCKET.get());
                 output.accept(PrehistoricItems.VIAL.get());
                 output.accept(PrehistoricItems.JAR.get());
                 output.accept(PrehistoricItems.SYRINGE.get());
                 output.accept(PrehistoricItems.PETRI_DISH.get());
                 output.accept(PrehistoricItems.DNA_IN_A_PETRI_DISH.get());
                 output.accept(PrehistoricItems.SULFUR.get());
+                output.accept(PrehistoricItems.ACID_FLUID_BUCKET.get());
                 output.accept(PrehistoricItems.NANOPOD.get());
                 output.accept(PrehistoricItems.SLIME_ZYGOTE.get());
                 output.accept(PrehistoricItems.DAWN_REDWOOD_CONE.get());

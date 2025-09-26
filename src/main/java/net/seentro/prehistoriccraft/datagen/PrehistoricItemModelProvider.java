@@ -83,9 +83,11 @@ public class PrehistoricItemModelProvider extends ItemModelProvider {
         basicItem(PrehistoricItems.GOLD_PIPE.get());
         basicItem(PrehistoricItems.NANOPOD.get());
 
-        /* BLICE */
+        /* FLUIDS */
         basicItem(PrehistoricItems.BLOB_OF_BLICE.get());
         basicItem(PrehistoricItems.BOTTLE_OF_BLICE.get());
+        basicItem(PrehistoricItems.BLICE_FLUID_BUCKET.get());
+        basicItem(PrehistoricItems.ACID_FLUID_BUCKET.get());
 
         /* GLASS INSTRUMENTS */
         basicItem(PrehistoricItems.VIAL.get());

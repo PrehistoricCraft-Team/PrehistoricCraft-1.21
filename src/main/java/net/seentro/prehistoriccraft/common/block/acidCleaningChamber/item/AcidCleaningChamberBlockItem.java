@@ -2,6 +2,7 @@ package net.seentro.prehistoriccraft.common.block.acidCleaningChamber.item;
 
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.world.item.BlockItem;
+import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.seentro.prehistoriccraft.registry.PrehistoricBlocks;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoItem;

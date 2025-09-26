@@ -24,15 +24,18 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.fluids.FluidActionResult;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidUtil;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.seentro.prehistoriccraft.common.block.tissueExtractionChamber.TissueExtractionChamberBlockEntity;
 import net.seentro.prehistoriccraft.common.screen.acidCleaningChamber.AcidCleaningChamberMenu;
 import net.seentro.prehistoriccraft.common.screen.tissueExtractionChamber.TissueExtractionChamberMenu;
 import net.seentro.prehistoriccraft.core.systems.WeightedRandom;
-import net.seentro.prehistoriccraft.registry.PrehistoricBlockEntityTypes;
-import net.seentro.prehistoriccraft.registry.PrehistoricDataComponents;
-import net.seentro.prehistoriccraft.registry.PrehistoricItems;
-import net.seentro.prehistoriccraft.registry.PrehistoricTags;
+import net.seentro.prehistoriccraft.registry.*;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
@@ -59,7 +62,7 @@ public class AcidCleaningChamberBlockEntity extends BlockEntity implements MenuP
 
         @Override
         public boolean isItemValid(int slot, ItemStack stack) {
-            return slot == 0 ? stack.getItem() == Items.WATER_BUCKET : super.isItemValid(slot, stack);
+            return super.isItemValid(slot, stack);
         }
     };
 
@@ -70,10 +73,27 @@ public class AcidCleaningChamberBlockEntity extends BlockEntity implements MenuP
     protected final ContainerData data;
     private int progress = 0;
     private int maxProgress = 160;
-    private int acid = 0;
-    private int maxAcid = 3000;
     // 1 = true, 0 = false.
     protected int working;
+
+    private final FluidTank FLUID_TANK = createFluidTank();
+
+    private FluidTank createFluidTank() {
+        return new FluidTank(3000) {
+            @Override
+            protected void onContentsChanged() {
+                setChanged();
+                if (!level.isClientSide()) {
+                    level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), Block.UPDATE_ALL);
+                }
+            }
+
+            @Override
+            public boolean isFluidValid(FluidStack stack) {
+                return stack.is(PrehistoricFluidTypes.ACID_FLUID_TYPE.get());
+            }
+        };
+    }
 
     private static final Map<Item, ItemStack> FOSSIL_MAP = Map.ofEntries(
             Map.entry(PrehistoricItems.CAMBRIAN_FOSSIL.get(), new ItemStack(PrehistoricItems.CAMBRIAN_FOSSIL_SAMPLE.get())),
@@ -98,9 +118,7 @@ public class AcidCleaningChamberBlockEntity extends BlockEntity implements MenuP
                 return switch (index) {
                     case 0 -> AcidCleaningChamberBlockEntity.this.progress;
                     case 1 -> AcidCleaningChamberBlockEntity.this.maxProgress;
-                    case 2 -> AcidCleaningChamberBlockEntity.this.acid;
-                    case 3 -> AcidCleaningChamberBlockEntity.this.maxAcid;
-                    case 4 -> AcidCleaningChamberBlockEntity.this.working;
+                    case 2 -> AcidCleaningChamberBlockEntity.this.working;
                     default -> 0;
                 };
             }
@@ -110,15 +128,13 @@ public class AcidCleaningChamberBlockEntity extends BlockEntity implements MenuP
                 switch (index) {
                     case 0 -> AcidCleaningChamberBlockEntity.this.progress = value;
                     case 1 -> AcidCleaningChamberBlockEntity.this.maxProgress = value;
-                    case 2 -> AcidCleaningChamberBlockEntity.this.acid = value;
-                    case 3 -> AcidCleaningChamberBlockEntity.this.maxAcid = value;
-                    case 4 -> AcidCleaningChamberBlockEntity.this.working = value;
+                    case 2 -> AcidCleaningChamberBlockEntity.this.working = value;
                 }
             }
 
             @Override
             public int getCount() {
-                return 5;
+                return 3;
             }
         };
     }
@@ -127,24 +143,24 @@ public class AcidCleaningChamberBlockEntity extends BlockEntity implements MenuP
 
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
         tag.put("inventory", itemHandler.serializeNBT(registries));
         tag.putInt("progress", progress);
         tag.putInt("maxProgress", maxProgress);
-        tag.putInt("acid", acid);
-        tag.putInt("maxAcid", maxAcid);
         tag.putInt("working", working);
+        tag = FLUID_TANK.writeToNBT(registries, tag);
+
+        super.saveAdditional(tag, registries);
     }
 
     @Override
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.loadAdditional(tag, registries);
         itemHandler.deserializeNBT(registries, tag.getCompound("inventory"));
         progress = tag.getInt("progress");
         maxProgress = tag.getInt("maxProgress");
-        acid = tag.getInt("acid");
-        maxAcid = tag.getInt("maxAcid");
         working = tag.getInt("working");
+        FLUID_TANK.readFromNBT(registries, tag);
+
+        super.loadAdditional(tag, registries);
     }
 
     @Override
@@ -165,6 +181,14 @@ public class AcidCleaningChamberBlockEntity extends BlockEntity implements MenuP
     @Override
     public @Nullable AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
         return new AcidCleaningChamberMenu(containerId, playerInventory, this, this.data);
+    }
+
+    public int getFluidAmount() {
+        return FLUID_TANK.getFluidAmount();
+    }
+
+    public int getFluidCapacity() {
+        return FLUID_TANK.getCapacity();
     }
 
     /* GECKOLIB */
@@ -209,6 +233,7 @@ public class AcidCleaningChamberBlockEntity extends BlockEntity implements MenuP
             if (working == 0)
                 this.triggerAnim("controller", "open_doors");
         }
+
         handleAcid();
 
         if (!tryInitializeRecipe()) {
@@ -241,6 +266,26 @@ public class AcidCleaningChamberBlockEntity extends BlockEntity implements MenuP
         }
     }
 
+    private void handleAcid() {
+        if (hasFluidInFluidSlot(0)) {
+            transferItemFluidToMachine(0);
+        }
+    }
+
+    private boolean hasFluidInFluidSlot(int slot) {
+        return !itemHandler.getStackInSlot(slot).isEmpty()
+                && itemHandler.getStackInSlot(slot).getCapability(Capabilities.FluidHandler.ITEM, null) != null
+                && !itemHandler.getStackInSlot(slot).getCapability(Capabilities.FluidHandler.ITEM, null).getFluidInTank(0).isEmpty();
+    }
+
+    private void transferItemFluidToMachine(int slot) {
+        FluidActionResult fluidResult = FluidUtil.tryEmptyContainer(itemHandler.getStackInSlot(slot), FLUID_TANK, Integer.MAX_VALUE, null, true);
+
+        if (fluidResult.result != ItemStack.EMPTY) {
+            itemHandler.setStackInSlot(0, fluidResult.result);
+        }
+    }
+
     private boolean tryInitializeRecipe() {
         for (int i = 1; i < 7; i++) {
             ItemStack input = itemHandler.getStackInSlot(i);
@@ -261,7 +306,7 @@ public class AcidCleaningChamberBlockEntity extends BlockEntity implements MenuP
         ItemStack input = itemHandler.getStackInSlot(validInputSlot);
         if (input.isEmpty() || !(input.is(PrehistoricTags.Items.FOSSILS) && input.has(PrehistoricDataComponents.FOSSIL_QUALITY))) return false;
 
-        if (acid < 16) return false;
+        if (getFluidAmount() < 16) return false;
 
         if (result == null) {
             result = simulateOutput(input);
@@ -301,21 +346,12 @@ public class AcidCleaningChamberBlockEntity extends BlockEntity implements MenuP
         if (result == null) return;
 
         itemHandler.extractItem(validInputSlot, 1, false);
-        acid -= 16;
+        FLUID_TANK.drain(16, IFluidHandler.FluidAction.EXECUTE);
 
         for (int i = 7; i < 13; i++) {
             ItemStack leftover = itemHandler.insertItem(i, result.copy(), false);
             if (leftover.isEmpty()) {
                 break;
-            }
-        }
-    }
-
-    private void handleAcid() {
-        if (itemHandler.getStackInSlot(0).is(Items.WATER_BUCKET)) {
-            if (this.maxAcid - this.acid >= 1000) {
-                itemHandler.extractItem(0, 1, false);
-                this.acid = this.acid + 1000;
             }
         }
     }

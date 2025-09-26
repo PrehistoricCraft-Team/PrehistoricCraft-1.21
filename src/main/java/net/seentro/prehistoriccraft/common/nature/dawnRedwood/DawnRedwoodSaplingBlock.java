@@ -5,10 +5,12 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Vec3i;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.SuspiciousStewEffects;
@@ -25,6 +27,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.Vec3;
@@ -149,19 +152,17 @@ public class DawnRedwoodSaplingBlock extends FlowerBlock implements Bonemealable
         StructureTemplateManager manager = level.getStructureManager();
 
         if (isTwoByTwoSapling) {
-            boolean canFindLargeTree = manager.get(ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID, "big_tree")).isPresent();
-            if (canFindLargeTree) {
+            manager.get(ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID, "big_tree")).ifPresent(structureTemplate -> {
                 level.setBlock(pos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
-                manager.get(ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID, "big_tree")).get()
-                        .placeInWorld(level, pos.offset(0, 0, 0), pos, placeSettings, random, Block.UPDATE_ALL);
-            }
+                BlockPos centerPos = pos.offset(-structureTemplate.getSize().getX() / 2, 0, -structureTemplate.getSize().getZ() / 2);
+                structureTemplate.placeInWorld(level, centerPos, pos, placeSettings, random, Block.UPDATE_ALL);
+            });
         } else {
-            boolean canFindSmallTree = manager.get(ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID, "small_tree")).isPresent();
-            if (canFindSmallTree) {
+            manager.get(ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID, "small_tree")).ifPresent(structureTemplate -> {
                 level.setBlock(pos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
-                manager.get(ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID, "small_tree")).get()
-                        .placeInWorld(level, pos.offset(-1, 0, -1), pos, placeSettings, random, Block.UPDATE_ALL);
-            }
+                BlockPos centerPos = pos.offset(-structureTemplate.getSize().getX() / 2, 0, -structureTemplate.getSize().getZ() / 2);
+                structureTemplate.placeInWorld(level, centerPos, pos, placeSettings, random, Block.UPDATE_ALL);
+            });
         }
     }
 

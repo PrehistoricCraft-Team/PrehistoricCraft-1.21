@@ -9,6 +9,7 @@ import net.seentro.prehistoriccraft.PrehistoricCraft;
 import net.seentro.prehistoriccraft.common.block.acidCleaningChamber.item.AcidCleaningChamberBlockItem;
 import net.seentro.prehistoriccraft.common.block.tissueExtractionChamber.item.TissueExtractionChamberBlockItem;
 import net.seentro.prehistoriccraft.common.item.ExcavatorPickaxeItem;
+import net.seentro.prehistoriccraft.common.item.FilledBottleItem;
 import net.seentro.prehistoriccraft.common.item.FossilItem;
 import net.seentro.prehistoriccraft.common.item.TissueItem;
 
@@ -64,32 +65,34 @@ public class PrehistoricItems {
     public static final DeferredItem<Item> MAGNIFYING_GLASS   = ITEMS.register("magnifying_glass", () -> new Item(new Item.Properties().durability(192)));
 
     /* GYPSUM & PLASTER */
-    public static final DeferredItem<Item> GYPSUM_POWDER = ITEMS.register("gypsum_powder", () -> new Item(new Item.Properties()));
-    public static final DeferredItem<Item> PLASTER_POWDER = ITEMS.register("plaster_powder", () -> new Item(new Item.Properties()));
-    public static final DeferredItem<Item> PLASTER_WRAP = ITEMS.register("plaster_wrap", () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> GYPSUM_POWDER = ITEMS.registerSimpleItem("gypsum_powder");
+    public static final DeferredItem<Item> PLASTER_POWDER = ITEMS.registerSimpleItem("plaster_powder");
+    public static final DeferredItem<Item> PLASTER_WRAP = ITEMS.registerSimpleItem("plaster_wrap");
 
     /* ORES */
-    public static final DeferredItem<Item> AMBER = ITEMS.register("amber", () -> new Item(new Item.Properties()));
-    public static final DeferredItem<Item> SULFUR = ITEMS.register("sulfur", () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> AMBER = ITEMS.registerSimpleItem("amber");
+    public static final DeferredItem<Item> SULFUR = ITEMS.register("sulfur", () -> new FilledBottleItem(new Item.Properties(), PrehistoricFluids.SOURCE_ACID_FLUID.get()));
 
     /* BLOCK ENTITIES */
     public static final DeferredItem<Item> ACID_CLEANING_CHAMBER = ITEMS.register("acid_cleaning_chamber", () -> new AcidCleaningChamberBlockItem(new Item.Properties()));
     public static final DeferredItem<Item> TISSUE_EXTRACTION_CHAMBER = ITEMS.register("tissue_extraction_chamber", () -> new TissueExtractionChamberBlockItem(new Item.Properties()));
 
     /* CRAFTING MATERIALS */
-    public static final DeferredItem<Item> OBSIDIAN_PLATE = ITEMS.register("obsidian_plate", () -> new Item(new Item.Properties()));
-    public static final DeferredItem<Item> REINFORCED_OBSIDIAN_PLATE = ITEMS.register("reinforced_obsidian_plate", () -> new Item(new Item.Properties()));
-    public static final DeferredItem<Item> GOLD_PIPE = ITEMS.register("gold_pipe", () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> OBSIDIAN_PLATE = ITEMS.registerSimpleItem("obsidian_plate");
+    public static final DeferredItem<Item> REINFORCED_OBSIDIAN_PLATE = ITEMS.registerSimpleItem("reinforced_obsidian_plate");
+    public static final DeferredItem<Item> GOLD_PIPE = ITEMS.registerSimpleItem("gold_pipe");
     public static final DeferredItem<Item> NANOPOD = ITEMS.register("nanopod", () -> new Item(new Item.Properties()));
 
-    /* BLICE */
-    public static final DeferredItem<Item> BLOB_OF_BLICE = ITEMS.register("blob_of_blice", () -> new Item(new Item.Properties()));
-    public static final DeferredItem<Item> BOTTLE_OF_BLICE = ITEMS.register("bottle_of_blice", () -> new Item(new Item.Properties()));
+    /* FLUIDS */
+    public static final DeferredItem<Item> BLOB_OF_BLICE = ITEMS.registerSimpleItem("blob_of_blice");
+    public static final DeferredItem<Item> BOTTLE_OF_BLICE = ITEMS.register("bottle_of_blice", () -> new FilledBottleItem(new Item.Properties(), PrehistoricFluids.SOURCE_BLICE_FLUID.get()));
+    public static final DeferredItem<Item> BLICE_FLUID_BUCKET = ITEMS.registerItem("blice_fluid_bucket", properties -> new BucketItem(PrehistoricFluids.SOURCE_BLICE_FLUID.get(), properties.craftRemainder(Items.BUCKET).stacksTo(1)));
+    public static final DeferredItem<Item> ACID_FLUID_BUCKET = ITEMS.registerItem("acid_fluid_bucket", properties -> new BucketItem(PrehistoricFluids.SOURCE_ACID_FLUID.get(), properties.craftRemainder(Items.BUCKET).stacksTo(1)));
 
     /* GLASS INSTRUMENTS */
-    public static final DeferredItem<Item> VIAL = ITEMS.register("vial", () -> new Item(new Item.Properties()));
-    public static final DeferredItem<Item> SYRINGE = ITEMS.register("syringe", () -> new Item(new Item.Properties()));
-    public static final DeferredItem<Item> JAR = ITEMS.register("jar", () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> VIAL = ITEMS.registerSimpleItem("vial");
+    public static final DeferredItem<Item> SYRINGE = ITEMS.registerSimpleItem("syringe");
+    public static final DeferredItem<Item> JAR = ITEMS.registerSimpleItem("jar");
     public static final DeferredItem<Item> PETRI_DISH = ITEMS.register("petri_dish", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> DNA_IN_A_PETRI_DISH = ITEMS.register("dna_in_a_petri_dish", () -> new Item(new Item.Properties()));
 

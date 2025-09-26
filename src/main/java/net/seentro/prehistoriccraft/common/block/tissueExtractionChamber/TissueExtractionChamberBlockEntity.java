@@ -1,6 +1,7 @@
 package net.seentro.prehistoriccraft.common.block.tissueExtractionChamber;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
@@ -26,19 +27,18 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.fluids.FluidActionResult;
 import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidUtil;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.seentro.prehistoriccraft.common.screen.tissueExtractionChamber.TissueExtractionChamberMenu;
 import net.seentro.prehistoriccraft.core.json.tissueExtractionChamber.TimePeriodTissueLoader;
 import net.seentro.prehistoriccraft.core.json.tissueExtractionChamber.TissueEntry;
 import net.seentro.prehistoriccraft.core.systems.WeightedRandom;
-import net.seentro.prehistoriccraft.registry.PrehistoricBlockEntityTypes;
-import net.seentro.prehistoriccraft.registry.PrehistoricDataComponents;
-import net.seentro.prehistoriccraft.registry.PrehistoricItems;
-import net.seentro.prehistoriccraft.registry.PrehistoricTags;
+import net.seentro.prehistoriccraft.registry.*;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.*;
@@ -46,12 +46,10 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 import software.bernie.geckolib.util.RenderUtil;
 
 import java.util.*;
-import java.util.concurrent.atomic.AtomicReference;
-import java.util.function.Supplier;
 
 public class TissueExtractionChamberBlockEntity extends BlockEntity implements MenuProvider, GeoBlockEntity {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
-    public final ItemStackHandler itemHandler = new ItemStackHandler(21) {
+    public final ItemStackHandler itemHandler = new ItemStackHandler(22) {
         @Override
         protected void onContentsChanged(int slot) {
             setChanged();
@@ -62,19 +60,18 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
 
         @Override
         public boolean isItemValid(int slot, ItemStack stack) {
-            return slot == 0 ? stack.getItem() == PrehistoricItems.BOTTLE_OF_BLICE.get() : super.isItemValid(slot, stack);
+            return super.isItemValid(slot, stack);
         }
     };
 
     //Bottle slot is slot 0
-    //Input starts at 0, ends at 5
-    //Output starts at 5, ends at 21
+    //Bottle output is slot 1
+    //Input starts at 1, ends at 6
+    //Output starts at 6, ends at 22
 
     protected final ContainerData data;
     private int progress = 0;
     private int maxProgress = 250;
-    private int blice = 0;
-    private int maxBlice = 2750;
     private boolean working;
 
     private final FluidTank FLUID_TANK = createFluidTank();
@@ -89,10 +86,9 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
                 }
             }
 
-            //TODO: Add custom fluid
             @Override
             public boolean isFluidValid(FluidStack stack) {
-                return true;
+                return stack.is(PrehistoricFluidTypes.BLICE_FLUID_TYPE.get());
             }
         };
     }
@@ -105,8 +101,6 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
                 return switch (index) {
                     case 0 -> TissueExtractionChamberBlockEntity.this.progress;
                     case 1 -> TissueExtractionChamberBlockEntity.this.maxProgress;
-                    case 2 -> TissueExtractionChamberBlockEntity.this.blice;
-                    case 3 -> TissueExtractionChamberBlockEntity.this.maxBlice;
                     default -> 0;
                 };
             }
@@ -116,14 +110,12 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
                 switch (index) {
                     case 0 -> TissueExtractionChamberBlockEntity.this.progress = value;
                     case 1 -> TissueExtractionChamberBlockEntity.this.maxProgress = value;
-                    case 2 -> TissueExtractionChamberBlockEntity.this.blice = value;
-                    case 3 -> TissueExtractionChamberBlockEntity.this.maxBlice = value;
                 }
             }
 
             @Override
             public int getCount() {
-                return 4;
+                return 2;
             }
         };
     }
@@ -132,13 +124,13 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
 
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
         tag.put("inventory", itemHandler.serializeNBT(registries));
         tag.putInt("progress", progress);
         tag.putInt("maxProgress", maxProgress);
-        tag.putInt("blice", blice);
-        tag.putInt("maxBlice", maxBlice);
         tag.putBoolean("working", working);
+        tag = FLUID_TANK.writeToNBT(registries, tag);
+
+        super.saveAdditional(tag, registries);
     }
 
     @Override
@@ -147,9 +139,8 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
         itemHandler.deserializeNBT(registries, tag.getCompound("inventory"));
         progress = tag.getInt("progress");
         maxProgress = tag.getInt("maxProgress");
-        blice = tag.getInt("blice");
-        maxBlice = tag.getInt("maxBlice");
         working = tag.getBoolean("working");
+        FLUID_TANK.readFromNBT(registries, tag);
     }
 
     @Override
@@ -170,6 +161,14 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
     @Override
     public @Nullable AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
         return new TissueExtractionChamberMenu(containerId, playerInventory, this, this.data);
+    }
+
+    public int getFluidAmount() {
+        return FLUID_TANK.getFluidAmount();
+    }
+
+    public int getFluidCapacity() {
+        return FLUID_TANK.getCapacity();
     }
 
     /* GECKOLIB */
@@ -252,16 +251,32 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
     }
 
     private void handleBlice() {
-        if (itemHandler.getStackInSlot(0).is(PrehistoricItems.BOTTLE_OF_BLICE)) {
-            if (maxBlice - blice >= 250) {
+        if (hasFluidInFluidSlot()) {
+            transferItemFluidToMachine();
+        }
+    }
+
+    private boolean hasFluidInFluidSlot() {
+        return !itemHandler.getStackInSlot(0).isEmpty()
+                && itemHandler.getStackInSlot(0).getCapability(Capabilities.FluidHandler.ITEM, null) != null
+                && !itemHandler.getStackInSlot(0).getCapability(Capabilities.FluidHandler.ITEM, null).getFluidInTank(0).isEmpty();
+    }
+
+    private void transferItemFluidToMachine() {
+        FluidActionResult testFluidResult = FluidUtil.tryEmptyContainer(itemHandler.getStackInSlot(0), FLUID_TANK, Integer.MAX_VALUE, null, false);
+
+        if (canOutput(testFluidResult.result, 1)) {
+            FluidActionResult fluidResult = FluidUtil.tryEmptyContainer(itemHandler.getStackInSlot(0), FLUID_TANK, Integer.MAX_VALUE, null, true);
+
+            if (fluidResult.result != ItemStack.EMPTY) {
                 itemHandler.extractItem(0, 1, false);
-                blice = blice + 250;
+                itemHandler.insertItem(1, fluidResult.result, false);
             }
         }
     }
 
     private boolean tryInitializeRecipe() {
-        for (int i = 1; i < 5; i++) {
+        for (int i = 2; i < 6; i++) {
             ItemStack input = itemHandler.getStackInSlot(i);
             if ((input.is(PrehistoricTags.Items.FOSSIL_SAMPLES) && input.has(PrehistoricDataComponents.FOSSIL_QUALITY))
                     || input.is(PrehistoricTags.Items.AMBER)) {
@@ -281,7 +296,7 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
         if (input.isEmpty() || (!(input.is(PrehistoricTags.Items.FOSSIL_SAMPLES) && input.has(PrehistoricDataComponents.FOSSIL_QUALITY))
                 && !input.is(PrehistoricTags.Items.AMBER))) return false;
 
-        if (blice < 45) return false;
+        if (getFluidAmount() <= 45) return false;
 
         if (result == null) {
             result = simulateOutput(input);
@@ -323,7 +338,16 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
     }
 
     private boolean canOutput(ItemStack output) {
-        for (int i = 5; i < 21; i++) {
+        return canOutput(output, 6, 22);
+    }
+
+    private boolean canOutput(ItemStack output, int slot) {
+        ItemStack outputCopy = itemHandler.insertItem(slot, output.copy(), true);
+        return outputCopy.isEmpty();
+    }
+
+    private boolean canOutput(ItemStack output, int minSlot, int maxSlot) {
+        for (int i = minSlot; i < maxSlot; i++) {
             ItemStack outputCopy = itemHandler.insertItem(i, output.copy(), true);
             if (outputCopy.isEmpty()) {
                 return true;
@@ -336,9 +360,9 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
         if (result == null) return;
 
         itemHandler.extractItem(validInputSlot, 1, false);
-        blice -= 45;
+        FLUID_TANK.drain(45, IFluidHandler.FluidAction.EXECUTE);
 
-        for (int i = 5; i < 21; i++) {
+        for (int i = 6; i < 22; i++) {
             ItemStack leftover = itemHandler.insertItem(i, result.copy(), false);
             if (leftover.isEmpty()) break;
         }

@@ -20,11 +20,11 @@ public class TissueExtractionChamberMenu extends MachineMenu<TissueExtractionCha
     private final ContainerData data;
 
     public TissueExtractionChamberMenu(int containerId, Inventory inv, FriendlyByteBuf byteBuf) {
-        this(containerId, inv, inv.player.level().getBlockEntity(byteBuf.readBlockPos()), new SimpleContainerData(4));
+        this(containerId, inv, inv.player.level().getBlockEntity(byteBuf.readBlockPos()), new SimpleContainerData(2));
     }
 
     public TissueExtractionChamberMenu(int containerId, Inventory inv, BlockEntity blockEntity, ContainerData data) {
-        super(PrehistoricMenuTypes.TISSUE_EXTRACTION_CHAMBER_MENU.get(), containerId, (TissueExtractionChamberBlockEntity) blockEntity, data, 21);
+        super(PrehistoricMenuTypes.TISSUE_EXTRACTION_CHAMBER_MENU.get(), containerId, (TissueExtractionChamberBlockEntity) blockEntity, data, 22);
         this.blockEntity = (TissueExtractionChamberBlockEntity) blockEntity;
         this.level = inv.player.level();
         this.data = data;
@@ -40,16 +40,17 @@ public class TissueExtractionChamberMenu extends MachineMenu<TissueExtractionCha
 
         /* BOTTLE */
         this.addSlot(new SlotItemHandler(handler, 0, 12, 11));
+        this.addSlot(new OutputSlotItemHandler(handler, 1, 12, 34));
 
         /* INPUT SLOTS */
         for (int col = 0; col < 4; col++) {
-            this.addSlot(new SlotItemHandler(handler, 1 + col, 55 + col * 19, 24));
+            this.addSlot(new SlotItemHandler(handler, 2 + col, 55 + col * 19, 24));
         }
 
         /* OUTPUT SLOTS */
         for (int col = 0; col < 8; col++) {
             for (int row = 0; row < 2; row++) {
-                this.addSlot(new OutputSlotItemHandler(handler, 5 + row * 8 + col, 17 + col * 19, 60 + row * 19));
+                this.addSlot(new OutputSlotItemHandler(handler, 6 + row * 8 + col, 17 + col * 19, 60 + row * 19));
             }
         }
     }
@@ -63,18 +64,18 @@ public class TissueExtractionChamberMenu extends MachineMenu<TissueExtractionCha
     }
 
     public int getScaledBliceFill() {
-        int blice = data.get(2);
-        int maxBlice = data.get(3);
+        int blice = getBlice();
+        int maxBlice = getMaxBlice();
         int bliceBarLength = 65;
 
         return maxBlice != 0 ? blice * bliceBarLength / maxBlice : 0;
     }
 
     public int getBlice() {
-        return data.get(2);
+        return blockEntity.getFluidAmount();
     }
     public int getMaxBlice() {
-        return data.get(3);
+        return blockEntity.getFluidCapacity();
     }
 
     @Override
