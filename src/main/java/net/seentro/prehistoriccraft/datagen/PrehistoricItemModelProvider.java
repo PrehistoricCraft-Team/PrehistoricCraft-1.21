@@ -25,6 +25,8 @@ public class PrehistoricItemModelProvider extends ItemModelProvider {
         basicItem(PrehistoricItems.DAWN_REDWOOD_HANGING_SIGN.get());
         basicItem(PrehistoricItems.DAWN_REDWOOD_BOAT.get());
         basicItem(PrehistoricItems.DAWN_REDWOOD_CHEST_BOAT.get());
+        basicItem(PrehistoricItems.DAWN_REDWOOD_CONE.get());
+
 
         /* FOSSILS */
         basicItem(PrehistoricItems.PRECAMBRIAN_FOSSIL.get());
@@ -79,6 +81,7 @@ public class PrehistoricItemModelProvider extends ItemModelProvider {
         basicItem(PrehistoricItems.OBSIDIAN_PLATE.get());
         basicItem(PrehistoricItems.REINFORCED_OBSIDIAN_PLATE.get());
         basicItem(PrehistoricItems.GOLD_PIPE.get());
+        basicItem(PrehistoricItems.NANOPOD.get());
 
         /* BLICE */
         basicItem(PrehistoricItems.BLOB_OF_BLICE.get());
@@ -88,6 +91,11 @@ public class PrehistoricItemModelProvider extends ItemModelProvider {
         basicItem(PrehistoricItems.VIAL.get());
         basicItem(PrehistoricItems.SYRINGE.get());
         basicItem(PrehistoricItems.JAR.get());
+        basicItem(PrehistoricItems.PETRI_DISH.get());
+        basicItem(PrehistoricItems.DNA_IN_A_PETRI_DISH.get());
+
+        /* DIRECT REVIVAL ITEMS */
+        basicItem(PrehistoricItems.SLIME_ZYGOTE.get());
     }
 
     /* HELPER METHODS */

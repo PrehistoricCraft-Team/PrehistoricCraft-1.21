@@ -1,4 +1,25 @@
 {
+  "block.prehistoriccraft.dawn_redwood_log": "Pień Metasekwoi Chińskiej",
+  "block.prehistoriccraft.dawn_redwood_wood": "Drewno z Metasekwoi Chińskiej",
+  "block.prehistoriccraft.stripped_dawn_redwood_log": "Ociosany Pień Metasekwoi Chińskiej",
+  "block.prehistoriccraft.stripped_dawn_redwood_wood": "Ociosane Drewno z Metasekwoi Chińskiej",
+  "block.prehistoriccraft.dawn_redwood_leaves": "Liście Metasekwoi Chińskiej",
+  "block.prehistoriccraft.dawn_redwood_planks": "Deski z Metasekwoi Chińskiej",
+  "block.prehistoriccraft.dawn_redwood_stairs": "Schody z Metasekwoi Chińskiej",
+  "block.prehistoriccraft.dawn_redwood_slab": "Płyta z Metasekwoi Chińskiej",
+  "block.prehistoriccraft.dawn_redwood_fence": "Płot z Metasekwoi Chińskiej",
+  "block.prehistoriccraft.dawn_redwood_fence_gate": "Furtka z Metasekwoi Chińskiej",
+  "block.prehistoriccraft.dawn_redwood_door": "Drzwi z Metasekwoi Chińskiej",
+  "block.prehistoriccraft.dawn_redwood_trapdoor": "Klapa z Metasekwoi Chińskiej",
+  "block.prehistoriccraft.dawn_redwood_pressure_plate": "Płytka Naciskowa z Metasekwoi Chińskiej",
+  "block.prehistoriccraft.dawn_redwood_button": "Guzik z Metasekwoi Chińskiej",
+  "block.prehistoriccraft.dawn_redwood_sign": "Tabliczka z Metasekwoi Chińskiej",
+  "block.prehistoriccraft.dawn_redwood_hanging_sign": "Podwieszana Tabliczka z Metasekwoi Chińskiej",
+  "item.prehistoriccraft.dawn_redwood_boat": "Łódka z Metasekwoi Chińskiej",
+  "item.prehistoriccraft.dawn_redwood_chest_boat": "Łódka z Metasekwoi Chińskiej ze skrzynką",
+  "item.prehistoriccraft.dawn_redwood_cone": "Szyszka Metasekwoi Chińskiej",
+  "block.prehistoriccraft.dawn_redwood_sapling": "Sadzonka Metasekwoi Chińskiej",
+
   "block.prehistoriccraft.cambrian_fossiliferous_stone": "Skała Kambryjska zawierająca skamieliny",
   "block.prehistoriccraft.carboniferous_fossiliferous_stone": "Skała Karbońska zawierająca skamieliny",
   "block.prehistoriccraft.cretaceous_fossiliferous_stone": "Skała Kredowa zawierająca skamieliny",
@@ -62,7 +83,7 @@
 
   "block.prehistoriccraft.fossil_analysis_table": "Stół do analizy skamielin",
   "block.prehistoriccraft.tissue_extraction_chamber": "Komora do ekstrakcji tkanek",
-  "block.prehistoriccraft.acid_cleaning_chamber": "Uhh",
+  "block.prehistoriccraft.acid_cleaning_chamber": "Komora do oczyszczania kwasem",
 
   "item.prehistoriccraft.animal_tissue": "Tkanka Miękka Zwierzęcia",
   "item.prehistoriccraft.plant_tissue": "Tkanka Miękka Rośliny",
@@ -92,5 +113,7 @@
   "item.prehistoriccraft.vial": "Szklana Fiolka",
   "item.prehistoriccraft.syringe": "Szklana Strzykawka",
   "item.prehistoriccraft.sulfur": "Siarka",
-  "block.prehistoriccraft.acid_cleaning_chamber": "Tissue Extraction Chamber"
+  "item.prehistoriccraft.petri_dish": "Szalka Petriego",
+  "item.prehistoriccraft.dna_in_a_petri_dish": "Próbka DNA w Szalce Petriego",
+  "item.prehistoriccraft.slime_zygote": "Zygota w Szlamie"
 }

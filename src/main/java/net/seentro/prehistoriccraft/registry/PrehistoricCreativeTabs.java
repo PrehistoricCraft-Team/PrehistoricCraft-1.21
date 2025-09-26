@@ -115,7 +115,12 @@ public class PrehistoricCreativeTabs {
                 output.accept(PrehistoricItems.VIAL.get());
                 output.accept(PrehistoricItems.JAR.get());
                 output.accept(PrehistoricItems.SYRINGE.get());
+                output.accept(PrehistoricItems.PETRI_DISH.get());
+                output.accept(PrehistoricItems.DNA_IN_A_PETRI_DISH.get());
                 output.accept(PrehistoricItems.SULFUR.get());
+                output.accept(PrehistoricItems.NANOPOD.get());
+                output.accept(PrehistoricItems.SLIME_ZYGOTE.get());
+                output.accept(PrehistoricItems.DAWN_REDWOOD_CONE.get());
             }).build());
 
     public static final Supplier<CreativeModeTab> PREHISTORICCRAFT_BLOCKS = CREATIVE_MODE_TABS.register("prehistoriccraft_blocks", () -> CreativeModeTab.builder().icon(() -> new ItemStack(PrehistoricBlocks.AMBER_BLOCK.get()))

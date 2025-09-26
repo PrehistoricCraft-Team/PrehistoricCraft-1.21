@@ -17,6 +17,7 @@
   "block.prehistoriccraft.dawn_redwood_hanging_sign": "Dawn Redwood Hanging Sign",
   "item.prehistoriccraft.dawn_redwood_boat": "Dawn Redwood Boat",
   "item.prehistoriccraft.dawn_redwood_chest_boat": "Dawn Redwood Chest Boat",
+  "item.prehistoriccraft.dawn_redwood_cone": "Dawn Redwood Cone",
   "block.prehistoriccraft.dawn_redwood_sapling": "Dawn Redwood Sapling",
 
   "block.prehistoriccraft.cambrian_fossiliferous_stone": "Cambrian Fossiliferous Stone",
@@ -108,10 +109,14 @@
   "item.prehistoriccraft.obsidian_plate": "Obsidian Plate",
   "item.prehistoriccraft.reinforced_obsidian_plate": "Reinforced Obsidian Plate",
   "item.prehistoriccraft.gold_pipe": "Gold Pipe",
+  "item.prehistoriccraft.nanopod": "Nanopod",
   "item.prehistoriccraft.blob_of_blice": "Blob of Blice",
   "item.prehistoriccraft.bottle_of_blice": "Bottle of Blice",
   "item.prehistoriccraft.jar": "Glass Jar",
   "item.prehistoriccraft.vial": "Glass Vial",
   "item.prehistoriccraft.syringe": "Glass Syringe",
-  "item.prehistoriccraft.sulfur": "Sulfur"
+  "item.prehistoriccraft.petri_dish": "Petri Dish",
+  "item.prehistoriccraft.dna_in_a_petri_dish": "DNA Sample in a Petri Dish",
+  "item.prehistoriccraft.sulfur": "Sulfur",
+  "item.prehistoriccraft.slime_zygote": "Slime Zygote"
 }

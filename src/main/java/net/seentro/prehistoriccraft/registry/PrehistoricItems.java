@@ -24,6 +24,7 @@ public class PrehistoricItems {
     public static final DeferredItem<Item> DAWN_REDWOOD_HANGING_SIGN = ITEMS.register("dawn_redwood_hanging_sign", () -> new HangingSignItem(PrehistoricBlocks.DAWN_REDWOOD_HANGING_SIGN.get(), PrehistoricBlocks.DAWN_REDWOOD_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16)));
     public static final DeferredItem<Item> DAWN_REDWOOD_BOAT = ITEMS.register("dawn_redwood_boat", () -> new BoatItem(false, PrehistoricEnumExtensions.DAWN_REDWOOD.getValue(), new Item.Properties().stacksTo(1)));
     public static final DeferredItem<Item> DAWN_REDWOOD_CHEST_BOAT = ITEMS.register("dawn_redwood_chest_boat", () -> new BoatItem(true, PrehistoricEnumExtensions.DAWN_REDWOOD.getValue(), new Item.Properties().stacksTo(1)));
+    public static final DeferredItem<Item> DAWN_REDWOOD_CONE = ITEMS.register("dawn_redwood_cone", () -> new Item(new Item.Properties()));
 
     /* FOSSILS */
     public static final DeferredItem<Item> PRECAMBRIAN_FOSSIL = ITEMS.register("precambrian_fossil", () -> new FossilItem(new Item.Properties()));
@@ -79,6 +80,7 @@ public class PrehistoricItems {
     public static final DeferredItem<Item> OBSIDIAN_PLATE = ITEMS.register("obsidian_plate", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> REINFORCED_OBSIDIAN_PLATE = ITEMS.register("reinforced_obsidian_plate", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> GOLD_PIPE = ITEMS.register("gold_pipe", () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> NANOPOD = ITEMS.register("nanopod", () -> new Item(new Item.Properties()));
 
     /* BLICE */
     public static final DeferredItem<Item> BLOB_OF_BLICE = ITEMS.register("blob_of_blice", () -> new Item(new Item.Properties()));
@@ -88,6 +90,12 @@ public class PrehistoricItems {
     public static final DeferredItem<Item> VIAL = ITEMS.register("vial", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> SYRINGE = ITEMS.register("syringe", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> JAR = ITEMS.register("jar", () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> PETRI_DISH = ITEMS.register("petri_dish", () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> DNA_IN_A_PETRI_DISH = ITEMS.register("dna_in_a_petri_dish", () -> new Item(new Item.Properties()));
+
+    /* DIRECT REVIVAL ITEMS */
+
+    public static final DeferredItem<Item> SLIME_ZYGOTE = ITEMS.register("slime_zygote", () -> new Item(new Item.Properties()));
 
 
 

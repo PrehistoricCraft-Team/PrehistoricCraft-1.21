@@ -80,13 +80,21 @@ public class PrehistoricRecipeProvider extends RecipeProvider {
                 .define('G', Items.GOLD_INGOT)
                 .define('N', Items.GOLD_NUGGET)
                 .unlockedBy("has_gold", has(Items.GOLD_INGOT))
-                .unlockedBy("has_gold_nugger", has(Items.GOLD_NUGGET))
+                .unlockedBy("has_gold_nugget", has(Items.GOLD_NUGGET))
                 .save(recipeOutput);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, PrehistoricItems.VIAL.get(),1)
                 .pattern("   ")
                 .pattern(" G ")
                 .pattern(" G ")
+                .define('G', Items.GLASS_PANE)
+                .unlockedBy("has_glass", has(Blocks.GLASS_PANE))
+                .save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, PrehistoricItems.PETRI_DISH.get(),2)
+                .pattern("   ")
+                .pattern("   ")
+                .pattern("GGG")
                 .define('G', Items.GLASS_PANE)
                 .unlockedBy("has_glass", has(Blocks.GLASS_PANE))
                 .save(recipeOutput);
@@ -107,6 +115,18 @@ public class PrehistoricRecipeProvider extends RecipeProvider {
                 .pattern("GGG")
                 .define('G', Items.GLASS_PANE)
                 .define('W', ItemTags.WOODEN_SLABS)
+                .unlockedBy("has_glass", has(Blocks.GLASS_PANE))
+                .unlockedBy("has_wooden_slabs", has(ItemTags.WOODEN_SLABS))
+                .save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, PrehistoricItems.NANOPOD.get(),1)
+                .pattern("III")
+                .pattern("AEA")
+                .pattern("IRI")
+                .define('I', Items.IRON_INGOT)
+                .define('A', Items.AMETHYST_SHARD)
+                .define('E', Items.ECHO_SHARD)
+                .define('R', Items.REDSTONE)
                 .unlockedBy("has_glass", has(Blocks.GLASS_PANE))
                 .unlockedBy("has_wooden_slabs", has(ItemTags.WOODEN_SLABS))
                 .save(recipeOutput);
@@ -141,6 +161,32 @@ public class PrehistoricRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_iron_pickaxe", has(Items.IRON_PICKAXE))
                 .unlockedBy("has_white_carpet", has(Blocks.WHITE_CARPET))
                 .unlockedBy("has_fence", has(ItemTags.FENCES))
+                .save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, PrehistoricBlocks.TISSUE_EXTRACTION_CHAMBER.get())
+                .pattern("PRP")
+                .pattern(" G ")
+                .pattern("RIR")
+                .define('P', PrehistoricItems.GOLD_PIPE)
+                .define('G', Blocks.GLASS)
+                .define('I', Items.GOLD_INGOT)
+                .define('R', PrehistoricItems.REINFORCED_OBSIDIAN_PLATE)
+                .unlockedBy("has_gold", has(Items.GOLD_INGOT))
+                .unlockedBy("has_gold_pipe", has(PrehistoricItems.GOLD_PIPE))
+                .unlockedBy("has_reinforced_obsidian_plate", has(PrehistoricItems.REINFORCED_OBSIDIAN_PLATE))
+                .unlockedBy("has_glass", has(Blocks.GLASS))
+                .save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, PrehistoricBlocks.ACID_CLEANING_CHAMBER.get())
+                .pattern("RRR")
+                .pattern("GPG")
+                .pattern("RRR")
+                .define('P', PrehistoricItems.GOLD_PIPE)
+                .define('G', Blocks.GLASS)
+                .define('R', PrehistoricItems.REINFORCED_OBSIDIAN_PLATE)
+                .unlockedBy("has_gold_pipe", has(PrehistoricItems.GOLD_PIPE))
+                .unlockedBy("has_reinforced_obsidian_plate", has(PrehistoricItems.REINFORCED_OBSIDIAN_PLATE))
+                .unlockedBy("has_glass", has(Blocks.GLASS))
                 .save(recipeOutput);
 
         oreSmelting(recipeOutput, List.of(PrehistoricItems.GYPSUM_POWDER.get()), RecipeCategory.MISC, PrehistoricItems.PLASTER_POWDER.get(), 0.35f, 85, "plaster_powder");
