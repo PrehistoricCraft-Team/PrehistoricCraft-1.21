@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "P": {
+      "item": "prehistoriccraft:gold_pipe"
+    },
+    "R": {
+      "item": "prehistoriccraft:reinforced_obsidian_plate"
+    }
+  },
+  "pattern": [
+    "RRR",
+    "GPG",
+    "RRR"
+  ],
+  "result": {
+    "count": 1,
+    "id": "prehistoriccraft:acid_cleaning_chamber"
+  }
+}

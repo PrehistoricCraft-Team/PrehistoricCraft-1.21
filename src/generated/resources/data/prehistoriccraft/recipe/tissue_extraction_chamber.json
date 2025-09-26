@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "I": {
+      "item": "minecraft:gold_ingot"
+    },
+    "P": {
+      "item": "prehistoriccraft:gold_pipe"
+    },
+    "R": {
+      "item": "prehistoriccraft:reinforced_obsidian_plate"
+    }
+  },
+  "pattern": [
+    "PRP",
+    " G ",
+    "RIR"
+  ],
+  "result": {
+    "count": 1,
+    "id": "prehistoriccraft:tissue_extraction_chamber"
+  }
+}

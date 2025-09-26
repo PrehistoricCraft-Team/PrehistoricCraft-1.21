@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "item": "minecraft:glass_pane"
+    }
+  },
+  "pattern": [
+    "   ",
+    "   ",
+    "GGG"
+  ],
+  "result": {
+    "count": 2,
+    "id": "prehistoriccraft:petri_dish"
+  }
+}
