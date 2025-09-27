@@ -130,5 +130,9 @@ public class PrehistoricBlockTagProvider extends BlockTagsProvider {
 
         tag(BlockTags.PLANKS)
                 .add(PrehistoricBlocks.DAWN_REDWOOD_PLANKS.get());
+
+        tag(BlockTags.LEAVES)
+                .add(PrehistoricBlocks.DAWN_REDWOOD_LEAVES.get());
     }
 }
+

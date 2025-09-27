@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.FoliageColor;
@@ -31,6 +32,7 @@ import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.seentro.prehistoriccraft.common.block.acidCleaningChamber.geckolib.AcidCleaningChamberRenderer;
@@ -103,13 +105,28 @@ public class PrehistoricCraft {
 
     private int getCustomFoliageColor(BlockPos pos) {
         Holder<Biome> biome = ClientUtil.getLevel().getBiome(pos);
-        if (biome.is(Biomes.PLAINS))
-            return 255;
+        if (biome.is(Tags.Biomes.IS_TAIGA))
+            return 8176427;
 
-        if (biome.is(Biomes.RIVER))
-            return 4637141;
+        if (biome.is(Tags.Biomes.IS_FOREST))
+            return 4763668;
 
-        return 16711935;
+        if (biome.is(Tags.Biomes.IS_DRY_OVERWORLD))
+            return 9940025;
+
+        if (biome.is(Tags.Biomes.IS_SWAMP))
+            return 8690000;
+
+        if (biome.is(Tags.Biomes.IS_JUNGLE))
+            return 3848729;
+
+        if (biome.is(Tags.Biomes.IS_MOUNTAIN))
+            return 4360511;
+
+        if (biome.is(Tags.Biomes.IS_MUSHROOM))
+            return 8758631;
+
+        return 8176427;
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {

@@ -1,8 +1,9 @@
-// 1.21.1	2025-09-15T20:09:47.7675753	Tags for minecraft:block mod id prehistoriccraft
+// 1.21.1	2025-09-27T13:57:41.4438082	Tags for minecraft:block mod id prehistoriccraft
 4a241edf276a5567a70457f7458bca703f30aa19 data/minecraft/tags/block/dirt.json
 9ff8b9d8f9cd92d65f466d1f4cc54159c71929d0 data/minecraft/tags/block/doors.json
 18d0b5bd7582e05f90f91fbe09111ab2e9642dda data/minecraft/tags/block/fences.json
 b72cca05a4666da1f86f763cc4dc6d09a4d9f8cc data/minecraft/tags/block/fence_gates.json
+6fbb981d5980259bc355779b1d091d4eaad6087c data/minecraft/tags/block/leaves.json
 7e76bffb48838e5ea964db33f4519952612eff37 data/minecraft/tags/block/logs_that_burn.json
 31b5076a7c95cbcba0533ce49e4c05d429e48f66 data/minecraft/tags/block/mineable/axe.json
 344c7348dba9af39b5a908768c7cbaaba4d46b13 data/minecraft/tags/block/mineable/pickaxe.json
