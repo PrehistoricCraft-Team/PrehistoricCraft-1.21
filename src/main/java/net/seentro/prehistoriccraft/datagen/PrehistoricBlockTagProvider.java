@@ -98,6 +98,21 @@ public class PrehistoricBlockTagProvider extends BlockTagsProvider {
                 .add(PrehistoricBlocks.PLASTERED_PALEOGENE_FOSSILIFEROUS_STONE.get())
                 .add(PrehistoricBlocks.PLASTERED_NEOGENE_FOSSILIFEROUS_STONE.get());
 
+        tag(BlockTags.STANDING_SIGNS)
+                .add(PrehistoricBlocks.DAWN_REDWOOD_SIGN.get());
+
+        tag(BlockTags.WALL_SIGNS)
+                .add(PrehistoricBlocks.DAWN_REDWOOD_WALL_SIGN.get());
+
+        tag(BlockTags.CEILING_HANGING_SIGNS)
+                .add(PrehistoricBlocks.DAWN_REDWOOD_HANGING_SIGN.get());
+
+        tag(BlockTags.WALL_HANGING_SIGNS)
+                .add(PrehistoricBlocks.DAWN_REDWOOD_WALL_HANGING_SIGN.get());
+
+        tag(BlockTags.FENCES)
+                .add(PrehistoricBlocks.DAWN_REDWOOD_FENCE.get());
+
         tag(BlockTags.FENCES)
                 .add(PrehistoricBlocks.DAWN_REDWOOD_FENCE.get());
 

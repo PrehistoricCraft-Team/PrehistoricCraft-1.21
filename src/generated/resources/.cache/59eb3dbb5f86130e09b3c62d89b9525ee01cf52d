@@ -1,4 +1,4 @@
-// 1.21.1	2025-09-22T15:09:41.7694803	Loot Tables
+// 1.21.1	2025-09-27T19:33:26.435596	Loot Tables
 530a518e5e91a900a501df1344123a80a9fa3e9f data/prehistoriccraft/loot_table/blocks/acid_cleaning_chamber.json
 3c34bb7179c80d80367a3e0663f64b25dc563fc4 data/prehistoriccraft/loot_table/blocks/amber_block.json
 8c82406a1df7c83712890ce2a9671fe7a4cbb0ca data/prehistoriccraft/loot_table/blocks/cambrian_fossiliferous_stone.json
@@ -6,6 +6,7 @@ c652f1e62c2c5448525bf42296b201e39d542bc4 data/prehistoriccraft/loot_table/blocks
 486820df60e90f1066d28872c718ecc51079406d data/prehistoriccraft/loot_table/blocks/cracked_dirt.json
 0c5f41f35aceff861e012a57ff9cf57cfc06728d data/prehistoriccraft/loot_table/blocks/cretaceous_fossiliferous_stone.json
 2c9e96d3c45e3e4f4d6f1880cac532ef786830e6 data/prehistoriccraft/loot_table/blocks/dawn_redwood_button.json
+14db330f78c52f2f20ab1e6aec9137d485c5d3bf data/prehistoriccraft/loot_table/blocks/dawn_redwood_cones.json
 a04cd299793c207bb74d49963ea03895586a24c7 data/prehistoriccraft/loot_table/blocks/dawn_redwood_door.json
 e8ae829bb2f0bce333ce07f72deeb1e111a436d7 data/prehistoriccraft/loot_table/blocks/dawn_redwood_fence.json
 577d667c5b1743cc93b5a06bf20eb8e23cefbc74 data/prehistoriccraft/loot_table/blocks/dawn_redwood_fence_gate.json

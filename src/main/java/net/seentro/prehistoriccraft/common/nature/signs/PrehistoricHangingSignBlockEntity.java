@@ -7,9 +7,9 @@ import net.minecraft.world.level.block.entity.SignBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.seentro.prehistoriccraft.registry.PrehistoricBlockEntityTypes;
 
-public class PrehistoricHangingSignBlockEntity extends SignBlockEntity {
+public class PrehistoricHangingSignBlockEntity extends HangingSignBlockEntity {
     public PrehistoricHangingSignBlockEntity(BlockPos pos, BlockState blockState) {
-        super(PrehistoricBlockEntityTypes.PREHISTORIC_HANGING_SIGN.get(), pos, blockState);
+        super(pos, blockState);
     }
 
     @Override

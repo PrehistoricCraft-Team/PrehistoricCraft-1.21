@@ -43,6 +43,7 @@ public class PrehistoricBlocks {
     public static final DeferredBlock<Block> STRIPPED_DAWN_REDWOOD_LOG = registerBlock("stripped_dawn_redwood_log", () -> new FlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_LOG)));
     public static final DeferredBlock<Block> STRIPPED_DAWN_REDWOOD_WOOD = registerBlock("stripped_dawn_redwood_wood", () -> new FlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_WOOD)));
     public static final DeferredBlock<Block> DAWN_REDWOOD_LEAVES = registerBlock("dawn_redwood_leaves", () -> new FlammableLeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES)));
+    public static final DeferredBlock<Block> DAWN_REDWOOD_CONES = registerBlock("dawn_redwood_cones", () -> new FlammableConeBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES).instabreak().noCollission()));
     public static final DeferredBlock<Block> DAWN_REDWOOD_PLANKS = registerBlock("dawn_redwood_planks", () -> new FlammableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
     public static final DeferredBlock<StairBlock> DAWN_REDWOOD_STAIRS = registerBlock("dawn_redwood_stairs", () -> new StairBlock(PrehistoricBlocks.DAWN_REDWOOD_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
     public static final DeferredBlock<SlabBlock> DAWN_REDWOOD_SLAB = registerBlock("dawn_redwood_slab", () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SLAB)));

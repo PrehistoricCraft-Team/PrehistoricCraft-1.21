@@ -49,6 +49,8 @@ public class PrehistoricBlockLootTableProvider extends BlockLootSubProvider {
         //DAWN REDWOOD
         dropSelf(PrehistoricBlocks.DAWN_REDWOOD_LOG.get());
         dropSelf(PrehistoricBlocks.DAWN_REDWOOD_WOOD.get());
+        this.add(PrehistoricBlocks.DAWN_REDWOOD_CONES.get(), block ->
+                createShearsOnlyDropOtherItem(block, PrehistoricItems.DAWN_REDWOOD_CONE));
         dropSelf(PrehistoricBlocks.STRIPPED_DAWN_REDWOOD_LOG.get());
         dropSelf(PrehistoricBlocks.STRIPPED_DAWN_REDWOOD_WOOD.get());
         dropSelf(PrehistoricBlocks.DAWN_REDWOOD_PLANKS.get());
@@ -108,6 +110,7 @@ public class PrehistoricBlockLootTableProvider extends BlockLootSubProvider {
         dropOther(PrehistoricBlocks.DEEPSLATE_AMBER_ORE.get(), PrehistoricItems.AMBER.get());
         dropSelf(PrehistoricBlocks.SULFUR_ORE.get());
         dropOther(PrehistoricBlocks.DEEPSLATE_SULFUR_ORE.get(), PrehistoricItems.SULFUR.get());
+
 
         /* BLOCK ENTITIES */
         dropSelf(PrehistoricBlocks.FOSSIL_ANALYSIS_TABLE.get());
@@ -169,6 +172,15 @@ public class PrehistoricBlockLootTableProvider extends BlockLootSubProvider {
                                                 .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DawnRedwoodSaplingBlock.INVISIBLE, false))
                                 )
                 );
+    }
+
+    protected LootTable.Builder createShearsOnlyDropOtherItem(Block block, ItemLike drop) {
+        return this.createShearsDispatchTable(
+                block,
+                this.applyExplosionDecay(
+                        block,
+                        LootItem.lootTableItem(drop))
+        );
     }
 
     @Override

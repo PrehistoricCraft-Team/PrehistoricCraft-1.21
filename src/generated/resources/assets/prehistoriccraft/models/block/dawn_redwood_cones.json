@@ -1,0 +1,135 @@
+{
+  "parent": "minecraft:block/cross",
+  "elements": [
+    {
+      "faces": {
+        "north": {
+          "texture": "#cross",
+          "tintindex": 0
+        },
+        "south": {
+          "texture": "#cross",
+          "tintindex": 0
+        }
+      },
+      "from": [
+        0.8,
+        0,
+        8
+      ],
+      "rotation": {
+        "angle": 45.0,
+        "axis": "y",
+        "origin": [
+          8,
+          8,
+          8
+        ],
+        "rescale": true
+      },
+      "to": [
+        15.2,
+        16,
+        8
+      ]
+    },
+    {
+      "faces": {
+        "east": {
+          "texture": "#cross",
+          "tintindex": 0
+        },
+        "west": {
+          "texture": "#cross",
+          "tintindex": 0
+        }
+      },
+      "from": [
+        8,
+        0,
+        0.8
+      ],
+      "rotation": {
+        "angle": 45.0,
+        "axis": "y",
+        "origin": [
+          8,
+          8,
+          8
+        ],
+        "rescale": true
+      },
+      "to": [
+        8,
+        16,
+        15.2
+      ]
+    },
+    {
+      "faces": {
+        "north": {
+          "texture": "#overlay"
+        },
+        "south": {
+          "texture": "#overlay"
+        }
+      },
+      "from": [
+        0.8,
+        0,
+        8
+      ],
+      "rotation": {
+        "angle": 45.0,
+        "axis": "y",
+        "origin": [
+          8,
+          8,
+          8
+        ],
+        "rescale": true
+      },
+      "to": [
+        15.2,
+        16,
+        8
+      ]
+    },
+    {
+      "faces": {
+        "east": {
+          "texture": "#overlay"
+        },
+        "west": {
+          "texture": "#overlay"
+        }
+      },
+      "from": [
+        8,
+        0,
+        0.8
+      ],
+      "rotation": {
+        "angle": 45.0,
+        "axis": "y",
+        "origin": [
+          8,
+          8,
+          8
+        ],
+        "rescale": true
+      },
+      "to": [
+        8,
+        16,
+        15.2
+      ]
+    }
+  ],
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "cross": "prehistoriccraft:block/dawn_redwood_cones_leaves",
+    "overlay": "prehistoriccraft:block/dawn_redwood_cones",
+    "particle": "prehistoriccraft:block/dawn_redwood_cones_leaves"
+  }
+}

@@ -1,5 +1,6 @@
 package net.seentro.prehistoriccraft.datagen;
 
+import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -37,6 +38,7 @@ public class PrehistoricBlockStateProvider extends BlockStateProvider {
         logBlock((RotatedPillarBlock) PrehistoricBlocks.STRIPPED_DAWN_REDWOOD_LOG.get());
         axisBlock((RotatedPillarBlock) PrehistoricBlocks.STRIPPED_DAWN_REDWOOD_WOOD.get(), blockTexture(PrehistoricBlocks.STRIPPED_DAWN_REDWOOD_LOG.get()), blockTexture(PrehistoricBlocks.STRIPPED_DAWN_REDWOOD_LOG.get()));
         blockWithOverlayAllSides(PrehistoricBlocks.DAWN_REDWOOD_LEAVES.get(), modLoc("block/dawn_redwood_leaves_cones"));
+        crossBlockWithOverlayAllSides(PrehistoricBlocks.DAWN_REDWOOD_CONES, modLoc("block/dawn_redwood_cones_leaves"), modLoc("block/dawn_redwood_cones"));
         blockWithItem(PrehistoricBlocks.DAWN_REDWOOD_PLANKS);
         stairsBlock(PrehistoricBlocks.DAWN_REDWOOD_STAIRS.get(), blockTexture(PrehistoricBlocks.DAWN_REDWOOD_PLANKS.get()));
         slabBlock(PrehistoricBlocks.DAWN_REDWOOD_SLAB.get(), blockTexture(PrehistoricBlocks.DAWN_REDWOOD_PLANKS.get()), blockTexture(PrehistoricBlocks.DAWN_REDWOOD_PLANKS.get()));
@@ -129,6 +131,47 @@ public class PrehistoricBlockStateProvider extends BlockStateProvider {
                 .allFaces((dir, face) -> face.texture("#overlay"));
 
         simpleBlockWithItem(block, model);
+    }
+
+    public void crossBlockWithOverlayAllSides(DeferredBlock<?> block, ResourceLocation texture, ResourceLocation overlay) {
+        String name = BuiltInRegistries.BLOCK.getKey(block.get()).toString();
+        String onlyName = BuiltInRegistries.BLOCK.getKey(block.get()).getPath();
+
+        BlockModelBuilder model = models().getBuilder(name)
+                .parent(models().getExistingFile(mcLoc("block/cross")))
+                .texture("particle", texture.toString())
+                .texture("cross", texture.toString())
+                .texture("overlay", overlay.toString())
+                .renderType("cutout");
+
+        model.element()
+                .from(0.8f, 0, 8).to(15.2f, 16, 8)
+                .face(Direction.NORTH).texture("#cross").tintindex(0).end()
+                .face(Direction.SOUTH).texture("#cross").tintindex(0).end()
+                .rotation().origin(8, 8, 8).axis(Direction.Axis.Y).angle(45).rescale(true);
+
+        model.element()
+                .from(8, 0, 0.8f).to(8, 16, 15.2f)
+                .face(Direction.EAST).texture("#cross").tintindex(0).end()
+                .face(Direction.WEST).texture("#cross").tintindex(0).end()
+                .rotation().origin(8, 8, 8).axis(Direction.Axis.Y).angle(45).rescale(true);
+
+        // OVERLAY
+
+        model.element()
+                .from(0.8f, 0, 8).to(15.2f, 16, 8)
+                .face(Direction.NORTH).texture("#overlay").end()
+                .face(Direction.SOUTH).texture("#overlay").end()
+                .rotation().origin(8, 8, 8).axis(Direction.Axis.Y).angle(45).rescale(true);
+
+        model.element()
+                .from(8, 0, 0.8f).to(8, 16, 15.2f)
+                .face(Direction.EAST).texture("#overlay").end()
+                .face(Direction.WEST).texture("#overlay").end()
+                .rotation().origin(8, 8, 8).axis(Direction.Axis.Y).angle(45).rescale(true);
+
+        simpleBlock(block.get(), model);
+        blockItemWithItemTexture(block, "dawn_redwood_cones_item");
     }
 
     private void saplingBlock(DeferredBlock<?> block) {

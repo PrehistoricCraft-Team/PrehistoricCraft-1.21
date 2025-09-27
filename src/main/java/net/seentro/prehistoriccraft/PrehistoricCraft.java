@@ -21,6 +21,7 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
@@ -83,16 +84,18 @@ public class PrehistoricCraft {
                     BlockState blockstate = ((BlockItem)itemStack.getItem()).getBlock().defaultBlockState();
                     return itemEvent.getBlockColors().getColor(blockstate, null, null, color);
                 },
-                PrehistoricBlocks.DAWN_REDWOOD_LEAVES.get()
+                PrehistoricBlocks.DAWN_REDWOOD_LEAVES.get(),
+                PrehistoricBlocks.DAWN_REDWOOD_CONES.get()
         );
     }
 
     private void blockColorRegistrationEvent(RegisterColorHandlersEvent.Block blockEvent) {
         // DAWN REDWOOD
         blockEvent.register((state, tintGetter, pos, color) -> tintGetter != null && pos != null
-                        ? getCustomFoliageColor(pos)
-                        : FoliageColor.getDefaultColor(),
-                PrehistoricBlocks.DAWN_REDWOOD_LEAVES.get()
+                        ? getDawnRedwoodFoliageColor(pos)
+                        : getDawnRedwoodDefaultColor(),
+                PrehistoricBlocks.DAWN_REDWOOD_LEAVES.get(),
+                PrehistoricBlocks.DAWN_REDWOOD_CONES.get()
         );
 
         // VANILLA
@@ -103,8 +106,12 @@ public class PrehistoricCraft {
         );
     }
 
+    private static int getDawnRedwoodDefaultColor() {
+        return -4325567;
+    }
+
     //Returns decimal color values
-    private int getCustomFoliageColor(BlockPos pos) {
+    private int getDawnRedwoodFoliageColor(BlockPos pos) {
         Holder<Biome> biome = ClientUtil.getLevel().getBiome(pos);
         if (biome.is(Tags.Biomes.IS_FOREST))
             return 7793716;
