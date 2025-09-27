@@ -103,30 +103,28 @@ public class PrehistoricCraft {
         );
     }
 
+    //Returns decimal color values
     private int getCustomFoliageColor(BlockPos pos) {
         Holder<Biome> biome = ClientUtil.getLevel().getBiome(pos);
-        if (biome.is(Tags.Biomes.IS_TAIGA))
-            return 8176427;
-
         if (biome.is(Tags.Biomes.IS_FOREST))
-            return 4763668;
+            return 7793716;
 
         if (biome.is(Tags.Biomes.IS_DRY_OVERWORLD))
-            return 9940025;
+            return 14216539;
 
         if (biome.is(Tags.Biomes.IS_SWAMP))
-            return 8690000;
+            return 13232762;
 
         if (biome.is(Tags.Biomes.IS_JUNGLE))
-            return 3848729;
+            return 5832486;
 
         if (biome.is(Tags.Biomes.IS_MOUNTAIN))
-            return 4360511;
+            return 4250938;
 
         if (biome.is(Tags.Biomes.IS_MUSHROOM))
-            return 8758631;
+            return 13368477;
 
-        return 8176427;
+        return 12451649;
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
