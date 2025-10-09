@@ -67,7 +67,7 @@ public class PrehistoricBlockLootTableProvider extends BlockLootSubProvider {
         this.add(PrehistoricBlocks.POTTED_DAWN_REDWOOD_SAPLING.get(), createPotFlowerItemTable(PrehistoricBlocks.POTTED_DAWN_REDWOOD_SAPLING.get()));
 
         this.add(PrehistoricBlocks.DAWN_REDWOOD_LEAVES.get(), block ->
-                createLeavesDrops(block, PrehistoricBlocks.AMBER_BLOCK.get(), NORMAL_LEAVES_SAPLING_CHANCES));
+                createLeavesDrops(block, PrehistoricBlocks.DAWN_REDWOOD_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
         this.add(PrehistoricBlocks.DAWN_REDWOOD_SIGN.get(), block ->
                 createSingleItemTable(PrehistoricItems.DAWN_REDWOOD_SIGN.get()));
         this.add(PrehistoricBlocks.DAWN_REDWOOD_WALL_SIGN.get(), block ->

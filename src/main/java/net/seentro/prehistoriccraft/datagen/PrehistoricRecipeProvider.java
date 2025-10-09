@@ -128,7 +128,7 @@ public class PrehistoricRecipeProvider extends RecipeProvider {
                 .define('E', Items.ECHO_SHARD)
                 .define('R', Items.REDSTONE)
                 .unlockedBy("has_glass", has(Blocks.GLASS_PANE))
-                .unlockedBy("has_wooden_slabs", has(ItemTags.WOODEN_SLABS))
+                .unlockedBy("has_iron_ingot", has(Items.IRON_INGOT))
                 .save(recipeOutput);
 
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, PrehistoricItems.BLOB_OF_BLICE, 1)

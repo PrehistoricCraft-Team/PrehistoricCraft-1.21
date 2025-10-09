@@ -69,6 +69,7 @@ public class PrehistoricCraft {
         PrehistoricMenuTypes.register(modEventBus);
         PrehistoricFluidTypes.register(modEventBus);
         PrehistoricFluids.register(modEventBus);
+        PrehistoricFeatures.register(modEventBus);
 
         NeoForge.EVENT_BUS.register(this);
     }
