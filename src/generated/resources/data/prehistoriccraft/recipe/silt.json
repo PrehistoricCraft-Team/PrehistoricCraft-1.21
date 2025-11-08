@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "C": {
+      "item": "minecraft:clay"
+    },
+    "D": {
+      "tag": "minecraft:dirt"
+    },
+    "S": {
+      "tag": "minecraft:sand"
+    }
+  },
+  "pattern": [
+    "CD",
+    "SS"
+  ],
+  "result": {
+    "count": 4,
+    "id": "prehistoriccraft:silt"
+  }
+}

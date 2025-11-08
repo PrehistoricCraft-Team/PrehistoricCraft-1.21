@@ -13,6 +13,14 @@ public class PrehistoricTags {
     public static class Blocks {
         public static final TagKey<Block> PLASTERED_FOSSIL =
                 BlockTags.create(ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID, "plastered_fossils"));
+        public static final TagKey<Block> LOAM =
+                BlockTags.create(ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID, "loam"));
+        public static final TagKey<Block> SILT =
+                BlockTags.create(ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID, "silt"));
+        public static final TagKey<Block> CLAY =
+                BlockTags.create(ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID, "clay"));
+
+
     }
 
     public static class Items {
@@ -28,6 +36,7 @@ public class PrehistoricTags {
                 ItemTags.create(ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID, "syringe"));
         public static final TagKey<Item> VIAL =
                 ItemTags.create(ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID,"vial"));
+
 
 
     }

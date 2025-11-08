@@ -99,6 +99,14 @@
   "block.prehistoriccraft.deepslate_sulfur_ore": "Deepslate Sulfur Ore",
 
   "block.prehistoriccraft.cracked_dirt": "Cracked Dirt",
+  "block.prehistoriccraft.loam": "Loam",
+  "block.prehistoriccraft.loamy_sand": "Loamy Sand",
+  "block.prehistoriccraft.sandy_loam": "Sandy Loam",
+  "block.prehistoriccraft.loamy_silt": "Loamy Silt",
+  "block.prehistoriccraft.silt": "Silt",
+  "block.prehistoriccraft.peat": "Peat",
+  "block.prehistoriccraft.raw_clay": "Raw Clay",
+  "item.prehistoriccraft.raw_clay_ball": "Raw Clay Ball",
 
 
   "tabs.prehistoriccraft.prehistoriccraft_fossils": "PC Fossils",

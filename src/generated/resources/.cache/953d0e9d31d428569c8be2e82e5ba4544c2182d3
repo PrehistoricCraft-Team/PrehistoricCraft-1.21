@@ -1,5 +1,8 @@
-// 1.21.1	2025-09-14T16:03:00.4272933	Tags for minecraft:item mod id prehistoriccraft
+// 1.21.1	2025-11-08T15:26:43.01213841	Tags for minecraft:item mod id prehistoriccraft
 85a1b624e8430ea7c74bf3e63a35685d307e355d data/minecraft/tags/item/pickaxes.json
 371a011b0d935164aa0b944796385467eef62697 data/prehistoriccraft/tags/item/amber.json
-cd4c2806d76ed675f1b884e5f714b40ddd627ba5 data/prehistoriccraft/tags/item/fossils.json
 1031ae52f0de4e287d4978c76b4a3d57c9ee42bd data/prehistoriccraft/tags/item/fossil_samples.json
+cd4c2806d76ed675f1b884e5f714b40ddd627ba5 data/prehistoriccraft/tags/item/fossils.json
+02fe051bb21250ae59263205de02ebb860f1ef20 data/prehistoriccraft/tags/item/jar.json
+f5718b6859055f7c8ba8fe05ee89167cd344914d data/prehistoriccraft/tags/item/syringe.json
+a0c8f2c1cbcc0da47aa870ecfdc683514e52a7b3 data/prehistoriccraft/tags/item/vial.json

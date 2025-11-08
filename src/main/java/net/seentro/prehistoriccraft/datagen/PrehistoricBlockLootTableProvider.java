@@ -123,6 +123,13 @@ public class PrehistoricBlockLootTableProvider extends BlockLootSubProvider {
 
         /* CRACKED DIRT */
         dropSelf(PrehistoricBlocks.CRACKED_DIRT.get());
+        dropSelf(PrehistoricBlocks.LOAM.get());
+        dropSelf(PrehistoricBlocks.SILT.get());
+        dropSelf(PrehistoricBlocks.LOAMY_SILT.get());
+        dropSelf(PrehistoricBlocks.LOAMY_SAND.get());
+        dropSelf(PrehistoricBlocks.SANDY_LOAM.get());
+        dropSelf(PrehistoricBlocks.PEAT.get());
+        dropMultipleItems(PrehistoricBlocks.RAW_CLAY.get(), PrehistoricItems.RAW_CLAY_BALL.get(), 1, 3);
     }
 
     /* HELPER METHODS */

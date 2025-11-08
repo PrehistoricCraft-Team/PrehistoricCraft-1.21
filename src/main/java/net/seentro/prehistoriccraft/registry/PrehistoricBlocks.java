@@ -105,6 +105,14 @@ public class PrehistoricBlocks {
 
     /* DIRT */
     public static final DeferredBlock<Block> CRACKED_DIRT = registerBlock("cracked_dirt", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.COARSE_DIRT).strength(1.1F)));
+    public static final DeferredBlock<Block> PEAT = registerBlock("peat", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.DIRT).strength(1.1F, 0.5F).sound((SoundType.ROOTED_DIRT))));
+    public static final DeferredBlock<Block> LOAM = registerBlock("loam", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.COARSE_DIRT).sound(SoundType.GRAVEL)));
+    public static final DeferredBlock<Block> SILT = registerBlock("silt", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.DIRT)));
+    public static final DeferredBlock<Block> LOAMY_SILT = registerBlock("loamy_silt", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.COARSE_DIRT)));
+    public static final DeferredBlock<Block> SANDY_LOAM = registerBlock("sandy_loam", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.DIRT)));
+    public static final DeferredBlock<Block> LOAMY_SAND = registerBlock("loamy_sand", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.SAND)));
+    public static final DeferredBlock<Block> RAW_CLAY = registerBlock("raw_clay", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.CLAY).sound(SoundType.MUD)));
+
 
     private static <T extends Block> DeferredBlock<T> registerBlockOnly(String name, Supplier<T> block) {
         return BLOCKS.register(name, block);

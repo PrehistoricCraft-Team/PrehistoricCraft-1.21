@@ -97,6 +97,14 @@
   "block.prehistoriccraft.deepslate_sulfur_ore": "Łupkowa Ruda Siarki",
 
   "block.prehistoriccraft.cracked_dirt": "Popękana Ziemia",
+  "block.prehistoriccraft.loam": "Ił",
+  "block.prehistoriccraft.loamy_sand": "Iłowaty Piasek",
+  "block.prehistoriccraft.sandy_loam": "Piaszczysty Ił",
+  "block.prehistoriccraft.loamy_silt": "Iłowaty Muł",
+  "block.prehistoriccraft.silt": "Muł",
+  "block.prehistoriccraft.peat": "Torf",
+  "block.prehistoriccraft.raw_clay": "Surowa Glina",
+  "item.prehistoriccraft.raw_clay_ball": "Kawałek Surowej Gliny",
 
   "tabs.prehistoriccraft.prehistoriccraft_fossils": "PC Skamieliny",
   "tabs.prehistoriccraft.prehistoriccraft_natural_blocks": "PC Bloki Naturalne",

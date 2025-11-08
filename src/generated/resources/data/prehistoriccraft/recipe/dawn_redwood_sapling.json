@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "prehistoriccraft:dawn_redwood_cone"
+    },
+    {
+      "tag": "minecraft:dirt"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "prehistoriccraft:dawn_redwood_sapling"
+  }
+}

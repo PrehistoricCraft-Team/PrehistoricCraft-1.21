@@ -21,6 +21,7 @@ public class PrehistoricItemModelProvider extends ItemModelProvider {
     @Override
     protected void registerModels() {
         /* NATURE */
+        basicItem(PrehistoricItems.RAW_CLAY_BALL.get());
         basicItem(PrehistoricItems.DAWN_REDWOOD_SIGN.get());
         basicItem(PrehistoricItems.DAWN_REDWOOD_HANGING_SIGN.get());
         basicItem(PrehistoricItems.DAWN_REDWOOD_BOAT.get());

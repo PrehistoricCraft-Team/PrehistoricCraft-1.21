@@ -75,6 +75,14 @@ public class PrehistoricCreativeTabs {
                 output.accept(PrehistoricBlocks.GYPSUM_CRYSTAL.get());
                 output.accept(PrehistoricBlocks.GYPSUM_CRYSTAL_BLOCK.get());
                 output.accept(PrehistoricBlocks.CRACKED_DIRT.get());
+                output.accept(PrehistoricBlocks.LOAM.get());
+                output.accept(PrehistoricBlocks.LOAMY_SAND.get());
+                output.accept(PrehistoricBlocks.SANDY_LOAM.get());
+                output.accept(PrehistoricBlocks.SILT.get());
+                output.accept(PrehistoricBlocks.LOAMY_SILT.get());
+                output.accept(PrehistoricBlocks.PEAT.get());
+                output.accept(PrehistoricBlocks.RAW_CLAY.get());
+
                 output.accept(PrehistoricBlocks.DAWN_REDWOOD_LOG);
                 output.accept(PrehistoricBlocks.DAWN_REDWOOD_WOOD);
                 output.accept(PrehistoricBlocks.STRIPPED_DAWN_REDWOOD_LOG);
@@ -123,6 +131,7 @@ public class PrehistoricCreativeTabs {
                 output.accept(PrehistoricItems.NANOPOD.get());
                 output.accept(PrehistoricItems.SLIME_ZYGOTE.get());
                 output.accept(PrehistoricItems.DAWN_REDWOOD_CONE.get());
+                output.accept(PrehistoricItems.RAW_CLAY_BALL.get());
             }).build());
 
     public static final Supplier<CreativeModeTab> PREHISTORICCRAFT_BLOCKS = CREATIVE_MODE_TABS.register("prehistoriccraft_blocks", () -> CreativeModeTab.builder().icon(() -> new ItemStack(PrehistoricBlocks.AMBER_BLOCK.get()))

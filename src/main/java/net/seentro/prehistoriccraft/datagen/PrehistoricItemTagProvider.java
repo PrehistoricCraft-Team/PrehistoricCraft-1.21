@@ -7,6 +7,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
+import net.seentro.prehistoriccraft.registry.PrehistoricBlocks;
 import net.seentro.prehistoriccraft.registry.PrehistoricItems;
 import net.seentro.prehistoriccraft.registry.PrehistoricTags;
 import org.jetbrains.annotations.Nullable;
@@ -54,5 +55,11 @@ public class PrehistoricItemTagProvider extends ItemTagsProvider {
 
         tag(PrehistoricTags.Items.AMBER)
                 .add(PrehistoricItems.AMBER.get());
+        tag(PrehistoricTags.Items.VIAL)
+                .add(PrehistoricItems.VIAL.get());
+        tag(PrehistoricTags.Items.SYRINGE)
+                .add(PrehistoricItems.SYRINGE.get());
+        tag(PrehistoricTags.Items.JAR)
+                .add(PrehistoricItems.JAR.get());
     }
 }

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "L": {
+      "item": "prehistoriccraft:loam"
+    },
+    "S": {
+      "item": "prehistoriccraft:silt"
+    }
+  },
+  "pattern": [
+    "LS",
+    "SS"
+  ],
+  "result": {
+    "count": 4,
+    "id": "prehistoriccraft:loamy_silt"
+  }
+}

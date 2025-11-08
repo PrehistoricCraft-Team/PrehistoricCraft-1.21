@@ -96,6 +96,9 @@ public class PrehistoricItems {
     public static final DeferredItem<Item> PETRI_DISH = ITEMS.register("petri_dish", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> DNA_IN_A_PETRI_DISH = ITEMS.register("dna_in_a_petri_dish", () -> new Item(new Item.Properties()));
 
+    /* NATURE */
+    public static final DeferredItem<Item> RAW_CLAY_BALL = ITEMS.registerSimpleItem("raw_clay_ball");
+
     /* DIRECT REVIVAL ITEMS */
 
     public static final DeferredItem<Item> SLIME_ZYGOTE = ITEMS.register("slime_zygote", () -> new Item(new Item.Properties()));

@@ -15,6 +15,7 @@ import net.neoforged.neoforge.common.conditions.IConditionBuilder;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
 import net.seentro.prehistoriccraft.registry.PrehistoricBlocks;
 import net.seentro.prehistoriccraft.registry.PrehistoricItems;
+import net.seentro.prehistoriccraft.registry.PrehistoricTags;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -147,6 +148,99 @@ public class PrehistoricRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_blob_of_blice", has(PrehistoricItems.BLOB_OF_BLICE))
                 .unlockedBy("has_potion", has(Items.POTION))
                 .save(recipeOutput);
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, PrehistoricItems.BLICE_FLUID_BUCKET, 1)
+                .requires(PrehistoricItems.BLOB_OF_BLICE)
+                .requires(PrehistoricItems.BLOB_OF_BLICE)
+                .requires(PrehistoricItems.BLOB_OF_BLICE)
+                .requires(Items.BUCKET)
+                .unlockedBy("has_blob_of_blice", has(PrehistoricItems.BLOB_OF_BLICE))
+                .unlockedBy("has_bucket", has(Items.BUCKET))
+                .save(recipeOutput);
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, PrehistoricItems.ACID_FLUID_BUCKET, 1)
+                .requires(PrehistoricItems.SULFUR)
+                .requires(PrehistoricItems.SULFUR)
+                .requires(PrehistoricItems.SULFUR)
+                .requires(Items.WATER_BUCKET)
+                .unlockedBy("has_sulfur", has(PrehistoricItems.SULFUR))
+                .unlockedBy("has_water_bucket", has(Items.WATER_BUCKET))
+                .save(recipeOutput);
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, PrehistoricBlocks.DAWN_REDWOOD_SAPLING, 1)
+                .requires(PrehistoricItems.DAWN_REDWOOD_CONE)
+                .requires(ItemTags.DIRT)
+                .unlockedBy("has_dirt", has(ItemTags.DIRT))
+                .unlockedBy("has_dawn_redwood_cone", has(PrehistoricItems.DAWN_REDWOOD_CONE))
+                .save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, PrehistoricBlocks.PEAT, 4)
+                .define('M', Blocks.MOSS_CARPET)
+                .define('D', ItemTags.DIRT)
+                .pattern("DM")
+                .pattern("MD")
+                .unlockedBy("has_moss_carpet", has(Blocks.MOSS_CARPET))
+                .unlockedBy("has_dirt", has(ItemTags.DIRT))
+                .save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, PrehistoricBlocks.LOAM, 4)
+                .define('C', Items.CLAY)
+                .define('S', ItemTags.SAND)
+                .define('D', ItemTags.DIRT)
+                .pattern("CS")
+                .pattern("DD")
+                .unlockedBy("has_clay", has(Items.CLAY_BALL))
+                .unlockedBy("has_clay", has(PrehistoricItems.RAW_CLAY_BALL))
+                .unlockedBy("has_sand", has(ItemTags.SAND))
+                .unlockedBy("has_dirt", has(ItemTags.DIRT))
+                .save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, PrehistoricBlocks.SILT, 4)
+                .define('C', Items.CLAY)
+                .define('S', ItemTags.SAND)
+                .define('D', ItemTags.DIRT)
+                .pattern("CD")
+                .pattern("SS")
+                .unlockedBy("has_clay", has(Items.CLAY_BALL))
+                .unlockedBy("has_clay", has(PrehistoricItems.RAW_CLAY_BALL))
+                .unlockedBy("has_sand", has(ItemTags.SAND))
+                .unlockedBy("has_dirt", has(ItemTags.DIRT))
+                .save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, PrehistoricBlocks.LOAMY_SILT, 4)
+                .define('L', PrehistoricBlocks.LOAM)
+                .define('S', PrehistoricBlocks.SILT)
+                .pattern("LS")
+                .pattern("SS")
+                .unlockedBy("has_loam", has(PrehistoricBlocks.LOAM))
+                .unlockedBy("has_silt", has(PrehistoricBlocks.SILT))
+                .save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, PrehistoricBlocks.SANDY_LOAM, 4)
+                .define('L', PrehistoricBlocks.LOAM)
+                .define('S', ItemTags.SAND)
+                .pattern("SL")
+                .pattern("LL")
+                .unlockedBy("has_loam", has(PrehistoricBlocks.LOAM))
+                .unlockedBy("has_sand", has(ItemTags.SAND))
+                .save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, PrehistoricBlocks.LOAMY_SAND, 4)
+                .define('L', PrehistoricBlocks.LOAM)
+                .define('S', ItemTags.SAND)
+                .pattern("LS")
+                .pattern("SS")
+                .unlockedBy("has_loam", has(PrehistoricBlocks.LOAM))
+                .unlockedBy("has_sand", has(ItemTags.SAND))
+                .save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, PrehistoricBlocks.RAW_CLAY.get(), 1)
+                .define('#', PrehistoricItems.RAW_CLAY_BALL)
+                .pattern("##")
+                .pattern("##")
+                .unlockedBy("has_raw_clay_ball", has(PrehistoricItems.RAW_CLAY_BALL))
+                .save(recipeOutput);
+
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, PrehistoricBlocks.FOSSIL_ANALYSIS_TABLE.get())
                 .pattern("BPR")

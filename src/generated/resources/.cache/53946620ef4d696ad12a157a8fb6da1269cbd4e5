@@ -1,9 +1,9 @@
-// 1.21.1	2025-09-27T20:03:06.5762047	Tags for minecraft:block mod id prehistoriccraft
+// 1.21.1	2025-11-08T15:26:43.015693888	Tags for minecraft:block mod id prehistoriccraft
 b480fe8880e87b886cd76df2071acd98a3b1ce9a data/minecraft/tags/block/ceiling_hanging_signs.json
 4a241edf276a5567a70457f7458bca703f30aa19 data/minecraft/tags/block/dirt.json
 9ff8b9d8f9cd92d65f466d1f4cc54159c71929d0 data/minecraft/tags/block/doors.json
-5046902c0fcee81dea2a2194e4930825d6a9328f data/minecraft/tags/block/fences.json
 b72cca05a4666da1f86f763cc4dc6d09a4d9f8cc data/minecraft/tags/block/fence_gates.json
+5046902c0fcee81dea2a2194e4930825d6a9328f data/minecraft/tags/block/fences.json
 6fbb981d5980259bc355779b1d091d4eaad6087c data/minecraft/tags/block/leaves.json
 7e76bffb48838e5ea964db33f4519952612eff37 data/minecraft/tags/block/logs_that_burn.json
 31b5076a7c95cbcba0533ce49e4c05d429e48f66 data/minecraft/tags/block/mineable/axe.json
@@ -19,4 +19,7 @@ f3026d4e6ffc2148fdf5ef99d5bf9905c1213984 data/minecraft/tags/block/stairs.json
 3133d927763eb6dba05948814dab4120a64916d7 data/minecraft/tags/block/wall_hanging_signs.json
 de2f5d84002f038cfb0284b6d31ed0d07cce64a8 data/minecraft/tags/block/wall_signs.json
 23face949bcebba2edb89e870920de892cc47dc7 data/minecraft/tags/block/wooden_buttons.json
+851bf1d1ac4551a968a02f4aa137f0da29eed2d3 data/prehistoriccraft/tags/block/clay.json
+9c17a0a9ecca57ab6b7887b95225038ca9281229 data/prehistoriccraft/tags/block/loam.json
 10cec6df505f9f7408c2c892ddb22e232cf1afab data/prehistoriccraft/tags/block/plastered_fossils.json
+43e800ec954a4cd3d209f72ef1f043239939a2e9 data/prehistoriccraft/tags/block/silt.json
