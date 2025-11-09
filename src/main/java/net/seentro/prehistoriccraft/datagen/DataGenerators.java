@@ -28,7 +28,8 @@ public class DataGenerators {
         CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
 
         generator.addProvider(event.includeServer(), new LootTableProvider(packOutput, Collections.emptySet(),
-                List.of(new LootTableProvider.SubProviderEntry(PrehistoricBlockLootTableProvider::new, LootContextParamSets.BLOCK)), lookupProvider));
+                List.of(new LootTableProvider.SubProviderEntry(PrehistoricBlockLootTableProvider::new, LootContextParamSets.BLOCK),
+                        new LootTableProvider.SubProviderEntry(PrehistoricEntityLootTableProvider::new, LootContextParamSets.ENTITY)), lookupProvider));
         generator.addProvider(event.includeServer(), new PrehistoricRecipeProvider(packOutput, lookupProvider));
 
         BlockTagsProvider blockTagsProvider = new PrehistoricBlockTagProvider(packOutput, lookupProvider, existingFileHelper);

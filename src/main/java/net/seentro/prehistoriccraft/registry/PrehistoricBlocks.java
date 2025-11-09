@@ -1,12 +1,8 @@
 package net.seentro.prehistoriccraft.registry;
 
-import net.minecraft.util.Mth;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.component.SuspiciousStewEffects;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.grower.TreeGrower;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.material.PushReaction;
@@ -21,13 +17,11 @@ import net.seentro.prehistoriccraft.common.block.fossilAnalysisTable.FossilAnaly
 import net.seentro.prehistoriccraft.common.block.fossiliferousStone.FossiliferousStoneBlock;
 import net.seentro.prehistoriccraft.common.block.gypsumCrystal.GypsumCrystalBlock;
 import net.seentro.prehistoriccraft.common.block.tissueExtractionChamber.TissueExtractionChamberBlock;
-import net.seentro.prehistoriccraft.common.nature.dawnRedwood.DawnRedwoodSaplingBlock;
 import net.seentro.prehistoriccraft.common.nature.signs.PrehistoricHangingSignBlock;
 import net.seentro.prehistoriccraft.common.nature.signs.PrehistoricStandingSignBlock;
 import net.seentro.prehistoriccraft.common.nature.signs.PrehistoricWallHangingSignBlock;
 import net.seentro.prehistoriccraft.common.nature.signs.PrehistoricWallSignBlock;
 
-import java.util.List;
 import java.util.function.Supplier;
 
 import static net.seentro.prehistoriccraft.core.FossilTypes.*;
@@ -43,7 +37,7 @@ public class PrehistoricBlocks {
     public static final DeferredBlock<Block> DAWN_REDWOOD_WOOD = registerBlock("dawn_redwood_wood", () -> new FlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WOOD)));
     public static final DeferredBlock<Block> STRIPPED_DAWN_REDWOOD_LOG = registerBlock("stripped_dawn_redwood_log", () -> new FlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_LOG)));
     public static final DeferredBlock<Block> STRIPPED_DAWN_REDWOOD_WOOD = registerBlock("stripped_dawn_redwood_wood", () -> new FlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_WOOD)));
-    public static final DeferredBlock<Block> DAWN_REDWOOD_LEAVES = registerBlock("dawn_redwood_leaves", () -> new FlammableLeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES)));
+    public static final DeferredBlock<Block> DAWN_REDWOOD_LEAVES = registerBlock("dawn_redwood_leaves", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES)));
     public static final DeferredBlock<Block> DAWN_REDWOOD_CONES = registerBlock("dawn_redwood_cones", () -> new FlammableConeBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES).instabreak().noCollission()));
     public static final DeferredBlock<Block> DAWN_REDWOOD_PLANKS = registerBlock("dawn_redwood_planks", () -> new FlammableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
     public static final DeferredBlock<StairBlock> DAWN_REDWOOD_STAIRS = registerBlock("dawn_redwood_stairs", () -> new StairBlock(PrehistoricBlocks.DAWN_REDWOOD_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
@@ -58,7 +52,7 @@ public class PrehistoricBlocks {
     public static final DeferredBlock<PrehistoricWallSignBlock> DAWN_REDWOOD_WALL_SIGN = registerBlockOnly("dawn_redwood_wall_sign", () -> new PrehistoricWallSignBlock(PrehistoricWoodTypes.DAWN_REDWOOD, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_SIGN)));
     public static final DeferredBlock<PrehistoricHangingSignBlock> DAWN_REDWOOD_HANGING_SIGN = registerBlockOnly("dawn_redwood_hanging_sign", () -> new PrehistoricHangingSignBlock(PrehistoricWoodTypes.DAWN_REDWOOD, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_HANGING_SIGN)));
     public static final DeferredBlock<PrehistoricWallHangingSignBlock> DAWN_REDWOOD_WALL_HANGING_SIGN = registerBlockOnly("dawn_redwood_wall_hanging_sign", () -> new PrehistoricWallHangingSignBlock(PrehistoricWoodTypes.DAWN_REDWOOD, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN)));
-    public static final DeferredBlock<Block> DAWN_REDWOOD_SAPLING = registerBlock("dawn_redwood_sapling", () -> new DawnRedwoodSaplingBlock(SuspiciousStewEffects.EMPTY, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES).dynamicShape().offsetType(BlockBehaviour.OffsetType.XZ).instabreak().pushReaction(PushReaction.DESTROY)));
+    public static final DeferredBlock<Block> DAWN_REDWOOD_SAPLING = registerBlock("dawn_redwood_sapling", () -> new SaplingBlock(PrehistoricTreeGrowers.DAWN_REDWOOD, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES).dynamicShape().offsetType(BlockBehaviour.OffsetType.XZ).instabreak().pushReaction(PushReaction.DESTROY)));
     public static final DeferredBlock<Block> POTTED_DAWN_REDWOOD_SAPLING = registerBlockOnly("potted_dawn_redwood_sapling", () -> new FlowerPotBlock((() -> (FlowerPotBlock) Blocks.FLOWER_POT), DAWN_REDWOOD_SAPLING, BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_OAK_SAPLING)));
 
     /* FOSSILIFEROUS STONE */

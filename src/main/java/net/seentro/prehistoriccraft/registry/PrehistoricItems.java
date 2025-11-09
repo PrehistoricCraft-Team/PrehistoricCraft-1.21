@@ -1,7 +1,9 @@
 package net.seentro.prehistoriccraft.registry;
 
-import net.minecraft.world.entity.vehicle.Boat;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.material.Fluids;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -12,6 +14,7 @@ import net.seentro.prehistoriccraft.common.item.ExcavatorPickaxeItem;
 import net.seentro.prehistoriccraft.common.item.FilledBottleItem;
 import net.seentro.prehistoriccraft.common.item.FossilItem;
 import net.seentro.prehistoriccraft.common.item.TissueItem;
+import net.seentro.prehistoriccraft.entity.dinosaur.PrehistoricDinosaurEntityTypes;
 
 
 public class PrehistoricItems {
@@ -100,9 +103,17 @@ public class PrehistoricItems {
     public static final DeferredItem<Item> RAW_CLAY_BALL = ITEMS.registerSimpleItem("raw_clay_ball");
 
     /* DIRECT REVIVAL ITEMS */
-
     public static final DeferredItem<Item> SLIME_ZYGOTE = ITEMS.register("slime_zygote", () -> new Item(new Item.Properties()));
 
+    /* DINOSAUR BUCKETS */
+    public static final DeferredItem<Item> DAYONGASPIS_BUCKET = ITEMS.register("dayongaspis_bucket", () -> new MobBucketItem(PrehistoricDinosaurEntityTypes.DAYONGASPIS.get(), Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties()));
+
+    /* DINOSAUR LOOT */
+    //WATER
+    public static final DeferredItem<Item> RAW_DAYONGASPIS = ITEMS.register("raw_dayongaspis", () -> new Item(new Item.Properties()
+            .food(new FoodProperties.Builder().nutrition(2).saturationModifier(0.1f).build())));
+    public static final DeferredItem<Item> COOKED_DAYONGASPIS = ITEMS.register("cooked_dayongaspis", () -> new Item(new Item.Properties()
+            .food(new FoodProperties.Builder().nutrition(6).saturationModifier(0.8f).build())));
 
 
     public static void register(IEventBus eventBus) {

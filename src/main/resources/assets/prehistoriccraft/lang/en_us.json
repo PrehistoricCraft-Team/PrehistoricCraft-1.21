@@ -132,5 +132,13 @@
   "item.prehistoriccraft.slime_zygote": "Slime Zygote",
 
   "fluid_type.prehistoriccraft.blice_fluid_type": "Blice",
-  "fluid_type.prehistoriccraft.acid_fluid_type": "Sulfuric Acid"
+  "fluid_type.prehistoriccraft.acid_fluid_type": "Sulfuric Acid",
+
+  "item.prehistoriccraft.dayongaspis_bucket": "Bucket of Dayongaspis",
+
+  "item.prehistoriccraft.raw_dayongaspis": "Raw Dayongaspis",
+  "item.prehistoriccraft.cooked_dayongaspis": "Cooked Dayongaspis",
+
+  "entity.prehistoriccraft.dayongaspis": "Dayongaspis",
+  "tabs.prehistoriccraft.prehistoriccraft_food": "PC Food"
 }

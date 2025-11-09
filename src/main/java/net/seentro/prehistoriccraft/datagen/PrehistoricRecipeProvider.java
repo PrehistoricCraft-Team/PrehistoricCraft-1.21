@@ -3,15 +3,11 @@ package net.seentro.prehistoriccraft.datagen;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.neoforged.neoforge.common.conditions.IConditionBuilder;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
 import net.seentro.prehistoriccraft.registry.PrehistoricBlocks;
 import net.seentro.prehistoriccraft.registry.PrehistoricItems;
@@ -281,10 +277,12 @@ public class PrehistoricRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_glass", has(Blocks.GLASS))
                 .save(recipeOutput);
 
-        oreSmelting(recipeOutput, List.of(PrehistoricItems.GYPSUM_POWDER.get()), RecipeCategory.MISC, PrehistoricItems.PLASTER_POWDER.get(), 0.35f, 85, "plaster_powder");
-        oreBlasting(recipeOutput, List.of(PrehistoricItems.GYPSUM_POWDER.get()), RecipeCategory.MISC, PrehistoricItems.PLASTER_POWDER.get(), 0.35f, 35, "plaster_powder");
+        smeltingRecipe(recipeOutput, List.of(PrehistoricItems.GYPSUM_POWDER.get()), RecipeCategory.MISC, PrehistoricItems.PLASTER_POWDER.get(), 0.35f, 85, "plaster_powder");
+        blastingRecipe(recipeOutput, List.of(PrehistoricItems.GYPSUM_POWDER.get()), RecipeCategory.MISC, PrehistoricItems.PLASTER_POWDER.get(), 0.35f, 35, "plaster_powder");
 
 
+        /* COOKING MEAT */
+        foodCookingRecipes(recipeOutput, List.of(PrehistoricItems.RAW_DAYONGASPIS.get()), RecipeCategory.FOOD, PrehistoricItems.COOKED_DAYONGASPIS.asItem(), 0.1f, 100, 50, "cooked_dayongaspis");
 
         /* PRESET RECIPES */
         /*ShapedRecipeBuilder.shaped(RecipeCategory.MISC, PrehistoricBlocks.AMBER_BLOCK.get())
@@ -307,30 +305,48 @@ public class PrehistoricRecipeProvider extends RecipeProvider {
         List<ItemLike> UNHEATED_SYRINGES = List.of(); Demonstrational list, let's say only smelting and not blasting
         List<ItemLike> STONE = List.of(Blocks.STONE, Blocks.DEEPSLATE, Blocks.ANDESITE, Blocks.DIORITE, Blocks.GRANITE); Smelting and blasting
 
-        oreSmelting(recipeOutput, UNHEATED_SYRINGES, RecipeCategory.MISC, Items.STICK, 0.25f, 100, "sticks");
+        smeltingRecipe(recipeOutput, UNHEATED_SYRINGES, RecipeCategory.MISC, Items.STICK, 0.25f, 100, "sticks");
 
-        oreSmelting(recipeOutput, STONE, RecipeCategory.MISC, PrehistoricBlocks.AMBER_BLOCK, 0.25f, 500, "amber_block");
-        oreBlasting(recipeOutput, STONE, RecipeCategory.MISC, PrehistoricBlocks.AMBER_BLOCK, 0.25f, 200, "amber_block");
+        smeltingRecipe(recipeOutput, STONE, RecipeCategory.MISC, PrehistoricBlocks.AMBER_BLOCK, 0.25f, 500, "amber_block");
+        blastingRecipe(recipeOutput, STONE, RecipeCategory.MISC, PrehistoricBlocks.AMBER_BLOCK, 0.25f, 200, "amber_block");
 
-        oreSmelting(recipeOutput, List.of(Items.APPLE), RecipeCategory.MISC, Items.ANVIL, 1f, 50, "anvil"); If you only need 1 item*/
+        smeltingRecipe(recipeOutput, List.of(Items.APPLE), RecipeCategory.MISC, Items.ANVIL, 1f, 50, "anvil"); If you only need 1 item*/
     }
 
     /* HELPER METHODS */
 
-
-    protected static void oreSmelting(RecipeOutput recipeOutput, List<ItemLike> pIngredients, RecipeCategory pCategory, ItemLike pResult,
-                                      float pExperience, int pCookingTIme, String pGroup) {
-        oreCooking(recipeOutput, RecipeSerializer.SMELTING_RECIPE, SmeltingRecipe::new, pIngredients, pCategory, pResult,
-                pExperience, pCookingTIme, pGroup, "_from_smelting");
+    protected static void foodCookingRecipes(RecipeOutput recipeOutput, List<ItemLike> ingredients, RecipeCategory category, ItemLike result,
+                                             float experience, int cookingTime, int smokingCookingTime,  String group) {
+        smeltingRecipe(recipeOutput, ingredients, category, result, experience, cookingTime, group);
+        smokingRecipe(recipeOutput, ingredients, category, result, experience, smokingCookingTime, group);
+        campfireCookingRecipe(recipeOutput, ingredients, category, result, experience, smokingCookingTime, group);
     }
 
-    protected static void oreBlasting(RecipeOutput recipeOutput, List<ItemLike> pIngredients, RecipeCategory pCategory, ItemLike pResult,
-                                      float pExperience, int pCookingTime, String pGroup) {
-        oreCooking(recipeOutput, RecipeSerializer.BLASTING_RECIPE, BlastingRecipe::new, pIngredients, pCategory, pResult,
-                pExperience, pCookingTime, pGroup, "_from_blasting");
+    protected static void smeltingRecipe(RecipeOutput recipeOutput, List<ItemLike> ingredients, RecipeCategory category, ItemLike result,
+                                         float experience, int cookingTime, String group) {
+        cooking(recipeOutput, RecipeSerializer.SMELTING_RECIPE, SmeltingRecipe::new, ingredients, category, result,
+                experience, cookingTime, group, "_from_smelting");
     }
 
-    protected static <T extends AbstractCookingRecipe> void oreCooking(RecipeOutput recipeOutput, RecipeSerializer<T> pCookingSerializer, AbstractCookingRecipe.Factory<T> factory,
+    protected static void blastingRecipe(RecipeOutput recipeOutput, List<ItemLike> ingredients, RecipeCategory category, ItemLike result,
+                                         float experience, int cookingTime, String group) {
+        cooking(recipeOutput, RecipeSerializer.BLASTING_RECIPE, BlastingRecipe::new, ingredients, category, result,
+                experience, cookingTime, group, "_from_blasting");
+    }
+
+    protected static void smokingRecipe(RecipeOutput recipeOutput, List<ItemLike> ingredients, RecipeCategory category, ItemLike result,
+                                        float experience, int cookingTime, String group) {
+        cooking(recipeOutput, RecipeSerializer.SMOKING_RECIPE, SmokingRecipe::new, ingredients, category, result,
+                experience, cookingTime, group, "_from_smoking");
+    }
+
+    protected static void campfireCookingRecipe(RecipeOutput recipeOutput, List<ItemLike> ingredients, RecipeCategory category, ItemLike result,
+                                                float experience, int cookingTime, String group) {
+        cooking(recipeOutput, RecipeSerializer.CAMPFIRE_COOKING_RECIPE, CampfireCookingRecipe::new, ingredients, category, result,
+                experience, cookingTime, group, "_from_campfire_cooking");
+    }
+
+    protected static <T extends AbstractCookingRecipe> void cooking(RecipeOutput recipeOutput, RecipeSerializer<T> pCookingSerializer, AbstractCookingRecipe.Factory<T> factory,
                                                                        List<ItemLike> pIngredients, RecipeCategory pCategory, ItemLike pResult, float pExperience, int pCookingTime, String pGroup, String pRecipeName) {
         for (ItemLike itemlike : pIngredients) {
             SimpleCookingRecipeBuilder.generic(Ingredient.of(itemlike), pCategory, pResult, pExperience, pCookingTime, pCookingSerializer, factory).group(pGroup).unlockedBy(getHasName(itemlike), has(itemlike))

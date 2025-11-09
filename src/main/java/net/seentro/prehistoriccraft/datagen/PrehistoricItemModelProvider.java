@@ -99,6 +99,14 @@ public class PrehistoricItemModelProvider extends ItemModelProvider {
 
         /* DIRECT REVIVAL ITEMS */
         basicItem(PrehistoricItems.SLIME_ZYGOTE.get());
+
+        /* DINOSAUR BUCKETS */
+        basicItem(PrehistoricItems.DAYONGASPIS_BUCKET.get());
+
+        /* DINOSAUR LOOT */
+        //WATER
+        basicItem(PrehistoricItems.RAW_DAYONGASPIS.get());
+        basicItem(PrehistoricItems.COOKED_DAYONGASPIS.get());
     }
 
     /* HELPER METHODS */
