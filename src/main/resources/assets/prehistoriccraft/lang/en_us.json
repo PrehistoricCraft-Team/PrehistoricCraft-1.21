@@ -114,6 +114,7 @@
   "tabs.prehistoriccraft.prehistoriccraft_items": "PC Items",
   "tabs.prehistoriccraft.prehistoriccraft_blocks": "PC Blocks",
   "tabs.prehistoriccraft.prehistoriccraft_functional_blocks": "PC Functional Blocks",
+  "tabs.prehistoriccraft.prehistoriccraft_food": "PC Food",
 
   "item.prehistoriccraft.obsidian_plate": "Obsidian Plate",
   "item.prehistoriccraft.reinforced_obsidian_plate": "Reinforced Obsidian Plate",
@@ -139,6 +140,5 @@
   "item.prehistoriccraft.raw_dayongaspis": "Raw Dayongaspis",
   "item.prehistoriccraft.cooked_dayongaspis": "Cooked Dayongaspis",
 
-  "entity.prehistoriccraft.dayongaspis": "Dayongaspis",
-  "tabs.prehistoriccraft.prehistoriccraft_food": "PC Food"
+  "entity.prehistoriccraft.dayongaspis": "Dayongaspis"
 }

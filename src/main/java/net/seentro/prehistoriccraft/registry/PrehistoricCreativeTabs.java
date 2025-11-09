@@ -132,6 +132,7 @@ public class PrehistoricCreativeTabs {
                 output.accept(PrehistoricItems.SLIME_ZYGOTE.get());
                 output.accept(PrehistoricItems.DAWN_REDWOOD_CONE.get());
                 output.accept(PrehistoricItems.RAW_CLAY_BALL.get());
+                output.accept(PrehistoricItems.DAYONGASPIS_BUCKET.get());
             }).build());
 
     public static final Supplier<CreativeModeTab> PREHISTORICCRAFT_BLOCKS = CREATIVE_MODE_TABS.register("prehistoriccraft_blocks", () -> CreativeModeTab.builder().icon(() -> new ItemStack(PrehistoricBlocks.AMBER_BLOCK.get()))
