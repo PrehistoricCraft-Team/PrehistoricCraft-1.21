@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "prehistoriccraft:loam"
+            "items": "#c:loam"
           }
         ]
       },
@@ -15,7 +15,7 @@
       "conditions": {
         "items": [
           {
-            "items": "prehistoriccraft:silt"
+            "items": "#c:silt"
           }
         ]
       },

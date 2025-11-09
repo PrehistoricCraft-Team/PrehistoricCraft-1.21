@@ -4,6 +4,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
@@ -22,6 +23,7 @@ public class PrehistoricItemTagProvider extends ItemTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
+
         tag(ItemTags.PICKAXES)
                 .add(PrehistoricItems.EXCAVATOR_PICKAXE.get());
 
@@ -55,11 +57,28 @@ public class PrehistoricItemTagProvider extends ItemTagsProvider {
 
         tag(PrehistoricTags.Items.AMBER)
                 .add(PrehistoricItems.AMBER.get());
+
         tag(PrehistoricTags.Items.VIAL)
                 .add(PrehistoricItems.VIAL.get());
         tag(PrehistoricTags.Items.SYRINGE)
                 .add(PrehistoricItems.SYRINGE.get());
         tag(PrehistoricTags.Items.JAR)
                 .add(PrehistoricItems.JAR.get());
+
+        tag(PrehistoricTags.Items.CLAY_BALL)
+                .add(Items.CLAY_BALL)
+                .add(PrehistoricItems.RAW_CLAY_BALL.get());
+
+        tag(PrehistoricTags.Items.SULFUR)
+                .add(PrehistoricItems.SULFUR.get());
+
+
+        // BLOCKS
+
+        copy(PrehistoricTags.Blocks.LOAM, PrehistoricTags.Items.LOAM);
+        copy(PrehistoricTags.Blocks.SILT, PrehistoricTags.Items.SILT);
+        copy(PrehistoricTags.Blocks.CLAY, PrehistoricTags.Items.CLAY);
+        tag(PrehistoricTags.Items.CLAY)
+                .add(Items.CLAY);
     }
 }

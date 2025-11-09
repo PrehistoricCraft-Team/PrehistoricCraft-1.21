@@ -3,7 +3,7 @@
   "category": "building",
   "key": {
     "L": {
-      "item": "prehistoriccraft:loam"
+      "tag": "c:loam"
     },
     "S": {
       "tag": "minecraft:sand"

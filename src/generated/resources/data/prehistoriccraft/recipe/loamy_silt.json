@@ -3,10 +3,10 @@
   "category": "building",
   "key": {
     "L": {
-      "item": "prehistoriccraft:loam"
+      "tag": "c:loam"
     },
     "S": {
-      "item": "prehistoriccraft:silt"
+      "tag": "c:silt"
     }
   },
   "pattern": [

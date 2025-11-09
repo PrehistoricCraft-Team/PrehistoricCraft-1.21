@@ -2,13 +2,13 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "#": {
+    "C": {
       "item": "prehistoriccraft:raw_clay_ball"
     }
   },
   "pattern": [
-    "##",
-    "##"
+    "CC",
+    "CC"
   ],
   "result": {
     "count": 1,

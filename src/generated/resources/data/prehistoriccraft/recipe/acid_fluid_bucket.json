@@ -3,13 +3,13 @@
   "category": "misc",
   "ingredients": [
     {
-      "item": "prehistoriccraft:sulfur"
+      "tag": "c:sulfur"
     },
     {
-      "item": "prehistoriccraft:sulfur"
+      "tag": "c:sulfur"
     },
     {
-      "item": "prehistoriccraft:sulfur"
+      "tag": "c:sulfur"
     },
     {
       "item": "minecraft:water_bucket"

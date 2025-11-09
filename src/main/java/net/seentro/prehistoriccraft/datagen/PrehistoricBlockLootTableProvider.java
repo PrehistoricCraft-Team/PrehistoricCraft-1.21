@@ -129,6 +129,7 @@ public class PrehistoricBlockLootTableProvider extends BlockLootSubProvider {
         dropSelf(PrehistoricBlocks.LOAMY_SAND.get());
         dropSelf(PrehistoricBlocks.SANDY_LOAM.get());
         dropSelf(PrehistoricBlocks.PEAT.get());
+        dropOther(PrehistoricBlocks.LOAM_GRASS.get(), PrehistoricBlocks.LOAM.get());
         dropMultipleItems(PrehistoricBlocks.RAW_CLAY.get(), PrehistoricItems.RAW_CLAY_BALL.get(), 1, 3);
     }
 

@@ -159,11 +159,11 @@ public class PrehistoricRecipeProvider extends RecipeProvider {
                 .save(recipeOutput);
 
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, PrehistoricItems.ACID_FLUID_BUCKET, 1)
-                .requires(PrehistoricItems.SULFUR)
-                .requires(PrehistoricItems.SULFUR)
-                .requires(PrehistoricItems.SULFUR)
+                .requires(PrehistoricTags.Items.SULFUR)
+                .requires(PrehistoricTags.Items.SULFUR)
+                .requires(PrehistoricTags.Items.SULFUR)
                 .requires(Items.WATER_BUCKET)
-                .unlockedBy("has_sulfur", has(PrehistoricItems.SULFUR))
+                .unlockedBy("has_sulfur", has(PrehistoricTags.Items.SULFUR))
                 .unlockedBy("has_water_bucket", has(Items.WATER_BUCKET))
                 .save(recipeOutput);
 
@@ -184,60 +184,58 @@ public class PrehistoricRecipeProvider extends RecipeProvider {
                 .save(recipeOutput);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, PrehistoricBlocks.LOAM, 4)
-                .define('C', Items.CLAY)
+                .define('C', PrehistoricTags.Items.CLAY_BALL)
                 .define('S', ItemTags.SAND)
                 .define('D', ItemTags.DIRT)
                 .pattern("CS")
                 .pattern("DD")
-                .unlockedBy("has_clay", has(Items.CLAY_BALL))
-                .unlockedBy("has_clay", has(PrehistoricItems.RAW_CLAY_BALL))
+                .unlockedBy("has_clay", has(PrehistoricTags.Items.CLAY_BALL))
                 .unlockedBy("has_sand", has(ItemTags.SAND))
                 .unlockedBy("has_dirt", has(ItemTags.DIRT))
                 .save(recipeOutput);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, PrehistoricBlocks.SILT, 4)
-                .define('C', Items.CLAY)
+                .define('C', PrehistoricTags.Items.CLAY_BALL)
                 .define('S', ItemTags.SAND)
                 .define('D', ItemTags.DIRT)
                 .pattern("CD")
                 .pattern("SS")
-                .unlockedBy("has_clay", has(Items.CLAY_BALL))
-                .unlockedBy("has_clay", has(PrehistoricItems.RAW_CLAY_BALL))
+                .unlockedBy("has_clay", has(PrehistoricTags.Items.CLAY_BALL))
                 .unlockedBy("has_sand", has(ItemTags.SAND))
                 .unlockedBy("has_dirt", has(ItemTags.DIRT))
                 .save(recipeOutput);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, PrehistoricBlocks.LOAMY_SILT, 4)
-                .define('L', PrehistoricBlocks.LOAM)
-                .define('S', PrehistoricBlocks.SILT)
+                .define('L', PrehistoricTags.Items.LOAM)
+                .define('S', PrehistoricTags.Items.SILT)
                 .pattern("LS")
                 .pattern("SS")
-                .unlockedBy("has_loam", has(PrehistoricBlocks.LOAM))
-                .unlockedBy("has_silt", has(PrehistoricBlocks.SILT))
+                .unlockedBy("has_loam", has(PrehistoricTags.Items.LOAM))
+                .unlockedBy("has_silt", has(PrehistoricTags.Items.SILT))
                 .save(recipeOutput);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, PrehistoricBlocks.SANDY_LOAM, 4)
-                .define('L', PrehistoricBlocks.LOAM)
+                .define('L', PrehistoricTags.Items.LOAM)
                 .define('S', ItemTags.SAND)
                 .pattern("SL")
                 .pattern("LL")
-                .unlockedBy("has_loam", has(PrehistoricBlocks.LOAM))
+                .unlockedBy("has_loam", has(PrehistoricTags.Items.LOAM))
                 .unlockedBy("has_sand", has(ItemTags.SAND))
                 .save(recipeOutput);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, PrehistoricBlocks.LOAMY_SAND, 4)
-                .define('L', PrehistoricBlocks.LOAM)
+                .define('L', PrehistoricTags.Items.LOAM)
                 .define('S', ItemTags.SAND)
                 .pattern("LS")
                 .pattern("SS")
-                .unlockedBy("has_loam", has(PrehistoricBlocks.LOAM))
+                .unlockedBy("has_loam", has(PrehistoricTags.Items.LOAM))
                 .unlockedBy("has_sand", has(ItemTags.SAND))
                 .save(recipeOutput);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, PrehistoricBlocks.RAW_CLAY.get(), 1)
-                .define('#', PrehistoricItems.RAW_CLAY_BALL)
-                .pattern("##")
-                .pattern("##")
+                .define('C', PrehistoricItems.RAW_CLAY_BALL)
+                .pattern("CC")
+                .pattern("CC")
                 .unlockedBy("has_raw_clay_ball", has(PrehistoricItems.RAW_CLAY_BALL))
                 .save(recipeOutput);
 

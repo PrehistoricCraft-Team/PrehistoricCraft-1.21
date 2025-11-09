@@ -3,7 +3,7 @@
   "category": "building",
   "key": {
     "C": {
-      "item": "minecraft:clay"
+      "tag": "c:clay_ball"
     },
     "D": {
       "tag": "minecraft:dirt"

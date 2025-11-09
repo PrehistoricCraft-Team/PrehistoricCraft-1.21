@@ -85,7 +85,9 @@ public class PrehistoricBlockTagProvider extends BlockTagsProvider {
         tag(BlockTags.DIRT)
                 .add(PrehistoricBlocks.CRACKED_DIRT.get());
         tag(PrehistoricTags.Blocks.LOAM)
+                .add(PrehistoricBlocks.LOAM_GRASS.get())
                 .add(PrehistoricBlocks.LOAM.get());
+
         tag(PrehistoricTags.Blocks.SILT)
                 .add(PrehistoricBlocks.SILT.get());
         tag(PrehistoricTags.Blocks.CLAY)

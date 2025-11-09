@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "prehistoriccraft:raw_clay_ball"
+            "items": "#c:clay_ball"
           }
         ]
       },
