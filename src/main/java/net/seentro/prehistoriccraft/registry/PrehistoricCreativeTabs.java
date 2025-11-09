@@ -83,25 +83,25 @@ public class PrehistoricCreativeTabs {
                 output.accept(PrehistoricBlocks.PEAT.get());
                 output.accept(PrehistoricBlocks.RAW_CLAY.get());
 
-                output.accept(PrehistoricBlocks.DAWN_REDWOOD_LOG);
-                output.accept(PrehistoricBlocks.DAWN_REDWOOD_WOOD);
-                output.accept(PrehistoricBlocks.STRIPPED_DAWN_REDWOOD_LOG);
-                output.accept(PrehistoricBlocks.STRIPPED_DAWN_REDWOOD_WOOD);
-                output.accept(PrehistoricBlocks.DAWN_REDWOOD_LEAVES);
-                output.accept(PrehistoricBlocks.DAWN_REDWOOD_PLANKS);
-                output.accept(PrehistoricBlocks.DAWN_REDWOOD_STAIRS);
-                output.accept(PrehistoricBlocks.DAWN_REDWOOD_SLAB);
-                output.accept(PrehistoricBlocks.DAWN_REDWOOD_FENCE);
-                output.accept(PrehistoricBlocks.DAWN_REDWOOD_FENCE_GATE);
-                output.accept(PrehistoricBlocks.DAWN_REDWOOD_DOOR);
-                output.accept(PrehistoricBlocks.DAWN_REDWOOD_TRAPDOOR);
-                output.accept(PrehistoricBlocks.DAWN_REDWOOD_PRESSURE_PLATE);
-                output.accept(PrehistoricBlocks.DAWN_REDWOOD_BUTTON);
-                output.accept(PrehistoricItems.DAWN_REDWOOD_SIGN);
-                output.accept(PrehistoricItems.DAWN_REDWOOD_HANGING_SIGN);
-                output.accept(PrehistoricItems.DAWN_REDWOOD_BOAT);
-                output.accept(PrehistoricItems.DAWN_REDWOOD_CHEST_BOAT);
-                output.accept(PrehistoricBlocks.DAWN_REDWOOD_SAPLING);
+                output.accept(PrehistoricBlocks.DAWN_REDWOOD_LOG.get());
+                output.accept(PrehistoricBlocks.DAWN_REDWOOD_WOOD.get());
+                output.accept(PrehistoricBlocks.STRIPPED_DAWN_REDWOOD_LOG.get());
+                output.accept(PrehistoricBlocks.STRIPPED_DAWN_REDWOOD_WOOD.get());
+                output.accept(PrehistoricBlocks.DAWN_REDWOOD_LEAVES.get());
+                output.accept(PrehistoricBlocks.DAWN_REDWOOD_PLANKS.get());
+                output.accept(PrehistoricBlocks.DAWN_REDWOOD_STAIRS.get());
+                output.accept(PrehistoricBlocks.DAWN_REDWOOD_SLAB.get());
+                output.accept(PrehistoricBlocks.DAWN_REDWOOD_FENCE.get());
+                output.accept(PrehistoricBlocks.DAWN_REDWOOD_FENCE_GATE.get());
+                output.accept(PrehistoricBlocks.DAWN_REDWOOD_DOOR.get());
+                output.accept(PrehistoricBlocks.DAWN_REDWOOD_TRAPDOOR.get());
+                output.accept(PrehistoricBlocks.DAWN_REDWOOD_PRESSURE_PLATE.get());
+                output.accept(PrehistoricBlocks.DAWN_REDWOOD_BUTTON.get());
+                output.accept(PrehistoricItems.DAWN_REDWOOD_SIGN.get());
+                output.accept(PrehistoricItems.DAWN_REDWOOD_HANGING_SIGN.get());
+                output.accept(PrehistoricItems.DAWN_REDWOOD_BOAT.get());
+                output.accept(PrehistoricItems.DAWN_REDWOOD_CHEST_BOAT.get());
+                output.accept(PrehistoricBlocks.DAWN_REDWOOD_SAPLING.get());
             }).build());
 
     public static final Supplier<CreativeModeTab> PREHISTORICCRAFT_ITEMS = CREATIVE_MODE_TABS.register("prehistoriccraft_items", () -> CreativeModeTab.builder().icon(() -> new ItemStack(PrehistoricItems.EXCAVATOR_PICKAXE.get()))
@@ -145,10 +145,15 @@ public class PrehistoricCreativeTabs {
     public static final Supplier<CreativeModeTab> PREHISTORICCRAFT_FUNCTIONAL_BLOCKS = CREATIVE_MODE_TABS.register("prehistoriccraft_functional_blocks", () -> CreativeModeTab.builder().icon(() -> new ItemStack(PrehistoricBlocks.FOSSIL_ANALYSIS_TABLE.get()))
             .title(Component.translatable("tabs.prehistoriccraft.prehistoriccraft_functional_blocks")).displayItems((displayParameters, output) -> {
                 output.accept(PrehistoricBlocks.FOSSIL_ANALYSIS_TABLE.get());
-                output.accept(PrehistoricBlocks.TISSUE_EXTRACTION_CHAMBER);
-                output.accept(PrehistoricBlocks.ACID_CLEANING_CHAMBER);
+                output.accept(PrehistoricBlocks.TISSUE_EXTRACTION_CHAMBER.get());
+                output.accept(PrehistoricBlocks.ACID_CLEANING_CHAMBER.get());
             }).build());
 
+    public static final Supplier<CreativeModeTab> PREHISTORICCRAFT_FOOD= CREATIVE_MODE_TABS.register("prehistoriccraft_food", () -> CreativeModeTab.builder().icon(() -> new ItemStack(PrehistoricBlocks.FOSSIL_ANALYSIS_TABLE.get()))
+            .title(Component.translatable("tabs.prehistoriccraft.prehistoriccraft_food")).displayItems((displayParameters, output) -> {
+                output.accept(PrehistoricItems.RAW_DAYONGASPIS.get());
+                output.accept(PrehistoricItems.COOKED_DAYONGASPIS.get());
+            }).build());
 
     public static void register(IEventBus eventBus) {
         PrehistoricCreativeTabs.CREATIVE_MODE_TABS.register(eventBus);
