@@ -81,7 +81,7 @@ public class PrehistoricItems {
     public static final DeferredItem<Item> OBSIDIAN_PLATE = ITEMS.registerSimpleItem("obsidian_plate");
     public static final DeferredItem<Item> REINFORCED_OBSIDIAN_PLATE = ITEMS.registerSimpleItem("reinforced_obsidian_plate");
     public static final DeferredItem<Item> GOLD_PIPE = ITEMS.registerSimpleItem("gold_pipe");
-    public static final DeferredItem<Item> NANOPOD = ITEMS.register("nanopod", () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> NANOPOD = ITEMS.register("nanopod", () -> new Item(new Item.Properties().durability(32).setNoRepair()));
 
     /* FLUIDS */
     public static final DeferredItem<Item> BLOB_OF_BLICE = ITEMS.registerSimpleItem("blob_of_blice");

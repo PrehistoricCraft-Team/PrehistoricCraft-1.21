@@ -37,12 +37,14 @@ import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.seentro.prehistoriccraft.common.block.acidCleaningChamber.geckolib.AcidCleaningChamberRenderer;
+import net.seentro.prehistoriccraft.common.block.dnaSeparationFilter.geckolib.DNASeparationFilterRenderer;
 import net.seentro.prehistoriccraft.common.block.tissueExtractionChamber.geckolib.TissueExtractionChamberRenderer;
 import net.seentro.prehistoriccraft.common.entity.PrehistoricBoatRenderer;
 import net.seentro.prehistoriccraft.common.fluid.BaseFluidType;
 import net.seentro.prehistoriccraft.common.fluid.FluidBottleWrapper;
 import net.seentro.prehistoriccraft.common.nature.dawnRedwood.geckolib.DawnRedwoodSaplingRenderer;
 import net.seentro.prehistoriccraft.common.screen.acidCleaningChamber.AcidCleaningChamberScreen;
+import net.seentro.prehistoriccraft.common.screen.dnaSeparationFilter.DNASeparationFilterScreen;
 import net.seentro.prehistoriccraft.common.screen.fossilAnalysisTable.FossilAnalysisTableScreen;
 import net.seentro.prehistoriccraft.common.screen.tissueExtractionChamber.TissueExtractionChamberScreen;
 import net.seentro.prehistoriccraft.core.json.tissueExtractionChamber.TimePeriodTissueLoader;
@@ -157,6 +159,7 @@ public class PrehistoricCraft {
             BlockEntityRenderers.register(PrehistoricBlockEntityTypes.TISSUE_EXTRACTION_CHAMBER_BLOCK_ENTITY.get(), TissueExtractionChamberRenderer::new);
             BlockEntityRenderers.register(PrehistoricBlockEntityTypes.ACID_CLEANING_CHAMBER_BLOCK_ENTITY.get(), AcidCleaningChamberRenderer::new);
             BlockEntityRenderers.register(PrehistoricBlockEntityTypes.DAWN_REDWOOD_SAPLING_BLOCK_ENTITY.get(), DawnRedwoodSaplingRenderer::new);
+            BlockEntityRenderers.register(PrehistoricBlockEntityTypes.DNA_SEPARATION_FILTER_BLOCK_ENTITY.get(), DNASeparationFilterRenderer::new);
 
             event.enqueueWork(() -> {
                 Sheets.addWoodType(PrehistoricWoodTypes.DAWN_REDWOOD);
@@ -168,6 +171,7 @@ public class PrehistoricCraft {
             event.register(PrehistoricMenuTypes.FOSSIL_ANALYSIS_TABLE_MENU.get(), FossilAnalysisTableScreen::new);
             event.register(PrehistoricMenuTypes.TISSUE_EXTRACTION_CHAMBER_MENU.get(), TissueExtractionChamberScreen::new);
             event.register(PrehistoricMenuTypes.ACID_CLEANING_CHAMBER_MENU.get(), AcidCleaningChamberScreen::new);
+            event.register(PrehistoricMenuTypes.DNA_SEPARATION_FILTER_MENU.get(),DNASeparationFilterScreen::new);
         }
 
         @SubscribeEvent

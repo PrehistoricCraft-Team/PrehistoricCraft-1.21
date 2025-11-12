@@ -28,6 +28,9 @@ public class PrehistoricTags {
                 ItemTags.create(ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID, "syringe"));
         public static final TagKey<Item> VIAL =
                 ItemTags.create(ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID,"vial"));
+        //Placeholder
+        public static final TagKey<Item> DIRECT_SOURCE =
+                ItemTags.create(ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID, "direct_source"));
 
 
     }
