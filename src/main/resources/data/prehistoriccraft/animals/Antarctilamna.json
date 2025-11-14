@@ -1,0 +1,10 @@
+{
+    "size": "S",
+    "hp": 10,
+    "diet": "carnivorous",
+    "liked food": "cod",
+    "cleaning": "none",
+    "sociality": "solitary",
+    "max pack": 0,
+    "offprints": 3
+}

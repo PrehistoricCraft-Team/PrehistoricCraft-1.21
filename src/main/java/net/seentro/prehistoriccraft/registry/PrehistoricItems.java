@@ -8,6 +8,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
 import net.seentro.prehistoriccraft.common.block.acidCleaningChamber.item.AcidCleaningChamberBlockItem;
 import net.seentro.prehistoriccraft.common.block.tissueExtractionChamber.item.TissueExtractionChamberBlockItem;
+import net.seentro.prehistoriccraft.common.item.DNAInPetriDishItem;
 import net.seentro.prehistoriccraft.common.item.ExcavatorPickaxeItem;
 import net.seentro.prehistoriccraft.common.item.FilledBottleItem;
 import net.seentro.prehistoriccraft.common.item.FossilItem;
@@ -94,7 +95,7 @@ public class PrehistoricItems {
     public static final DeferredItem<Item> SYRINGE = ITEMS.registerSimpleItem("syringe");
     public static final DeferredItem<Item> JAR = ITEMS.registerSimpleItem("jar");
     public static final DeferredItem<Item> PETRI_DISH = ITEMS.register("petri_dish", () -> new Item(new Item.Properties()));
-    public static final DeferredItem<Item> DNA_IN_A_PETRI_DISH = ITEMS.register("dna_in_a_petri_dish", () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> DNA_IN_A_PETRI_DISH = ITEMS.register("dna_in_a_petri_dish", () -> new DNAInPetriDishItem(new Item.Properties()));
 
     /* DIRECT REVIVAL ITEMS */
 

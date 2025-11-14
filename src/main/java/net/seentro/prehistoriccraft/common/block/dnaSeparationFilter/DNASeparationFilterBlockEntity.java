@@ -88,7 +88,7 @@ public class DNASeparationFilterBlockEntity extends BlockEntity implements MenuP
         @Override
         public boolean isItemValid(int slot, ItemStack stack) {
             if (slot >= SLOT_TISSUE_1 && slot <= SLOT_TISSUE_6) {
-                return stack.is(PrehistoricTags.Items.FOSSIL_SAMPLES);
+                return stack.is(PrehistoricTags.Items.TISSUES);
             }
             if (slot >= SLOT_OUTPUT_1 && slot <= SLOT_OUTPUT_6) {
                 return true;
@@ -331,7 +331,7 @@ public class DNASeparationFilterBlockEntity extends BlockEntity implements MenuP
     private Integer firstValidTissueSlot() {
         for (int s : TISSUE_SLOTS) {
             ItemStack st = itemHandler.getStackInSlot(s);
-            if (!st.isEmpty() && st.is(PrehistoricTags.Items.FOSSIL_SAMPLES)) return s;
+            if (!st.isEmpty() && st.is(PrehistoricTags.Items.TISSUES)) return s;
         }
         return null;
     }
@@ -368,21 +368,22 @@ public class DNASeparationFilterBlockEntity extends BlockEntity implements MenuP
     }
 
     private void doProcess() {
+        
         Integer tissueSlotCheck = firstValidTissueSlot();
         if (tissueSlotCheck == null) {
             working = 0;
             return;
         }
-
-        ItemStack preview = makeOutput(itemHandler.getStackInSlot(tissueSlotCheck));
+        
+        /* ItemStack preview = makeOutput(itemHandler.getStackInSlot(tissueSlotCheck));
         Integer outSlotCheck = findOutputSlotFor(preview);
         if (outSlotCheck == null) {
             working = 0;
             return;
-        }
-
+        } */
+        
         itemHandler.extractItem(SLOT_PETRI, 1, false);
-
+        
         Integer tissueSlot = firstValidTissueSlot();
         ItemStack consumedTissue = tissueSlot != null ? itemHandler.extractItem(tissueSlot, 1, false) : ItemStack.EMPTY;
 
@@ -391,8 +392,8 @@ public class DNASeparationFilterBlockEntity extends BlockEntity implements MenuP
 
         damageNano();
 
+        consumedTissue.set(PrehistoricDataComponents.FOSSIL_SPECIES, "antarctilamna");
         ItemStack out = makeOutput(consumedTissue.isEmpty() ? new ItemStack(Items.AIR) : consumedTissue);
-
         Integer outSlot = findOutputSlotFor(out);
         if (outSlot != null) {
             ItemStack remainder = itemHandler.insertItem(outSlot, out, false);
@@ -440,13 +441,11 @@ public class DNASeparationFilterBlockEntity extends BlockEntity implements MenuP
 
         boolean contaminated = random.nextDouble() < CONTAMINATION_CHANCE;
 
-        String sourceType = direct ? "DIRECT" : "GENERIC";
-        String species = tissue.getOrDefault(PrehistoricDataComponents.DNA_SPECIES.get(), "unknown");
+        String species = tissue.getOrDefault(PrehistoricDataComponents.FOSSIL_SPECIES.get(), "unknown");
 
         out.set(PrehistoricDataComponents.DNA_QUALITY.get(), quality);
         out.set(PrehistoricDataComponents.DNA_CONTAMINATED.get(), contaminated);
-        out.set(PrehistoricDataComponents.DNA_SOURCE_TYPE.get(), sourceType);
-        out.set(PrehistoricDataComponents.DNA_SPECIES.get(), species);
+        out.set(PrehistoricDataComponents.FOSSIL_SPECIES.get(), species);
         return out;
     }
 

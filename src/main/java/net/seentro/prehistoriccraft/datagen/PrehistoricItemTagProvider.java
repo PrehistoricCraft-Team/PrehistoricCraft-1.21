@@ -58,5 +58,10 @@ public class PrehistoricItemTagProvider extends ItemTagsProvider {
         //Placeholder Direct Source 100% dna
         tag(PrehistoricTags.Items.DIRECT_SOURCE)
                 .add(PrehistoricItems.AMBER.get());
+        
+        tag(PrehistoricTags.Items.TISSUES)
+                .add(PrehistoricItems.ANIMAL_TISSUE.get())
+                .add(PrehistoricItems.PLANT_TISSUE.get())
+                .add(PrehistoricItems.BLOOD_CELL.get());
     }
 }

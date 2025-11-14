@@ -34,7 +34,6 @@ public class DNASeparationFilterMenu extends MachineMenu<DNASeparationFilterBloc
         this.addSlot(new SlotItemHandler(handler, DNASeparationFilterBlockEntity.SLOT_CHARCOAL,  75, 34));
         this.addSlot(new SlotItemHandler(handler, DNASeparationFilterBlockEntity.SLOT_NANO,     112, 34));
 
-        // TISSUE 1..6 (fila superior central)
         for (int i = 0; i < 6; i++) {
             int slotIndex = DNASeparationFilterBlockEntity.SLOT_TISSUE_1 + i; // 1..6
             this.addSlot(new SlotItemHandler(handler, slotIndex, 64 + (SPACING * i), 64));
