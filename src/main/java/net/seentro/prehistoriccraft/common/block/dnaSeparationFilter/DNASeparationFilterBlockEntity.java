@@ -456,7 +456,6 @@ public class DNASeparationFilterBlockEntity extends BlockEntity implements MenuP
 
     private int calcQuality(ItemStack tissue) {
         String size = getSizeFromSpeciesJson(tissue);
-        System.out.println("size: " + size);
         int min = 40, max = 90;
         switch (size) {
             case "S" -> {
