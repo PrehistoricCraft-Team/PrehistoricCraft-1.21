@@ -48,6 +48,7 @@ import net.seentro.prehistoriccraft.common.screen.dnaSeparationFilter.DNASeparat
 import net.seentro.prehistoriccraft.common.screen.fossilAnalysisTable.FossilAnalysisTableScreen;
 import net.seentro.prehistoriccraft.common.screen.tissueExtractionChamber.TissueExtractionChamberScreen;
 import net.seentro.prehistoriccraft.core.json.tissueExtractionChamber.TimePeriodTissueLoader;
+import net.seentro.prehistoriccraft.data.FossilSpeciesLoader;
 import net.seentro.prehistoriccraft.registry.*;
 import org.slf4j.Logger;
 import software.bernie.geckolib.util.ClientUtil;
@@ -150,6 +151,7 @@ public class PrehistoricCraft {
     @SubscribeEvent
     public void onAddReloadListener(AddReloadListenerEvent event) {
         event.addListener(new TimePeriodTissueLoader());
+        event.addListener(FossilSpeciesLoader.INSTANCE);
     }
 
     @EventBusSubscriber(modid = MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)

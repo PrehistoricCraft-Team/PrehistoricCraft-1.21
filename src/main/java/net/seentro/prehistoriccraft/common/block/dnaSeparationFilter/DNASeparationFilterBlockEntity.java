@@ -7,6 +7,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
@@ -27,11 +28,15 @@ import net.neoforged.neoforge.fluids.FluidUtil;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 import net.neoforged.neoforge.items.ItemStackHandler;
+import net.seentro.prehistoriccraft.PrehistoricCraft;
 import net.seentro.prehistoriccraft.common.screen.dnaSeparationFilter.DNASeparationFilterMenu;
+import net.seentro.prehistoriccraft.data.FossilSpeciesLoader;
 import net.seentro.prehistoriccraft.registry.PrehistoricBlockEntityTypes;
 import net.seentro.prehistoriccraft.registry.PrehistoricDataComponents;
 import net.seentro.prehistoriccraft.registry.PrehistoricItems;
 import net.seentro.prehistoriccraft.registry.PrehistoricTags;
+import net.seentro.prehistoriccraft.utils.FossilSpeciesData;
+
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
@@ -450,16 +455,17 @@ public class DNASeparationFilterBlockEntity extends BlockEntity implements MenuP
     }
 
     private int calcQuality(ItemStack tissue) {
-        String size = tissue.getOrDefault(PrehistoricDataComponents.TISSUE_SIZE.get(), "MEDIUM");
+        String size = getSizeFromSpeciesJson(tissue);
+        System.out.println("size: " + size);
         int min = 40, max = 90;
         switch (size) {
-            case "SMALL" -> {
+            case "S" -> {
                 min = 70; max = 100;
             }
-            case "LARGE" -> {
+            case "M" -> {
                 min = 20; max = 75;
             }
-            case "GIANT" -> {
+            case "L" -> {
                 min = 10; max = 60;
             }
             default -> {
@@ -468,6 +474,35 @@ public class DNASeparationFilterBlockEntity extends BlockEntity implements MenuP
         }
         if (max < min) max = min;
         return min + random.nextInt(max - min + 1);
+    }
+
+    private String getSizeFromSpeciesJson(ItemStack stack) {
+        String speciesKey = stack.get(PrehistoricDataComponents.FOSSIL_SPECIES.get());
+
+        if (speciesKey == null || speciesKey.isEmpty()) {
+            return "MEDIUM";
+        }
+
+        ResourceLocation id;
+        if (speciesKey.contains(":")) {
+            id = ResourceLocation.tryParse(speciesKey);
+        } else {
+            id = ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID, speciesKey);
+        }
+
+        if (id == null) {
+            PrehistoricCraft.LOGGER.error("Invalid ResourceLocation for FOSSIL_SPECIES: ", speciesKey);
+            return "MEDIUM";
+        }
+
+        FossilSpeciesData data = FossilSpeciesLoader.INSTANCE.get(id);
+        PrehistoricCraft.LOGGER.info("data for {} => {}", id, data);
+
+        if (data != null && data.size != null) {
+            return data.size.toUpperCase();
+        }
+
+        return "MEDIUM";
     }
 
     public void drop() {

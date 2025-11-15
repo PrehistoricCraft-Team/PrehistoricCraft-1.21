@@ -2,9 +2,9 @@
     "size": "S",
     "hp": 10,
     "diet": "carnivorous",
-    "liked food": "cod",
+    "likedFood": "cod",
     "cleaning": "none",
     "sociality": "solitary",
-    "max pack": 0,
+    "maxPack": 0,
     "offprints": 3
 }
