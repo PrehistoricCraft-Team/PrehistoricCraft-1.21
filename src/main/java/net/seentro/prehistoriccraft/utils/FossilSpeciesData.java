@@ -9,4 +9,5 @@ public class FossilSpeciesData {
     public String sociality;
     public int maxPack;
     public int offprints; 
+    public boolean isAnimal;
 }

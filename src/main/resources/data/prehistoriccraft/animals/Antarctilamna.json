@@ -6,5 +6,6 @@
     "cleaning": "none",
     "sociality": "solitary",
     "maxPack": 0,
-    "offprints": 3
+    "offprints": 3,
+    "isAnimal": true
 }

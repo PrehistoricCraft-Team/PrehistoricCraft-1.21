@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "prehistoriccraft:item/contaminated_dna_in_a_petri_dish"
+  }
+}

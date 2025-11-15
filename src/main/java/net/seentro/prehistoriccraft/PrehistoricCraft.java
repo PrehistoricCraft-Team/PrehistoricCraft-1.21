@@ -6,8 +6,10 @@ import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
+import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.BlockItem;
@@ -165,6 +167,20 @@ public class PrehistoricCraft {
 
             event.enqueueWork(() -> {
                 Sheets.addWoodType(PrehistoricWoodTypes.DAWN_REDWOOD);
+                ItemProperties.register(
+                    PrehistoricItems.DNA_IN_A_PETRI_DISH.get(), // el item de base
+                    ResourceLocation.fromNamespaceAndPath(
+                            PrehistoricCraft.MODID,
+                            "contaminated" // nombre del PROPERTY, no del modelo
+                    ),
+                    (stack, level, entity, seed) -> {
+                        boolean contaminated = stack.getOrDefault(
+                                PrehistoricDataComponents.DNA_CONTAMINATED.get(),
+                                false
+                        );
+                        return contaminated ? 1.0F : 0.0F;
+                    }
+                );
             });
         }
 
