@@ -62,25 +62,38 @@ public class DNASeparationFilterBlockEntity extends BlockEntity implements MenuP
 
     public static final int SLOT_CHARCOAL  = 7;
     public static final int SLOT_NANO      = 8;
-
+    
     public static final int SLOT_OUTPUT_1  = 9;
     public static final int SLOT_OUTPUT_2  = 10;
     public static final int SLOT_OUTPUT_3  = 11;
     public static final int SLOT_OUTPUT_4  = 12;
     public static final int SLOT_OUTPUT_5  = 13;
     public static final int SLOT_OUTPUT_6  = 14;
-
+    
     public static final int SLOT_FLUID_IO  = 15;
-
+    
     private static final int INVENTORY_SIZE = 16;
-
+    
     private static final int WATER_PER_PROCESS = 100;
     private static final int TANK_CAPACITY = 4000;
     private static final int PROCESS_TIME = 160;
     private static final double CONTAMINATION_CHANCE = 0.20;
+    
+    protected final ContainerData data;
+    private int progress = 0;
+    private int maxProgress = PROCESS_TIME;
+    protected int working = 0;
+    
+    private boolean doorsOpen = false;
+    private boolean workingPlaying = false;
+    private boolean wasViewed = false;
+
+    private final RawAnimation WORKING = RawAnimation.begin().thenPlay("Working");
+    private final RawAnimation OPEN_DOORS = RawAnimation.begin().thenPlay("Open");
+    private final RawAnimation CLOSE_DOORS = RawAnimation.begin().thenPlay("Close");
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
-
+    
     public final ItemStackHandler itemHandler = new ItemStackHandler(INVENTORY_SIZE) {
         @Override
         protected void onContentsChanged(int slot) {
@@ -126,10 +139,6 @@ public class DNASeparationFilterBlockEntity extends BlockEntity implements MenuP
         }
     };
 
-    protected final ContainerData data;
-    private int progress = 0;
-    private int maxProgress = PROCESS_TIME;
-    protected int working = 0;
 
     private final FluidTank FLUID_TANK = new FluidTank(TANK_CAPACITY) {
         @Override
@@ -146,14 +155,6 @@ public class DNASeparationFilterBlockEntity extends BlockEntity implements MenuP
     };
 
     private static final Random random = new Random();
-
-    private boolean doorsOpen = false;
-    private boolean workingPlaying = false;
-    private boolean wasViewed = false;
-
-    private final RawAnimation WORKING = RawAnimation.begin().thenPlay("Working");
-    private final RawAnimation OPEN_DOORS = RawAnimation.begin().thenPlay("Open");
-    private final RawAnimation CLOSE_DOORS = RawAnimation.begin().thenPlay("Close");
 
     public DNASeparationFilterBlockEntity(BlockPos pos, BlockState state) {
         super(PrehistoricBlockEntityTypes.DNA_SEPARATION_FILTER_BLOCK_ENTITY.get(), pos, state);
@@ -263,6 +264,7 @@ public class DNASeparationFilterBlockEntity extends BlockEntity implements MenuP
     }
 
     private void handleOpenCloseAnimations(boolean viewing) {
+        System.out.println("working: " + working);
         if (working == 1) {
             if (!workingPlaying) {
                 this.triggerAnim("controller", "working");
@@ -293,14 +295,8 @@ public class DNASeparationFilterBlockEntity extends BlockEntity implements MenuP
     }
 
     public void tick(Level level, BlockPos pos, BlockState state) {
-        if (level.isClientSide) {
-            boolean viewing = isBeingViewed(level);
-            handleOpenCloseAnimations(viewing);
-            return;
-        }
-
         handleWaterIO();
-
+        
         if (!hasAllInputs()) {
             stopWorkingAnimIfNeeded();
             working = 0;
@@ -310,8 +306,9 @@ public class DNASeparationFilterBlockEntity extends BlockEntity implements MenuP
             setChanged(level, pos, state);
             return;
         }
-
+        
         working = 1;
+        handleOpenCloseAnimations(isBeingViewed(level));
         progress++;
         setChanged(level, pos, state);
 

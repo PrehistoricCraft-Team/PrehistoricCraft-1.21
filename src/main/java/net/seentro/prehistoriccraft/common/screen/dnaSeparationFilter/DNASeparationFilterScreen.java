@@ -27,7 +27,7 @@ public class DNASeparationFilterScreen extends AbstractContainerScreen<DNASepara
     private static final int WATER_TEX_U = 153;
     private static final int WATER_TEX_V = 236;
 
-    private static final int PROG_BAR_X = 65;
+    private static final int PROG_BAR_X = 63;
     private static final int PROG_BAR_Y = 80;
     private static final int PROG_BAR_H = 20;
     private static final int PROG_BAR_W = 110;
@@ -57,7 +57,7 @@ public class DNASeparationFilterScreen extends AbstractContainerScreen<DNASepara
         int x = this.leftPos;
         int y = this.topPos;
 
-        g.blit(GUI, x, y, 0, 0, this.imageWidth, this.imageHeight);
+        g.blit(GUI, x, y, 0, 0, this.imageWidth, this.imageHeight - 30);
 
         renderProgressBar(g, x, y);
         renderWaterBar(g, x, y);

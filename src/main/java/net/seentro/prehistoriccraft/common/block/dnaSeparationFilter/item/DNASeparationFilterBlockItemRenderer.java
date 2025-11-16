@@ -4,7 +4,6 @@ import software.bernie.geckolib.renderer.GeoItemRenderer;
 
 public class DNASeparationFilterBlockItemRenderer extends GeoItemRenderer<DNASeparationFilterBlockItem> {
     public DNASeparationFilterBlockItemRenderer() {
-            super(new DNASeparationFilterBlockItemModel());
-        }
+        super(new DNASeparationFilterBlockItemModel());
+    }
 }
-

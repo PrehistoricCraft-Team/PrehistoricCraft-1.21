@@ -17,6 +17,6 @@ public class DNASeparationFilterBlockItemModel extends GeoModel<DNASeparationFil
 
     @Override
     public ResourceLocation getAnimationResource(DNASeparationFilterBlockItem animatable) {
-        return ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID, "animations/block/machine/dna_separation_filter_animations.json");
+        return ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID, "animations/block/machine/dna_separation_filter_animation.json");
     }
 }
