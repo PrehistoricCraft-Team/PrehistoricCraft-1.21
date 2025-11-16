@@ -88,9 +88,9 @@ public class DNASeparationFilterBlockEntity extends BlockEntity implements MenuP
     private boolean workingPlaying = false;
     private boolean wasViewed = false;
 
-    private final RawAnimation WORKING = RawAnimation.begin().thenPlay("Working");
-    private final RawAnimation OPEN_DOORS = RawAnimation.begin().thenPlay("Open");
-    private final RawAnimation CLOSE_DOORS = RawAnimation.begin().thenPlay("Close");
+    private final RawAnimation WORKING = RawAnimation.begin().thenPlay("working");
+    private final RawAnimation OPEN_DOORS = RawAnimation.begin().thenPlay("open");
+    private final RawAnimation CLOSE_DOORS = RawAnimation.begin().thenPlay("close");
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     
@@ -456,7 +456,7 @@ public class DNASeparationFilterBlockEntity extends BlockEntity implements MenuP
         int min = 40, max = 90;
         switch (size) {
             case "S" -> {
-                min = 70; max = 100;
+                min = 70; max = 70;
             }
             case "M" -> {
                 min = 20; max = 75;

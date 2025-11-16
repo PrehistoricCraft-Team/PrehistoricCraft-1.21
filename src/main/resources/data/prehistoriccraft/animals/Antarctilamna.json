@@ -7,5 +7,15 @@
     "sociality": "solitary",
     "maxPack": 0,
     "offprints": 3,
-    "isAnimal": true
+    "isAnimal": true,
+    "chances": {
+        "tissue": {
+            "maxProb": 20,
+            "minProb": 1
+        },
+        "amber": {
+            "maxProb": 20,
+            "minProb": 1
+        }
+    }
 }
