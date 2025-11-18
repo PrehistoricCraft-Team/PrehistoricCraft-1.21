@@ -264,7 +264,6 @@ public class DNASeparationFilterBlockEntity extends BlockEntity implements MenuP
     }
 
     private void handleOpenCloseAnimations(boolean viewing) {
-        System.out.println("working: " + working);
         if (working == 1) {
             if (!workingPlaying) {
                 this.triggerAnim("controller", "working");
@@ -377,13 +376,6 @@ public class DNASeparationFilterBlockEntity extends BlockEntity implements MenuP
             return;
         }
         
-        /* ItemStack preview = makeOutput(itemHandler.getStackInSlot(tissueSlotCheck));
-        Integer outSlotCheck = findOutputSlotFor(preview);
-        if (outSlotCheck == null) {
-            working = 0;
-            return;
-        } */
-        
         itemHandler.extractItem(SLOT_PETRI, 1, false);
         
         Integer tissueSlot = firstValidTissueSlot();
@@ -451,34 +443,35 @@ public class DNASeparationFilterBlockEntity extends BlockEntity implements MenuP
         return out;
     }
 
-    private int calcQuality(ItemStack tissue) {
-        String size = getSizeFromSpeciesJson(tissue);
-        int min = 40, max = 90;
-        switch (size) {
-            case "S" -> {
-                min = 70; max = 70;
-            }
-            case "M" -> {
-                min = 20; max = 75;
-            }
-            case "L" -> {
-                min = 10; max = 60;
-            }
-            default -> {
-                min = 40; max = 90;
-            }
+    public static class Range {
+        public int min;
+        public int max;
+
+        public Range(int min, int max) {
+            this.min = min;
+            this.max = max;
         }
-        if (max < min) max = min;
-        return min + random.nextInt(max - min + 1);
     }
 
-    private String getSizeFromSpeciesJson(ItemStack stack) {
-        String speciesKey = stack.get(PrehistoricDataComponents.FOSSIL_SPECIES.get());
+    private int calcQuality(ItemStack tissue) {
+        Range r = getQualityRangeFromSpeciesJson(tissue);
 
-        if (speciesKey == null || speciesKey.isEmpty()) {
-            return "MEDIUM";
+        System.out.print("min: " + r.min + " --- max: "+ r.max);
+        if (r.max < r.min) {
+            r.max = r.min;
         }
 
+        return r.min + random.nextInt(r.max - r.min + 1);
+    }
+
+
+    private Range getQualityRangeFromSpeciesJson(ItemStack stack) {
+        String speciesKey = stack.get(PrehistoricDataComponents.FOSSIL_SPECIES.get());
+
+        if (speciesKey == null) {
+            return new Range(1, 20);
+        }
+        
         ResourceLocation id;
         if (speciesKey.contains(":")) {
             id = ResourceLocation.tryParse(speciesKey);
@@ -487,19 +480,26 @@ public class DNASeparationFilterBlockEntity extends BlockEntity implements MenuP
         }
 
         if (id == null) {
-            PrehistoricCraft.LOGGER.error("Invalid ResourceLocation for FOSSIL_SPECIES: ", speciesKey);
-            return "MEDIUM";
+            PrehistoricCraft.LOGGER.error("Invalid ResourceLocation for FOSSIL_SPECIES: {}", speciesKey);
+            return new Range(1, 20);
         }
 
         FossilSpeciesData data = FossilSpeciesLoader.INSTANCE.get(id);
-        PrehistoricCraft.LOGGER.info("data for {} => {}", id, data);
-
-        if (data != null && data.size != null) {
-            return data.size.toUpperCase();
+        if (data == null || data.chances == null) {
+            return new Range(1, 20);
         }
-
-        return "MEDIUM";
+        
+        if (stack.is(PrehistoricTags.Items.TISSUES) && data.chances.tissue != null) {
+            Range r = new Range(data.chances.tissue.minProb, data.chances.tissue.maxProb);
+            return new Range(data.chances.tissue.minProb, data.chances.tissue.maxProb);
+        }
+        
+        if (stack.is(PrehistoricTags.Items.AMBER) && data.chances.amber != null) {
+            return new Range(data.chances.amber.minProb, data.chances.amber.maxProb);
+        }
+        return new Range(1, 20);
     }
+
 
     public void drop() {
         SimpleContainer container = new SimpleContainer(itemHandler.getSlots());

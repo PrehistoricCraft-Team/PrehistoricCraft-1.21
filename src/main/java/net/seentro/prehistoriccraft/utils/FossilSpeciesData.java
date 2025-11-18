@@ -3,11 +3,25 @@ package net.seentro.prehistoriccraft.utils;
 public class FossilSpeciesData {
     public String size;
     public int hp;
-    //This should be change for the ItemStack we are going to use, for now im leaving it like this
+
+    public String diet;
     public String likedFood;
+
     public String cleaning;
     public String sociality;
     public int maxPack;
-    public int offprints; 
+    public int offprints;
     public boolean isAnimal;
+
+    public Chances chances;
+
+    public static class Chances {
+        public Probability tissue;
+        public Probability amber;
+    }
+
+    public static class Probability {
+        public int maxProb;
+        public int minProb;
+    }
 }
