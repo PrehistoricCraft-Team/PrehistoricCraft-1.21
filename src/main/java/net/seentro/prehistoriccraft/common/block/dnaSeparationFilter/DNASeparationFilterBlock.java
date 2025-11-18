@@ -10,6 +10,7 @@ import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -161,13 +162,31 @@ public class DNASeparationFilterBlock extends BaseEntityBlock {
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+
         BlockPos bottomPos = state.getValue(HALF) == DoubleBlockHalf.UPPER ? pos.below() : pos;
+
+        if (state.getValue(HALF) == DoubleBlockHalf.UPPER &&stack.is(Items.WATER_BUCKET)) {
+            if (!level.isClientSide() && level.getBlockEntity(bottomPos) instanceof DNASeparationFilterBlockEntity blockEntity) {
+                if (blockEntity.tryInsertWaterFromBucket(player, hand)) {
+                    return ItemInteractionResult.SUCCESS;
+                }
+            }
+
+            return ItemInteractionResult.sidedSuccess(level.isClientSide());
+        }
+
         if (!level.isClientSide() && level.getBlockEntity(bottomPos) instanceof DNASeparationFilterBlockEntity blockEntity) {
-            player.openMenu(new SimpleMenuProvider(blockEntity, Component.translatable("block.prehistoriccraft.dna_separation_filter")), bottomPos);
-            if (blockEntity.working == 0) blockEntity.triggerAnim("controller", "open_doors");
+            player.openMenu(new SimpleMenuProvider(blockEntity,
+                    Component.translatable("block.prehistoriccraft.dna_separation_filter")), bottomPos);
+
+            if (blockEntity.working == 0) {
+                blockEntity.triggerAnim("controller", "open_doors");
+            }
+
             return ItemInteractionResult.SUCCESS;
         }
+
         return ItemInteractionResult.sidedSuccess(level.isClientSide());
     }
 

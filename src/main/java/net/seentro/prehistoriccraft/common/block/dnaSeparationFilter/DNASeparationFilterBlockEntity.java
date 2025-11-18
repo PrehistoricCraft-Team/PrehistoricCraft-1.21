@@ -139,6 +139,32 @@ public class DNASeparationFilterBlockEntity extends BlockEntity implements MenuP
         }
     };
 
+    public boolean tryInsertWaterFromBucket(Player player, net.minecraft.world.InteractionHand hand) {
+        if (level == null || level.isClientSide()) {
+            return false;
+        }
+
+        ItemStack stack = player.getItemInHand(hand);
+
+        if (!stack.is(Items.WATER_BUCKET)) {
+            return false;
+        }
+
+        if (FLUID_TANK.getFluidAmount() > TANK_CAPACITY - 1000) {
+            return false;
+        }
+
+        FLUID_TANK.fill(new FluidStack(Fluids.WATER, 1000), IFluidHandler.FluidAction.EXECUTE);
+        
+        if (!player.getAbilities().instabuild) {
+            player.setItemInHand(hand, new ItemStack(Items.BUCKET));
+        }
+
+        setChanged();
+        level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
+
+        return true;
+    }
 
     private final FluidTank FLUID_TANK = new FluidTank(TANK_CAPACITY) {
         @Override
@@ -147,6 +173,11 @@ public class DNASeparationFilterBlockEntity extends BlockEntity implements MenuP
             if (level != null && !level.isClientSide()) {
                 level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), Block.UPDATE_ALL);
             }
+            level.playSound(null, worldPosition,
+                net.minecraft.sounds.SoundEvents.BUCKET_EMPTY,
+                net.minecraft.sounds.SoundSource.BLOCKS,
+                1.0F, 1.0F);
+
         }
         @Override
         public boolean isFluidValid(FluidStack stack) {
@@ -415,6 +446,10 @@ public class DNASeparationFilterBlockEntity extends BlockEntity implements MenuP
 
         if (newDamage >= maxDamage) {
             itemHandler.setStackInSlot(SLOT_NANO, ItemStack.EMPTY);
+            level.playSound(null, worldPosition,
+                net.minecraft.sounds.SoundEvents.ITEM_BREAK,
+                net.minecraft.sounds.SoundSource.BLOCKS,
+                1.0F, 1.0F);
         } else {
             nano.setDamageValue(newDamage);
             itemHandler.setStackInSlot(SLOT_NANO, nano);
@@ -456,7 +491,6 @@ public class DNASeparationFilterBlockEntity extends BlockEntity implements MenuP
     private int calcQuality(ItemStack tissue) {
         Range r = getQualityRangeFromSpeciesJson(tissue);
 
-        System.out.print("min: " + r.min + " --- max: "+ r.max);
         if (r.max < r.min) {
             r.max = r.min;
         }
