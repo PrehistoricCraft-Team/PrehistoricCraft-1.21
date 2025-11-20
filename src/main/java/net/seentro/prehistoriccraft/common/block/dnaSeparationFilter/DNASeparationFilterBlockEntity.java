@@ -33,6 +33,8 @@ import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
+import net.seentro.prehistoriccraft.utils.hopper.HopperItemHandlerWrapper;
+import net.seentro.prehistoriccraft.utils.hopper.HopperRules;
 import net.seentro.prehistoriccraft.common.screen.dnaSeparationFilter.DNASeparationFilterMenu;
 import net.seentro.prehistoriccraft.data.FossilSpeciesLoader;
 import net.seentro.prehistoriccraft.registry.PrehistoricBlockEntityTypes;
@@ -50,6 +52,7 @@ import software.bernie.geckolib.animation.RawAnimation;
 import software.bernie.geckolib.util.GeckoLibUtil;
 import software.bernie.geckolib.util.RenderUtil;
 
+import java.util.EnumMap;
 import java.util.Random;
 
 public class DNASeparationFilterBlockEntity extends BlockEntity implements MenuProvider, GeoBlockEntity {
@@ -145,6 +148,7 @@ public class DNASeparationFilterBlockEntity extends BlockEntity implements MenuP
                 level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), Block.UPDATE_ALL);
             }
         }
+
         @Override
         public boolean isFluidValid(FluidStack stack) {
             return stack.getFluid() == Fluids.WATER;
@@ -152,6 +156,9 @@ public class DNASeparationFilterBlockEntity extends BlockEntity implements MenuP
     };
 
     private static final Random random = new Random();
+
+    private final HopperRules hopperRules = new HopperRules();
+    private final EnumMap<Direction, IItemHandler> hopperHandlers = new EnumMap<>(Direction.class);
 
     public DNASeparationFilterBlockEntity(BlockPos pos, BlockState state) {
         super(PrehistoricBlockEntityTypes.DNA_SEPARATION_FILTER_BLOCK_ENTITY.get(), pos, state);
@@ -167,6 +174,7 @@ public class DNASeparationFilterBlockEntity extends BlockEntity implements MenuP
                     default -> 0;
                 };
             }
+
             @Override
             public void set(int index, int value) {
                 switch (index) {
@@ -175,11 +183,42 @@ public class DNASeparationFilterBlockEntity extends BlockEntity implements MenuP
                     case 2 -> DNASeparationFilterBlockEntity.this.working = value;
                 }
             }
+
             @Override
             public int getCount() {
                 return 5;
             }
         };
+
+        hopperRules.set(Direction.UP, new HopperRules.SideRule(
+                slot -> isTissueSlot(slot),
+                stack -> stack.is(PrehistoricTags.Items.TISSUES),
+                slot -> false
+        ));
+
+        hopperRules.set(Direction.DOWN, new HopperRules.SideRule(
+                slot -> false,
+                stack -> false,
+                DNASeparationFilterBlockEntity::isOutputSlot
+        ));
+
+        hopperRules.set(Direction.WEST, new HopperRules.SideRule(
+            slot -> slot == SLOT_PETRI,
+            stack -> stack.is(PrehistoricItems.PETRI_DISH.get()),
+            slot -> false
+        ));
+
+        hopperRules.set(Direction.EAST, new HopperRules.SideRule(
+            slot -> slot == SLOT_CHARCOAL,
+            stack -> stack.is(Items.CHARCOAL),
+            slot -> false
+        ));
+
+        hopperRules.set(Direction.SOUTH, new HopperRules.SideRule(
+            slot -> slot == SLOT_NANO,
+            stack -> stack.is(PrehistoricItems.NANOPOD.get()),
+            slot -> false
+        ));
     }
 
     @Override
@@ -503,11 +542,12 @@ public class DNASeparationFilterBlockEntity extends BlockEntity implements MenuP
         return slot >= SLOT_OUTPUT_1 && slot <= SLOT_OUTPUT_6;
     }
 
-    private final IItemHandler hopperUp = new HopperSideHandler(Direction.UP);
-    private final IItemHandler hopperDown = new HopperSideHandler(Direction.DOWN);
-    private final IItemHandler hopperWest = new HopperSideHandler(Direction.WEST);
-    private final IItemHandler hopperEast = new HopperSideHandler(Direction.EAST);
-    private final IItemHandler hopperSouth = new HopperSideHandler(Direction.SOUTH);
+    private IItemHandler getLogicalSideHandler(Direction logicalSide) {
+        return hopperHandlers.computeIfAbsent(
+                logicalSide,
+                side -> new HopperItemHandlerWrapper(itemHandler, hopperRules, side)
+        );
+    }
 
     public @Nullable IItemHandler getHopperItemHandler(@Nullable Direction worldSide) {
         if (worldSide == null) return itemHandler;
@@ -529,87 +569,8 @@ public class DNASeparationFilterBlockEntity extends BlockEntity implements MenuP
             }
         }
 
-        PrehistoricCraft.LOGGER.info(
-                "[DNAFilter] Hopper handler request: worldSide={} facing={} logicalSide={}",
-                worldSide, facing, logicalSide
-        );
-
         if (logicalSide == null) return null;
 
-        return switch (logicalSide) {
-            case UP    -> hopperUp;
-            case DOWN  -> hopperDown;
-            case WEST  -> hopperWest;
-            case EAST  -> hopperEast;
-            case SOUTH -> hopperSouth;
-            default    -> null;
-        };
-    }
-
-    private class HopperSideHandler implements IItemHandler {
-
-        private final Direction side;
-
-        HopperSideHandler(Direction side) {
-            this.side = side;
-        }
-
-        @Override
-        public int getSlots() {
-            return itemHandler.getSlots();
-        }
-
-        @Override
-        public ItemStack getStackInSlot(int slot) {
-            return itemHandler.getStackInSlot(slot);
-        }
-
-        @Override
-        public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
-            boolean can = canInsert(slot, stack);
-            PrehistoricCraft.LOGGER.info(
-                    "[DNAFilter] INSERT side={} slot={} item={} canInsert={}",
-                    side, slot, stack.getItem(), can
-            );
-            if (!can) return stack;
-            return itemHandler.insertItem(slot, stack, simulate);
-        }
-
-        @Override
-        public ItemStack extractItem(int slot, int amount, boolean simulate) {
-            boolean can = canExtract(slot);
-            PrehistoricCraft.LOGGER.info(
-                    "[DNAFilter] EXTRACT side={} slot={} amount={} canExtract={}",
-                    side, slot, amount, can
-            );
-            if (!can) return ItemStack.EMPTY;
-            return itemHandler.extractItem(slot, amount, simulate);
-        }
-
-        @Override
-        public int getSlotLimit(int slot) {
-            return itemHandler.getSlotLimit(slot);
-        }
-
-        @Override
-        public boolean isItemValid(int slot, ItemStack stack) {
-            return canInsert(slot, stack) && itemHandler.isItemValid(slot, stack);
-        }
-
-        private boolean canInsert(int slot, ItemStack stack) {
-            if (side == Direction.DOWN) return false;
-            return switch (side) {
-                case UP -> isTissueSlot(slot) && stack.is(PrehistoricTags.Items.TISSUES);
-                case WEST -> slot == SLOT_PETRI && stack.is(PrehistoricItems.PETRI_DISH.get());
-                case EAST -> slot == SLOT_CHARCOAL && stack.is(Items.CHARCOAL);
-                case SOUTH -> slot == SLOT_NANO && stack.is(PrehistoricItems.NANOPOD.get());
-                default -> false;
-            };
-        }
-
-        private boolean canExtract(int slot) {
-            if (side == Direction.DOWN) return isOutputSlot(slot);
-            return false;
-        }
+        return getLogicalSideHandler(logicalSide);
     }
 }
