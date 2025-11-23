@@ -1,5 +1,8 @@
 package net.seentro.prehistoriccraft.common.screen.dnaSeparationFilter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -10,6 +13,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
+import net.seentro.prehistoriccraft.utils.jei.JEIIntegration;
 
 public class DNASeparationFilterScreen extends AbstractContainerScreen<DNASeparationFilterMenu> {
     private static final ResourceLocation GUI = ResourceLocation.fromNamespaceAndPath(
@@ -112,9 +116,20 @@ public class DNASeparationFilterScreen extends AbstractContainerScreen<DNASepara
     private void drawProgressToolTip(GuiGraphics g, int mouseX, int mouseY) {
         int filled = menu.getScaledArrowProgress(PROG_BAR_W);
         int percent = PROG_BAR_W == 0 ? 0 : filled * 100 / PROG_BAR_W;
+
         Font font = Minecraft.getInstance().font;
-        g.renderTooltip(font, Component.literal(percent + "% / 100%"), mouseX, mouseY);
+
+        List<Component> lines = new ArrayList<>();
+        lines.add(Component.translatable("gui.prehistoriccraft.dna_separation_progress", percent));
+
+        if (percent == 0) {
+            lines.add(Component.literal(""));
+            lines.add(Component.translatable("gui.prehistoriccraft.dna_separation_click_me"));
+        }
+
+        g.renderComponentTooltip(font, lines, mouseX, mouseY);
     }
+
 
     private static boolean isMouseOverPoint(int x, int y, int w, int h, int mx, int my) {
         return mx >= x && mx <= x + w && my >= y && my <= y + h;
@@ -125,5 +140,27 @@ public class DNASeparationFilterScreen extends AbstractContainerScreen<DNASepara
         renderBackground(g, mouseX, mouseY, partialTick);
         super.render(g, mouseX, mouseY, partialTick);
         this.renderTooltip(g, mouseX, mouseY);
+    }
+
+    @Override
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        int relX = (int) (mouseX - this.leftPos);
+        int relY = (int) (mouseY - this.topPos);
+
+        if (button == 0) {
+            if (relX >= PROG_BAR_X && relX < PROG_BAR_X + PROG_BAR_W &&
+                relY >= PROG_BAR_Y && relY < PROG_BAR_Y + PROG_BAR_H) {
+                    System.out.println("Entro");
+                try {
+                    if (net.neoforged.fml.ModList.get().isLoaded("jei")) {
+                        System.out.println("Entro en jei");
+                        JEIIntegration.showDnaFilterGuide();
+                    }
+                } catch (NoClassDefFoundError e) {}
+                return true;
+            }
+        }
+
+        return super.mouseClicked(mouseX, mouseY, button);
     }
 }

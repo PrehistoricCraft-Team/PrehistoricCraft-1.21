@@ -125,5 +125,9 @@
   "item.prehistoriccraft.slime_zygote": "Slime Zygote",
 
   "fluid_type.prehistoriccraft.blice_fluid_type": "Blice",
-  "fluid_type.prehistoriccraft.acid_fluid_type": "Sulfuric Acid"
+  "fluid_type.prehistoriccraft.acid_fluid_type": "Sulfuric Acid",
+
+  "gui.prehistoriccraft.dna_separation_filter.guide": "DNA Separation Filter guide",
+  "gui.prehistoriccraft.dna_separation_progress": "%s%% / 100%%",
+  "gui.prehistoriccraft.dna_separation_click_me": "Click to open guide!"
 }
