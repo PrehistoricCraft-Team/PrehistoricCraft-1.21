@@ -6,6 +6,8 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
 import net.seentro.prehistoriccraft.common.block.acidCleaningChamber.AcidCleaningChamberBlockEntity;
+import net.seentro.prehistoriccraft.common.block.dnaSeparationFilter.DNASeparationFilterBlockEntity;
+import net.seentro.prehistoriccraft.common.block.dnaSeparationFilter.DNASeparationFilterBlockEntity;
 import net.seentro.prehistoriccraft.common.block.fossilAnalysisTable.FossilAnalysisTableBlockEntity;
 import net.seentro.prehistoriccraft.common.block.tissueExtractionChamber.TissueExtractionChamberBlockEntity;
 import net.seentro.prehistoriccraft.common.nature.dawnRedwood.DawnRedwoodSaplingBlockEntity;
@@ -15,48 +17,63 @@ import net.seentro.prehistoriccraft.common.nature.signs.PrehistoricSignBlockEnti
 import java.util.function.Supplier;
 
 public class PrehistoricBlockEntityTypes {
-    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPES =
-            DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE, PrehistoricCraft.MODID);
+        public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPES = DeferredRegister
+                        .create(BuiltInRegistries.BLOCK_ENTITY_TYPE, PrehistoricCraft.MODID);
 
-    public static final Supplier<BlockEntityType<FossilAnalysisTableBlockEntity>> FOSSIL_ANALYSIS_TABLE_BLOCK_ENTITY =
-            BLOCK_ENTITY_TYPES.register("fossil_analysis_table_block_entity",
-            () -> BlockEntityType.Builder.of(
-                    FossilAnalysisTableBlockEntity::new, PrehistoricBlocks.FOSSIL_ANALYSIS_TABLE.get())
-                    .build(null));
+        public static final Supplier<BlockEntityType<FossilAnalysisTableBlockEntity>> FOSSIL_ANALYSIS_TABLE_BLOCK_ENTITY = BLOCK_ENTITY_TYPES
+                        .register("fossil_analysis_table_block_entity",
+                                        () -> BlockEntityType.Builder.of(
+                                                        FossilAnalysisTableBlockEntity::new,
+                                                        PrehistoricBlocks.FOSSIL_ANALYSIS_TABLE.get())
+                                                        .build(null));
 
-    public static final Supplier<BlockEntityType<TissueExtractionChamberBlockEntity>> TISSUE_EXTRACTION_CHAMBER_BLOCK_ENTITY =
-            BLOCK_ENTITY_TYPES.register("tissue_extraction_chamber_block_entity",
-                    () -> BlockEntityType.Builder.of(
-                                    TissueExtractionChamberBlockEntity::new, PrehistoricBlocks.TISSUE_EXTRACTION_CHAMBER.get())
-                            .build(null));
+        public static final Supplier<BlockEntityType<TissueExtractionChamberBlockEntity>> TISSUE_EXTRACTION_CHAMBER_BLOCK_ENTITY = BLOCK_ENTITY_TYPES
+                        .register("tissue_extraction_chamber_block_entity",
+                                        () -> BlockEntityType.Builder.of(
+                                                        TissueExtractionChamberBlockEntity::new,
+                                                        PrehistoricBlocks.TISSUE_EXTRACTION_CHAMBER.get())
+                                                        .build(null));
 
-    public static final Supplier<BlockEntityType<AcidCleaningChamberBlockEntity>> ACID_CLEANING_CHAMBER_BLOCK_ENTITY =
-            BLOCK_ENTITY_TYPES.register("acid_cleaning_chamber_block_entity",
-                    () -> BlockEntityType.Builder.of(
-                                    AcidCleaningChamberBlockEntity::new, PrehistoricBlocks.ACID_CLEANING_CHAMBER.get())
-                            .build(null));
+        public static final Supplier<BlockEntityType<AcidCleaningChamberBlockEntity>> ACID_CLEANING_CHAMBER_BLOCK_ENTITY = BLOCK_ENTITY_TYPES
+                        .register("acid_cleaning_chamber_block_entity",
+                                        () -> BlockEntityType.Builder.of(
+                                                        AcidCleaningChamberBlockEntity::new,
+                                                        PrehistoricBlocks.ACID_CLEANING_CHAMBER.get())
+                                                        .build(null));
+        
+        public static final Supplier<BlockEntityType<DNASeparationFilterBlockEntity>> DNA_SEPARATION_FILTER_BLOCK_ENTITY = BLOCK_ENTITY_TYPES
+                        .register("dna_separation_filter_block_entity",
+                                        () -> BlockEntityType.Builder.of(
+                                                        DNASeparationFilterBlockEntity::new,
+                                                        PrehistoricBlocks.DNA_SEPARATION_FILTER.get())
+                                                        .build(null));
 
-    // NATURE
+        // NATURE
 
-    public static final Supplier<BlockEntityType<PrehistoricSignBlockEntity>> PREHISTORIC_SIGN =
-            BLOCK_ENTITY_TYPES.register("prehistoric_sign",
-                    () -> BlockEntityType.Builder.of(
-                                    PrehistoricSignBlockEntity::new, PrehistoricBlocks.DAWN_REDWOOD_SIGN.get(), PrehistoricBlocks.DAWN_REDWOOD_WALL_SIGN.get())
-                            .build(null));
+        public static final Supplier<BlockEntityType<PrehistoricSignBlockEntity>> PREHISTORIC_SIGN = BLOCK_ENTITY_TYPES
+                        .register("prehistoric_sign",
+                                        () -> BlockEntityType.Builder.of(
+                                                        PrehistoricSignBlockEntity::new,
+                                                        PrehistoricBlocks.DAWN_REDWOOD_SIGN.get(),
+                                                        PrehistoricBlocks.DAWN_REDWOOD_WALL_SIGN.get())
+                                                        .build(null));
 
-    public static final Supplier<BlockEntityType<PrehistoricHangingSignBlockEntity>> PREHISTORIC_HANGING_SIGN =
-            BLOCK_ENTITY_TYPES.register("prehistoric_hanging_sign",
-                    () -> BlockEntityType.Builder.of(
-                                    PrehistoricHangingSignBlockEntity::new, PrehistoricBlocks.DAWN_REDWOOD_HANGING_SIGN.get(), PrehistoricBlocks.DAWN_REDWOOD_WALL_HANGING_SIGN.get())
-                            .build(null));
+        public static final Supplier<BlockEntityType<PrehistoricHangingSignBlockEntity>> PREHISTORIC_HANGING_SIGN = BLOCK_ENTITY_TYPES
+                        .register("prehistoric_hanging_sign",
+                                        () -> BlockEntityType.Builder.of(
+                                                        PrehistoricHangingSignBlockEntity::new,
+                                                        PrehistoricBlocks.DAWN_REDWOOD_HANGING_SIGN.get(),
+                                                        PrehistoricBlocks.DAWN_REDWOOD_WALL_HANGING_SIGN.get())
+                                                        .build(null));
 
-    public static final Supplier<BlockEntityType<DawnRedwoodSaplingBlockEntity>> DAWN_REDWOOD_SAPLING_BLOCK_ENTITY =
-            BLOCK_ENTITY_TYPES.register("dawn_redwood_sapling_block_entity",
-                    () -> BlockEntityType.Builder.of(
-                                    DawnRedwoodSaplingBlockEntity::new, PrehistoricBlocks.DAWN_REDWOOD_SAPLING.get())
-                            .build(null));
+        public static final Supplier<BlockEntityType<DawnRedwoodSaplingBlockEntity>> DAWN_REDWOOD_SAPLING_BLOCK_ENTITY = BLOCK_ENTITY_TYPES
+                        .register("dawn_redwood_sapling_block_entity",
+                                        () -> BlockEntityType.Builder.of(
+                                                        DawnRedwoodSaplingBlockEntity::new,
+                                                        PrehistoricBlocks.DAWN_REDWOOD_SAPLING.get())
+                                                        .build(null));
 
-    public static void register(IEventBus eventBus) {
-        BLOCK_ENTITY_TYPES.register(eventBus);
-    }
+        public static void register(IEventBus eventBus) {
+                BLOCK_ENTITY_TYPES.register(eventBus);
+        }
 }

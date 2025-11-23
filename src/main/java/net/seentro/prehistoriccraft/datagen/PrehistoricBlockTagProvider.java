@@ -54,7 +54,8 @@ public class PrehistoricBlockTagProvider extends BlockTagsProvider {
                 .add(PrehistoricBlocks.GYPSUM_CRYSTAL_BLOCK.get())
 
                 .add(PrehistoricBlocks.TISSUE_EXTRACTION_CHAMBER.get())
-                .add(PrehistoricBlocks.ACID_CLEANING_CHAMBER.get());
+                .add(PrehistoricBlocks.ACID_CLEANING_CHAMBER.get())
+                .add(PrehistoricBlocks.DNA_SEPARATION_FILTER.get());
 
         tag(BlockTags.MINEABLE_WITH_AXE)
                 .add(PrehistoricBlocks.FOSSIL_ANALYSIS_TABLE.get());
@@ -74,7 +75,8 @@ public class PrehistoricBlockTagProvider extends BlockTagsProvider {
                 .add(PrehistoricBlocks.NEOGENE_FOSSILIFEROUS_STONE.get())
 
                 .add(PrehistoricBlocks.TISSUE_EXTRACTION_CHAMBER.get())
-                .add(PrehistoricBlocks.ACID_CLEANING_CHAMBER.get());
+                .add(PrehistoricBlocks.ACID_CLEANING_CHAMBER.get())
+                .add(PrehistoricBlocks.DNA_SEPARATION_FILTER.get());
 
         tag(BlockTags.NEEDS_STONE_TOOL)
                 .add(PrehistoricBlocks.GYPSUM_CRYSTAL.get())

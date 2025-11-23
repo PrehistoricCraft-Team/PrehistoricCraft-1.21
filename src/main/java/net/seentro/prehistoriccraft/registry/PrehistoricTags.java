@@ -36,6 +36,8 @@ public class PrehistoricTags {
                 ItemTags.create(ResourceLocation.fromNamespaceAndPath("c", "syringe"));
         public static final TagKey<Item> VIAL =
                 ItemTags.create(ResourceLocation.fromNamespaceAndPath("c","vial"));
+        public static final TagKey<Item> TISSUES =
+                ItemTags.create(ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID,"tissues"));
         public static final TagKey<Item> CLAY_BALL =
                 ItemTags.create(ResourceLocation.fromNamespaceAndPath("c","clay_ball"));
         public static final TagKey<Item> SULFUR =
