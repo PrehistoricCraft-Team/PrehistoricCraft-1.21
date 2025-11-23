@@ -63,7 +63,8 @@ public class PrehistoricBlockLootTableProvider extends BlockLootSubProvider {
         dropSelf(PrehistoricBlocks.DAWN_REDWOOD_PRESSURE_PLATE.get());
         dropSelf(PrehistoricBlocks.DAWN_REDWOOD_BUTTON.get());
 
-        this.add(PrehistoricBlocks.DAWN_REDWOOD_SAPLING.get(), this::createInvisibleDrop);
+        //this.add(PrehistoricBlocks.DAWN_REDWOOD_SAPLING.get(), this::createInvisibleDrop);
+        dropSelf(PrehistoricBlocks.DAWN_REDWOOD_SAPLING.get());
         this.add(PrehistoricBlocks.POTTED_DAWN_REDWOOD_SAPLING.get(), createPotFlowerItemTable(PrehistoricBlocks.POTTED_DAWN_REDWOOD_SAPLING.get()));
 
         this.add(PrehistoricBlocks.DAWN_REDWOOD_LEAVES.get(), block ->
@@ -124,6 +125,14 @@ public class PrehistoricBlockLootTableProvider extends BlockLootSubProvider {
 
         /* CRACKED DIRT */
         dropSelf(PrehistoricBlocks.CRACKED_DIRT.get());
+        dropSelf(PrehistoricBlocks.LOAM.get());
+        dropSelf(PrehistoricBlocks.SILT.get());
+        dropSelf(PrehistoricBlocks.LOAMY_SILT.get());
+        dropSelf(PrehistoricBlocks.LOAMY_SAND.get());
+        dropSelf(PrehistoricBlocks.SANDY_LOAM.get());
+        dropSelf(PrehistoricBlocks.PEAT.get());
+        dropOther(PrehistoricBlocks.LOAM_GRASS.get(), PrehistoricBlocks.LOAM.get());
+        dropMultipleItems(PrehistoricBlocks.RAW_CLAY.get(), PrehistoricItems.RAW_CLAY_BALL.get(), 1, 3);
     }
 
     /* HELPER METHODS */

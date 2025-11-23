@@ -31,6 +31,14 @@ public class PrehistoricBlockStateProvider extends BlockStateProvider {
         /* NATURE */
 
         blockWithItem(PrehistoricBlocks.CRACKED_DIRT);
+        blockWithItem(PrehistoricBlocks.LOAM);
+        blockWithItem(PrehistoricBlocks.LOAMY_SILT);
+        blockWithItem(PrehistoricBlocks.SILT);
+        blockWithItem(PrehistoricBlocks.SANDY_LOAM);
+        blockWithItem(PrehistoricBlocks.LOAMY_SAND);
+        blockWithItem(PrehistoricBlocks.PEAT);
+        blockWithItem(PrehistoricBlocks.RAW_CLAY);
+
 
         //DAWN REDWOOD
         logBlock((RotatedPillarBlock) PrehistoricBlocks.DAWN_REDWOOD_LOG.get());

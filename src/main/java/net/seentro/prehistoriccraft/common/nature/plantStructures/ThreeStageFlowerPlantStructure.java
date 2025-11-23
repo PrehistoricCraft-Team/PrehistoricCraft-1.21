@@ -85,7 +85,7 @@ public class ThreeStageFlowerPlantStructure extends FlowerBlock {
     public void advanceTree(ServerLevel level, BlockPos pos, BlockState state, RandomSource random) {
         int stage = state.getValue(STAGES);
         if (stage >= 3) {
-            placeTree(state.getValue(TWO_BY_TWO), level, pos, random);
+
             return;
         }
 

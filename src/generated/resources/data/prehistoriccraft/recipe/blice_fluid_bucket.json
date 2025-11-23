@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "prehistoriccraft:blob_of_blice"
+    },
+    {
+      "item": "prehistoriccraft:blob_of_blice"
+    },
+    {
+      "item": "prehistoriccraft:blob_of_blice"
+    },
+    {
+      "item": "minecraft:bucket"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "prehistoriccraft:blice_fluid_bucket"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "prehistoriccraft:loamy_sand"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "prehistoriccraft:blocks/loamy_sand"
+}

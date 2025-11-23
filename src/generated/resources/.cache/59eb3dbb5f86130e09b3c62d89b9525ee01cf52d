@@ -1,4 +1,4 @@
-// 1.21.1	2025-11-13T13:11:49.5663378	Loot Tables
+// 1.21.1	2025-11-09T19:28:28.0934913	Loot Tables
 530a518e5e91a900a501df1344123a80a9fa3e9f data/prehistoriccraft/loot_table/blocks/acid_cleaning_chamber.json
 3c34bb7179c80d80367a3e0663f64b25dc563fc4 data/prehistoriccraft/loot_table/blocks/amber_block.json
 8c82406a1df7c83712890ce2a9671fe7a4cbb0ca data/prehistoriccraft/loot_table/blocks/cambrian_fossiliferous_stone.json
@@ -15,7 +15,7 @@ ef8a5d719c7914fb87fc20b99ed35466f0f687da data/prehistoriccraft/loot_table/blocks
 f88ba949c02840dbf8dfb3f9f108e83e34e5a910 data/prehistoriccraft/loot_table/blocks/dawn_redwood_log.json
 847997449cb8f72c99f20ce2df6882a24bbe6b89 data/prehistoriccraft/loot_table/blocks/dawn_redwood_planks.json
 9dcb3e5c8cb0065c1381f9e7ac4e120e140e83b1 data/prehistoriccraft/loot_table/blocks/dawn_redwood_pressure_plate.json
-0890253246e3fe1afa4a28f31f73e14c6a2bcb83 data/prehistoriccraft/loot_table/blocks/dawn_redwood_sapling.json
+e3c967bc5fda0c1985fefd557950c0978f4d85c9 data/prehistoriccraft/loot_table/blocks/dawn_redwood_sapling.json
 b2c28425f2f38578368f0be58d33da1c3e5d22e0 data/prehistoriccraft/loot_table/blocks/dawn_redwood_sign.json
 121c43f00ecbcda0356e384201f4b5429bd1a04e data/prehistoriccraft/loot_table/blocks/dawn_redwood_slab.json
 24a56e5ca7cf7bf2513eec196b39ff0ac18d89e0 data/prehistoriccraft/loot_table/blocks/dawn_redwood_stairs.json
@@ -55,3 +55,4 @@ d39f4aa709058889c59849405033d2ca97bace23 data/prehistoriccraft/loot_table/blocks
 fce7d49c40a911b616356236d765f9db21afc86f data/prehistoriccraft/loot_table/blocks/sulfur_ore.json
 7b2840d1ddb39e6fc757af1858738a8b0655daa0 data/prehistoriccraft/loot_table/blocks/tissue_extraction_chamber.json
 2f319941fe72c291b4866acb6f1ed09ff1075545 data/prehistoriccraft/loot_table/blocks/triassic_fossiliferous_stone.json
+a2c49a571dca76cb0f47cf653c945767aefa87ca data/prehistoriccraft/loot_table/entities/dayongaspis.json

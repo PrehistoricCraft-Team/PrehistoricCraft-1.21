@@ -21,6 +21,7 @@ public class PrehistoricItemModelProvider extends ItemModelProvider {
     @Override
     protected void registerModels() {
         /* NATURE */
+        basicItem(PrehistoricItems.RAW_CLAY_BALL.get());
         basicItem(PrehistoricItems.DAWN_REDWOOD_SIGN.get());
         basicItem(PrehistoricItems.DAWN_REDWOOD_HANGING_SIGN.get());
         basicItem(PrehistoricItems.DAWN_REDWOOD_BOAT.get());
@@ -98,6 +99,14 @@ public class PrehistoricItemModelProvider extends ItemModelProvider {
 
         /* DIRECT REVIVAL ITEMS */
         basicItem(PrehistoricItems.SLIME_ZYGOTE.get());
+
+        /* DINOSAUR BUCKETS */
+        basicItem(PrehistoricItems.DAYONGASPIS_BUCKET.get());
+
+        /* DINOSAUR LOOT */
+        //WATER
+        basicItem(PrehistoricItems.RAW_DAYONGASPIS.get());
+        basicItem(PrehistoricItems.COOKED_DAYONGASPIS.get());
     }
 
     /* HELPER METHODS */

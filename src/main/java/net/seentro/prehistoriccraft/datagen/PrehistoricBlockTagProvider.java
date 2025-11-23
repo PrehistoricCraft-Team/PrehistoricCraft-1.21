@@ -3,6 +3,7 @@ package net.seentro.prehistoriccraft.datagen;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -85,6 +86,17 @@ public class PrehistoricBlockTagProvider extends BlockTagsProvider {
 
         tag(BlockTags.DIRT)
                 .add(PrehistoricBlocks.CRACKED_DIRT.get());
+        tag(PrehistoricTags.Blocks.LOAM)
+                .add(PrehistoricBlocks.LOAM_GRASS.get())
+                .add(PrehistoricBlocks.LOAM.get());
+
+        tag(PrehistoricTags.Blocks.SILT)
+                .add(PrehistoricBlocks.SILT.get());
+        tag(PrehistoricTags.Blocks.CLAY)
+                .add(Blocks.CLAY)
+                .add(PrehistoricBlocks.RAW_CLAY.get());
+
+
 
         tag(PrehistoricTags.Blocks.PLASTERED_FOSSIL)
                 .add(PrehistoricBlocks.PLASTERED_PRECAMBRIAN_FOSSILIFEROUS_STONE.get())

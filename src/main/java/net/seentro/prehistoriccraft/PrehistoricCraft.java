@@ -10,6 +10,9 @@ import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.FoliageColor;
@@ -36,6 +39,7 @@ import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsE
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.event.AddReloadListenerEvent;
+import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.seentro.prehistoriccraft.common.block.acidCleaningChamber.geckolib.AcidCleaningChamberRenderer;
 import net.seentro.prehistoriccraft.common.block.dnaSeparationFilter.DNASeparationFilterBlock;
@@ -52,6 +56,9 @@ import net.seentro.prehistoriccraft.common.screen.fossilAnalysisTable.FossilAnal
 import net.seentro.prehistoriccraft.common.screen.tissueExtractionChamber.TissueExtractionChamberScreen;
 import net.seentro.prehistoriccraft.core.json.tissueExtractionChamber.TimePeriodTissueLoader;
 import net.seentro.prehistoriccraft.data.FossilSpeciesLoader;
+import net.seentro.prehistoriccraft.entity.dinosaur.PrehistoricDinosaurEntityTypes;
+import net.seentro.prehistoriccraft.entity.dinosaur.water.dayongaspis.DayongaspisEntity;
+import net.seentro.prehistoriccraft.entity.dinosaur.water.dayongaspis.DayongaspisRenderer;
 import net.seentro.prehistoriccraft.registry.*;
 import org.slf4j.Logger;
 import software.bernie.geckolib.util.ClientUtil;
@@ -76,6 +83,8 @@ public class PrehistoricCraft {
         PrehistoricFluidTypes.register(modEventBus);
         PrehistoricFluids.register(modEventBus);
         PrehistoricFeatures.register(modEventBus);
+        PrehistoricFoliagePlacerTypes.register(modEventBus);
+        PrehistoricDinosaurEntityTypes.register(modEventBus);
 
         NeoForge.EVENT_BUS.register(this);
     }
@@ -188,6 +197,8 @@ public class PrehistoricCraft {
             BlockEntityRenderers.register(PrehistoricBlockEntityTypes.DAWN_REDWOOD_SAPLING_BLOCK_ENTITY.get(), DawnRedwoodSaplingRenderer::new);
             BlockEntityRenderers.register(PrehistoricBlockEntityTypes.DNA_SEPARATION_FILTER_BLOCK_ENTITY.get(), DNASeparationFilterRenderer::new);
 
+            EntityRenderers.register(PrehistoricDinosaurEntityTypes.DAYONGASPIS.get(), DayongaspisRenderer::new);
+
             event.enqueueWork(() -> {
                 Sheets.addWoodType(PrehistoricWoodTypes.DAWN_REDWOOD);
                 ItemProperties.register(
@@ -229,6 +240,14 @@ public class PrehistoricCraft {
                     PrehistoricFluidTypes.BLICE_FLUID_TYPE.get());
             event.registerFluidType(((BaseFluidType) PrehistoricFluidTypes.ACID_FLUID_TYPE.get()).getClientFluidTypeExtensions(),
                     PrehistoricFluidTypes.ACID_FLUID_TYPE.get());
+        }
+    }
+
+    @EventBusSubscriber(modid = MODID, bus = EventBusSubscriber.Bus.MOD)
+    public static class ModEvents {
+        @SubscribeEvent
+        public static void registerAttributes(EntityAttributeCreationEvent event) {
+            event.put(PrehistoricDinosaurEntityTypes.DAYONGASPIS.get(), DayongaspisEntity.createAttributes().build());
         }
     }
 }

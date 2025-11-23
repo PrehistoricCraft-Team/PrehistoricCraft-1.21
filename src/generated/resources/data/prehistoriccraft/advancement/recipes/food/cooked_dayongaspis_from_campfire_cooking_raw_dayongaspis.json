@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_raw_dayongaspis": {
+      "conditions": {
+        "items": [
+          {
+            "items": "prehistoriccraft:raw_dayongaspis"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "prehistoriccraft:cooked_dayongaspis_from_campfire_cooking_raw_dayongaspis"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_raw_dayongaspis"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "prehistoriccraft:cooked_dayongaspis_from_campfire_cooking_raw_dayongaspis"
+    ]
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "C": {
+      "tag": "c:clay_ball"
+    },
+    "D": {
+      "tag": "minecraft:dirt"
+    },
+    "S": {
+      "tag": "minecraft:sand"
+    }
+  },
+  "pattern": [
+    "CS",
+    "DD"
+  ],
+  "result": {
+    "count": 4,
+    "id": "prehistoriccraft:loam"
+  }
+}

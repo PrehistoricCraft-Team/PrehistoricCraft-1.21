@@ -5,23 +5,12 @@
       "bonus_rolls": 0.0,
       "conditions": [
         {
-          "block": "prehistoriccraft:dawn_redwood_sapling",
-          "condition": "minecraft:block_state_property",
-          "properties": {
-            "invisible": "false"
-          }
+          "condition": "minecraft:survives_explosion"
         }
       ],
       "entries": [
         {
           "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": 1.0,
-              "function": "minecraft:set_count"
-            }
-          ],
           "name": "prehistoriccraft:dawn_redwood_sapling"
         }
       ],
