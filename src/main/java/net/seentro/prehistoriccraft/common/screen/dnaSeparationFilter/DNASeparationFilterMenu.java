@@ -46,23 +46,10 @@ public class DNASeparationFilterMenu extends MachineMenu<DNASeparationFilterBloc
 
         this.addSlot(new SlotItemHandler(handler, DNASeparationFilterBlockEntity.SLOT_FLUID_IO, 39, 103));
 
-        addPlayerSlots(inv);
-    }
+        this.setPosValues(40, 135, 40, 193);
 
-    private void addPlayerSlots(Inventory inv) {
-        int invX = 40;
-        int invY = 135;
-        int hotbarY = 193;
-
-        for (int row = 0; row < 3; row++) {
-            for (int col = 0; col < 9; col++) {
-                this.addSlot(new Slot(inv, col + row * 9 + 9, invX + col * 18, invY + row * 18));
-            }
-        }
-
-        for (int col = 0; col < 9; col++) {
-            this.addSlot(new Slot(inv, col, invX + col * 18, hotbarY));
-        }
+        this.addPlayerInventory(inv);
+        this.addPlayerHotbar(inv);
     }
 
     public int getScaledArrowProgress(int progressBarLength) {
