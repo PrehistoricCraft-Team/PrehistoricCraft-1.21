@@ -45,10 +45,28 @@ import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.util.GeckoLibUtil;
 import software.bernie.geckolib.util.RenderUtil;
 
+import net.neoforged.neoforge.items.IItemHandler;
+import net.seentro.prehistoriccraft.utils.hopper.HopperItemHandlerWrapper;
+import net.seentro.prehistoriccraft.utils.hopper.HopperRules;
+
 import java.util.*;
 
 public class TissueExtractionChamberBlockEntity extends BlockEntity implements MenuProvider, GeoBlockEntity {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+
+    public static final int SLOT_BOTTLE_IN    = 0;
+    public static final int SLOT_BOTTLE_OUT   = 1;
+    public static final int SLOT_INPUT_1      = 2;
+    public static final int SLOT_INPUT_2      = 3;
+    public static final int SLOT_INPUT_3      = 4;
+    public static final int SLOT_INPUT_4      = 5;
+    public static final int SLOT_OUTPUT_START = 6;   // 6..21
+    public static final int SLOT_OUTPUT_END   = 21;
+
+    //Bottle slot is slot 0
+    //Bottle output is slot 1
+    //Input starts at 1, ends at 6
+    //Output starts at 6, ends at 22
     public final ItemStackHandler itemHandler = new ItemStackHandler(22) {
         @Override
         protected void onContentsChanged(int slot) {
@@ -60,14 +78,30 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
 
         @Override
         public boolean isItemValid(int slot, ItemStack stack) {
-            return super.isItemValid(slot, stack);
+            if (slot == SLOT_BOTTLE_IN) {
+                return stack.is(PrehistoricItems.BOTTLE_OF_BLICE.get());
+            }
+
+            if (slot == SLOT_BOTTLE_OUT) {
+                return false;
+            }
+
+            // SLOTS 2..5: inputs -> Only fossil samples or ambar
+            if (slot >= SLOT_INPUT_1 && slot <= SLOT_INPUT_4) {
+                if (stack.is(PrehistoricTags.Items.FOSSIL_SAMPLES)
+                    || stack.is(PrehistoricTags.Items.AMBER)){
+                        return true;
+                    }
+                return false;
+            }
+
+            // SLOTS 6..21: outputs
+            if (slot >= SLOT_OUTPUT_START && slot <= SLOT_OUTPUT_END) {
+                return false;
+            }
+            return false;
         }
     };
-
-    //Bottle slot is slot 0
-    //Bottle output is slot 1
-    //Input starts at 1, ends at 6
-    //Output starts at 6, ends at 22
 
     protected final ContainerData data;
     private int progress = 0;
@@ -118,6 +152,25 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
                 return 2;
             }
         };
+
+        //Hoppers
+        hopperRules.set(Direction.UP, new HopperRules.SideRule(
+                slot -> slot == SLOT_BOTTLE_IN,
+                stack -> stack.is(PrehistoricItems.BOTTLE_OF_BLICE.get()),
+                slot -> false
+        ));
+
+        hopperRules.set(Direction.NORTH, new HopperRules.SideRule(
+                TissueExtractionChamberBlockEntity::isInputSlot,
+                TissueExtractionChamberBlockEntity::isAdequateFossilItem,
+                slot -> false
+        ));
+
+        hopperRules.set(Direction.DOWN, new HopperRules.SideRule(
+                slot -> false,
+                stack -> false,
+                TissueExtractionChamberBlockEntity::isOutputSlot
+        ));
     }
 
     /* SAVING */
@@ -412,4 +465,36 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
         if (pool.isEmpty()) return Optional.empty();
         return Optional.of(pool.get(random.nextInt(pool.size())));
     }
+
+    // --- Hopper ---
+
+    private final HopperRules hopperRules = new HopperRules();
+    private final EnumMap<Direction, IItemHandler> hopperHandlers = new EnumMap<>(Direction.class);
+
+    private static boolean isInputSlot(int slot) {
+        return slot >= SLOT_INPUT_1 && slot <= SLOT_INPUT_4;
+    }
+
+    private static boolean isOutputSlot(int slot) {
+        return slot >= SLOT_OUTPUT_START && slot <= SLOT_OUTPUT_END;
+    }
+
+    private static boolean isAdequateFossilItem(ItemStack stack) {
+        return (stack.is(PrehistoricTags.Items.FOSSIL_SAMPLES))
+                || stack.is(PrehistoricTags.Items.AMBER);
+    }
+
+        private IItemHandler getLogicalSideHandler(Direction side) {
+        return hopperHandlers.computeIfAbsent(
+                side,
+                s -> new HopperItemHandlerWrapper(itemHandler, hopperRules, s)
+        );
+    }
+
+    public @Nullable IItemHandler getHopperItemHandler(@Nullable Direction worldSide) {
+        if (worldSide == null) return itemHandler;
+
+        return getLogicalSideHandler(worldSide);
+    }
+
 }
