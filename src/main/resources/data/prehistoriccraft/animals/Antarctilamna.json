@@ -1,0 +1,21 @@
+{
+    "size": "S",
+    "hp": 10,
+    "diet": "carnivorous",
+    "likedFood": "cod",
+    "cleaning": "none",
+    "sociality": "solitary",
+    "maxPack": 0,
+    "offprints": 3,
+    "isAnimal": true,
+    "chances": {
+        "tissue": {
+            "maxProb": 95,
+            "minProb": 94
+        },
+        "amber": {
+            "maxProb": 20,
+            "minProb": 1
+        }
+    }
+}

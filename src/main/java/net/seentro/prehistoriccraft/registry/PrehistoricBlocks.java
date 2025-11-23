@@ -1,5 +1,6 @@
 package net.seentro.prehistoriccraft.registry;
 
+import net.minecraft.core.registries.Registries;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.BlockItem;
@@ -16,6 +17,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
 import net.seentro.prehistoriccraft.common.nature.*;
 import net.seentro.prehistoriccraft.common.block.acidCleaningChamber.AcidCleaningChamberBlock;
+import net.seentro.prehistoriccraft.common.block.dnaSeparationFilter.DNASeparationFilterBlock;
 import net.seentro.prehistoriccraft.common.block.fossilAnalysisTable.FossilAnalysisTableBlock;
 import net.seentro.prehistoriccraft.common.block.fossiliferousStone.FossiliferousStoneBlock;
 import net.seentro.prehistoriccraft.common.block.gypsumCrystal.GypsumCrystalBlock;
@@ -98,6 +100,7 @@ public class PrehistoricBlocks {
     public static final DeferredBlock<Block> FOSSIL_ANALYSIS_TABLE = registerBlock("fossil_analysis_table", () -> new FossilAnalysisTableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).noOcclusion()));
     public static final DeferredBlock<Block> TISSUE_EXTRACTION_CHAMBER = registerBlockOnly("tissue_extraction_chamber", () -> new TissueExtractionChamberBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.COBBLESTONE).noOcclusion()));
     public static final DeferredBlock<Block> ACID_CLEANING_CHAMBER = registerBlockOnly("acid_cleaning_chamber", () -> new AcidCleaningChamberBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.COBBLESTONE).noOcclusion()));
+    public static final DeferredBlock<Block> DNA_SEPARATION_FILTER = registerBlockOnly("dna_separation_filter", () -> new DNASeparationFilterBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.COBBLESTONE).noOcclusion()));
 
     /* GYPSUM & PLASTER */
     public static final DeferredBlock<Block> GYPSUM_CRYSTAL = registerBlock("gypsum_crystal", () -> new GypsumCrystalBlock(BlockBehaviour.Properties.of().sound(SoundType.DEEPSLATE).noOcclusion().strength(1.5F).pushReaction(PushReaction.DESTROY).requiresCorrectToolForDrops()));

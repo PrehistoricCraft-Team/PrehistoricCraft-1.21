@@ -116,6 +116,7 @@ public class PrehistoricBlockLootTableProvider extends BlockLootSubProvider {
         dropSelf(PrehistoricBlocks.FOSSIL_ANALYSIS_TABLE.get());
         dropSelf(PrehistoricBlocks.TISSUE_EXTRACTION_CHAMBER.get());
         this.add(PrehistoricBlocks.ACID_CLEANING_CHAMBER.get(), this::createDoorTable);
+        this.add(PrehistoricBlocks.DNA_SEPARATION_FILTER.get(), this::createDoorTable);
 
         /* GYPSUM */
         dropMultipleItems(PrehistoricBlocks.GYPSUM_CRYSTAL.get(), PrehistoricItems.GYPSUM_POWDER.get(), 1, 2);

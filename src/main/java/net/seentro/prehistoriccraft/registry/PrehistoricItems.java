@@ -7,7 +7,9 @@ import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
 import net.seentro.prehistoriccraft.common.block.acidCleaningChamber.item.AcidCleaningChamberBlockItem;
+import net.seentro.prehistoriccraft.common.block.dnaSeparationFilter.item.DNASeparationFilterBlockItem;
 import net.seentro.prehistoriccraft.common.block.tissueExtractionChamber.item.TissueExtractionChamberBlockItem;
+import net.seentro.prehistoriccraft.common.item.DNAInPetriDishItem;
 import net.seentro.prehistoriccraft.common.item.ExcavatorPickaxeItem;
 import net.seentro.prehistoriccraft.common.item.FilledBottleItem;
 import net.seentro.prehistoriccraft.common.item.FossilItem;
@@ -76,12 +78,12 @@ public class PrehistoricItems {
     /* BLOCK ENTITIES */
     public static final DeferredItem<Item> ACID_CLEANING_CHAMBER = ITEMS.register("acid_cleaning_chamber", () -> new AcidCleaningChamberBlockItem(new Item.Properties()));
     public static final DeferredItem<Item> TISSUE_EXTRACTION_CHAMBER = ITEMS.register("tissue_extraction_chamber", () -> new TissueExtractionChamberBlockItem(new Item.Properties()));
-
+    public static final DeferredItem<Item> DNA_SEPARATION_FILTER = ITEMS.register("dna_separation_filter", () -> new DNASeparationFilterBlockItem(new Item.Properties()));
     /* CRAFTING MATERIALS */
     public static final DeferredItem<Item> OBSIDIAN_PLATE = ITEMS.registerSimpleItem("obsidian_plate");
     public static final DeferredItem<Item> REINFORCED_OBSIDIAN_PLATE = ITEMS.registerSimpleItem("reinforced_obsidian_plate");
     public static final DeferredItem<Item> GOLD_PIPE = ITEMS.registerSimpleItem("gold_pipe");
-    public static final DeferredItem<Item> NANOPOD = ITEMS.register("nanopod", () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> NANOPOD = ITEMS.register("nanopod", () -> new Item(new Item.Properties().durability(32).setNoRepair()));
 
     /* FLUIDS */
     public static final DeferredItem<Item> BLOB_OF_BLICE = ITEMS.registerSimpleItem("blob_of_blice");
@@ -94,7 +96,7 @@ public class PrehistoricItems {
     public static final DeferredItem<Item> SYRINGE = ITEMS.registerSimpleItem("syringe");
     public static final DeferredItem<Item> JAR = ITEMS.registerSimpleItem("jar");
     public static final DeferredItem<Item> PETRI_DISH = ITEMS.register("petri_dish", () -> new Item(new Item.Properties()));
-    public static final DeferredItem<Item> DNA_IN_A_PETRI_DISH = ITEMS.register("dna_in_a_petri_dish", () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> DNA_IN_A_PETRI_DISH = ITEMS.register("dna_in_a_petri_dish", () -> new DNAInPetriDishItem(new Item.Properties()));
 
     /* DIRECT REVIVAL ITEMS */
 

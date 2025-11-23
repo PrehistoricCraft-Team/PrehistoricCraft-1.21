@@ -85,6 +85,7 @@
   "block.prehistoriccraft.fossil_analysis_table": "Fossil Analysis Table",
   "block.prehistoriccraft.tissue_extraction_chamber": "Tissue Extraction Chamber",
   "block.prehistoriccraft.acid_cleaning_chamber": "Acid Cleaning Chamber",
+  "block.prehistoriccraft.dna_separation_filter": "DNA Separation Machine",
 
   "item.prehistoriccraft.animal_tissue": "Animal Soft Tissue",
   "item.prehistoriccraft.plant_tissue": "Plant Soft Tissue",
@@ -124,5 +125,9 @@
   "item.prehistoriccraft.slime_zygote": "Slime Zygote",
 
   "fluid_type.prehistoriccraft.blice_fluid_type": "Blice",
-  "fluid_type.prehistoriccraft.acid_fluid_type": "Sulfuric Acid"
+  "fluid_type.prehistoriccraft.acid_fluid_type": "Sulfuric Acid",
+
+  "gui.prehistoriccraft.dna_separation_filter.guide": "DNA Separation Filter guide",
+  "gui.prehistoriccraft.dna_separation_progress": "%s%% / 100%%",
+  "gui.prehistoriccraft.dna_separation_click_me": "Click to open guide!"
 }

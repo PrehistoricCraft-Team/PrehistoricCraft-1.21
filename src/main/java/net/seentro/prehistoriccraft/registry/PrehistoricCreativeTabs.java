@@ -138,6 +138,7 @@ public class PrehistoricCreativeTabs {
                 output.accept(PrehistoricBlocks.FOSSIL_ANALYSIS_TABLE.get());
                 output.accept(PrehistoricBlocks.TISSUE_EXTRACTION_CHAMBER);
                 output.accept(PrehistoricBlocks.ACID_CLEANING_CHAMBER);
+                output.accept(PrehistoricBlocks.DNA_SEPARATION_FILTER.get());
             }).build());
 
 

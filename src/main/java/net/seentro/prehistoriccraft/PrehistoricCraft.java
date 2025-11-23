@@ -6,22 +6,23 @@ import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
+import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.tags.BiomeTags;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.FoliageColor;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FlowerPotBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
-import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
@@ -37,15 +38,20 @@ import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.seentro.prehistoriccraft.common.block.acidCleaningChamber.geckolib.AcidCleaningChamberRenderer;
+import net.seentro.prehistoriccraft.common.block.dnaSeparationFilter.DNASeparationFilterBlock;
+import net.seentro.prehistoriccraft.common.block.dnaSeparationFilter.DNASeparationFilterBlockEntity;
+import net.seentro.prehistoriccraft.common.block.dnaSeparationFilter.geckolib.DNASeparationFilterRenderer;
 import net.seentro.prehistoriccraft.common.block.tissueExtractionChamber.geckolib.TissueExtractionChamberRenderer;
 import net.seentro.prehistoriccraft.common.entity.PrehistoricBoatRenderer;
 import net.seentro.prehistoriccraft.common.fluid.BaseFluidType;
 import net.seentro.prehistoriccraft.common.fluid.FluidBottleWrapper;
 import net.seentro.prehistoriccraft.common.nature.dawnRedwood.geckolib.DawnRedwoodSaplingRenderer;
 import net.seentro.prehistoriccraft.common.screen.acidCleaningChamber.AcidCleaningChamberScreen;
+import net.seentro.prehistoriccraft.common.screen.dnaSeparationFilter.DNASeparationFilterScreen;
 import net.seentro.prehistoriccraft.common.screen.fossilAnalysisTable.FossilAnalysisTableScreen;
 import net.seentro.prehistoriccraft.common.screen.tissueExtractionChamber.TissueExtractionChamberScreen;
 import net.seentro.prehistoriccraft.core.json.tissueExtractionChamber.TimePeriodTissueLoader;
+import net.seentro.prehistoriccraft.data.FossilSpeciesLoader;
 import net.seentro.prehistoriccraft.registry.*;
 import org.slf4j.Logger;
 import software.bernie.geckolib.util.ClientUtil;
@@ -75,9 +81,34 @@ public class PrehistoricCraft {
     }
 
     private void registerCapabilities(RegisterCapabilitiesEvent event) {
-        event.registerItem(Capabilities.FluidHandler.ITEM, (stack, context) -> new FluidBottleWrapper(stack),
-                PrehistoricItems.BOTTLE_OF_BLICE.get());
+        event.registerItem(
+                Capabilities.FluidHandler.ITEM,
+                (stack, context) -> new FluidBottleWrapper(stack),
+                PrehistoricItems.BOTTLE_OF_BLICE.get()
+        );
+        //I hate hoppers
+        event.registerBlock(
+                Capabilities.ItemHandler.BLOCK,
+                (level, pos, state, be, side) -> {
+                    if (!state.is(PrehistoricBlocks.DNA_SEPARATION_FILTER.get())) {
+                        return null;
+                    }
+
+                    BlockPos bottomPos = state.getValue(DNASeparationFilterBlock.HALF) == DoubleBlockHalf.UPPER
+                            ? pos.below()
+                            : pos;
+
+                    BlockEntity realBe = level.getBlockEntity(bottomPos);
+                    if (realBe instanceof DNASeparationFilterBlockEntity filter) {
+                        return filter.getHopperItemHandler(side);
+                    }
+
+                    return null;
+                },
+                PrehistoricBlocks.DNA_SEPARATION_FILTER.get()
+        );
     }
+
 
     private void itemColorRegistrationEvent(RegisterColorHandlersEvent.Item itemEvent) {
         itemEvent.register(
@@ -91,7 +122,6 @@ public class PrehistoricCraft {
     }
 
     private void blockColorRegistrationEvent(RegisterColorHandlersEvent.Block blockEvent) {
-        // DAWN REDWOOD
         blockEvent.register((state, tintGetter, pos, color) -> tintGetter != null && pos != null
                         ? getDawnRedwoodFoliageColor(pos)
                         : getDawnRedwoodDefaultColor(),
@@ -99,7 +129,6 @@ public class PrehistoricCraft {
                 PrehistoricBlocks.DAWN_REDWOOD_CONES.get()
         );
 
-        // VANILLA
         blockEvent.register((state, tintGetter, pos, color) -> tintGetter != null && pos != null
                         ? BiomeColors.getAverageFoliageColor(tintGetter, pos)
                         : FoliageColor.getDefaultColor(),
@@ -111,7 +140,6 @@ public class PrehistoricCraft {
         return -4325567;
     }
 
-    //Returns decimal color values
     private int getDawnRedwoodFoliageColor(BlockPos pos) {
         Holder<Biome> biome = ClientUtil.getLevel().getBiome(pos);
         if (biome.is(Tags.Biomes.IS_FOREST))
@@ -148,6 +176,7 @@ public class PrehistoricCraft {
     @SubscribeEvent
     public void onAddReloadListener(AddReloadListenerEvent event) {
         event.addListener(new TimePeriodTissueLoader());
+        event.addListener(FossilSpeciesLoader.INSTANCE);
     }
 
     @EventBusSubscriber(modid = MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
@@ -157,9 +186,24 @@ public class PrehistoricCraft {
             BlockEntityRenderers.register(PrehistoricBlockEntityTypes.TISSUE_EXTRACTION_CHAMBER_BLOCK_ENTITY.get(), TissueExtractionChamberRenderer::new);
             BlockEntityRenderers.register(PrehistoricBlockEntityTypes.ACID_CLEANING_CHAMBER_BLOCK_ENTITY.get(), AcidCleaningChamberRenderer::new);
             BlockEntityRenderers.register(PrehistoricBlockEntityTypes.DAWN_REDWOOD_SAPLING_BLOCK_ENTITY.get(), DawnRedwoodSaplingRenderer::new);
+            BlockEntityRenderers.register(PrehistoricBlockEntityTypes.DNA_SEPARATION_FILTER_BLOCK_ENTITY.get(), DNASeparationFilterRenderer::new);
 
             event.enqueueWork(() -> {
                 Sheets.addWoodType(PrehistoricWoodTypes.DAWN_REDWOOD);
+                ItemProperties.register(
+                    PrehistoricItems.DNA_IN_A_PETRI_DISH.get(),
+                    ResourceLocation.fromNamespaceAndPath(
+                            PrehistoricCraft.MODID,
+                            "contaminated"
+                    ),
+                    (stack, level, entity, seed) -> {
+                        boolean contaminated = stack.getOrDefault(
+                                PrehistoricDataComponents.DNA_CONTAMINATED.get(),
+                                false
+                        );
+                        return contaminated ? 1.0F : 0.0F;
+                    }
+                );
             });
         }
 
@@ -168,6 +212,7 @@ public class PrehistoricCraft {
             event.register(PrehistoricMenuTypes.FOSSIL_ANALYSIS_TABLE_MENU.get(), FossilAnalysisTableScreen::new);
             event.register(PrehistoricMenuTypes.TISSUE_EXTRACTION_CHAMBER_MENU.get(), TissueExtractionChamberScreen::new);
             event.register(PrehistoricMenuTypes.ACID_CLEANING_CHAMBER_MENU.get(), AcidCleaningChamberScreen::new);
+            event.register(PrehistoricMenuTypes.DNA_SEPARATION_FILTER_MENU.get(),DNASeparationFilterScreen::new);
         }
 
         @SubscribeEvent
