@@ -45,6 +45,7 @@ import net.seentro.prehistoriccraft.common.block.acidCleaningChamber.geckolib.Ac
 import net.seentro.prehistoriccraft.common.block.dnaSeparationFilter.DNASeparationFilterBlock;
 import net.seentro.prehistoriccraft.common.block.dnaSeparationFilter.DNASeparationFilterBlockEntity;
 import net.seentro.prehistoriccraft.common.block.dnaSeparationFilter.geckolib.DNASeparationFilterRenderer;
+import net.seentro.prehistoriccraft.common.block.tissueExtractionChamber.TissueExtractionChamberBlockEntity;
 import net.seentro.prehistoriccraft.common.block.tissueExtractionChamber.geckolib.TissueExtractionChamberRenderer;
 import net.seentro.prehistoriccraft.common.entity.PrehistoricBoatRenderer;
 import net.seentro.prehistoriccraft.common.fluid.BaseFluidType;
@@ -95,7 +96,7 @@ public class PrehistoricCraft {
                 (stack, context) -> new FluidBottleWrapper(stack),
                 PrehistoricItems.BOTTLE_OF_BLICE.get()
         );
-        //I hate hoppers
+
         event.registerBlock(
                 Capabilities.ItemHandler.BLOCK,
                 (level, pos, state, be, side) -> {
@@ -115,6 +116,23 @@ public class PrehistoricCraft {
                     return null;
                 },
                 PrehistoricBlocks.DNA_SEPARATION_FILTER.get()
+        );
+
+        event.registerBlock(
+                Capabilities.ItemHandler.BLOCK,
+                (level, pos, state, be, side) -> {
+                    if (!state.is(PrehistoricBlocks.TISSUE_EXTRACTION_CHAMBER.get())) {
+                        return null;
+                    }
+
+                    BlockEntity realBe = level.getBlockEntity(pos);
+                    if (realBe instanceof TissueExtractionChamberBlockEntity chamber) {
+                        return chamber.getHopperItemHandler(side);
+                    }
+
+                    return null;
+                },
+                PrehistoricBlocks.TISSUE_EXTRACTION_CHAMBER.get()
         );
     }
 
