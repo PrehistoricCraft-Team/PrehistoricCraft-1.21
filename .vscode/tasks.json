@@ -1,0 +1,29 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "runClient",
+      "type": "shell",
+      "command": ".\\gradlew.bat",
+      "args": ["runClient"],
+      "options": { "cwd": "${workspaceFolder}" },
+      "problemMatcher": []
+    },
+    {
+      "label": "runClient (debug)",
+      "type": "shell",
+      "command": ".\\gradlew.bat",
+      "args": ["runClient", "-PdebugClient", "-PdebugPort=5005"],
+      "options": { "cwd": "${workspaceFolder}" },
+      "problemMatcher": []
+    },
+    {
+      "label": "runServer",
+      "type": "shell",
+      "command": ".\\gradlew.bat",
+      "args": ["runServer"],
+      "options": { "cwd": "${workspaceFolder}" },
+      "problemMatcher": []
+    }
+  ]
+}

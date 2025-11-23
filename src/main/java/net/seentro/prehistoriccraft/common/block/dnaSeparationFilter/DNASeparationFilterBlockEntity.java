@@ -448,7 +448,7 @@ public class DNASeparationFilterBlockEntity extends BlockEntity implements MenuP
     private ItemStack makeOutput(ItemStack tissue) {
         ItemStack out = new ItemStack(PrehistoricItems.DNA_IN_A_PETRI_DISH.get());
         int quality = calcQuality(tissue);
-        boolean direct = tissue.is(PrehistoricTags.Items.DIRECT_SOURCE);
+        boolean direct = tissue.is(PrehistoricItems.BLOOD_CELL);
         if (direct) quality = 100;
         boolean contaminated = random.nextDouble() < CONTAMINATION_CHANCE;
         String species = tissue.getOrDefault(PrehistoricDataComponents.FOSSIL_SPECIES.get(), "unknown");
