@@ -1,7 +1,6 @@
 package net.seentro.prehistoriccraft.common.block.fossiliferousStone;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -18,8 +17,6 @@ import net.seentro.prehistoriccraft.registry.PrehistoricItems;
 import java.util.HashMap;
 import java.util.Map;
 
-// static net.seentro.prehistoriccraft.registry.PrehistoricBlocks.*;
-
 public class FossiliferousStoneBlock extends Block {
     private final FossilTypes FOSSIL_TYPE;
     private static final Map<FossilTypes, DeferredBlock<?>> fossilMap = new HashMap<>();
@@ -32,16 +29,14 @@ public class FossiliferousStoneBlock extends Block {
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         if (!level.isClientSide() && stack.getItem() == PrehistoricItems.PLASTER_WRAP.get()) {
             DeferredBlock<?> plasteredFossil = fossilMap.get(FOSSIL_TYPE);
-            if (plasteredFossil == null) return ItemInteractionResult.FAIL;
+            if (plasteredFossil == null) return ItemInteractionResult.CONSUME;
 
             level.setBlock(pos, plasteredFossil.get().defaultBlockState(), Block.UPDATE_ALL);
             stack.consume(1, player);
+            return ItemInteractionResult.SUCCESS;
         }
 
-        if (!level.isClientSide()) {
-            player.displayClientMessage(Component.literal(String.valueOf(level.getBiome(pos).value().getBaseTemperature())), true);
-        }
-        return ItemInteractionResult.sidedSuccess(level.isClientSide());
+        return ItemInteractionResult.CONSUME;
     }
 
     static {

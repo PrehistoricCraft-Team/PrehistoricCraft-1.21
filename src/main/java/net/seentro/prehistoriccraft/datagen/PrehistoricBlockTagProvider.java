@@ -55,7 +55,12 @@ public class PrehistoricBlockTagProvider extends BlockTagsProvider {
 
                 .add(PrehistoricBlocks.TISSUE_EXTRACTION_CHAMBER.get())
                 .add(PrehistoricBlocks.ACID_CLEANING_CHAMBER.get())
-                .add(PrehistoricBlocks.DNA_SEPARATION_FILTER.get());
+                .add(PrehistoricBlocks.DNA_SEPARATION_FILTER.get())
+
+                .add(PrehistoricBlocks.AMBER_BLOCK.get())
+                .add(PrehistoricBlocks.SULFUR_ORE.get())
+                .add(PrehistoricBlocks.DEEPSLATE_SULFUR_ORE.get())
+                .add(PrehistoricBlocks.DEEPSLATE_AMBER_ORE.get());
 
         tag(BlockTags.MINEABLE_WITH_AXE)
                 .add(PrehistoricBlocks.FOSSIL_ANALYSIS_TABLE.get());
@@ -76,7 +81,12 @@ public class PrehistoricBlockTagProvider extends BlockTagsProvider {
 
                 .add(PrehistoricBlocks.TISSUE_EXTRACTION_CHAMBER.get())
                 .add(PrehistoricBlocks.ACID_CLEANING_CHAMBER.get())
-                .add(PrehistoricBlocks.DNA_SEPARATION_FILTER.get());
+                .add(PrehistoricBlocks.DNA_SEPARATION_FILTER.get())
+
+                .add(PrehistoricBlocks.AMBER_BLOCK.get())
+                .add(PrehistoricBlocks.SULFUR_ORE.get())
+                .add(PrehistoricBlocks.DEEPSLATE_SULFUR_ORE.get())
+                .add(PrehistoricBlocks.DEEPSLATE_AMBER_ORE.get());
 
         tag(BlockTags.NEEDS_STONE_TOOL)
                 .add(PrehistoricBlocks.GYPSUM_CRYSTAL.get())

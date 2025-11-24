@@ -16,6 +16,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.FoliageColor;
+import net.minecraft.world.level.GrassColor;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FlowerPotBlock;
@@ -144,7 +145,8 @@ public class PrehistoricCraft {
                     return itemEvent.getBlockColors().getColor(blockstate, null, null, color);
                 },
                 PrehistoricBlocks.DAWN_REDWOOD_LEAVES.get(),
-                PrehistoricBlocks.DAWN_REDWOOD_CONES.get()
+                PrehistoricBlocks.DAWN_REDWOOD_CONES.get(),
+                PrehistoricBlocks.LOAM_GRASS.get()
         );
     }
 
@@ -160,6 +162,12 @@ public class PrehistoricCraft {
                         ? BiomeColors.getAverageFoliageColor(tintGetter, pos)
                         : FoliageColor.getDefaultColor(),
                 PrehistoricBlocks.DAWN_REDWOOD_SAPLING.get()
+        );
+
+        blockEvent.register((state, tintGetter, pos, color) -> tintGetter != null && pos != null
+                        ? BiomeColors.getAverageGrassColor(tintGetter, pos)
+                        : GrassColor.getDefaultColor(),
+                PrehistoricBlocks.LOAM_GRASS.get()
         );
     }
 

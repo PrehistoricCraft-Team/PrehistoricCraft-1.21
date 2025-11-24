@@ -80,6 +80,7 @@ public class PrehistoricCreativeTabs {
                 output.accept(PrehistoricBlocks.SANDY_LOAM.get());
                 output.accept(PrehistoricBlocks.SILT.get());
                 output.accept(PrehistoricBlocks.LOAMY_SILT.get());
+                output.accept(PrehistoricBlocks.LOAM_GRASS.get());
                 output.accept(PrehistoricBlocks.PEAT.get());
                 output.accept(PrehistoricBlocks.RAW_CLAY.get());
 

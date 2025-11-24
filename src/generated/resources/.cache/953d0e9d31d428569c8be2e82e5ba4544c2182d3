@@ -1,4 +1,4 @@
-// 1.21.1	2025-11-09T18:31:25.782599598	Tags for minecraft:item mod id prehistoriccraft
+// 1.21.1	2025-11-24T14:58:15.826022	Tags for minecraft:item mod id prehistoriccraft
 371a011b0d935164aa0b944796385467eef62697 data/c/tags/item/amber.json
 c836d32a87e95a6a0a761f609b9b473550935d80 data/c/tags/item/clay.json
 77c86d0a38c946319c54988692bf4908ec8cdcbb data/c/tags/item/clay_ball.json
@@ -9,5 +9,6 @@ c836d32a87e95a6a0a761f609b9b473550935d80 data/c/tags/item/clay.json
 f5718b6859055f7c8ba8fe05ee89167cd344914d data/c/tags/item/syringe.json
 a0c8f2c1cbcc0da47aa870ecfdc683514e52a7b3 data/c/tags/item/vial.json
 85a1b624e8430ea7c74bf3e63a35685d307e355d data/minecraft/tags/item/pickaxes.json
-1031ae52f0de4e287d4978c76b4a3d57c9ee42bd data/prehistoriccraft/tags/item/fossil_samples.json
 cd4c2806d76ed675f1b884e5f714b40ddd627ba5 data/prehistoriccraft/tags/item/fossils.json
+1031ae52f0de4e287d4978c76b4a3d57c9ee42bd data/prehistoriccraft/tags/item/fossil_samples.json
+fd269267a0efb5542273b690fad151d399486feb data/prehistoriccraft/tags/item/tissues.json
