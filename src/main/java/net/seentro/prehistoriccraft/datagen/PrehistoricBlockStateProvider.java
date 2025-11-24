@@ -6,12 +6,16 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.SnowyDirtBlock;
 import net.minecraft.world.level.block.TrapDoorBlock;
 import net.neoforged.neoforge.client.model.generators.*;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
 import net.seentro.prehistoriccraft.registry.PrehistoricBlocks;
+import org.checkerframework.checker.units.qual.C;
+
+import java.util.Set;
 
 public class PrehistoricBlockStateProvider extends BlockStateProvider {
     public PrehistoricBlockStateProvider(PackOutput output, ExistingFileHelper exFileHelper) {
@@ -38,6 +42,7 @@ public class PrehistoricBlockStateProvider extends BlockStateProvider {
         blockWithItem(PrehistoricBlocks.LOAMY_SAND);
         blockWithItem(PrehistoricBlocks.PEAT);
         blockWithItem(PrehistoricBlocks.RAW_CLAY);
+        snowyHorizontalBlockWithDifferentTopAndBottomWithOverlaySides(PrehistoricBlocks.LOAM_GRASS.get(), modLoc("block/loam_grass_block_side"), mcLoc("block/grass_block_top"), blockTexture(PrehistoricBlocks.LOAM.get()), mcLoc("block/grass_block_side_overlay"), modLoc("block/loam_grass_block_snow"), mcLoc("block/grass_block_top"));
 
 
         //DAWN REDWOOD
@@ -118,6 +123,34 @@ public class PrehistoricBlockStateProvider extends BlockStateProvider {
         simpleBlockWithItem(block.get(), models().cubeAll("plastered_fossiliferous_stone", modLoc("block/plastered_fossiliferous_stone")));
     }
 
+    public void snowyHorizontalBlockWithDifferentTopAndBottomWithOverlaySides(Block block, ResourceLocation side, ResourceLocation top, ResourceLocation bottom, ResourceLocation overlay, ResourceLocation snowySide, ResourceLocation snowyTop) {
+        String name = BuiltInRegistries.BLOCK.getKey(block).toString();
+
+        BlockModelBuilder model = models().getBuilder(name)
+                .parent(models().getExistingFile(mcLoc("block/block")))
+                .texture("particle", bottom.toString())
+                .texture("side", side.toString())
+                .texture("top", top.toString())
+                .texture("bottom", bottom.toString())
+                .texture("overlay", overlay.toString())
+                .renderType("cutout");
+
+        model.element()
+                .from(0, 0, 0).to(16, 16, 16)
+                .allFacesExcept((dir, face) -> face.texture("#side"), Set.of(Direction.UP, Direction.DOWN))
+                .face(Direction.UP).texture("#top").tintindex(0).end()
+                .face(Direction.DOWN).texture("#bottom");
+
+        model.element()
+                .from(0, 0, 0).to(16, 16, 16)
+                .allFacesExcept((dir, face) -> face.texture("#overlay").tintindex(0), Set.of(Direction.UP, Direction.DOWN));
+
+        getVariantBuilder(block)
+                .partialState().with(SnowyDirtBlock.SNOWY, false).addModels(new ConfiguredModel(model))
+                .partialState().with(SnowyDirtBlock.SNOWY, true).addModels(new ConfiguredModel(models().cubeBottomTop(name(block) + "_snow", snowySide, bottom, snowyTop)));
+        simpleBlockItem(block, model);
+    }
+
     public void blockWithOverlayAllSides(Block block, ResourceLocation overlay) {
         String name = BuiltInRegistries.BLOCK.getKey(block).toString();
         String path = name(block);
@@ -143,7 +176,6 @@ public class PrehistoricBlockStateProvider extends BlockStateProvider {
 
     public void crossBlockWithOverlayAllSides(DeferredBlock<?> block, ResourceLocation texture, ResourceLocation overlay) {
         String name = BuiltInRegistries.BLOCK.getKey(block.get()).toString();
-        String onlyName = BuiltInRegistries.BLOCK.getKey(block.get()).getPath();
 
         BlockModelBuilder model = models().getBuilder(name)
                 .parent(models().getExistingFile(mcLoc("block/cross")))

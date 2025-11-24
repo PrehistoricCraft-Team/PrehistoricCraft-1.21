@@ -1,0 +1,76 @@
+{
+  "parent": "minecraft:block/block",
+  "elements": [
+    {
+      "faces": {
+        "down": {
+          "texture": "#bottom"
+        },
+        "east": {
+          "texture": "#side"
+        },
+        "north": {
+          "texture": "#side"
+        },
+        "south": {
+          "texture": "#side"
+        },
+        "up": {
+          "texture": "#top",
+          "tintindex": 0
+        },
+        "west": {
+          "texture": "#side"
+        }
+      },
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ]
+    },
+    {
+      "faces": {
+        "east": {
+          "texture": "#overlay",
+          "tintindex": 0
+        },
+        "north": {
+          "texture": "#overlay",
+          "tintindex": 0
+        },
+        "south": {
+          "texture": "#overlay",
+          "tintindex": 0
+        },
+        "west": {
+          "texture": "#overlay",
+          "tintindex": 0
+        }
+      },
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ]
+    }
+  ],
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "bottom": "prehistoriccraft:block/loam",
+    "overlay": "minecraft:block/grass_block_side_overlay",
+    "particle": "prehistoriccraft:block/loam",
+    "side": "prehistoriccraft:block/loam_grass_block_side",
+    "top": "minecraft:block/grass_block_top"
+  }
+}

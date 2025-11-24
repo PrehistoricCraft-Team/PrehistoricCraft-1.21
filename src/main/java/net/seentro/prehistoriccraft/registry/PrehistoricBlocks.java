@@ -1,8 +1,5 @@
 package net.seentro.prehistoriccraft.registry;
 
-import net.minecraft.core.registries.Registries;
-import net.minecraft.util.Mth;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
@@ -13,7 +10,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
-import net.seentro.prehistoriccraft.common.block.LoamGrassBlock;
+import net.seentro.prehistoriccraft.common.nature.grass.LoamGrassBlock;
 import net.seentro.prehistoriccraft.common.nature.*;
 import net.seentro.prehistoriccraft.common.block.acidCleaningChamber.AcidCleaningChamberBlock;
 import net.seentro.prehistoriccraft.common.block.dnaSeparationFilter.DNASeparationFilterBlock;
@@ -112,7 +109,7 @@ public class PrehistoricBlocks {
     public static final DeferredBlock<Block> SANDY_LOAM = registerBlock("sandy_loam", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.DIRT)));
     public static final DeferredBlock<Block> LOAMY_SAND = registerBlock("loamy_sand", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.SAND)));
     public static final DeferredBlock<Block> RAW_CLAY = registerBlock("raw_clay", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.CLAY).sound(SoundType.MUD)));
-    public static final DeferredBlock<Block> LOAM_GRASS = registerBlock("loam_grass_block", () -> new LoamGrassBlock(PrehistoricBlocks.LOAM.get(), BlockBehaviour.Properties.ofFullCopy(Blocks.GRASS_BLOCK)));
+    public static final DeferredBlock<Block> LOAM_GRASS = registerBlock("loam_grass_block", () -> new LoamGrassBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GRASS_BLOCK)));
 
 
     private static <T extends Block> DeferredBlock<T> registerBlockOnly(String name, Supplier<T> block) {

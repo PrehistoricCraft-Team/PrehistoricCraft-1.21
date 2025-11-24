@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "snowy=false": {
+      "model": "prehistoriccraft:block/loam_grass_block"
+    },
+    "snowy=true": {
+      "model": "prehistoriccraft:block/loam_grass_block_snow"
+    }
+  }
+}

@@ -108,9 +108,11 @@ public class PrehistoricBlockLootTableProvider extends BlockLootSubProvider {
 
         /* ORES */
         dropSelf(PrehistoricBlocks.AMBER_BLOCK.get());
-        dropOther(PrehistoricBlocks.DEEPSLATE_AMBER_ORE.get(), PrehistoricItems.AMBER.get());
+        this.add(PrehistoricBlocks.DEEPSLATE_AMBER_ORE.get(), block ->
+                createMultipleOreDrop(block, PrehistoricItems.AMBER.get(), 1, 3));
         dropSelf(PrehistoricBlocks.SULFUR_ORE.get());
-        dropOther(PrehistoricBlocks.DEEPSLATE_SULFUR_ORE.get(), PrehistoricItems.SULFUR.get());
+        this.add(PrehistoricBlocks.DEEPSLATE_SULFUR_ORE.get(), block ->
+                createMultipleOreDrop(block, PrehistoricItems.SULFUR.get(), 1, 3));
 
 
         /* BLOCK ENTITIES */

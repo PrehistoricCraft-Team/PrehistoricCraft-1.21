@@ -1,4 +1,4 @@
-// 1.21.1	2025-11-09T19:36:53.4520509	Item Models: prehistoriccraft
+// 1.21.1	2025-11-24T14:58:15.8321676	Item Models: prehistoriccraft
 b8b4b3e2353425201b46f181f50133bddeb245e2 assets/prehistoriccraft/models/item/acid_fluid_bucket.json
 45d11e3b53db99e8496d59a036ce7e7d09184f8f assets/prehistoriccraft/models/item/amber.json
 092ef5035850e79077ec6d0947f7e1a3791a1c94 assets/prehistoriccraft/models/item/animal_tissue.json
@@ -46,6 +46,7 @@ f117dbd7d203ace97ff93f1aa861110b9dd8328b assets/prehistoriccraft/models/item/pla
 5dedbb22c02af510c6c799fd69c749ac11708125 assets/prehistoriccraft/models/item/plaster_wrap.json
 892fbffafc9feff1d736ba647558dd4ae760f605 assets/prehistoriccraft/models/item/precambrian_fossil.json
 3cd9a28e9e2ff058fbf7fde79b8b8ae0358184be assets/prehistoriccraft/models/item/precambrian_fossil_sample.json
+58c0b0c9e63c93da45b0c9abf32b94feb9492dc1 assets/prehistoriccraft/models/item/raw_clay_ball.json
 bcaad0ea76fa23e14da849cc3634683fc2bc5ece assets/prehistoriccraft/models/item/raw_dayongaspis.json
 52d0e082d066ffb718021a37a5c7cb6e9fd391b4 assets/prehistoriccraft/models/item/reinforced_obsidian_plate.json
 ffb01eff0ecc9b93f6edea648a408f0d1013607c assets/prehistoriccraft/models/item/silurian_fossil.json
