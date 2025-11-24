@@ -22,10 +22,12 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class DayongaspisEntity extends AbstractFish implements GeoEntity {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+
     public DayongaspisEntity(EntityType<? extends AbstractFish> entityType, Level level) {
         super(entityType, level);
     }
 
+    // === Attributes ===
     public static AttributeSupplier.Builder createAttributes() {
         return Animal.createLivingAttributes()
                 .add(Attributes.MAX_HEALTH, 5D)
@@ -33,6 +35,7 @@ public class DayongaspisEntity extends AbstractFish implements GeoEntity {
                 .add(Attributes.FOLLOW_RANGE, 10D);
     }
 
+    // === AI Goals ===
     @Override
     protected void registerGoals() {
         super.registerGoals();
@@ -42,30 +45,47 @@ public class DayongaspisEntity extends AbstractFish implements GeoEntity {
         this.goalSelector.addGoal(3, new FishSwimGoal(this));
     }
 
+    // === Animations ===
     private final RawAnimation SWIM = RawAnimation.begin().thenPlay("swim");
     private final RawAnimation IDLE = RawAnimation.begin().thenPlay("idle");
     private final RawAnimation FLOP = RawAnimation.begin().thenPlay("flop");
 
+    // Track current animation to avoid restarting the same one every tick
+    private String currentAnimation = "";
+
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<>(this, this::animationController));
+        // 5-tick blend time between animation changes
+        controllerRegistrar.add(new AnimationController<>(this, "controller", 5, this::animationController));
     }
 
-    private PlayState animationController(AnimationState<DayongaspisEntity> animationState) {
+    private PlayState animationController(AnimationState<DayongaspisEntity> state) {
+        var controller = state.getController();
+        String newAnim;
+
+        // Decide which animation should play
         if (!this.isInWater()) {
-            animationState.setAnimation(FLOP);
-            return PlayState.CONTINUE;
+            newAnim = "flop";
+        } else if (state.isMoving()) {
+            newAnim = "swim";
+        } else {
+            newAnim = "idle";
         }
 
-        if (animationState.isMoving()) {
-            animationState.setAnimation(SWIM);
-            return PlayState.CONTINUE;
+        // Only change if it differs from the current one
+        if (!newAnim.equals(currentAnimation)) {
+            currentAnimation = newAnim;
+            switch (newAnim) {
+                case "flop" -> controller.setAnimation(FLOP);
+                case "swim" -> controller.setAnimation(SWIM);
+                default -> controller.setAnimation(IDLE);
+            }
         }
 
-        animationState.setAnimation(IDLE);
         return PlayState.CONTINUE;
     }
 
+    // === GeckoLib/Entity Overrides ===
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return this.cache;

@@ -17,7 +17,7 @@ public class PrehistoricDinosaurEntityTypes {
     public static final Supplier<EntityType<DayongaspisEntity>> DAYONGASPIS = DINOSAUR_TYPES.register(
             "dayongaspis",
             () -> EntityType.Builder.of(DayongaspisEntity::new, MobCategory.WATER_CREATURE)
-                    .sized(0.4f, 0.2f)
+                    .sized(0.25f, 0.1f)
                     .build("dayongaspis"));
 
     public static void register (IEventBus eventBus) {
