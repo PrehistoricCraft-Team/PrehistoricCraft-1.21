@@ -54,14 +54,12 @@ import java.util.*;
 public class TissueExtractionChamberBlockEntity extends BlockEntity implements MenuProvider, GeoBlockEntity {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
-    public static final int SLOT_BOTTLE_IN    = 0;
-    public static final int SLOT_BOTTLE_OUT   = 1;
-    public static final int SLOT_INPUT_1      = 2;
-    public static final int SLOT_INPUT_2      = 3;
-    public static final int SLOT_INPUT_3      = 4;
-    public static final int SLOT_INPUT_4      = 5;
+    public static final int SLOT_BOTTLE_IN = 0;
+    public static final int SLOT_BOTTLE_OUT = 1;
+    public static final int SLOT_INPUT_1 = 2;
+    public static final int SLOT_INPUT_4 = 5;
     public static final int SLOT_OUTPUT_START = 6;   // 6..21
-    public static final int SLOT_OUTPUT_END   = 21;
+    public static final int SLOT_OUTPUT_END = 21;
 
     //Bottle slot is slot 0
     //Bottle output is slot 1
@@ -78,15 +76,11 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
 
         @Override
         public boolean isItemValid(int slot, ItemStack stack) {
-            if (slot == SLOT_BOTTLE_IN) {
-                return stack.is(PrehistoricItems.BOTTLE_OF_BLICE.get());
-            }
+            if (slot == SLOT_BOTTLE_IN) return stack.is(PrehistoricItems.BOTTLE_OF_BLICE.get());
 
-            if (slot == SLOT_BOTTLE_OUT) {
-                return false;
-            }
+            if (slot == SLOT_BOTTLE_OUT) return stack.is(Items.GLASS_BOTTLE);
 
-            // SLOTS 2..5: inputs -> Only fossil samples or ambar
+            // SLOTS 2..5: inputs -> Only fossil samples or amber
             if (slot >= SLOT_INPUT_1 && slot <= SLOT_INPUT_4) {
                 if (stack.is(PrehistoricTags.Items.FOSSIL_SAMPLES)
                     || stack.is(PrehistoricTags.Items.AMBER)){
@@ -95,11 +89,7 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
                 return false;
             }
 
-            // SLOTS 6..21: outputs
-            if (slot >= SLOT_OUTPUT_START && slot <= SLOT_OUTPUT_END) {
-                return false;
-            }
-            return false;
+            return true;
         }
     };
 
