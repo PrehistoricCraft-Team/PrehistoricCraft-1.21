@@ -34,7 +34,7 @@ public class DNASeparationFilterScreen extends AbstractContainerScreen<DNASepara
     private static final int PROG_BAR_X = 63;
     private static final int PROG_BAR_Y = 80;
     private static final int PROG_BAR_H = 20;
-    private static final int PROG_BAR_W = 110;
+    private static final int PROG_BAR_W = 112;
 
     private static final int PROG_TEX_U = 1;
     private static final int PROG_TEX_V = 236;
