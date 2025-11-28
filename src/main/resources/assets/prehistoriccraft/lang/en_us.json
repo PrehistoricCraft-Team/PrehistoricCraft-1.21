@@ -137,9 +137,11 @@
   "fluid_type.prehistoriccraft.blice_fluid_type": "Blice",
   "fluid_type.prehistoriccraft.acid_fluid_type": "Sulfuric Acid",
 
-  "gui.prehistoriccraft.dna_separation_filter.guide": "DNA Separation Filter guide",
-  "gui.prehistoriccraft.dna_separation_progress": "%s%% / 100%%",
-  "gui.prehistoriccraft.dna_separation_click_me": "Click to open guide!",
+  "gui.prehistoriccraft.dna_separation_filter.guide": "DNA Separating",
+  "gui.prehistoriccraft.progress_percent": "%s%% / 100%%",
+  "gui.prehistoriccraft.open_guide": "Click to open guide!",
+  "gui.prehistoriccraft.tissue_extraction_chamber.guide": "Tissue Extracting",
+
   "item.prehistoriccraft.dayongaspis_bucket": "Bucket of Dayongaspis",
 
   "item.prehistoriccraft.raw_dayongaspis": "Raw Dayongaspis",

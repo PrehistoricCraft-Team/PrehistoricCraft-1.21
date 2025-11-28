@@ -77,7 +77,6 @@ public class TissueExtractionChamberBlock extends BaseEntityBlock {
             Block.box(5.1, 11, 5, 16, 16, 11)
     );
 
-
     public TissueExtractionChamberBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.getStateDefinition().any().setValue(FACING, Direction.NORTH));

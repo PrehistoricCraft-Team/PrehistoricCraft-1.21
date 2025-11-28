@@ -13,7 +13,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
-import net.seentro.prehistoriccraft.utils.jei.JEIIntegration;
+import net.seentro.prehistoriccraft.compat.jei.JEIIntegration;
 
 public class DNASeparationFilterScreen extends AbstractContainerScreen<DNASeparationFilterMenu> {
     private static final ResourceLocation GUI = ResourceLocation.fromNamespaceAndPath(
@@ -120,12 +120,10 @@ public class DNASeparationFilterScreen extends AbstractContainerScreen<DNASepara
         Font font = Minecraft.getInstance().font;
 
         List<Component> lines = new ArrayList<>();
-        lines.add(Component.translatable("gui.prehistoriccraft.dna_separation_progress", percent));
+        lines.add(Component.translatable("gui.prehistoriccraft.progress_percent", percent));
 
-        if (percent == 0) {
-            lines.add(Component.literal(""));
-            lines.add(Component.translatable("gui.prehistoriccraft.dna_separation_click_me"));
-        }
+        lines.add(Component.literal(""));
+        lines.add(Component.translatable("gui.prehistoriccraft.open_guide"));
 
         g.renderComponentTooltip(font, lines, mouseX, mouseY);
     }
@@ -150,13 +148,9 @@ public class DNASeparationFilterScreen extends AbstractContainerScreen<DNASepara
         if (button == 0) {
             if (relX >= PROG_BAR_X && relX < PROG_BAR_X + PROG_BAR_W &&
                 relY >= PROG_BAR_Y && relY < PROG_BAR_Y + PROG_BAR_H) {
-                    System.out.println("Entro");
-                try {
                     if (net.neoforged.fml.ModList.get().isLoaded("jei")) {
-                        System.out.println("Entro en jei");
                         JEIIntegration.showDnaFilterGuide();
                     }
-                } catch (NoClassDefFoundError e) {}
                 return true;
             }
         }
