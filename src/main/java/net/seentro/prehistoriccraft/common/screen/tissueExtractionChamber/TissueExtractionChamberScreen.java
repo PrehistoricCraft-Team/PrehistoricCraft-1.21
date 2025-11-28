@@ -10,6 +10,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
+import net.seentro.prehistoriccraft.compat.jei.JEIIntegration;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TissueExtractionChamberScreen extends AbstractContainerScreen<TissueExtractionChamberMenu> {
     private static final ResourceLocation GUI = ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID, "textures/gui/tissue_extraction_chamber_gui.png");
@@ -40,6 +44,10 @@ public class TissueExtractionChamberScreen extends AbstractContainerScreen<Tissu
         if (isMouseOverPoint(x + 106, y + 10, 66, 9, mouseX, mouseY)) {
             drawToolTip(guiGraphics, mouseX, mouseY);
         }
+
+        if (isMouseOverPoint(x + 55, y + 43, 73, 15, mouseX, mouseY)) {
+            drawProgressToolTip(guiGraphics, mouseX, mouseY);
+        }
     }
 
     private void drawToolTip(GuiGraphics guiGraphics, int mouseX, int mouseY) {
@@ -48,6 +56,21 @@ public class TissueExtractionChamberScreen extends AbstractContainerScreen<Tissu
 
         Font font = Minecraft.getInstance().font;
         guiGraphics.renderTooltip(font, Component.literal("%s / %s mB".formatted(fluidAmount, fluidCapacity)), mouseX, mouseY);
+    }
+
+    private void drawProgressToolTip(GuiGraphics g, int mouseX, int mouseY) {
+        int filled = menu.getScaledArrowProgress();
+        int percent = filled * 100 / 15;
+
+        Font font = Minecraft.getInstance().font;
+
+        List<Component> lines = new ArrayList<>();
+        lines.add(Component.translatable("gui.prehistoriccraft.progress_percent", percent));
+
+        lines.add(Component.literal(""));
+        lines.add(Component.translatable("gui.prehistoriccraft.open_guide"));
+
+        g.renderComponentTooltip(font, lines, mouseX, mouseY);
     }
 
     private static boolean isMouseOverPoint(int x, int y, int width, int height, int mouseX, int mouseY) {
@@ -69,5 +92,24 @@ public class TissueExtractionChamberScreen extends AbstractContainerScreen<Tissu
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         super.render(guiGraphics, mouseX, mouseY, partialTick);
         this.renderTooltip(guiGraphics, mouseX, mouseY);
+    }
+
+    @Override
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        int relX = (int) (mouseX - this.leftPos);
+        int relY = (int) (mouseY - this.topPos);
+
+        if (button == 0) {
+            if (relX >= 55 && relX < 55 + 73 &&
+                    relY >= 43 && relY < 43 + 15) {
+                if (net.neoforged.fml.ModList.get().isLoaded("jei")) {
+                    JEIIntegration.showDnaFilterGuide();
+                }
+
+                return true;
+            }
+        }
+
+        return super.mouseClicked(mouseX, mouseY, button);
     }
 }

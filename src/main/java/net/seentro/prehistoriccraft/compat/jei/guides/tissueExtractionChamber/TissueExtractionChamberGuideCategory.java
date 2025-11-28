@@ -1,4 +1,4 @@
-package net.seentro.prehistoriccraft.utils.jei.guides;
+package net.seentro.prehistoriccraft.compat.jei.guides.tissueExtractionChamber;
 
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -14,10 +14,10 @@ import net.minecraft.world.item.ItemStack;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
 import net.seentro.prehistoriccraft.registry.PrehistoricBlocks;
 
-public class DNASeparationFilterGuideCategory implements IRecipeCategory<DNAFilterGuideRecipe> {
+public class TissueExtractionChamberGuideCategory implements IRecipeCategory<TissueExtractionChamberGuideRecipe> {
 
-    public static final RecipeType<DNAFilterGuideRecipe> RECIPE_TYPE =
-            RecipeType.create(PrehistoricCraft.MODID, "dna_separation_filter_guide", DNAFilterGuideRecipe.class);
+    public static final RecipeType<TissueExtractionChamberGuideRecipe> RECIPE_TYPE =
+            RecipeType.create(PrehistoricCraft.MODID, "tissue_extraction_chamber_guide", TissueExtractionChamberGuideRecipe.class);
 
     private static final ResourceLocation GUIDE_TEXTURE =
             ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID, "textures/gui/jei/dna_separation_filter_guide.png");
@@ -25,19 +25,19 @@ public class DNASeparationFilterGuideCategory implements IRecipeCategory<DNAFilt
     private final IDrawable background;
     private final IDrawable icon;
 
-    public DNASeparationFilterGuideCategory(IGuiHelper guiHelper) {
+    public TissueExtractionChamberGuideCategory(IGuiHelper guiHelper) {
         this.background = guiHelper.createBlankDrawable(150, 80);
-        this.icon = guiHelper.createDrawableItemStack(new ItemStack(PrehistoricBlocks.DNA_SEPARATION_FILTER.get()));
+        this.icon = guiHelper.createDrawableItemStack(new ItemStack(PrehistoricBlocks.TISSUE_EXTRACTION_CHAMBER.get()));
     }
 
     @Override
-    public RecipeType<DNAFilterGuideRecipe> getRecipeType() {
+    public RecipeType<TissueExtractionChamberGuideRecipe> getRecipeType() {
         return RECIPE_TYPE;
     }
 
     @Override
     public Component getTitle() {
-        return Component.translatable("gui.prehistoriccraft.dna_separation_filter.guide");
+        return Component.translatable("gui.prehistoriccraft.tissue_extraction_chamber.guide");
     }
 
     @Override
@@ -51,11 +51,11 @@ public class DNASeparationFilterGuideCategory implements IRecipeCategory<DNAFilt
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, DNAFilterGuideRecipe recipe, IFocusGroup focuses) {
+    public void setRecipe(IRecipeLayoutBuilder builder, TissueExtractionChamberGuideRecipe recipe, IFocusGroup focuses) {
     }
 
     @Override
-    public void draw(DNAFilterGuideRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(TissueExtractionChamberGuideRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         guiGraphics.blit(
                 GUIDE_TEXTURE,
                 0, 0,

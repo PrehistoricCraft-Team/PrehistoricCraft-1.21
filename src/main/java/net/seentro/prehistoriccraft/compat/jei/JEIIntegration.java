@@ -1,8 +1,8 @@
-package net.seentro.prehistoriccraft.utils.jei;
+package net.seentro.prehistoriccraft.compat.jei;
 
 import mezz.jei.api.runtime.IJeiRuntime;
 import mezz.jei.api.runtime.IRecipesGui;
-import net.seentro.prehistoriccraft.utils.jei.guides.DNASeparationFilterGuideCategory;
+import net.seentro.prehistoriccraft.compat.jei.guides.tissueExtractionChamber.TissueExtractionChamberGuideCategory;
 
 import java.util.List;
 
@@ -21,6 +21,6 @@ public class JEIIntegration {
 
         IRecipesGui gui = runtime.getRecipesGui();
 
-        gui.showTypes(List.of(DNASeparationFilterGuideCategory.RECIPE_TYPE));
+        gui.showTypes(List.of(TissueExtractionChamberGuideCategory.RECIPE_TYPE));
     }
 }

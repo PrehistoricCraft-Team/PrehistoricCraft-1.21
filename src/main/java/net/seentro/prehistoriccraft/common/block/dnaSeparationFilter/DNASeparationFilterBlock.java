@@ -12,6 +12,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
@@ -27,6 +28,9 @@ import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.seentro.prehistoriccraft.registry.PrehistoricBlockEntityTypes;
 import org.jetbrains.annotations.Nullable;
 
@@ -36,11 +40,67 @@ public class DNASeparationFilterBlock extends BaseEntityBlock {
     public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
     public static final MapCodec<DNASeparationFilterBlock> CODEC = simpleCodec(DNASeparationFilterBlock::new);
 
+    private static final VoxelShape BOUNDING_BOX_NORTH = Shapes.or(
+            Block.box(0, 0, 11, 16, 16, 13),
+            Block.box(0, 0, 0, 16, 6, 13),
+            Block.box(3.5, 6, 3, 12.5, 9, 11),
+            Block.box(0, 9, 0, 16, 12, 13),
+            Block.box(3.5, 12, 3, 12.5, 15, 11),
+            Block.box(0, 15, 0, 16, 16, 13)
+    );
+    private static final VoxelShape BOUNDING_BOX_SOUTH = Shapes.or(
+            Block.box(1, 0, 12, 15, 4, 16),
+            Block.box(3, 4, 13, 5, 15, 15),
+            Block.box(7.5, 4, 14, 8.5, 11, 15),
+            Block.box(11, 4, 13, 13, 15, 15),
+            Block.box(5, 2, 11, 6, 3, 12),
+            Block.box(10, 2, 11, 11, 3, 12),
+            Block.box(4, 0, 5.1, 12, 6, 11),
+            Block.box(6, 6, 6, 10, 11, 10),
+            Block.box(5, 11, 5.1, 11, 16, 16)
+    );
+    private static final VoxelShape BOUNDING_BOX_EAST = Shapes.or(
+            Block.box(0, 0, 1, 4, 4, 15),
+            Block.box(1, 4, 3, 3, 15, 5),
+            Block.box(1, 4, 7.5, 2, 11, 8.5),
+            Block.box(1, 4, 11, 3, 15, 13),
+            Block.box(4, 2, 5, 5, 3, 6),
+            Block.box(4, 2, 10, 5, 3, 11),
+            Block.box(5, 0, 4, 10.9, 6, 12),
+            Block.box(6, 6, 6, 10, 11, 10),
+            Block.box(0, 11, 5, 10.9, 16, 11)
+    );
+    private static final VoxelShape BOUNDING_BOX_WEST = Shapes.or(
+            Block.box(12, 0, 1, 16, 4, 15),
+            Block.box(13, 4, 11, 15, 15, 13),
+            Block.box(14, 4, 7.5, 15, 11, 8.5),
+            Block.box(13, 4, 3, 15, 15, 5),
+            Block.box(11, 2, 10, 12, 3, 11),
+            Block.box(11, 2, 5, 12, 3, 6),
+            Block.box(5.1, 0, 4, 11, 6, 12),
+            Block.box(6, 6, 6, 10, 11, 10),
+            Block.box(5.1, 11, 5, 16, 16, 11)
+    );
+
     public DNASeparationFilterBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any()
                 .setValue(FACING, Direction.NORTH)
                 .setValue(HALF, DoubleBlockHalf.LOWER));
+    }
+
+    @Override
+    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        /*return switch (state.getValue(FACING)) {
+            case SOUTH -> BOUNDING_BOX_SOUTH;
+            case WEST -> BOUNDING_BOX_EAST;
+            case EAST -> BOUNDING_BOX_WEST;
+            default -> BOUNDING_BOX_NORTH;
+        };
+
+         */
+
+        return BOUNDING_BOX_NORTH;
     }
 
     @Override
@@ -162,7 +222,7 @@ public class DNASeparationFilterBlock extends BaseEntityBlock {
     }
 
     @Override
-protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
 
         BlockPos bottomPos = state.getValue(HALF) == DoubleBlockHalf.UPPER ? pos.below() : pos;
 
