@@ -10,6 +10,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
+import net.seentro.prehistoriccraft.common.block.dnaRecombinator.DNARecombinatorBlock;
 import net.seentro.prehistoriccraft.common.nature.grass.LoamGrassBlock;
 import net.seentro.prehistoriccraft.common.nature.*;
 import net.seentro.prehistoriccraft.common.block.acidCleaningChamber.AcidCleaningChamberBlock;
@@ -95,6 +96,7 @@ public class PrehistoricBlocks {
     public static final DeferredBlock<Block> TISSUE_EXTRACTION_CHAMBER = registerBlockOnly("tissue_extraction_chamber", () -> new TissueExtractionChamberBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.COBBLESTONE).noOcclusion()));
     public static final DeferredBlock<Block> ACID_CLEANING_CHAMBER = registerBlockOnly("acid_cleaning_chamber", () -> new AcidCleaningChamberBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.COBBLESTONE).noOcclusion()));
     public static final DeferredBlock<Block> DNA_SEPARATION_FILTER = registerBlockOnly("dna_separation_filter", () -> new DNASeparationFilterBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.COBBLESTONE).noOcclusion()));
+    public static final DeferredBlock<Block> DNA_RECOMBINATOR = registerBlockOnly("dna_recombinator", () -> new DNARecombinatorBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.COBBLESTONE).noOcclusion()));
 
     /* GYPSUM & PLASTER */
     public static final DeferredBlock<Block> GYPSUM_CRYSTAL = registerBlock("gypsum_crystal", () -> new GypsumCrystalBlock(BlockBehaviour.Properties.of().sound(SoundType.DEEPSLATE).noOcclusion().strength(1.5F).pushReaction(PushReaction.DESTROY).requiresCorrectToolForDrops()));

@@ -42,44 +42,111 @@ public class DNASeparationFilterBlock extends BaseEntityBlock {
 
     private static final VoxelShape BOUNDING_BOX_NORTH = Shapes.or(
             Block.box(0, 0, 11, 16, 16, 13),
-            Block.box(0, 0, 0, 16, 6, 13),
+            Block.box(3.5, 0, 13, 12.5, 15, 15),
+            Block.box(6, 15, 13, 10, 16, 15),
+            Block.box(0, 0, 5, 16, 6, 13),
+            Block.box(5, 0, 0, 11, 6, 5),
             Block.box(3.5, 6, 3, 12.5, 9, 11),
-            Block.box(0, 9, 0, 16, 12, 13),
+            Block.box(0, 9, 5, 16, 12, 13),
+            Block.box(5, 9, 0, 11, 12, 5),
             Block.box(3.5, 12, 3, 12.5, 15, 11),
-            Block.box(0, 15, 0, 16, 16, 13)
+            Block.box(0, 15, 5, 16, 16, 13),
+            Block.box(5, 15, 0, 11, 16, 5)
+    );
+    private static final VoxelShape BOUNDING_BOX_NORTH_TOP = Shapes.or(
+            Block.box(6, 0, 13, 10, 6, 15),
+            Block.box(6, 2, 11, 10, 6, 13),
+            Block.box(4, 3, 8, 12, 13, 11),
+            Block.box(5.5, 3, 5, 10.5, 13, 8),
+            Block.box(5.5, 13, 6, 10.5, 13.5, 10),
+            Block.box(0, 0, 5, 16, 2, 13),
+            Block.box(5, 0, 0, 11, 2, 5),
+            Block.box(3, 2, 5, 13, 3, 11),
+            Block.box(6, 2, 2, 10, 3, 5),
+            Block.box(2, 9.5, 9.5, 3, 15.5, 15.5),
+            Block.box(13, 9.5, 9.5, 14, 15.5, 15.5),
+            Block.box(3, 10, 10, 13, 15, 15)
     );
     private static final VoxelShape BOUNDING_BOX_SOUTH = Shapes.or(
-            Block.box(1, 0, 12, 15, 4, 16),
-            Block.box(3, 4, 13, 5, 15, 15),
-            Block.box(7.5, 4, 14, 8.5, 11, 15),
-            Block.box(11, 4, 13, 13, 15, 15),
-            Block.box(5, 2, 11, 6, 3, 12),
-            Block.box(10, 2, 11, 11, 3, 12),
-            Block.box(4, 0, 5.1, 12, 6, 11),
-            Block.box(6, 6, 6, 10, 11, 10),
-            Block.box(5, 11, 5.1, 11, 16, 16)
+            Block.box(0, 0, 3, 16, 16, 5),
+            Block.box(3.5, 0, 1, 12.5, 15, 3),
+            Block.box(6, 15, 1, 10, 16, 3),
+            Block.box(0, 0, 3, 16, 6, 11),
+            Block.box(5, 0, 11, 11, 6, 16),
+            Block.box(3.5, 6, 5, 12.5, 9, 13),
+            Block.box(0, 9, 3, 16, 12, 11),
+            Block.box(5, 9, 11, 11, 12, 16),
+            Block.box(3.5, 12, 5, 12.5, 15, 13),
+            Block.box(0, 15, 3, 16, 16, 11),
+            Block.box(5, 15, 11, 11, 16, 16)
+    );
+    private static final VoxelShape BOUNDING_BOX_SOUTH_TOP = Shapes.or(
+            Block.box(6, 0, 1, 10, 6, 3),
+            Block.box(6, 2, 3, 10, 6, 5),
+            Block.box(4, 3, 5, 12, 13, 8),
+            Block.box(5.5, 3, 8, 10.5, 13, 11),
+            Block.box(5.5, 13, 6, 10.5, 13.5, 10),
+            Block.box(0, 0, 3, 16, 2, 11),
+            Block.box(5, 0, 11, 11, 2, 16),
+            Block.box(3, 2, 5, 13, 3, 11),
+            Block.box(6, 2, 11, 10, 3, 14),
+            Block.box(2, 9.5, 0.5, 3, 15.5, 6.5),
+            Block.box(13, 9.5, 0.5, 14, 15.5, 6.5),
+            Block.box(3, 10, 1, 13, 15, 6)
     );
     private static final VoxelShape BOUNDING_BOX_EAST = Shapes.or(
-            Block.box(0, 0, 1, 4, 4, 15),
-            Block.box(1, 4, 3, 3, 15, 5),
-            Block.box(1, 4, 7.5, 2, 11, 8.5),
-            Block.box(1, 4, 11, 3, 15, 13),
-            Block.box(4, 2, 5, 5, 3, 6),
-            Block.box(4, 2, 10, 5, 3, 11),
-            Block.box(5, 0, 4, 10.9, 6, 12),
-            Block.box(6, 6, 6, 10, 11, 10),
-            Block.box(0, 11, 5, 10.9, 16, 11)
+            Block.box(3, 0, 0, 5, 16, 16),
+            Block.box(1, 0, 3.5, 3, 15, 12.5),
+            Block.box(1, 15, 6, 3, 16, 10),
+            Block.box(3, 0, 0, 11, 6, 16),
+            Block.box(11, 0, 5, 16, 6, 11),
+            Block.box(5, 6, 3.5, 13, 9, 12.5),
+            Block.box(3, 9, 0, 11, 12, 16),
+            Block.box(11, 9, 5, 16, 12, 11),
+            Block.box(5, 12, 3.5, 13, 15, 12.5),
+            Block.box(3, 15, 0, 11, 16, 16),
+            Block.box(11, 15, 5, 16, 16, 11)
+    );
+    private static final VoxelShape BOUNDING_BOX_EAST_TOP = Shapes.or(
+            Block.box(1, 0, 6, 3, 6, 10),
+            Block.box(3, 2, 6, 5, 6, 10),
+            Block.box(5, 3, 4, 8, 13, 12),
+            Block.box(8, 3, 5.5, 11, 13, 10.5),
+            Block.box(6, 13, 5.5, 10, 13.5, 10.5),
+            Block.box(3, 0, 0, 11, 2, 16),
+            Block.box(11, 0, 5, 16, 2, 11),
+            Block.box(5, 2, 3, 11, 3, 13),
+            Block.box(11, 2, 6, 14, 3, 10),
+            Block.box(0.5, 9.5, 2, 6.5, 15.5, 3),
+            Block.box(0.5, 9.5, 13, 6.5, 15.5, 14),
+            Block.box(1, 10, 3, 6, 15, 13)
     );
     private static final VoxelShape BOUNDING_BOX_WEST = Shapes.or(
-            Block.box(12, 0, 1, 16, 4, 15),
-            Block.box(13, 4, 11, 15, 15, 13),
-            Block.box(14, 4, 7.5, 15, 11, 8.5),
-            Block.box(13, 4, 3, 15, 15, 5),
-            Block.box(11, 2, 10, 12, 3, 11),
-            Block.box(11, 2, 5, 12, 3, 6),
-            Block.box(5.1, 0, 4, 11, 6, 12),
-            Block.box(6, 6, 6, 10, 11, 10),
-            Block.box(5.1, 11, 5, 16, 16, 11)
+            Block.box(11, 0, 0, 13, 16, 16),
+            Block.box(13, 0, 3.5, 15, 15, 12.5),
+            Block.box(13, 15, 6, 15, 16, 10),
+            Block.box(5, 0, 0, 13, 6, 16),
+            Block.box(0, 0, 5, 5, 6, 11),
+            Block.box(3, 6, 3.5, 11, 9, 12.5),
+            Block.box(5, 9, 0, 13, 12, 16),
+            Block.box(0, 9, 5, 5, 12, 11),
+            Block.box(3, 12, 3.5, 11, 15, 12.5),
+            Block.box(5, 15, 0, 13, 16, 16),
+            Block.box(0, 15, 5, 5, 16, 11)
+    );
+    private static final VoxelShape BOUNDING_BOX_WEST_TOP = Shapes.or(
+            Block.box(13, 0, 6, 15, 6, 10),
+            Block.box(11, 2, 6, 13, 6, 10),
+            Block.box(8, 3, 4, 11, 13, 12),
+            Block.box(5, 3, 5.5, 8, 13, 10.5),
+            Block.box(6, 13, 5.5, 10, 13.5, 10.5),
+            Block.box(5, 0, 0, 13, 2, 16),
+            Block.box(0, 0, 5, 5, 2, 11),
+            Block.box(5, 2, 3, 11, 3, 13),
+            Block.box(2, 2, 6, 5, 3, 10),
+            Block.box(9.5, 9.5, 13, 15.5, 15.5, 14),
+            Block.box(9.5, 9.5, 2, 15.5, 15.5, 3),
+            Block.box(10, 10, 3, 15, 15, 13)
     );
 
     public DNASeparationFilterBlock(Properties properties) {
@@ -91,16 +158,21 @@ public class DNASeparationFilterBlock extends BaseEntityBlock {
 
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        /*return switch (state.getValue(FACING)) {
-            case SOUTH -> BOUNDING_BOX_SOUTH;
-            case WEST -> BOUNDING_BOX_EAST;
-            case EAST -> BOUNDING_BOX_WEST;
-            default -> BOUNDING_BOX_NORTH;
+        if (state.getValue(HALF) == DoubleBlockHalf.LOWER) {
+            return switch (state.getValue(FACING)) {
+                case SOUTH -> BOUNDING_BOX_SOUTH;
+                case WEST -> BOUNDING_BOX_WEST;
+                case EAST -> BOUNDING_BOX_EAST;
+                default -> BOUNDING_BOX_NORTH;
+            };
+        }
+
+        return switch (state.getValue(FACING)) {
+            case SOUTH -> BOUNDING_BOX_SOUTH_TOP;
+            case WEST -> BOUNDING_BOX_WEST_TOP;
+            case EAST -> BOUNDING_BOX_EAST_TOP;
+            default -> BOUNDING_BOX_NORTH_TOP;
         };
-
-         */
-
-        return BOUNDING_BOX_NORTH;
     }
 
     @Override

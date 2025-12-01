@@ -1,4 +1,4 @@
-package net.seentro.prehistoriccraft.common.block.tissueExtractionChamber;
+package net.seentro.prehistoriccraft.common.block.dnaRecombinator;
 
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
@@ -26,9 +26,9 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.seentro.prehistoriccraft.registry.PrehistoricBlockEntityTypes;
 import org.jetbrains.annotations.Nullable;
 
-public class TissueExtractionChamberBlock extends BaseEntityBlock {
+public class DNARecombinatorBlock extends BaseEntityBlock {
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
-    public static final MapCodec<TissueExtractionChamberBlock> CODEC = simpleCodec(TissueExtractionChamberBlock::new);
+    public static final MapCodec<DNARecombinatorBlock> CODEC = simpleCodec(DNARecombinatorBlock::new);
 
     private static final VoxelShape BOUNDING_BOX_NORTH = Shapes.or(
             Block.box(1, 0, 0, 15, 4, 4),
@@ -75,7 +75,7 @@ public class TissueExtractionChamberBlock extends BaseEntityBlock {
             Block.box(5.1, 11, 5, 16, 16, 11)
     );
 
-    public TissueExtractionChamberBlock(Properties properties) {
+    public DNARecombinatorBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.getStateDefinition().any().setValue(FACING, Direction.NORTH));
     }
@@ -124,20 +124,20 @@ public class TissueExtractionChamberBlock extends BaseEntityBlock {
 
     @Override
     public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new TissueExtractionChamberBlockEntity(pos, state);
+        return new DNARecombinatorBlockEntity(pos, state);
     }
 
     @Override
     public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
-        return level.isClientSide() ? null : createTickerHelper(blockEntityType, PrehistoricBlockEntityTypes.TISSUE_EXTRACTION_CHAMBER_BLOCK_ENTITY.get(), ((level1, blockPos, blockState, blockEntity) -> blockEntity.tick(level1, blockPos, blockState)));
+        return level.isClientSide() ? null : createTickerHelper(blockEntityType, PrehistoricBlockEntityTypes.DNA_RECOMBINATOR_BLOCK_ENTITY.get(), ((level1, blockPos, blockState, blockEntity) -> blockEntity.tick(level1, blockPos, blockState)));
     }
 
     @Override
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         if (!level.isClientSide()) {
-            if (level.getBlockEntity(pos) instanceof TissueExtractionChamberBlockEntity blockEntity) {
-                player.openMenu(new SimpleMenuProvider(blockEntity, Component.translatable("block.prehistoriccraft.tissue_extraction_chamber")), pos);
-                blockEntity.triggerAnim("drawerController", "open_drawers");
+            if (level.getBlockEntity(pos) instanceof DNARecombinatorBlockEntity blockEntity) {
+                player.openMenu(new SimpleMenuProvider(blockEntity, Component.translatable("block.prehistoriccraft.dna_recombinator")), pos);
+                if (blockEntity.working == 0) blockEntity.triggerAnim("controller", "open_doors");
                 return ItemInteractionResult.SUCCESS;
             }
         }
@@ -147,7 +147,7 @@ public class TissueExtractionChamberBlock extends BaseEntityBlock {
     @Override
     protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
         if (state.getBlock() != newState.getBlock()) {
-            if (level.getBlockEntity(pos) instanceof TissueExtractionChamberBlockEntity blockEntity) {
+            if (level.getBlockEntity(pos) instanceof DNARecombinatorBlockEntity blockEntity) {
                 blockEntity.drop();
                 level.updateNeighbourForOutputSignal(pos, this);
             }

@@ -6,6 +6,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
 import net.seentro.prehistoriccraft.common.block.acidCleaningChamber.AcidCleaningChamberBlockEntity;
+import net.seentro.prehistoriccraft.common.block.dnaRecombinator.DNARecombinatorBlockEntity;
 import net.seentro.prehistoriccraft.common.block.dnaSeparationFilter.DNASeparationFilterBlockEntity;
 import net.seentro.prehistoriccraft.common.block.dnaSeparationFilter.DNASeparationFilterBlockEntity;
 import net.seentro.prehistoriccraft.common.block.fossilAnalysisTable.FossilAnalysisTableBlockEntity;
@@ -47,6 +48,13 @@ public class PrehistoricBlockEntityTypes {
                                                         DNASeparationFilterBlockEntity::new,
                                                         PrehistoricBlocks.DNA_SEPARATION_FILTER.get())
                                                         .build(null));
+
+        public static final Supplier<BlockEntityType<DNARecombinatorBlockEntity>> DNA_RECOMBINATOR_BLOCK_ENTITY = BLOCK_ENTITY_TYPES
+                .register("dna_recombinator_block_entity",
+                        () -> BlockEntityType.Builder.of(
+                                DNARecombinatorBlockEntity::new,
+                                PrehistoricBlocks.DNA_RECOMBINATOR.get())
+                                .build(null));
 
         // NATURE
 

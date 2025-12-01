@@ -17,7 +17,7 @@ import net.seentro.prehistoriccraft.compat.jei.JEIIntegration;
 
 public class DNASeparationFilterScreen extends AbstractContainerScreen<DNASeparationFilterMenu> {
     private static final ResourceLocation GUI = ResourceLocation.fromNamespaceAndPath(
-            PrehistoricCraft.MODID, "textures/gui/dna_separation_filter.png"
+            PrehistoricCraft.MODID, "textures/gui/dna_separation_filter_gui.png"
     );
 
     private static final int TEX_WIDTH = 256;

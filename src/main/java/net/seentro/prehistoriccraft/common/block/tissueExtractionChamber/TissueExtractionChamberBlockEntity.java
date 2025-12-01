@@ -486,5 +486,4 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
 
         return getLogicalSideHandler(worldSide);
     }
-
 }

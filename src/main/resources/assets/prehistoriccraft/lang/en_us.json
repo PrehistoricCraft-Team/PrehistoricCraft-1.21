@@ -147,5 +147,6 @@
   "item.prehistoriccraft.raw_dayongaspis": "Raw Dayongaspis",
   "item.prehistoriccraft.cooked_dayongaspis": "Cooked Dayongaspis",
 
-  "entity.prehistoriccraft.dayongaspis": "Dayongaspis"
+  "entity.prehistoriccraft.dayongaspis": "Dayongaspis",
+  "block.prehistoriccraft.dna_recombinator": "DNA Recombinator"
 }
