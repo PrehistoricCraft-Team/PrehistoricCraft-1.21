@@ -1,4 +1,4 @@
-// 1.21.1	2025-11-24T14:58:15.8275566	Loot Tables
+// 1.21.1	2025-12-01T19:30:52.6601105	Loot Tables
 530a518e5e91a900a501df1344123a80a9fa3e9f data/prehistoriccraft/loot_table/blocks/acid_cleaning_chamber.json
 3c34bb7179c80d80367a3e0663f64b25dc563fc4 data/prehistoriccraft/loot_table/blocks/amber_block.json
 8c82406a1df7c83712890ce2a9671fe7a4cbb0ca data/prehistoriccraft/loot_table/blocks/cambrian_fossiliferous_stone.json
@@ -26,6 +26,7 @@ ffbe6a569dd8b5f45c1dc49b34f7ff7c173cfdb5 data/prehistoriccraft/loot_table/blocks
 7129febc29cc965ee9821dd8f46bcac02ca6a853 data/prehistoriccraft/loot_table/blocks/deepslate_amber_ore.json
 22762c4ec3e9c0b4a2a015b1c90a46e33edbb4fb data/prehistoriccraft/loot_table/blocks/deepslate_sulfur_ore.json
 297eb9a8abdabd0eb932067764d8b13d0a91a749 data/prehistoriccraft/loot_table/blocks/devonian_fossiliferous_stone.json
+d7c364ce3f97224e7de29110c1798501318e9e16 data/prehistoriccraft/loot_table/blocks/dna_recombinator.json
 4bce57cb7f0ce17a98e9cd07dc210b84b50c8c54 data/prehistoriccraft/loot_table/blocks/dna_separation_filter.json
 3c958e637f3a244bea2ac4b007ab0cf543f319f8 data/prehistoriccraft/loot_table/blocks/fossil_analysis_table.json
 16c7139d4cee82d888ab18905ba2f01a63951565 data/prehistoriccraft/loot_table/blocks/gypsum_crystal.json

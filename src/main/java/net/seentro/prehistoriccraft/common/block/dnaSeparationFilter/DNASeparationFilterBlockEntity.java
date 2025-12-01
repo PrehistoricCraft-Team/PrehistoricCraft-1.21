@@ -334,9 +334,7 @@ public class DNASeparationFilterBlockEntity extends BlockEntity implements MenuP
         if (!hasAllInputs()) {
             stopWorkingAnimIfNeeded();
             working = 0;
-            if (progress != 0) {
-                progress = 0;
-            }
+            progress = 0;
             setChanged(level, pos, state);
             return;
         }
@@ -417,8 +415,6 @@ public class DNASeparationFilterBlockEntity extends BlockEntity implements MenuP
                 Integer fallback = findOutputSlotFor(remainder);
                 if (fallback != null) {
                     itemHandler.insertItem(fallback, remainder, false);
-                } else {
-                    Containers.dropItemStack(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1, worldPosition.getZ() + 0.5, remainder);
                 }
             }
         }

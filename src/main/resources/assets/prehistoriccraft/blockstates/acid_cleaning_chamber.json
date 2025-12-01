@@ -1,10 +1,10 @@
 {
   "variants": {
     "half=lower": {
-      "model": "prehistoriccraft:block/acid_cleaning_chamber_invisible"
+      "model": "prehistoriccraft:block/acid_cleaning_chamber"
     },
     "half=upper": {
-      "model": "prehistoriccraft:block/acid_cleaning_chamber_invisible"
+      "model": "prehistoriccraft:block/acid_cleaning_chamber"
     }
   }
 }

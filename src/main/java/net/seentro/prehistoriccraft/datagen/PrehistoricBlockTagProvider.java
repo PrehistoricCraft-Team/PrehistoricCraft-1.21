@@ -56,6 +56,7 @@ public class PrehistoricBlockTagProvider extends BlockTagsProvider {
                 .add(PrehistoricBlocks.TISSUE_EXTRACTION_CHAMBER.get())
                 .add(PrehistoricBlocks.ACID_CLEANING_CHAMBER.get())
                 .add(PrehistoricBlocks.DNA_SEPARATION_FILTER.get())
+                .add(PrehistoricBlocks.DNA_RECOMBINATOR.get())
 
                 .add(PrehistoricBlocks.AMBER_BLOCK.get())
                 .add(PrehistoricBlocks.SULFUR_ORE.get())
@@ -82,6 +83,7 @@ public class PrehistoricBlockTagProvider extends BlockTagsProvider {
                 .add(PrehistoricBlocks.TISSUE_EXTRACTION_CHAMBER.get())
                 .add(PrehistoricBlocks.ACID_CLEANING_CHAMBER.get())
                 .add(PrehistoricBlocks.DNA_SEPARATION_FILTER.get())
+                .add(PrehistoricBlocks.DNA_RECOMBINATOR.get())
 
                 .add(PrehistoricBlocks.AMBER_BLOCK.get())
                 .add(PrehistoricBlocks.SULFUR_ORE.get())
