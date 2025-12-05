@@ -4,9 +4,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
@@ -18,7 +16,6 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlac
 import net.seentro.prehistoriccraft.PrehistoricCraft;
 import net.seentro.prehistoriccraft.registry.PrehistoricBlocks;
 import net.seentro.prehistoriccraft.registry.PrehistoricFeatures;
-import net.seentro.prehistoriccraft.registry.PrehistoricItems;
 import net.seentro.prehistoriccraft.worldgen.tree.DawnRedwoodFoliagePlacer;
 
 public class PrehistoricConfiguredFeatures {
@@ -32,9 +29,9 @@ public class PrehistoricConfiguredFeatures {
 
         register(context, DAWN_REDWOOD_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
                 BlockStateProvider.simple(PrehistoricBlocks.DAWN_REDWOOD_LOG.get()),
-                new StraightTrunkPlacer(20, 18, 15),
+                new StraightTrunkPlacer(15, 13, 10),
                 BlockStateProvider.simple(PrehistoricBlocks.DAWN_REDWOOD_LEAVES.get()),
-                new DawnRedwoodFoliagePlacer(UniformInt.of(2, 10), UniformInt.of(0, 10), UniformInt.of(15, 18)),
+                new DawnRedwoodFoliagePlacer(UniformInt.of(6, 10), UniformInt.of(6, 12), UniformInt.of(36, 42)),
                 new TwoLayersFeatureSize(2, 0, 10)).build());
     }
 
