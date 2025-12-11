@@ -17,7 +17,7 @@ import net.seentro.prehistoriccraft.registry.PrehistoricFoliagePlacerTypes;
 public class DawnRedwoodFoliagePlacer extends FoliagePlacer {
     public static final MapCodec<DawnRedwoodFoliagePlacer> CODEC = RecordCodecBuilder.mapCodec(
             foliagePlacerInstance -> foliagePlacerParts(foliagePlacerInstance)
-                    .and(IntProvider.codec(0, 24).fieldOf("trunk_height").forGetter(foliagePlacer -> foliagePlacer.height))
+                    .and(IntProvider.codec(0, 42).fieldOf("foliage_height").forGetter(foliagePlacer -> foliagePlacer.height))
                     .apply(foliagePlacerInstance, DawnRedwoodFoliagePlacer::new));
 
     protected final IntProvider height;
@@ -47,8 +47,24 @@ public class DawnRedwoodFoliagePlacer extends FoliagePlacer {
         BlockPos center = attachment.pos();
 
         if (foliageHeight <= 1) {
-            this.placeLeavesRow(level, blockSetter, random, config,
-                    center, 1, offset, attachment.doubleTrunk());
+            int dy = offset;
+            int radius = 1;
+
+            for (int x = -radius; x <= radius; x++) {
+                for (int z = -radius; z <= radius; z++) {
+                    int ax = Math.abs(x);
+                    int az = Math.abs(z);
+
+                    int distSq = ax * ax + az * az;
+                    int innerSq = (radius * radius);
+                    int outerSq = (radius + 1) * (radius + 1);
+
+                    if (distSq <= innerSq || (distSq <= outerSq && random.nextInt(2) == 0)) {
+                        BlockPos leafPos = center.offset(x, dy, z);
+                        this.tryPlaceLeaf(level, blockSetter, random, config, leafPos);
+                    }
+                }
+            }
             return;
         }
 
@@ -62,25 +78,43 @@ public class DawnRedwoodFoliagePlacer extends FoliagePlacer {
         int boundary = (foliageHeight * 2) / 3;
         int lastLayer = foliageHeight - 1;
 
+        float bottomFactor = 0.35f;
+        float bottomMinRadiusF = Math.max(2.0f, maxRadius * bottomFactor);
+
         for (int layer = 0; layer < foliageHeight; layer++) {
             int dy = offset - layer;
-            int radius;
 
+            float fRadius;
             if (layer <= boundary) {
                 float progress = (float) layer / (float) boundary;
-                float fRadius = 1.0F + progress * (maxRadius - 1.0F);
-                radius = Math.round(fRadius);
+                fRadius = 1.0F + progress * (maxRadius - 1.0F);
             } else {
                 float progress = (float) (layer - boundary) / (float) (lastLayer - boundary);
-                int shrink = Math.round(progress * (maxRadius / 3.0F));
-                radius = maxRadius - shrink;
-                radius = Math.max(2, radius);
+                fRadius = maxRadius - progress * (maxRadius - bottomMinRadiusF);
             }
 
-            radius = Math.min(radius, maxRadius);
+            int radius = Mth.clamp(Math.round(fRadius), 1, maxRadius);
 
-            this.placeLeavesRow(level, blockSetter, random, config,
-                    center, radius, dy, attachment.doubleTrunk());
+            int innerSq = radius * radius;
+            int outerSq = (radius + 1) * (radius + 1);
+
+            for (int x = -radius; x <= radius; x++) {
+                for (int z = -radius; z <= radius; z++) {
+                    int ax = Math.abs(x);
+                    int az = Math.abs(z);
+
+                    if (radius > 1 && ax == radius && az == radius) {
+                        continue;
+                    }
+
+                    int distSq = ax * ax + az * az;
+
+                    if (distSq <= innerSq || (distSq <= outerSq && random.nextInt(2) == 0)) {
+                        BlockPos leafPos = center.offset(x, dy, z);
+                        this.tryPlaceLeaf(level, blockSetter, random, config, leafPos);
+                    }
+                }
+            }
         }
     }
 

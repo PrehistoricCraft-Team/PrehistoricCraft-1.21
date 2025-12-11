@@ -29,9 +29,9 @@ public class PrehistoricConfiguredFeatures {
 
         register(context, DAWN_REDWOOD_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
                 BlockStateProvider.simple(PrehistoricBlocks.DAWN_REDWOOD_LOG.get()),
-                new StraightTrunkPlacer(15, 13, 10),
+                new StraightTrunkPlacer(24, 2, 1), //Random is 24|| 24+2 || 24+2+1
                 BlockStateProvider.simple(PrehistoricBlocks.DAWN_REDWOOD_LEAVES.get()),
-                new DawnRedwoodFoliagePlacer(UniformInt.of(6, 10), UniformInt.of(6, 12), UniformInt.of(36, 42)),
+                new DawnRedwoodFoliagePlacer(UniformInt.of(6, 10), UniformInt.of(4, 8), UniformInt.of(24, 30)),
                 new TwoLayersFeatureSize(2, 0, 10)).build());
     }
 

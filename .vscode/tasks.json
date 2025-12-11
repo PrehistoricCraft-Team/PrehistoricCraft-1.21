@@ -2,28 +2,59 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "label": "runData",
+      "type": "shell",
+      "command": "./gradlew",
+      "args": [
+        "runData",
+        "--rerun-tasks"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
       "label": "runClient",
       "type": "shell",
-      "command": ".\\gradlew.bat",
-      "args": ["runClient"],
-      "options": { "cwd": "${workspaceFolder}" },
+      "command": "./gradlew",
+      "args": [
+        "runClient"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
       "problemMatcher": []
     },
     {
       "label": "runClient (debug)",
       "type": "shell",
-      "command": ".\\gradlew.bat",
-      "args": ["runClient", "-PdebugClient", "-PdebugPort=5005"],
-      "options": { "cwd": "${workspaceFolder}" },
+      "command": "./gradlew",
+      "args": [
+        "runClient",
+        "-PdebugClient",
+        "-PdebugPort=5005"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
       "problemMatcher": []
     },
     {
-      "label": "runServer",
-      "type": "shell",
-      "command": ".\\gradlew.bat",
-      "args": ["runServer"],
-      "options": { "cwd": "${workspaceFolder}" },
-      "problemMatcher": []
+      "label": "runData + runClient",
+      "dependsOn": [
+        "runData",
+        "runClient"
+      ],
+      "dependsOrder": "sequence"
+    },
+    {
+      "label": "runData + runClient (debug)",
+      "dependsOn": [
+        "runData",
+        "runClient (debug)"
+      ],
+      "dependsOrder": "sequence"
     }
   ]
 }
