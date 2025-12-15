@@ -8,13 +8,14 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.grower.TreeGrower;
 import net.minecraft.world.level.block.state.BlockState;
 import net.seentro.prehistoriccraft.common.nature.plantStructures.ThreeStageFlowerPlantStructure;
 import org.jetbrains.annotations.Nullable;
 
 public class DawnRedwoodSaplingBlock extends ThreeStageFlowerPlantStructure implements BonemealableBlock, EntityBlock {
-    public DawnRedwoodSaplingBlock(SuspiciousStewEffects effects, Properties properties) {
-        super(effects, properties);
+    public DawnRedwoodSaplingBlock(SuspiciousStewEffects effects, TreeGrower treeGrower, Properties properties) {
+        super(effects, treeGrower, properties);
     }
 
     @Override

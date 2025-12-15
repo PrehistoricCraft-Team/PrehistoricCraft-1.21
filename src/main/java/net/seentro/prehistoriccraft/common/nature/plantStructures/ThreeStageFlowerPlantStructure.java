@@ -4,7 +4,10 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Vec3i;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
@@ -13,14 +16,14 @@ import net.minecraft.world.item.component.SuspiciousStewEffects;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.FarmBlock;
-import net.minecraft.world.level.block.FlowerBlock;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.grower.TreeGrower;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.chunk.ChunkGenerator;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.phys.Vec3;
@@ -30,6 +33,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.common.util.TriState;
 import net.seentro.prehistoriccraft.registry.PrehistoricBlocks;
 import net.seentro.prehistoriccraft.registry.PrehistoricFeatures;
+import net.seentro.prehistoriccraft.worldgen.PrehistoricConfiguredFeatures;
 import net.seentro.prehistoriccraft.worldgen.features.DawnRedwoodBigTreeFeature;
 import net.seentro.prehistoriccraft.worldgen.features.DawnRedwoodTreeFeature;
 
@@ -39,15 +43,18 @@ import java.util.function.BiPredicate;
 public class ThreeStageFlowerPlantStructure extends FlowerBlock {
     public static final MapCodec<ThreeStageFlowerPlantStructure> CODEC = RecordCodecBuilder.mapCodec(
             blockInstance -> blockInstance.group(
-                            EFFECTS_FIELD.forGetter(FlowerBlock::getSuspiciousEffects), propertiesCodec())
+                            EFFECTS_FIELD.forGetter(FlowerBlock::getSuspiciousEffects), TreeGrower.CODEC.fieldOf("tree").forGetter(Structure -> Structure.treeGrower), propertiesCodec())
                     .apply(blockInstance, ThreeStageFlowerPlantStructure::new));
 
     public static final IntegerProperty STAGES = IntegerProperty.create("stages", 1, 3);
     public static final BooleanProperty INVISIBLE = BooleanProperty.create("invisible");
     public static final BooleanProperty TWO_BY_TWO = BooleanProperty.create("two_by_two");
 
-    public ThreeStageFlowerPlantStructure(SuspiciousStewEffects effects, Properties properties) {
+    protected final TreeGrower treeGrower;
+
+    public ThreeStageFlowerPlantStructure(SuspiciousStewEffects effects, TreeGrower treeGrower, Properties properties) {
         super(effects, properties);
+        this.treeGrower = treeGrower;
         this.registerDefaultState(this.getStateDefinition().any().setValue(STAGES, 1).setValue(INVISIBLE, false).setValue(TWO_BY_TWO, false));
     }
 
@@ -86,6 +93,7 @@ public class ThreeStageFlowerPlantStructure extends FlowerBlock {
         int stage = state.getValue(STAGES);
         if (stage >= 3) {
 
+            this.growTree(level, level.getChunkSource().getGenerator(), pos, state, random);
             return;
         }
 
@@ -132,60 +140,6 @@ public class ThreeStageFlowerPlantStructure extends FlowerBlock {
         }
 
         level.setBlock(pos, toPlaceState, Block.UPDATE_ALL);
-    }
-
-    // Place the tree
-    private void placeTree(boolean isTwoByTwoSapling, ServerLevel level, BlockPos pos, RandomSource random) {
-        DawnRedwoodTreeFeature feature = (DawnRedwoodTreeFeature) PrehistoricFeatures.DAWN_REDWOOD_FEATURE.get();
-        DawnRedwoodBigTreeFeature bigFeature = (DawnRedwoodBigTreeFeature) PrehistoricFeatures.DAWN_REDWOOD_BIG_FEATURE.get();
-
-        if (isTwoByTwoSapling) {
-            Vec3i bigSize = bigFeature.getSize(level);
-            BlockPos halfSize = new BlockPos(bigSize.getX() / 2, 0, bigSize.getZ() / 2);
-            BlockPos placePos = pos.offset(-halfSize.getX(), 0, -halfSize.getZ());
-
-            for (int x = 0; x < bigSize.getX(); x++) {
-                for (int y = 0; y < bigSize.getY(); y++) {
-                    for (int z = 0; z < bigSize.getZ(); z++) {
-                        if (!level.isEmptyBlock(placePos.offset(x, y, z)) && !(level.getBlockState(placePos.offset(x, y, z)).canBeReplaced())
-                                && level.getBlockState(placePos.offset(x, y, z)).getBlock() != this)
-                            return;
-                    }
-                }
-            }
-
-            bigFeature.place(new FeaturePlaceContext<>(
-                    Optional.empty(),
-                    level,
-                    level.getChunkSource().getGenerator(),
-                    random,
-                    pos,
-                    NoneFeatureConfiguration.INSTANCE
-            ));
-        } else {
-            Vec3i size = feature.getSize(level);
-            BlockPos halfSize = new BlockPos(size.getX() / 2, 0, size.getZ() / 2);
-            BlockPos placePos = pos.offset(-halfSize.getX(), 0, -halfSize.getZ());
-
-            for (int x = 0; x < size.getX(); x++) {
-                for (int y = 0; y < size.getY(); y++) {
-                    for (int z = 0; z < size.getZ(); z++) {
-                        if (!level.isEmptyBlock(placePos.offset(x, y, z)) && !(level.getBlockState(placePos.offset(x, y, z)).canBeReplaced())
-                                && level.getBlockState(placePos.offset(x, y, z)).getBlock() != this)
-                            return;
-                    }
-                }
-            }
-
-            feature.place(new FeaturePlaceContext<>(
-                    Optional.empty(),
-                    level,
-                    level.getChunkSource().getGenerator(),
-                    random,
-                    pos,
-                    NoneFeatureConfiguration.INSTANCE
-            ));
-        }
     }
 
     // Can place on?
@@ -278,25 +232,6 @@ public class ThreeStageFlowerPlantStructure extends FlowerBlock {
         }
     }
 
-    // Destroy the whole sapling silently
-    private void breakWholeSaplingFromBottomSilently(ServerLevel level, BlockPos pos) {
-        // Find the top-most block of the plant
-        BlockPos topPos = pos;
-        while (level.getBlockState(topPos.above()).getBlock() == this) {
-            topPos = topPos.above();
-        }
-
-        // Walk down and break the whole sapling on the way
-        BlockPos currentPos = topPos;
-        while (level.getBlockState(currentPos).getBlock() == this) {
-            level.setBlock(currentPos, Blocks.AIR.defaultBlockState(), Block.UPDATE_CLIENTS);
-            currentPos = currentPos.below();
-        }
-
-        // Break the final block last
-        level.setBlock(currentPos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
-    }
-
     // Prevent dropping the invisible parts
     @Override
     public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
@@ -359,5 +294,48 @@ public class ThreeStageFlowerPlantStructure extends FlowerBlock {
         if (offsetX != pos) level.removeBlock(offsetX, false);
         if (offsetY != pos) level.removeBlock(offsetY, false);
         if (offsetXY != pos) level.removeBlock(offsetXY, false);
+    }
+
+    /* FROM VANILLA */
+
+    // Places the tree
+    public boolean growTree(ServerLevel level, ChunkGenerator chunkGenerator, BlockPos pos, BlockState state, RandomSource random) {
+        ResourceKey<ConfiguredFeature<?, ?>> dawnRedwoodTreeKey = PrehistoricConfiguredFeatures.DAWN_REDWOOD_TREE_KEY;
+        Holder<ConfiguredFeature<?, ?>> dawnRedwoodHolder = level.registryAccess()
+                .registryOrThrow(Registries.CONFIGURED_FEATURE)
+                .getHolder(dawnRedwoodTreeKey)
+                .orElse(null);
+        var event = net.neoforged.neoforge.event.EventHooks.fireBlockGrowFeature(level, random, pos, dawnRedwoodHolder);
+        dawnRedwoodHolder = event.getFeature();
+        if (event.isCanceled()) return false;
+        if (dawnRedwoodHolder == null) {
+            return false;
+        } else {
+            ConfiguredFeature<?, ?> configuredFeature = dawnRedwoodHolder.value();
+            BlockState blockState = level.getFluidState(pos).createLegacyBlock();
+            level.setBlock(pos, blockState, 4);
+            level.setBlock(pos.above(), blockState, 4);
+            level.setBlock(pos.above(2), blockState, 4);
+            level.setBlock(pos.above(3), blockState, 4);
+            if (configuredFeature.place(level, chunkGenerator, random, pos)) {
+                if (level.getBlockState(pos) == blockState) {
+                    BlockState invisibleState = state.setValue(INVISIBLE, true);
+                    level.sendBlockUpdated(pos.above(), invisibleState, blockState, Block.UPDATE_CLIENTS);
+                    level.sendBlockUpdated(pos.above(2), invisibleState, blockState, Block.UPDATE_CLIENTS);
+                    level.sendBlockUpdated(pos.above(3), invisibleState, blockState, Block.UPDATE_CLIENTS);
+                    level.sendBlockUpdated(pos, state, blockState, Block.UPDATE_ALL);
+                }
+
+                return true;
+            } else {
+                BlockState invisibleState = state.setValue(INVISIBLE, true);
+                level.setBlock(pos.above(), invisibleState, Block.UPDATE_CLIENTS);
+                level.setBlock(pos.above(2), invisibleState, Block.UPDATE_CLIENTS);
+                level.setBlock(pos.above(3), invisibleState, Block.UPDATE_CLIENTS);
+
+                level.setBlock(pos, state, Block.UPDATE_ALL);
+                return false;
+            }
+        }
     }
 }

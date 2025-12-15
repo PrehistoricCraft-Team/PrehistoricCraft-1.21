@@ -2,6 +2,7 @@ package net.seentro.prehistoriccraft.registry;
 
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.component.SuspiciousStewEffects;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
@@ -11,6 +12,7 @@ import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
 import net.seentro.prehistoriccraft.common.block.dnaRecombinator.DNARecombinatorBlock;
+import net.seentro.prehistoriccraft.common.nature.dawnRedwood.DawnRedwoodSaplingBlock;
 import net.seentro.prehistoriccraft.common.nature.grass.LoamGrassBlock;
 import net.seentro.prehistoriccraft.common.nature.*;
 import net.seentro.prehistoriccraft.common.block.acidCleaningChamber.AcidCleaningChamberBlock;
@@ -54,7 +56,7 @@ public class PrehistoricBlocks {
     public static final DeferredBlock<PrehistoricWallSignBlock> DAWN_REDWOOD_WALL_SIGN = registerBlockOnly("dawn_redwood_wall_sign", () -> new PrehistoricWallSignBlock(PrehistoricWoodTypes.DAWN_REDWOOD, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_SIGN)));
     public static final DeferredBlock<PrehistoricHangingSignBlock> DAWN_REDWOOD_HANGING_SIGN = registerBlockOnly("dawn_redwood_hanging_sign", () -> new PrehistoricHangingSignBlock(PrehistoricWoodTypes.DAWN_REDWOOD, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_HANGING_SIGN)));
     public static final DeferredBlock<PrehistoricWallHangingSignBlock> DAWN_REDWOOD_WALL_HANGING_SIGN = registerBlockOnly("dawn_redwood_wall_hanging_sign", () -> new PrehistoricWallHangingSignBlock(PrehistoricWoodTypes.DAWN_REDWOOD, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN)));
-    public static final DeferredBlock<Block> DAWN_REDWOOD_SAPLING = registerBlock("dawn_redwood_sapling", () -> new SaplingBlock(PrehistoricTreeGrowers.DAWN_REDWOOD, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES).dynamicShape().offsetType(BlockBehaviour.OffsetType.XZ).instabreak().pushReaction(PushReaction.DESTROY)));
+    public static final DeferredBlock<Block> DAWN_REDWOOD_SAPLING = registerBlock("dawn_redwood_sapling", () -> new DawnRedwoodSaplingBlock(SuspiciousStewEffects.EMPTY, PrehistoricTreeGrowers.DAWN_REDWOOD, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES).dynamicShape().offsetType(BlockBehaviour.OffsetType.XZ).instabreak().pushReaction(PushReaction.DESTROY)));
     public static final DeferredBlock<Block> POTTED_DAWN_REDWOOD_SAPLING = registerBlockOnly("potted_dawn_redwood_sapling", () -> new FlowerPotBlock((() -> (FlowerPotBlock) Blocks.FLOWER_POT), DAWN_REDWOOD_SAPLING, BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_OAK_SAPLING)));
 
     /* FOSSILIFEROUS STONE */
