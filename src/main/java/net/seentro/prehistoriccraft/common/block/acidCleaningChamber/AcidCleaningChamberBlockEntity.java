@@ -229,11 +229,6 @@ public class AcidCleaningChamberBlockEntity extends BlockEntity implements MenuP
     private static final Random random = new Random();
 
     public void tick(Level level, BlockPos pos, BlockState state) {
-        if (isBeingViewed(level)) {
-            if (working == 0)
-                this.triggerAnim("controller", "open_doors");
-        }
-
         handleAcid();
 
         if (!tryInitializeRecipe()) {

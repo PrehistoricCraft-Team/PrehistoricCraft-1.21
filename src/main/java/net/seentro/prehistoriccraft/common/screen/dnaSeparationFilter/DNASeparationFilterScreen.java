@@ -113,19 +113,16 @@ public class DNASeparationFilterScreen extends AbstractContainerScreen<DNASepara
         g.renderTooltip(font, Component.literal(fluid + " / " + capacity + " mB"), mouseX, mouseY);
     }
 
-    private void drawProgressToolTip(GuiGraphics g, int mouseX, int mouseY) {
-        int filled = menu.getScaledArrowProgress(PROG_BAR_W);
-        int percent = PROG_BAR_W == 0 ? 0 : filled * 100 / PROG_BAR_W;
-
+    private void drawProgressToolTip(GuiGraphics guiGraphics, int mouseX, int mouseY) {
         Font font = Minecraft.getInstance().font;
 
         List<Component> lines = new ArrayList<>();
-        lines.add(Component.translatable("gui.prehistoriccraft.progress_percent", percent));
+        lines.add(Component.translatable("gui.prehistoriccraft.progress_percent", menu.getPercent()));
 
         lines.add(Component.literal(""));
         lines.add(Component.translatable("gui.prehistoriccraft.open_guide"));
 
-        g.renderComponentTooltip(font, lines, mouseX, mouseY);
+        guiGraphics.renderComponentTooltip(font, lines, mouseX, mouseY);
     }
 
 
@@ -149,7 +146,7 @@ public class DNASeparationFilterScreen extends AbstractContainerScreen<DNASepara
             if (relX >= PROG_BAR_X && relX < PROG_BAR_X + PROG_BAR_W &&
                 relY >= PROG_BAR_Y && relY < PROG_BAR_Y + PROG_BAR_H) {
                     if (net.neoforged.fml.ModList.get().isLoaded("jei")) {
-                        JEIIntegration.showDnaFilterGuide();
+                        JEIIntegration.showDnaSeparatorGuide();
                     }
                 return true;
             }

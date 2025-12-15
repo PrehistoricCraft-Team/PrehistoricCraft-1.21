@@ -9,6 +9,10 @@ import mezz.jei.api.runtime.IJeiRuntime;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
+import net.seentro.prehistoriccraft.compat.jei.guides.acidCleaningChamber.AcidCleaningChamberGuideCategory;
+import net.seentro.prehistoriccraft.compat.jei.guides.acidCleaningChamber.AcidCleaningChamberGuideRecipe;
+import net.seentro.prehistoriccraft.compat.jei.guides.dnaRecombinator.DNARecombinatorGuideCategory;
+import net.seentro.prehistoriccraft.compat.jei.guides.dnaRecombinator.DNARecombinatorGuideRecipe;
 import net.seentro.prehistoriccraft.compat.jei.guides.dnaSeperationFilter.DNASeparationFilterGuideCategory;
 import net.seentro.prehistoriccraft.compat.jei.guides.dnaSeperationFilter.DNASeperationFilterGuideRecipe;
 import net.seentro.prehistoriccraft.registry.PrehistoricBlocks;
@@ -32,13 +36,20 @@ public class JEIModPlugin implements IModPlugin {
     @Override
     public void registerCategories(IRecipeCategoryRegistration registration) {
         registration.addRecipeCategories(
+                new AcidCleaningChamberGuideCategory(registration.getJeiHelpers().getGuiHelper()),
+                new TissueExtractionChamberGuideCategory(registration.getJeiHelpers().getGuiHelper()),
                 new DNASeparationFilterGuideCategory(registration.getJeiHelpers().getGuiHelper()),
-                new TissueExtractionChamberGuideCategory(registration.getJeiHelpers().getGuiHelper())
+                new DNARecombinatorGuideCategory(registration.getJeiHelpers().getGuiHelper())
         );
     }
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
+        registration.addRecipes(
+                AcidCleaningChamberGuideCategory.RECIPE_TYPE,
+                List.of(AcidCleaningChamberGuideRecipe.INSTANCE)
+        );
+
         registration.addRecipes(
                 TissueExtractionChamberGuideCategory.RECIPE_TYPE,
                 List.of(TissueExtractionChamberGuideRecipe.INSTANCE)
@@ -48,10 +59,20 @@ public class JEIModPlugin implements IModPlugin {
                 DNASeparationFilterGuideCategory.RECIPE_TYPE,
                 List.of(DNASeperationFilterGuideRecipe.INSTANCE)
         );
+
+        registration.addRecipes(
+                DNARecombinatorGuideCategory.RECIPE_TYPE,
+                List.of(DNARecombinatorGuideRecipe.INSTANCE)
+        );
     }
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
+        registration.addRecipeCatalyst(
+                new ItemStack(PrehistoricBlocks.ACID_CLEANING_CHAMBER.get()),
+                AcidCleaningChamberGuideCategory.RECIPE_TYPE
+        );
+
         registration.addRecipeCatalyst(
                 new ItemStack(PrehistoricBlocks.TISSUE_EXTRACTION_CHAMBER.get()),
                 TissueExtractionChamberGuideCategory.RECIPE_TYPE
@@ -60,6 +81,11 @@ public class JEIModPlugin implements IModPlugin {
         registration.addRecipeCatalyst(
                 new ItemStack(PrehistoricBlocks.DNA_SEPARATION_FILTER.get()),
                 DNASeparationFilterGuideCategory.RECIPE_TYPE
+        );
+
+        registration.addRecipeCatalyst(
+                new ItemStack(PrehistoricBlocks.DNA_RECOMBINATOR.get()),
+                DNARecombinatorGuideCategory.RECIPE_TYPE
         );
     }
 

@@ -83,9 +83,10 @@
   "item.prehistoriccraft.plaster_wrap": "Plaster Wrap",
 
   "block.prehistoriccraft.fossil_analysis_table": "Fossil Analysis Table",
-  "block.prehistoriccraft.tissue_extraction_chamber": "Tissue Extraction Chamber",
   "block.prehistoriccraft.acid_cleaning_chamber": "Acid Cleaning Chamber",
-  "block.prehistoriccraft.dna_separation_filter": "DNA Separation Machine",
+  "block.prehistoriccraft.tissue_extraction_chamber": "Tissue Extraction Chamber",
+  "block.prehistoriccraft.dna_separation_filter": "DNA Separation Filter",
+  "block.prehistoriccraft.dna_recombinator": "DNA Recombinator",
 
   "item.prehistoriccraft.animal_tissue": "Animal Soft Tissue",
   "item.prehistoriccraft.plant_tissue": "Plant Soft Tissue",
@@ -137,16 +138,18 @@
   "fluid_type.prehistoriccraft.blice_fluid_type": "Blice",
   "fluid_type.prehistoriccraft.acid_fluid_type": "Sulfuric Acid",
 
+  "gui.prehistoriccraft.acid_cleaning_chamber.guide": "Acid Cleaning",
+  "gui.prehistoriccraft.tissue_extraction_chamber.guide": "Tissue Extracting",
   "gui.prehistoriccraft.dna_separation_filter.guide": "DNA Separating",
+  "gui.prehistoriccraft.dna_decontamination.guide": "DNA Decontamination",
+  "gui.prehistoriccraft.dna_recombinator.guide": "DNA Recombinator",
   "gui.prehistoriccraft.progress_percent": "%s%% / 100%%",
   "gui.prehistoriccraft.open_guide": "Click to open guide!",
-  "gui.prehistoriccraft.tissue_extraction_chamber.guide": "Tissue Extracting",
 
   "item.prehistoriccraft.dayongaspis_bucket": "Bucket of Dayongaspis",
 
   "item.prehistoriccraft.raw_dayongaspis": "Raw Dayongaspis",
   "item.prehistoriccraft.cooked_dayongaspis": "Cooked Dayongaspis",
 
-  "entity.prehistoriccraft.dayongaspis": "Dayongaspis",
-  "block.prehistoriccraft.dna_recombinator": "DNA Recombinator"
+  "entity.prehistoriccraft.dayongaspis": "Dayongaspis"
 }

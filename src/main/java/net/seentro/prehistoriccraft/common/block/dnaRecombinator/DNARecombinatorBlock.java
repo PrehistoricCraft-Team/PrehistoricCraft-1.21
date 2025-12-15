@@ -31,49 +31,30 @@ public class DNARecombinatorBlock extends BaseEntityBlock {
     public static final MapCodec<DNARecombinatorBlock> CODEC = simpleCodec(DNARecombinatorBlock::new);
 
     private static final VoxelShape BOUNDING_BOX_NORTH = Shapes.or(
-            Block.box(1, 0, 0, 15, 4, 4),
-            Block.box(11, 4, 1, 13, 15, 3),
-            Block.box(7.5, 4, 1, 8.5, 11, 2),
-            Block.box(3, 4, 1, 5, 15, 3),
-            Block.box(10, 2, 4, 11, 3, 5),
-            Block.box(5, 2, 4, 6, 3, 5),
-            Block.box(4, 0, 5, 12, 6, 10.9),
-            Block.box(6, 6, 6, 10, 11, 10),
-            Block.box(5, 11, 0, 11, 16, 10.9)
+            Block.box(0, 0, 2, 16, 3, 16),
+            Block.box(1, 3, 10, 6, 15, 15),
+            Block.box(10, 3, 10, 15, 15, 15),
+            Block.box(6, 3, 4, 10, 12, 16)
     );
     private static final VoxelShape BOUNDING_BOX_SOUTH = Shapes.or(
-            Block.box(1, 0, 12, 15, 4, 16),
-            Block.box(3, 4, 13, 5, 15, 15),
-            Block.box(7.5, 4, 14, 8.5, 11, 15),
-            Block.box(11, 4, 13, 13, 15, 15),
-            Block.box(5, 2, 11, 6, 3, 12),
-            Block.box(10, 2, 11, 11, 3, 12),
-            Block.box(4, 0, 5.1, 12, 6, 11),
-            Block.box(6, 6, 6, 10, 11, 10),
-            Block.box(5, 11, 5.1, 11, 16, 16)
-    );
-    private static final VoxelShape BOUNDING_BOX_EAST = Shapes.or(
-            Block.box(0, 0, 1, 4, 4, 15),
-            Block.box(1, 4, 3, 3, 15, 5),
-            Block.box(1, 4, 7.5, 2, 11, 8.5),
-            Block.box(1, 4, 11, 3, 15, 13),
-            Block.box(4, 2, 5, 5, 3, 6),
-            Block.box(4, 2, 10, 5, 3, 11),
-            Block.box(5, 0, 4, 10.9, 6, 12),
-            Block.box(6, 6, 6, 10, 11, 10),
-            Block.box(0, 11, 5, 10.9, 16, 11)
+            Block.box(0, 0, 0, 16, 3, 14),
+            Block.box(10, 3, 1, 15, 15, 6),
+            Block.box(1, 3, 1, 6, 15, 6),
+            Block.box(6, 3, 0, 10, 12, 12)
     );
     private static final VoxelShape BOUNDING_BOX_WEST = Shapes.or(
-            Block.box(12, 0, 1, 16, 4, 15),
-            Block.box(13, 4, 11, 15, 15, 13),
-            Block.box(14, 4, 7.5, 15, 11, 8.5),
-            Block.box(13, 4, 3, 15, 15, 5),
-            Block.box(11, 2, 10, 12, 3, 11),
-            Block.box(11, 2, 5, 12, 3, 6),
-            Block.box(5.1, 0, 4, 11, 6, 12),
-            Block.box(6, 6, 6, 10, 11, 10),
-            Block.box(5.1, 11, 5, 16, 16, 11)
+            Block.box(0, 0, 0, 14, 3, 16),
+            Block.box(1, 3, 1, 6, 15, 6),
+            Block.box(1, 3, 10, 6, 15, 15),
+            Block.box(0, 3, 6, 12, 12, 10)
     );
+    private static final VoxelShape BOUNDING_BOX_EAST = Shapes.or(
+            Block.box(2, 0, 0, 16, 3, 16),
+            Block.box(10, 3, 10, 15, 15, 15),
+            Block.box(10, 3, 1, 15, 15, 6),
+            Block.box(4, 3, 6, 16, 12, 10)
+    );
+
 
     public DNARecombinatorBlock(Properties properties) {
         super(properties);
@@ -102,7 +83,7 @@ public class DNARecombinatorBlock extends BaseEntityBlock {
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection());
+        return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
     }
 
     @Override

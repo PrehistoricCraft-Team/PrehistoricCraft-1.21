@@ -11,9 +11,11 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
+import net.seentro.prehistoriccraft.compat.jei.JEIIntegration;
 import org.apache.logging.log4j.core.pattern.TextRenderer;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AcidCleaningChamberScreen extends AbstractContainerScreen<AcidCleaningChamberMenu> {
@@ -46,6 +48,22 @@ public class AcidCleaningChamberScreen extends AbstractContainerScreen<AcidClean
         if (isMouseOverPoint(x + 164, y + 17, 9, 51, mouseX, mouseY)) {
             drawToolTip(guiGraphics, mouseX, mouseY);
         }
+
+        if (isMouseOverPoint(x + 59, y + 61, 36, 8, mouseX, mouseY)) {
+            drawProgressToolTip(guiGraphics, mouseX, mouseY);
+        }
+    }
+
+    private void drawProgressToolTip(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+        Font font = Minecraft.getInstance().font;
+
+        List<Component> lines = new ArrayList<>();
+        lines.add(Component.translatable("gui.prehistoriccraft.progress_percent", menu.getPercent()));
+
+        lines.add(Component.literal(""));
+        lines.add(Component.translatable("gui.prehistoriccraft.open_guide"));
+
+        guiGraphics.renderComponentTooltip(font, lines, mouseX, mouseY);
     }
 
     private void drawToolTip(GuiGraphics guiGraphics, int mouseX, int mouseY) {
@@ -76,5 +94,23 @@ public class AcidCleaningChamberScreen extends AbstractContainerScreen<AcidClean
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         super.render(guiGraphics, mouseX, mouseY, partialTick);
         this.renderTooltip(guiGraphics, mouseX, mouseY);
+    }
+
+    @Override
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        int relX = (int) (mouseX - this.leftPos);
+        int relY = (int) (mouseY - this.topPos);
+
+        if (button == 0) {
+            if (relX >= 59 && relX < 59 + 36 &&
+                    relY >= 61 && relY < 61 + 8) {
+                if (net.neoforged.fml.ModList.get().isLoaded("jei")) {
+                    JEIIntegration.showAcidCleaningChamberGuide();
+                }
+                return true;
+            }
+        }
+
+        return super.mouseClicked(mouseX, mouseY, button);
     }
 }

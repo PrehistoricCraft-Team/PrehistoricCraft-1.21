@@ -20,10 +20,6 @@ public class PrehistoricDataComponents {
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<String>> FOSSIL_SPECIES = register("fossil_species",
             builder -> builder.persistent(Codec.STRING));
 
-    private static <T>DeferredHolder<DataComponentType<?>, DataComponentType<T>> register(String name, UnaryOperator<DataComponentType.Builder<T>> builderOperator) {
-        return DATA_COMPONENT_TYPES.register(name, () -> builderOperator.apply(DataComponentType.builder()).build());
-    }
-
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<String>> TISSUE_SIZE = register("tissue_size",
             builder -> builder.persistent(Codec.STRING));
 
@@ -38,6 +34,10 @@ public class PrehistoricDataComponents {
 
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<String>> DNA_SOURCE_TYPE = register("dna_source_type",
             builder -> builder.persistent(Codec.STRING));
+
+    private static <T>DeferredHolder<DataComponentType<?>, DataComponentType<T>> register(String name, UnaryOperator<DataComponentType.Builder<T>> builderOperator) {
+        return DATA_COMPONENT_TYPES.register(name, () -> builderOperator.apply(DataComponentType.builder()).build());
+    }
 
     public static void register(IEventBus eventBus) {
         DATA_COMPONENT_TYPES.register(eventBus);

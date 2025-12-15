@@ -1,6 +1,8 @@
 package net.seentro.prehistoriccraft.common.screen.fossilAnalysisTable;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
@@ -9,6 +11,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
+import net.seentro.prehistoriccraft.compat.jei.JEIIntegration;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class FossilAnalysisTableScreen extends AbstractContainerScreen<FossilAnalysisTableMenu> {
     private static final ResourceLocation GUI = ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID, "textures/gui/fossil_analysis_table_gui.png");
@@ -35,12 +41,30 @@ public class FossilAnalysisTableScreen extends AbstractContainerScreen<FossilAna
         guiGraphics.blit(GUI, x, y, 0, 0, 182, 190);
 
         renderProgressArrow(guiGraphics, x, y);
+
+        if (isMouseOverPoint(x + 81, y + 44, 18, 7, mouseX, mouseY)) {
+            drawProgressToolTip(guiGraphics, mouseX, mouseY);
+        }
     }
 
     private void renderProgressArrow(GuiGraphics guiGraphics, int x, int y) {
         if(menu.isCrafting()) {
             guiGraphics.blit(GUI, x + 82, y + 44, 182, 0, menu.getScaledArrowProgress(), 7);
         }
+    }
+
+    private void drawProgressToolTip(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+        Font font = Minecraft.getInstance().font;
+
+        List<Component> lines = new ArrayList<>();
+        lines.add(Component.translatable("gui.prehistoriccraft.progress_percent", menu.getPercent()));
+
+        guiGraphics.renderComponentTooltip(font, lines, mouseX, mouseY);
+    }
+
+    private static boolean isMouseOverPoint(int x, int y, int width, int height, int mouseX, int mouseY) {
+        return mouseX >= x && mouseX <= x + width
+                && mouseY >= y && mouseY <= y + height;
     }
 
     @Override

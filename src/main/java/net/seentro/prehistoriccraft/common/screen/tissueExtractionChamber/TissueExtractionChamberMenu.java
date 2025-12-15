@@ -58,9 +58,9 @@ public class TissueExtractionChamberMenu extends MachineMenu<TissueExtractionCha
     public int getScaledArrowProgress() {
         int progress = data.get(0);
         int maxProgress = data.get(1);
-        int arrowPixelSize = 16;
+        int progressBarHeight = 16;
 
-        return maxProgress != 0 && progress != 0 ? progress * arrowPixelSize / maxProgress : 0;
+        return maxProgress != 0 && progress != 0 ? progress * progressBarHeight / maxProgress : 0;
     }
 
     public int getScaledBliceFill() {

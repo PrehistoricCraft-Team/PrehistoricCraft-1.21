@@ -323,7 +323,6 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
             ItemStack input = itemHandler.getStackInSlot(i);
             if ((input.is(PrehistoricTags.Items.FOSSIL_SAMPLES) && input.has(PrehistoricDataComponents.FOSSIL_QUALITY))
                     || input.is(PrehistoricTags.Items.AMBER)) {
-                if (validInputSlot == i) return true;
 
                 validInputSlot = i;
                 return true;

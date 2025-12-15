@@ -1,6 +1,7 @@
 package net.seentro.prehistoriccraft.common.block.dnaRecombinator;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -21,11 +22,18 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
+import net.seentro.prehistoriccraft.PrehistoricCraft;
+import net.seentro.prehistoriccraft.common.block.dnaSeparationFilter.DNASeparationFilterBlock;
+import net.seentro.prehistoriccraft.common.block.dnaSeparationFilter.DNASeparationFilterBlockEntity;
 import net.seentro.prehistoriccraft.common.screen.dnaRecombinator.DNARecombinatorMenu;
 import net.seentro.prehistoriccraft.registry.PrehistoricBlockEntityTypes;
+import net.seentro.prehistoriccraft.registry.PrehistoricDataComponents;
 import net.seentro.prehistoriccraft.registry.PrehistoricItems;
 import net.seentro.prehistoriccraft.registry.PrehistoricTags;
+import net.seentro.prehistoriccraft.utils.hopper.HopperItemHandlerWrapper;
+import net.seentro.prehistoriccraft.utils.hopper.HopperRules;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
@@ -35,6 +43,8 @@ import software.bernie.geckolib.animation.PlayState;
 import software.bernie.geckolib.animation.RawAnimation;
 import software.bernie.geckolib.util.GeckoLibUtil;
 import software.bernie.geckolib.util.RenderUtil;
+
+import java.util.EnumMap;
 
 public class DNARecombinatorBlockEntity extends BlockEntity implements MenuProvider, GeoBlockEntity {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
@@ -50,14 +60,23 @@ public class DNARecombinatorBlockEntity extends BlockEntity implements MenuProvi
 
         @Override
         public boolean isItemValid(int slot, ItemStack stack) {
-            return true;
+            return slot != 0;
         }
     };
 
     protected final ContainerData data;
     private int progress = 0;
-    private int maxProgress = 250;
+    private int maxProgress = 400;
     protected int working;
+
+    //Petri Dish output slot is 0
+    //Petri Dish input slots is 1,2
+    //Magma slot is 3
+    //Left ice slots are 4,5,6
+    //Right ice slots are 7,8,9
+
+    private final HopperRules hopperRules = new HopperRules();
+    private final EnumMap<Direction, IItemHandler> hopperHandlers = new EnumMap<>(Direction.class);
 
     public DNARecombinatorBlockEntity(BlockPos pos, BlockState blockState) {
         super(PrehistoricBlockEntityTypes.DNA_RECOMBINATOR_BLOCK_ENTITY.get(), pos, blockState);
@@ -86,6 +105,30 @@ public class DNARecombinatorBlockEntity extends BlockEntity implements MenuProvi
                 return 3;
             }
         };
+
+        hopperRules.set(Direction.WEST, new HopperRules.SideRule(
+                slot -> slot == 3,
+                stack -> stack.is(Items.MAGMA_CREAM),
+                slot -> false
+        ));
+
+        hopperRules.set(Direction.EAST, new HopperRules.SideRule(
+                DNARecombinatorBlockEntity::isIceBlockSlot,
+                stack -> stack.is(Items.ICE),
+                slot -> false
+        ));
+
+        hopperRules.set(Direction.SOUTH, new HopperRules.SideRule(
+                slot -> slot == 1 || slot == 2,
+                stack -> stack.is(PrehistoricItems.DNA_IN_A_PETRI_DISH.get()),
+                slot -> false
+        ));
+
+        hopperRules.set(Direction.DOWN, new HopperRules.SideRule(
+                slot -> false,
+                stack -> false,
+                slot -> slot == 0
+        ));
     }
 
     /* SAVING */
@@ -164,6 +207,176 @@ public class DNARecombinatorBlockEntity extends BlockEntity implements MenuProvi
         Containers.dropContents(this.level, this.worldPosition, container);
     }
 
+    private @Nullable ItemStack result;
+
     public void tick(Level level, BlockPos pos, BlockState state) {
+        if (!hasRecipe()) {
+            this.stopTriggeredAnim("controller", "working");
+            working = 0;
+            progress = 0;
+            result = null;
+            setChanged(level, pos, state);
+            return;
+        }
+
+        working = 1;
+        this.triggerAnim("controller", "working");
+        progress++;
+        setChanged(level, pos, state);
+
+        if (progress >= maxProgress) {
+            craft();
+            progress = 0;
+            working = 0;
+            result = null;
+        }
+    }
+
+    private void craft() {
+        if (result == null) return;
+
+        int leftSideIceSlot = getSlotForIceLeftSide();
+        int rightSideIceSlot = getSlotForIceRightSide();
+
+        itemHandler.extractItem(leftSideIceSlot, 1, false);
+        itemHandler.extractItem(rightSideIceSlot, 1, false);
+        itemHandler.extractItem(3, 1, false);
+
+        itemHandler.extractItem(1, 1, false);
+        itemHandler.extractItem(2, 1, false);
+
+        int outputStackSize = itemHandler.getStackInSlot(0).getCount();
+        result.setCount(outputStackSize + 1);
+        itemHandler.setStackInSlot(0, result);
+    }
+
+    private boolean hasRecipe() {
+        ItemStack leftPetriDish = itemHandler.getStackInSlot(1);
+        ItemStack rightPetriDish = itemHandler.getStackInSlot(2);
+
+        if (!(leftPetriDish.is(PrehistoricItems.DNA_IN_A_PETRI_DISH) && leftPetriDish.has(PrehistoricDataComponents.DNA_QUALITY))) return false;
+        if (!(rightPetriDish.is(PrehistoricItems.DNA_IN_A_PETRI_DISH) && rightPetriDish.has(PrehistoricDataComponents.DNA_QUALITY))) return false;
+
+        String leftPetriDishSpecies = leftPetriDish.getOrDefault(PrehistoricDataComponents.FOSSIL_SPECIES, "null");
+        String rightPetriDishSpecies = rightPetriDish.getOrDefault(PrehistoricDataComponents.FOSSIL_SPECIES, "null");
+
+        if (leftPetriDishSpecies.equals("null") || rightPetriDishSpecies.equals("null")) return false;
+        if (!leftPetriDishSpecies.equals(rightPetriDishSpecies)) return false;
+
+        if (!(itemHandler.getStackInSlot(3).is(Items.MAGMA_CREAM))) return false;
+        if (!(hasIceInLeftSide() && hasIceInRightSide())) return false;
+
+        if (result == null)
+            result = simulateOutput();
+
+        return canOutput(result);
+    }
+
+    private boolean canOutput(ItemStack result) {
+        ItemStack outputStack = itemHandler.getStackInSlot(0);
+        String resultSpecies = result.getOrDefault(PrehistoricDataComponents.FOSSIL_SPECIES, "null");
+        int resultQuality = result.getOrDefault(PrehistoricDataComponents.DNA_QUALITY, 0);
+
+        String outputStackSpecies = outputStack.getOrDefault(PrehistoricDataComponents.FOSSIL_SPECIES, "null");
+        int outputStackQuality = outputStack.getOrDefault(PrehistoricDataComponents.DNA_QUALITY, 0);
+
+        int outputStackSize = outputStack.getCount();
+
+        if (outputStack.isEmpty()) return true;
+
+        if (!outputStack.is(PrehistoricItems.DNA_IN_A_PETRI_DISH) || !outputStackSpecies.equals(resultSpecies) || outputStackQuality != resultQuality)
+            return false;
+
+        if (outputStackSize >= result.getMaxStackSize()) return false;
+
+        return true;
+    }
+
+    private ItemStack simulateOutput() {
+        int leftPetriDishQuality = itemHandler.getStackInSlot(1).getOrDefault(PrehistoricDataComponents.DNA_QUALITY.get(), 0);
+        int rightPetriDishQuality = itemHandler.getStackInSlot(2).getOrDefault(PrehistoricDataComponents.DNA_QUALITY.get(), 0);
+        int quality = Math.min(leftPetriDishQuality + rightPetriDishQuality, 100);
+
+        String species = itemHandler.getStackInSlot(1).getOrDefault(PrehistoricDataComponents.FOSSIL_SPECIES, "null");
+        if (species.equals("null")) {
+            PrehistoricCraft.LOGGER.error("Species for the DNA Recombinator was null!");
+            return ItemStack.EMPTY;
+        }
+
+        ItemStack result = new ItemStack(PrehistoricItems.DNA_IN_A_PETRI_DISH.get());
+        result.set(PrehistoricDataComponents.DNA_QUALITY, quality);
+        result.set(PrehistoricDataComponents.FOSSIL_SPECIES, species);
+
+        return result;
+    }
+
+    private boolean hasIceInLeftSide() {
+        for (int i = 4; i < 7; i++) {
+            if (itemHandler.getStackInSlot(i).is(Items.ICE)) return true;
+        }
+
+        return false;
+    }
+
+    private boolean hasIceInRightSide() {
+        for (int i = 7; i < 10; i++) {
+            if (itemHandler.getStackInSlot(i).is(Items.ICE)) return true;
+        }
+
+        return false;
+    }
+
+    private int getSlotForIceLeftSide() {
+        for (int i = 4; i < 7; i++) {
+            if (itemHandler.getStackInSlot(i).is(Items.ICE)) return i;
+        }
+
+        return 0;
+    }
+
+    private int getSlotForIceRightSide() {
+        for (int i = 7; i < 10; i++) {
+            if (itemHandler.getStackInSlot(i).is(Items.ICE)) return i;
+        }
+
+        return 0;
+    }
+
+    /* HOPPER */
+
+    private static boolean isIceBlockSlot(int slot) {
+        return slot >= 4 && slot <= 9;
+    }
+
+    private IItemHandler getLogicalSideHandler(Direction logicalSide) {
+        return hopperHandlers.computeIfAbsent(
+                logicalSide,
+                side -> new HopperItemHandlerWrapper(itemHandler, hopperRules, side)
+        );
+    }
+
+    public @Nullable IItemHandler getHopperItemHandler(@Nullable Direction worldSide) {
+        if (worldSide == null) return itemHandler;
+
+        Direction facing = this.getBlockState().getValue(DNASeparationFilterBlock.FACING);
+        Direction logicalSide;
+
+        if (worldSide == Direction.UP || worldSide == Direction.DOWN) {
+            logicalSide = worldSide;
+        } else {
+            if (worldSide == facing.getCounterClockWise()) {
+                logicalSide = Direction.WEST;
+            } else if (worldSide == facing.getClockWise()) {
+                logicalSide = Direction.EAST;
+            } else if (worldSide == facing.getOpposite()) {
+                logicalSide = Direction.SOUTH;
+            } else {
+                logicalSide = null;
+            }
+        }
+
+        if (logicalSide == null) return null;
+
+        return getLogicalSideHandler(logicalSide);
     }
 }

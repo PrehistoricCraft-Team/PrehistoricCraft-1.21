@@ -1,4 +1,4 @@
-package net.seentro.prehistoriccraft.compat.jei.guides.tissueExtractionChamber;
+package net.seentro.prehistoriccraft.compat.jei.guides.acidCleaningChamber;
 
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -13,29 +13,30 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
 import net.seentro.prehistoriccraft.registry.PrehistoricBlocks;
+import org.jetbrains.annotations.NotNull;
 
-public class TissueExtractionChamberGuideCategory implements IRecipeCategory<TissueExtractionChamberGuideRecipe> {
+public class AcidCleaningChamberGuideCategory implements IRecipeCategory<AcidCleaningChamberGuideRecipe> {
 
-    public static final RecipeType<TissueExtractionChamberGuideRecipe> RECIPE_TYPE =
-            RecipeType.create(PrehistoricCraft.MODID, "tissue_extraction_chamber_guide", TissueExtractionChamberGuideRecipe.class);
+    public static final RecipeType<AcidCleaningChamberGuideRecipe> RECIPE_TYPE =
+            RecipeType.create(PrehistoricCraft.MODID, "acid_cleaning_table_guide", AcidCleaningChamberGuideRecipe.class);
 
     private static final ResourceLocation GUIDE_TEXTURE =
             ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID, "textures/gui/jei/dna_separation_filter_guide.png");
 
     private final IDrawable icon;
 
-    public TissueExtractionChamberGuideCategory(IGuiHelper guiHelper) {
-        this.icon = guiHelper.createDrawableItemStack(new ItemStack(PrehistoricBlocks.TISSUE_EXTRACTION_CHAMBER.get()));
+    public AcidCleaningChamberGuideCategory(IGuiHelper guiHelper) {
+        this.icon = guiHelper.createDrawableItemStack(new ItemStack(PrehistoricBlocks.ACID_CLEANING_CHAMBER.get()));
     }
 
     @Override
-    public RecipeType<TissueExtractionChamberGuideRecipe> getRecipeType() {
+    public @NotNull RecipeType<AcidCleaningChamberGuideRecipe> getRecipeType() {
         return RECIPE_TYPE;
     }
 
     @Override
-    public Component getTitle() {
-        return Component.translatable("gui.prehistoriccraft.tissue_extraction_chamber.guide");
+    public @NotNull Component getTitle() {
+        return Component.translatable("gui.prehistoriccraft.acid_cleaning_chamber.guide");
     }
 
     @Override
@@ -44,7 +45,7 @@ public class TissueExtractionChamberGuideCategory implements IRecipeCategory<Tis
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, TissueExtractionChamberGuideRecipe recipe, IFocusGroup focuses) {
+    public void setRecipe(IRecipeLayoutBuilder builder, AcidCleaningChamberGuideRecipe recipe, IFocusGroup focuses) {
     }
 
     @Override
@@ -58,7 +59,7 @@ public class TissueExtractionChamberGuideCategory implements IRecipeCategory<Tis
     }
 
     @Override
-    public void draw(TissueExtractionChamberGuideRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(AcidCleaningChamberGuideRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         guiGraphics.blit(
                 GUIDE_TEXTURE,
                 0, 0,

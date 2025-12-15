@@ -138,6 +138,18 @@ public class PrehistoricCraft {
                 },
                 PrehistoricBlocks.TISSUE_EXTRACTION_CHAMBER.get()
         );
+
+        event.registerBlock(
+                Capabilities.ItemHandler.BLOCK,
+                (level, pos, state, be, side) -> {
+                    BlockEntity realBe = level.getBlockEntity(pos);
+                    if (realBe instanceof DNARecombinatorBlockEntity chamber)
+                        return chamber.getHopperItemHandler(side);
+
+                    return null;
+                },
+                PrehistoricBlocks.DNA_RECOMBINATOR.get()
+        );
     }
 
 

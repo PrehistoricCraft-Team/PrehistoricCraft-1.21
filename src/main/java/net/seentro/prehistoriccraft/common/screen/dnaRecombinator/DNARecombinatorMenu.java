@@ -58,6 +58,27 @@ public class DNARecombinatorMenu extends MachineMenu<DNARecombinatorBlockEntity>
         }
     }
 
+    public float getProgressPercent() {
+        int progress = data.get(0);
+        int max = data.get(1);
+        if (max == 0) return 0f;
+        return (float) progress / (float) max;
+    }
+
+    public int getScaledHorizontalHalf() {
+        float percent = getProgressPercent() / 0.75f;
+        return (int)(percent * 46);
+    }
+
+    public int getScaledVerticalProgress() {
+        float percent = getProgressPercent();
+        if (percent <= 0.75f) return 0;
+
+        float verticalPercent = (percent - 0.75f) * 4f;
+        int height = 24;
+
+        return (int)(verticalPercent * height);
+    }
 
     @Override
     public boolean stillValid(Player player) {

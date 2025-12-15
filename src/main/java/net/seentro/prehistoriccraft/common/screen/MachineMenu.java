@@ -23,6 +23,15 @@ public abstract class MachineMenu<T> extends AbstractContainerMenu {
         TE_INVENTORY_SLOT_COUNT = teInventorySlotCount;
     }
 
+    public int getPercent() {
+        int progress = data.get(0);
+        int max = data.get(1);
+
+        if (max == 0) return 0;
+
+        return (int)((progress / (float)max) * 100);
+    }
+
     public T getBlockEntity() {
         return this.blockEntity;
     }
