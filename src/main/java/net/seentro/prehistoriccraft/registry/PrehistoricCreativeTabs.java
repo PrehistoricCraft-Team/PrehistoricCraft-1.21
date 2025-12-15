@@ -103,6 +103,7 @@ public class PrehistoricCreativeTabs {
                 output.accept(PrehistoricItems.DAWN_REDWOOD_BOAT.get());
                 output.accept(PrehistoricItems.DAWN_REDWOOD_CHEST_BOAT.get());
                 output.accept(PrehistoricBlocks.DAWN_REDWOOD_SAPLING.get());
+                output.accept(PrehistoricBlocks.DAWN_REDWOOD_CONES.get());
             }).build());
 
     public static final Supplier<CreativeModeTab> PREHISTORICCRAFT_ITEMS = CREATIVE_MODE_TABS.register("prehistoriccraft_items", () -> CreativeModeTab.builder().icon(() -> new ItemStack(PrehistoricItems.EXCAVATOR_PICKAXE.get()))

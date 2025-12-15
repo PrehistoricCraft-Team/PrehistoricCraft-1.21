@@ -89,6 +89,7 @@ public class PrehistoricCraft {
         PrehistoricFluids.register(modEventBus);
         PrehistoricFeatures.register(modEventBus);
         PrehistoricFoliagePlacerTypes.register(modEventBus);
+        PrehistoricTrunkPlacerTypes.register(modEventBus);
         PrehistoricDinosaurEntityTypes.register(modEventBus);
 
         NeoForge.EVENT_BUS.register(this);
