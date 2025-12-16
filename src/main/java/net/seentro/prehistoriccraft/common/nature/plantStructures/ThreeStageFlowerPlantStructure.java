@@ -301,9 +301,10 @@ public class ThreeStageFlowerPlantStructure extends FlowerBlock {
     // Places the tree
     public boolean growTree(ServerLevel level, ChunkGenerator chunkGenerator, BlockPos pos, BlockState state, RandomSource random) {
         ResourceKey<ConfiguredFeature<?, ?>> dawnRedwoodTreeKey = PrehistoricConfiguredFeatures.DAWN_REDWOOD_TREE_KEY;
+        ResourceKey<ConfiguredFeature<?, ?>> dawnRedwoodBigTreeKey = PrehistoricConfiguredFeatures.DAWN_REDWOOD_BIG_KEY;
         Holder<ConfiguredFeature<?, ?>> dawnRedwoodHolder = level.registryAccess()
                 .registryOrThrow(Registries.CONFIGURED_FEATURE)
-                .getHolder(dawnRedwoodTreeKey)
+                .getHolder(state.getValue(TWO_BY_TWO)? dawnRedwoodBigTreeKey : dawnRedwoodTreeKey)
                 .orElse(null);
         var event = net.neoforged.neoforge.event.EventHooks.fireBlockGrowFeature(level, random, pos, dawnRedwoodHolder);
         dawnRedwoodHolder = event.getFeature();
