@@ -1,4 +1,59 @@
 {
-  "type": "prehistoriccraft:dawn_redwood_big",
-  "config": {}
+  "type": "minecraft:tree",
+  "config": {
+    "decorators": [],
+    "dirt_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:dirt"
+      }
+    },
+    "foliage_placer": {
+      "type": "prehistoriccraft:dawn_redwood_foliage_placer",
+      "foliage_height": {
+        "type": "minecraft:uniform",
+        "max_inclusive": 50,
+        "min_inclusive": 45
+      },
+      "offset": {
+        "type": "minecraft:uniform",
+        "max_inclusive": 18,
+        "min_inclusive": 12
+      },
+      "radius": {
+        "type": "minecraft:uniform",
+        "max_inclusive": 14,
+        "min_inclusive": 12
+      }
+    },
+    "foliage_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "prehistoriccraft:dawn_redwood_leaves"
+      }
+    },
+    "force_dirt": false,
+    "ignore_vines": false,
+    "minimum_size": {
+      "type": "minecraft:two_layers_feature_size",
+      "limit": 2,
+      "lower_size": 0,
+      "upper_size": 10
+    },
+    "trunk_placer": {
+      "type": "prehistoriccraft:dawn_redwood_trunk_placer",
+      "base_height": 35,
+      "height_rand_a": 5,
+      "height_rand_b": 5
+    },
+    "trunk_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "prehistoriccraft:dawn_redwood_log",
+        "Properties": {
+          "axis": "y"
+        }
+      }
+    }
+  }
 }

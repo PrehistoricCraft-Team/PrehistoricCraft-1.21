@@ -8,6 +8,6 @@ import java.util.Optional;
 
 public class PrehistoricTreeGrowers {
     public static final TreeGrower DAWN_REDWOOD = new TreeGrower(PrehistoricCraft.MODID + 
-        ":dawn_redwood", Optional.empty(), Optional.of(PrehistoricConfiguredFeatures.DAWN_REDWOOD_TREE_KEY), 
+        ":dawn_redwood", Optional.of(PrehistoricConfiguredFeatures.DAWN_REDWOOD_BIG_KEY), Optional.of(PrehistoricConfiguredFeatures.DAWN_REDWOOD_TREE_KEY), 
         Optional.empty());
 }

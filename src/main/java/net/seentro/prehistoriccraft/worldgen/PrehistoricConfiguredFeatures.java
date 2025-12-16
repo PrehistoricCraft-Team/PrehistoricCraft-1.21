@@ -17,6 +17,7 @@ import net.seentro.prehistoriccraft.PrehistoricCraft;
 import net.seentro.prehistoriccraft.registry.PrehistoricBlocks;
 import net.seentro.prehistoriccraft.registry.PrehistoricFeatures;
 import net.seentro.prehistoriccraft.worldgen.tree.DawnRedwoodFoliagePlacer;
+import net.seentro.prehistoriccraft.worldgen.tree.DawnRedwoodTrunkPlacer;
 
 public class PrehistoricConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> DAWN_REDWOOD_TREE_KEY = registerKey("dawn_redwood_tree");
@@ -25,7 +26,14 @@ public class PrehistoricConfiguredFeatures {
 
     public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
         register(context, DAWN_REDWOOD_KEY, PrehistoricFeatures.DAWN_REDWOOD_FEATURE.get(), NoneFeatureConfiguration.INSTANCE);
-        register(context, DAWN_REDWOOD_BIG_KEY, PrehistoricFeatures.DAWN_REDWOOD_BIG_FEATURE.get(), NoneFeatureConfiguration.INSTANCE);
+        register(context, DAWN_REDWOOD_BIG_KEY, Feature.TREE,
+            new TreeConfiguration.TreeConfigurationBuilder(
+                    BlockStateProvider.simple(PrehistoricBlocks.DAWN_REDWOOD_LOG.get()),
+                    new DawnRedwoodTrunkPlacer(35, 5, 5), //Random is 35|| 35+5 || 35+5+5
+                    BlockStateProvider.simple(PrehistoricBlocks.DAWN_REDWOOD_LEAVES.get()),
+                    new DawnRedwoodFoliagePlacer(UniformInt.of(12, 14), UniformInt.of(12, 18), UniformInt.of(45, 50)),
+                    new TwoLayersFeatureSize(2, 0, 10)).build()
+    );
 
         register(context, DAWN_REDWOOD_TREE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
                 BlockStateProvider.simple(PrehistoricBlocks.DAWN_REDWOOD_LOG.get()),
