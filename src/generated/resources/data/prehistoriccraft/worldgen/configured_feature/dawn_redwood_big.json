@@ -22,8 +22,8 @@
       },
       "radius": {
         "type": "minecraft:uniform",
-        "max_inclusive": 14,
-        "min_inclusive": 12
+        "max_inclusive": 10,
+        "min_inclusive": 8
       }
     },
     "foliage_provider": {

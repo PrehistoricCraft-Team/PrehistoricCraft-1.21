@@ -31,7 +31,7 @@ public class PrehistoricConfiguredFeatures {
                     BlockStateProvider.simple(PrehistoricBlocks.DAWN_REDWOOD_LOG.get()),
                     new DawnRedwoodTrunkPlacer(35, 5, 5), //Random is 35|| 35+5 || 35+5+5
                     BlockStateProvider.simple(PrehistoricBlocks.DAWN_REDWOOD_LEAVES.get()),
-                    new DawnRedwoodFoliagePlacer(UniformInt.of(12, 14), UniformInt.of(12, 18), UniformInt.of(45, 50)),
+                    new DawnRedwoodFoliagePlacer(UniformInt.of(8, 10), UniformInt.of(12, 18), UniformInt.of(45, 50)),
                     new TwoLayersFeatureSize(2, 0, 10)).build()
     );
 
@@ -39,7 +39,7 @@ public class PrehistoricConfiguredFeatures {
                 BlockStateProvider.simple(PrehistoricBlocks.DAWN_REDWOOD_LOG.get()),
                 new StraightTrunkPlacer(24, 2, 1), //Random is 24|| 24+2 || 24+2+1
                 BlockStateProvider.simple(PrehistoricBlocks.DAWN_REDWOOD_LEAVES.get()),
-                new DawnRedwoodFoliagePlacer(UniformInt.of(6, 10), UniformInt.of(4, 8), UniformInt.of(24, 30)),
+                new DawnRedwoodFoliagePlacer(UniformInt.of(5, 8), UniformInt.of(4, 8), UniformInt.of(24, 30)),
                 new TwoLayersFeatureSize(2, 0, 10)).build());
     }
 
