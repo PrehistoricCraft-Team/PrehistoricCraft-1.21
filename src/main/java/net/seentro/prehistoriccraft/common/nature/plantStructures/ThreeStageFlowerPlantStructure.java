@@ -63,8 +63,6 @@ public class ThreeStageFlowerPlantStructure extends FlowerBlock {
 
     protected final TreeGrower treeGrower;
 
-    private static final ThreadLocal<Boolean> IGNORE_SURVIVAL = ThreadLocal.withInitial(() -> false);
-
     public ThreeStageFlowerPlantStructure(SuspiciousStewEffects effects, TreeGrower treeGrower, Properties properties) {
         super(effects, properties);
         this.treeGrower = treeGrower;
@@ -164,8 +162,6 @@ public class ThreeStageFlowerPlantStructure extends FlowerBlock {
     // Need to check if the ground is valid too!
     @Override
     public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
-        if (IGNORE_SURVIVAL.get()) return true;
-
         boolean isInvisible = state.getValue(INVISIBLE);
         int requiredHeight = requiredInvisibleForStage(state.getValue(STAGES));
 
