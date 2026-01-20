@@ -9,14 +9,19 @@ import net.minecraft.core.Vec3i;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.SuspiciousStewEffects;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.grower.TreeGrower;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -26,17 +31,23 @@ import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.neoforged.neoforge.common.data.SoundDefinition;
 import net.neoforged.neoforge.common.util.TriState;
+import net.seentro.prehistoriccraft.PrehistoricCraft;
 import net.seentro.prehistoriccraft.registry.PrehistoricBlocks;
 import net.seentro.prehistoriccraft.registry.PrehistoricFeatures;
 import net.seentro.prehistoriccraft.worldgen.PrehistoricConfiguredFeatures;
 import net.seentro.prehistoriccraft.worldgen.features.DawnRedwoodBigTreeFeature;
 import net.seentro.prehistoriccraft.worldgen.features.DawnRedwoodTreeFeature;
+import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.function.BiPredicate;
 
@@ -51,6 +62,8 @@ public class ThreeStageFlowerPlantStructure extends FlowerBlock {
     public static final BooleanProperty TWO_BY_TWO = BooleanProperty.create("two_by_two");
 
     protected final TreeGrower treeGrower;
+
+    private static final ThreadLocal<Boolean> IGNORE_SURVIVAL = ThreadLocal.withInitial(() -> false);
 
     public ThreeStageFlowerPlantStructure(SuspiciousStewEffects effects, TreeGrower treeGrower, Properties properties) {
         super(effects, properties);
@@ -151,6 +164,8 @@ public class ThreeStageFlowerPlantStructure extends FlowerBlock {
     // Need to check if the ground is valid too!
     @Override
     public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
+        if (IGNORE_SURVIVAL.get()) return true;
+
         boolean isInvisible = state.getValue(INVISIBLE);
         int requiredHeight = requiredInvisibleForStage(state.getValue(STAGES));
 
@@ -165,8 +180,8 @@ public class ThreeStageFlowerPlantStructure extends FlowerBlock {
         if (!isInvisible) {
             if (!canSaplingSurvive.test(level.getBlockState(pos.below()), pos.below())) return false;
 
-            for (int i = 0; i < requiredHeight; i++) {
-                BlockState offsetState = level.getBlockState(pos.above(requiredHeight));
+            for (int i = 1; i < requiredHeight; i++) {
+                BlockState offsetState = level.getBlockState(pos.above(i));
 
                 if (offsetState.getBlock() != this) return false;
                 if (!offsetState.getValue(INVISIBLE)) return false;
@@ -210,52 +225,36 @@ public class ThreeStageFlowerPlantStructure extends FlowerBlock {
         if (!level.isClientSide()) {
             // If we can't survive, break
             if (!state.getValue(INVISIBLE) && !state.canSurvive(level, pos)) {
-                breakWholeSapling((ServerLevel) level, pos, true);
+                //breakWholeSapling((ServerLevel) level, pos, true);
             }
         }
         super.neighborChanged(state, level, pos, block, fromPos, isMoving);
-    }
-
-    // Destroy the whole sapling
-    private void breakWholeSapling(ServerLevel level, BlockPos pos, boolean shouldDrop) {
-        // Find the top-most block of the plant
-        BlockPos topPos = pos;
-        while (level.getBlockState(topPos.above()).getBlock() == this) {
-            topPos = topPos.above();
-        }
-
-        // Walk down and break the whole sapling on the way
-        BlockPos currentPos = topPos;
-        while (level.getBlockState(currentPos).getBlock() == this) {
-            level.destroyBlock(currentPos, shouldDrop);
-            currentPos = currentPos.below();
-        }
     }
 
     // Prevent dropping the invisible parts
     @Override
     public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
         if (!level.isClientSide() && player.isCreative()) {
-            preventDropFromInvisible(level, pos, state, player);
+            preventDropFromBase(level, pos);
         }
+
         return super.playerWillDestroy(level, pos, state, player);
     }
 
-    protected void preventDropFromInvisible(Level level, BlockPos pos, BlockState state, Player player) {
-        boolean invisible = state.getValue(INVISIBLE);
-        if (invisible) {
-            BlockPos cur = pos;
-            while (level.getBlockState(cur).getBlock() == this && level.getBlockState(cur).getValue(INVISIBLE)) {
-                cur = cur.below();
-            }
-
-            BlockState curBlockState = level.getBlockState(cur);
-
-            if (curBlockState.is(state.getBlock()) && !curBlockState.getValue(INVISIBLE)) {
-                level.setBlock(cur, Blocks.AIR.defaultBlockState(), 35);
-                level.levelEvent(player, 2001, cur, Block.getId(Blocks.AIR.defaultBlockState()));
-            }
+    private void preventDropFromBase(Level level, BlockPos pos) {
+        BlockPos bottomPos = pos;
+        while (level.getBlockState(bottomPos.below()).getBlock() == this) {
+            bottomPos = bottomPos.below();
         }
+
+        level.destroyBlock(bottomPos, false);
+    }
+
+    public static final SoundType SILENT = new SoundType(-1.0F, 1.0F, SoundEvents.AMETHYST_BLOCK_BREAK, SoundEvents.AMETHYST_BLOCK_BREAK, SoundEvents.AMETHYST_BLOCK_BREAK, SoundEvents.AMETHYST_BLOCK_BREAK, SoundEvents.AMETHYST_BLOCK_BREAK);
+
+    @Override
+    public SoundType getSoundType(BlockState state, LevelReader level, BlockPos pos, @Nullable Entity entity) {
+        return state.getValue(INVISIBLE) ? SILENT : super.getSoundType(state, level, pos, entity);
     }
 
     @Override

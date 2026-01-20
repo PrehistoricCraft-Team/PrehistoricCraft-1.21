@@ -67,16 +67,6 @@ public class DawnRedwoodTreeFeature extends Feature<NoneFeatureConfiguration> {
         return true;
     }
 
-    public Vec3i getSize(ServerLevel level) {
-        StructureTemplateManager manager = level.getStructureManager();
-        Optional<StructureTemplate> templateOpt = manager.get(ResourceLocation.fromNamespaceAndPath("prehistoriccraft", "small_tree"));
-
-        if (templateOpt.isEmpty()) return Vec3i.ZERO;
-        StructureTemplate template = templateOpt.get();
-
-        return template.getSize();
-    }
-
     // Destroy the whole sapling silently
     private void breakWholeSaplingFromBottomSilently(ServerLevel level, BlockPos pos) {
         // Find the top-most block of the plant

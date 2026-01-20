@@ -5,7 +5,11 @@
       "bonus_rolls": 0.0,
       "conditions": [
         {
-          "condition": "minecraft:survives_explosion"
+          "block": "prehistoriccraft:dawn_redwood_sapling",
+          "condition": "minecraft:block_state_property",
+          "properties": {
+            "invisible": "false"
+          }
         }
       ],
       "entries": [

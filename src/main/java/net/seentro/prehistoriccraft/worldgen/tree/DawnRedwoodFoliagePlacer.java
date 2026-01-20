@@ -132,7 +132,7 @@ public class DawnRedwoodFoliagePlacer extends FoliagePlacer {
         }
 
         for (BlockPos conePos : coneCandidates) {
-            if (random.nextFloat() >= 0.75F) continue;
+            if (random.nextFloat() >= 0.30F) continue;
 
             if (!level.isStateAtPosition(conePos, s -> s.isAir())) continue;
 

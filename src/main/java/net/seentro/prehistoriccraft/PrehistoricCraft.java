@@ -6,9 +6,9 @@ import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
+import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
+import net.minecraft.client.resources.PlayerSkin;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.core.BlockPos;
@@ -153,7 +153,6 @@ public class PrehistoricCraft {
         );
     }
 
-
     private void itemColorRegistrationEvent(RegisterColorHandlersEvent.Item itemEvent) {
         itemEvent.register(
                 (itemStack, color) -> {
@@ -218,10 +217,6 @@ public class PrehistoricCraft {
         event.enqueueWork(() -> {
             ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(PrehistoricBlocks.DAWN_REDWOOD_SAPLING.getId(), PrehistoricBlocks.POTTED_DAWN_REDWOOD_SAPLING);
         });
-    }
-
-    @SubscribeEvent
-    public void onServerStarting(ServerStartingEvent event) {
     }
 
     @SubscribeEvent
