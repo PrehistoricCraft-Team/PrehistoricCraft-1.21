@@ -274,6 +274,7 @@ public class PrehistoricCraft {
         public static void registerClientExtensions(RegisterClientExtensionsEvent event) {
             event.registerFluidType(((BaseFluidType) PrehistoricFluidTypes.BLICE_FLUID_TYPE.get()).getClientFluidTypeExtensions(),
                     PrehistoricFluidTypes.BLICE_FLUID_TYPE.get());
+
             event.registerFluidType(((BaseFluidType) PrehistoricFluidTypes.ACID_FLUID_TYPE.get()).getClientFluidTypeExtensions(),
                     PrehistoricFluidTypes.ACID_FLUID_TYPE.get());
         }
