@@ -1,8 +1,5 @@
 package net.seentro.prehistoriccraft.common.screen.dnaSeparationFilter;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -14,6 +11,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
 import net.seentro.prehistoriccraft.compat.jei.JEIIntegration;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DNASeparationFilterScreen extends AbstractContainerScreen<DNASeparationFilterMenu> {
     private static final ResourceLocation GUI = ResourceLocation.fromNamespaceAndPath(

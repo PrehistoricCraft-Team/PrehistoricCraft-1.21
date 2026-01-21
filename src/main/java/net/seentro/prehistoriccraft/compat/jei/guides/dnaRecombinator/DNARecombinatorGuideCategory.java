@@ -12,7 +12,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
-import net.seentro.prehistoriccraft.compat.jei.guides.acidCleaningChamber.AcidCleaningChamberGuideRecipe;
 import net.seentro.prehistoriccraft.registry.PrehistoricBlocks;
 import org.jetbrains.annotations.NotNull;
 

@@ -1,6 +1,8 @@
 package net.seentro.prehistoriccraft.core.systems;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class WeightedRandom<T> {
     private final List<T> items = new ArrayList<>();

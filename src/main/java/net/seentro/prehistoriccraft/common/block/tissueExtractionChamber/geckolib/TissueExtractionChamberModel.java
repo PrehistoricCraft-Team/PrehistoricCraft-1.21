@@ -3,9 +3,6 @@ package net.seentro.prehistoriccraft.common.block.tissueExtractionChamber.geckol
 import net.minecraft.resources.ResourceLocation;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
 import net.seentro.prehistoriccraft.common.block.tissueExtractionChamber.TissueExtractionChamberBlockEntity;
-import software.bernie.geckolib.animatable.GeoAnimatable;
-import software.bernie.geckolib.model.DefaultedBlockGeoModel;
-import software.bernie.geckolib.model.DefaultedGeoModel;
 import software.bernie.geckolib.model.GeoModel;
 
 public class TissueExtractionChamberModel extends GeoModel<TissueExtractionChamberBlockEntity> {

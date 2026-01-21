@@ -5,7 +5,6 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
-import net.minecraft.core.Vec3i;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
@@ -14,14 +13,14 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.SuspiciousStewEffects;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.FarmBlock;
+import net.minecraft.world.level.block.FlowerBlock;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.grower.TreeGrower;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -29,26 +28,14 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
-import net.minecraft.world.level.material.FluidState;
-import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.neoforge.common.data.SoundDefinition;
 import net.neoforged.neoforge.common.util.TriState;
-import net.seentro.prehistoriccraft.PrehistoricCraft;
-import net.seentro.prehistoriccraft.registry.PrehistoricBlocks;
-import net.seentro.prehistoriccraft.registry.PrehistoricFeatures;
 import net.seentro.prehistoriccraft.worldgen.PrehistoricConfiguredFeatures;
-import net.seentro.prehistoriccraft.worldgen.features.DawnRedwoodBigTreeFeature;
-import net.seentro.prehistoriccraft.worldgen.features.DawnRedwoodTreeFeature;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
-import java.util.Optional;
 import java.util.function.BiPredicate;
 
 public class ThreeStageFlowerPlantStructure extends FlowerBlock {
@@ -216,17 +203,6 @@ public class ThreeStageFlowerPlantStructure extends FlowerBlock {
         return state.getValue(STAGES).equals(3) ? state.getShape(level, pos) : Shapes.empty();
     }
 
-    @Override
-    public void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
-        if (!level.isClientSide()) {
-            // If we can't survive, break
-            if (!state.getValue(INVISIBLE) && !state.canSurvive(level, pos)) {
-                //breakWholeSapling((ServerLevel) level, pos, true);
-            }
-        }
-        super.neighborChanged(state, level, pos, block, fromPos, isMoving);
-    }
-
     // Prevent dropping the invisible parts
     @Override
     public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
@@ -294,8 +270,8 @@ public class ThreeStageFlowerPlantStructure extends FlowerBlock {
     /* FROM VANILLA */
 
     // Places the tree
-    public boolean growTree(ServerLevel level, ChunkGenerator chunkGenerator, BlockPos pos, BlockState state, RandomSource random) {
-        ResourceKey<ConfiguredFeature<?, ?>> dawnRedwoodTreeKey = PrehistoricConfiguredFeatures.DAWN_REDWOOD_TREE_KEY;
+    public void growTree(ServerLevel level, ChunkGenerator chunkGenerator, BlockPos pos, BlockState state, RandomSource random) {
+        ResourceKey<ConfiguredFeature<?, ?>> dawnRedwoodTreeKey = PrehistoricConfiguredFeatures.DAWN_REDWOOD_KEY;
         ResourceKey<ConfiguredFeature<?, ?>> dawnRedwoodBigTreeKey = PrehistoricConfiguredFeatures.DAWN_REDWOOD_BIG_KEY;
         Holder<ConfiguredFeature<?, ?>> dawnRedwoodHolder = level.registryAccess()
                 .registryOrThrow(Registries.CONFIGURED_FEATURE)
@@ -303,9 +279,8 @@ public class ThreeStageFlowerPlantStructure extends FlowerBlock {
                 .orElse(null);
         var event = net.neoforged.neoforge.event.EventHooks.fireBlockGrowFeature(level, random, pos, dawnRedwoodHolder);
         dawnRedwoodHolder = event.getFeature();
-        if (event.isCanceled()) return false;
+        if (event.isCanceled()) return;
         if (dawnRedwoodHolder == null) {
-            return false;
         } else {
             ConfiguredFeature<?, ?> configuredFeature = dawnRedwoodHolder.value();
             BlockState blockState = level.getFluidState(pos).createLegacyBlock();
@@ -322,7 +297,6 @@ public class ThreeStageFlowerPlantStructure extends FlowerBlock {
                     level.sendBlockUpdated(pos, state, blockState, Block.UPDATE_ALL);
                 }
 
-                return true;
             } else {
                 BlockState invisibleState = state.setValue(INVISIBLE, true);
                 level.setBlock(pos.above(), invisibleState, Block.UPDATE_CLIENTS);
@@ -330,7 +304,6 @@ public class ThreeStageFlowerPlantStructure extends FlowerBlock {
                 level.setBlock(pos.above(3), invisibleState, Block.UPDATE_CLIENTS);
 
                 level.setBlock(pos, state, Block.UPDATE_ALL);
-                return false;
             }
         }
     }

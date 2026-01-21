@@ -4,11 +4,8 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
-import net.seentro.prehistoriccraft.worldgen.PrehistoricBiomeModifiers;
-import net.seentro.prehistoriccraft.worldgen.PrehistoricConfiguredFeatures;
 import net.seentro.prehistoriccraft.worldgen.features.DawnRedwoodBigTreeFeature;
 import net.seentro.prehistoriccraft.worldgen.features.DawnRedwoodTreeFeature;
 

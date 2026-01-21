@@ -32,24 +32,29 @@ import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.FluidUtil;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
+import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.seentro.prehistoriccraft.common.screen.tissueExtractionChamber.TissueExtractionChamberMenu;
 import net.seentro.prehistoriccraft.core.json.tissueExtractionChamber.TimePeriodTissueLoader;
 import net.seentro.prehistoriccraft.core.json.tissueExtractionChamber.TissueEntry;
 import net.seentro.prehistoriccraft.core.systems.WeightedRandom;
 import net.seentro.prehistoriccraft.registry.*;
+import net.seentro.prehistoriccraft.utils.hopper.HopperItemHandlerWrapper;
+import net.seentro.prehistoriccraft.utils.hopper.HopperRules;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.*;
+import software.bernie.geckolib.animation.AnimatableManager;
+import software.bernie.geckolib.animation.AnimationController;
+import software.bernie.geckolib.animation.PlayState;
+import software.bernie.geckolib.animation.RawAnimation;
 import software.bernie.geckolib.util.GeckoLibUtil;
 import software.bernie.geckolib.util.RenderUtil;
 
-import net.neoforged.neoforge.items.IItemHandler;
-import net.seentro.prehistoriccraft.utils.hopper.HopperItemHandlerWrapper;
-import net.seentro.prehistoriccraft.utils.hopper.HopperRules;
-
-import java.util.*;
+import java.util.EnumMap;
+import java.util.List;
+import java.util.Optional;
+import java.util.Random;
 
 public class TissueExtractionChamberBlockEntity extends BlockEntity implements MenuProvider, GeoBlockEntity {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);

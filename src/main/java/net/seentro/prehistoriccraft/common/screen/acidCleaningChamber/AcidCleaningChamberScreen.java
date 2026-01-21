@@ -1,6 +1,5 @@
 package net.seentro.prehistoriccraft.common.screen.acidCleaningChamber;
 
-import com.mojang.authlib.minecraft.client.MinecraftClient;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -12,9 +11,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
 import net.seentro.prehistoriccraft.compat.jei.JEIIntegration;
-import org.apache.logging.log4j.core.pattern.TextRenderer;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 

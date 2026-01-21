@@ -1,14 +1,10 @@
 package net.seentro.prehistoriccraft.entity.navigation.goals.fish;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
-import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
-import net.seentro.prehistoriccraft.registry.PrehistoricTags;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;

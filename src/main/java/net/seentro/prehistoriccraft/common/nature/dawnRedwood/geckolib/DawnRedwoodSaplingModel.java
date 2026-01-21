@@ -2,7 +2,6 @@ package net.seentro.prehistoriccraft.common.nature.dawnRedwood.geckolib;
 
 import net.minecraft.resources.ResourceLocation;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
-import net.seentro.prehistoriccraft.common.nature.dawnRedwood.DawnRedwoodSaplingBlock;
 import net.seentro.prehistoriccraft.common.nature.dawnRedwood.DawnRedwoodSaplingBlockEntity;
 import net.seentro.prehistoriccraft.common.nature.plantStructures.ThreeStageFlowerPlantStructure;
 import software.bernie.geckolib.model.GeoModel;

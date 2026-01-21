@@ -3,9 +3,6 @@ package net.seentro.prehistoriccraft.datagen;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.DataMapProvider;
-import net.neoforged.neoforge.registries.datamaps.builtin.Compostable;
-import net.neoforged.neoforge.registries.datamaps.builtin.NeoForgeDataMaps;
-import net.seentro.prehistoriccraft.registry.PrehistoricBlocks;
 
 import java.util.concurrent.CompletableFuture;
 

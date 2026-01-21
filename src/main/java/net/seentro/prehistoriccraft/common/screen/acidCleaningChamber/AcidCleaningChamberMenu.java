@@ -3,8 +3,9 @@ package net.seentro.prehistoriccraft.common.screen.acidCleaningChamber;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.*;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.items.IItemHandler;
@@ -13,7 +14,6 @@ import net.seentro.prehistoriccraft.common.block.acidCleaningChamber.AcidCleanin
 import net.seentro.prehistoriccraft.common.screen.MachineMenu;
 import net.seentro.prehistoriccraft.common.screen.slotItemHandlers.OutputSlotItemHandler;
 import net.seentro.prehistoriccraft.registry.PrehistoricBlocks;
-import net.seentro.prehistoriccraft.registry.PrehistoricItems;
 import net.seentro.prehistoriccraft.registry.PrehistoricMenuTypes;
 
 public class AcidCleaningChamberMenu extends MachineMenu<AcidCleaningChamberBlockEntity> {
