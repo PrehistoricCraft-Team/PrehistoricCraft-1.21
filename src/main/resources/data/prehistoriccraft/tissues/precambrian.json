@@ -2,15 +2,15 @@
   "time_period": "precambrian",
   "tissues": [
     {
-      "display_name": "precambrianTestAnimal",
+      "display_name": "precambriantestanimal",
       "tissue_type": "animal"
     },
     {
-      "display_name": "precambrianTestPlant",
+      "display_name": "precambriantestplant",
       "tissue_type": "plant"
     },
     {
-      "display_name": "precambrianTestFungus",
+      "display_name": "precambriantestfungus",
       "tissue_type": "fungus"
     }
   ]

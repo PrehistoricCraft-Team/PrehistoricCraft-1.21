@@ -36,6 +36,8 @@ public class PrehistoricBlockLootTableProvider extends BlockLootSubProvider {
     protected void generate() {
         /* NATURE */
 
+        this.add(PrehistoricBlocks.NEOCALAMITES.get(), this::createInvisibleDrop);
+
         //DAWN REDWOOD
         dropSelf(PrehistoricBlocks.DAWN_REDWOOD_LOG.get());
         dropSelf(PrehistoricBlocks.DAWN_REDWOOD_WOOD.get());

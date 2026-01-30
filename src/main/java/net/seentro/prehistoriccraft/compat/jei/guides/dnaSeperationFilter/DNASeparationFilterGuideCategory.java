@@ -41,8 +41,13 @@ public class DNASeparationFilterGuideCategory implements IRecipeCategory<DNASepe
     }
 
     @Override
-    public IDrawable getBackground() {
-        return background;
+    public int getWidth() {
+        return 150;
+    }
+
+    @Override
+    public int getHeight() {
+        return 80;
     }
 
     @Override
