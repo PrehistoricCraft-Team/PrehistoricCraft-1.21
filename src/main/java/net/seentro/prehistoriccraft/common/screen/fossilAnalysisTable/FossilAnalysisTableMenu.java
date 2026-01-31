@@ -3,8 +3,9 @@ package net.seentro.prehistoriccraft.common.screen.fossilAnalysisTable;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.*;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.items.IItemHandler;
@@ -14,7 +15,6 @@ import net.seentro.prehistoriccraft.common.screen.MachineMenu;
 import net.seentro.prehistoriccraft.common.screen.slotItemHandlers.OutputSlotItemHandler;
 import net.seentro.prehistoriccraft.registry.PrehistoricBlocks;
 import net.seentro.prehistoriccraft.registry.PrehistoricMenuTypes;
-import org.jetbrains.annotations.NotNull;
 
 public class FossilAnalysisTableMenu extends MachineMenu<FossilAnalysisTableBlockEntity> {
     public final FossilAnalysisTableBlockEntity blockEntity;

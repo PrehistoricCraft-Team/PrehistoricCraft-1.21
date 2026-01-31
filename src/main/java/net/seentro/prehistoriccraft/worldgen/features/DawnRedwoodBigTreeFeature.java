@@ -6,7 +6,6 @@ import net.minecraft.core.Vec3i;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -65,16 +64,6 @@ public class DawnRedwoodBigTreeFeature extends Feature<NoneFeatureConfiguration>
         template.placeInWorld(level, placePos, placePos, settings, random, Block.UPDATE_ALL);
 
         return true;
-    }
-
-    public Vec3i getSize(ServerLevel level) {
-        StructureTemplateManager manager = level.getStructureManager();
-        Optional<StructureTemplate> templateOpt = manager.get(ResourceLocation.fromNamespaceAndPath("prehistoriccraft", "big_tree"));
-
-        if (templateOpt.isEmpty()) return Vec3i.ZERO;
-        StructureTemplate template = templateOpt.get();
-
-        return template.getSize();
     }
 
     // Destroy the whole sapling silently

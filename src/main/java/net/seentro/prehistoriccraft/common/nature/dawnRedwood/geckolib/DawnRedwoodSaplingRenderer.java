@@ -6,7 +6,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
@@ -17,15 +16,8 @@ import net.seentro.prehistoriccraft.PrehistoricCraft;
 import net.seentro.prehistoriccraft.common.nature.dawnRedwood.DawnRedwoodSaplingBlock;
 import net.seentro.prehistoriccraft.common.nature.dawnRedwood.DawnRedwoodSaplingBlockEntity;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib.cache.object.BakedGeoModel;
 import software.bernie.geckolib.cache.object.GeoBone;
-import software.bernie.geckolib.cache.object.GeoCube;
-import software.bernie.geckolib.model.GeoModel;
-import software.bernie.geckolib.renderer.GeoBlockRenderer;
-import software.bernie.geckolib.renderer.GeoRenderer;
-import software.bernie.geckolib.renderer.layer.GeoRenderLayer;
 import software.bernie.geckolib.renderer.specialty.DynamicGeoBlockRenderer;
-import software.bernie.geckolib.renderer.specialty.DynamicGeoEntityRenderer;
 import software.bernie.geckolib.util.Color;
 
 public class DawnRedwoodSaplingRenderer extends DynamicGeoBlockRenderer<DawnRedwoodSaplingBlockEntity> {

@@ -1,33 +1,23 @@
 package net.seentro.prehistoriccraft.datagen;
 
-import net.minecraft.advancements.critereon.BlockPredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
-import net.minecraft.advancements.critereon.LocationPredicate;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.DoublePlantBlock;
-import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
-import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
-import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
-import net.minecraft.world.level.storage.loot.predicates.LocationCheck;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
-import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
 import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
@@ -46,6 +36,8 @@ public class PrehistoricBlockLootTableProvider extends BlockLootSubProvider {
     protected void generate() {
         /* NATURE */
 
+        this.add(PrehistoricBlocks.NEOCALAMITES.get(), this::createInvisibleDrop);
+
         //DAWN REDWOOD
         dropSelf(PrehistoricBlocks.DAWN_REDWOOD_LOG.get());
         dropSelf(PrehistoricBlocks.DAWN_REDWOOD_WOOD.get());
@@ -63,8 +55,7 @@ public class PrehistoricBlockLootTableProvider extends BlockLootSubProvider {
         dropSelf(PrehistoricBlocks.DAWN_REDWOOD_PRESSURE_PLATE.get());
         dropSelf(PrehistoricBlocks.DAWN_REDWOOD_BUTTON.get());
 
-        //this.add(PrehistoricBlocks.DAWN_REDWOOD_SAPLING.get(), this::createInvisibleDrop);
-        dropSelf(PrehistoricBlocks.DAWN_REDWOOD_SAPLING.get());
+        this.add(PrehistoricBlocks.DAWN_REDWOOD_SAPLING.get(), this::createInvisibleDrop);
         this.add(PrehistoricBlocks.POTTED_DAWN_REDWOOD_SAPLING.get(), createPotFlowerItemTable(PrehistoricBlocks.POTTED_DAWN_REDWOOD_SAPLING.get()));
 
         this.add(PrehistoricBlocks.DAWN_REDWOOD_LEAVES.get(), block ->
@@ -173,17 +164,14 @@ public class PrehistoricBlockLootTableProvider extends BlockLootSubProvider {
     }
 
     protected LootTable.Builder createInvisibleDrop(Block block) {
-        LootPoolEntryContainer.Builder<?> builder = LootItem.lootTableItem(block)
-                .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)));
-
         return LootTable.lootTable()
                 .withPool(
                         LootPool.lootPool()
-                                .add(builder)
+                                .setRolls(ConstantValue.exactly(1.0F))
                                 .when(
                                         LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
                                                 .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DawnRedwoodSaplingBlock.INVISIBLE, false))
-                                )
+                                ).add(LootItem.lootTableItem(block))
                 );
     }
 

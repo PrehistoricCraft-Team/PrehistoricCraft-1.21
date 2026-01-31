@@ -1,6 +1,8 @@
 package net.seentro.prehistoriccraft.common.fluid;
 
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandlerItem;
 import net.seentro.prehistoriccraft.common.item.FilledBottleItem;

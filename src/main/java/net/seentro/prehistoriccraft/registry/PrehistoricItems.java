@@ -12,11 +12,7 @@ import net.seentro.prehistoriccraft.common.block.acidCleaningChamber.item.AcidCl
 import net.seentro.prehistoriccraft.common.block.dnaRecombinator.item.DNARecombinatorBlockItem;
 import net.seentro.prehistoriccraft.common.block.dnaSeparationFilter.item.DNASeparationFilterBlockItem;
 import net.seentro.prehistoriccraft.common.block.tissueExtractionChamber.item.TissueExtractionChamberBlockItem;
-import net.seentro.prehistoriccraft.common.item.DNAInPetriDishItem;
-import net.seentro.prehistoriccraft.common.item.ExcavatorPickaxeItem;
-import net.seentro.prehistoriccraft.common.item.FilledBottleItem;
-import net.seentro.prehistoriccraft.common.item.FossilItem;
-import net.seentro.prehistoriccraft.common.item.TissueItem;
+import net.seentro.prehistoriccraft.common.item.*;
 import net.seentro.prehistoriccraft.entity.dinosaur.PrehistoricDinosaurEntityTypes;
 
 

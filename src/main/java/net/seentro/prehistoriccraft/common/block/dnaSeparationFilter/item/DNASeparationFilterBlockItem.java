@@ -10,6 +10,7 @@ import software.bernie.geckolib.animatable.client.GeoRenderProvider;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.AnimatableManager;
 import software.bernie.geckolib.util.GeckoLibUtil;
+
 import java.util.function.Consumer;
 
 public class DNASeparationFilterBlockItem extends BlockItem implements GeoItem{

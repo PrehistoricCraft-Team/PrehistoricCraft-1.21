@@ -89,7 +89,7 @@ public class DawnRedwoodFoliagePlacer extends FoliagePlacer {
             t = Mth.clamp(t, 0.0F, 1.0F);
             int maxRadius = foliageRadius;
 
-            int boundary = (foliageHeight * 2) / 3;
+            int boundary = Math.round(foliageHeight * 0.8f);
             int lastLayer = foliageHeight - 1;
 
             float bottomFactor = 0.35f;
@@ -132,7 +132,7 @@ public class DawnRedwoodFoliagePlacer extends FoliagePlacer {
         }
 
         for (BlockPos conePos : coneCandidates) {
-            if (random.nextFloat() >= 0.75F) continue;
+            if (random.nextFloat() >= 0.30F) continue;
 
             if (!level.isStateAtPosition(conePos, s -> s.isAir())) continue;
 

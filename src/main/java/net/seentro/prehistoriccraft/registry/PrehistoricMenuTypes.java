@@ -9,9 +9,9 @@ import net.neoforged.neoforge.network.IContainerFactory;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
+import net.seentro.prehistoriccraft.common.screen.acidCleaningChamber.AcidCleaningChamberMenu;
 import net.seentro.prehistoriccraft.common.screen.dnaRecombinator.DNARecombinatorMenu;
 import net.seentro.prehistoriccraft.common.screen.dnaSeparationFilter.DNASeparationFilterMenu;
-import net.seentro.prehistoriccraft.common.screen.acidCleaningChamber.AcidCleaningChamberMenu;
 import net.seentro.prehistoriccraft.common.screen.fossilAnalysisTable.FossilAnalysisTableMenu;
 import net.seentro.prehistoriccraft.common.screen.tissueExtractionChamber.TissueExtractionChamberMenu;
 

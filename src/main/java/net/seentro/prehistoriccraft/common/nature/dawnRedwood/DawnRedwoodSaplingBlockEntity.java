@@ -2,7 +2,6 @@ package net.seentro.prehistoriccraft.common.nature.dawnRedwood;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.seentro.prehistoriccraft.registry.PrehistoricBlockEntityTypes;
 import software.bernie.geckolib.animatable.GeoBlockEntity;

@@ -8,7 +8,6 @@ import net.seentro.prehistoriccraft.PrehistoricCraft;
 import net.seentro.prehistoriccraft.common.block.acidCleaningChamber.AcidCleaningChamberBlockEntity;
 import net.seentro.prehistoriccraft.common.block.dnaRecombinator.DNARecombinatorBlockEntity;
 import net.seentro.prehistoriccraft.common.block.dnaSeparationFilter.DNASeparationFilterBlockEntity;
-import net.seentro.prehistoriccraft.common.block.dnaSeparationFilter.DNASeparationFilterBlockEntity;
 import net.seentro.prehistoriccraft.common.block.fossilAnalysisTable.FossilAnalysisTableBlockEntity;
 import net.seentro.prehistoriccraft.common.block.tissueExtractionChamber.TissueExtractionChamberBlockEntity;
 import net.seentro.prehistoriccraft.common.nature.dawnRedwood.DawnRedwoodSaplingBlockEntity;

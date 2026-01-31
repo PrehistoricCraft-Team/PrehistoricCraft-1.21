@@ -1,9 +1,9 @@
 package net.seentro.prehistoriccraft.common.entity;
 
-import com.google.common.collect.ImmutableMap;
 import com.mojang.datafixers.util.Pair;
-import jdk.dynalink.support.SimpleRelinkableCallSite;
-import net.minecraft.client.model.*;
+import net.minecraft.client.model.BoatModel;
+import net.minecraft.client.model.ChestBoatModel;
+import net.minecraft.client.model.ListModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.model.geom.ModelPart;
@@ -12,12 +12,11 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.vehicle.Boat;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
-import net.seentro.prehistoriccraft.registry.PrehistoricEnumExtensions;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static net.seentro.prehistoriccraft.registry.PrehistoricEnumExtensions.*;
+import static net.seentro.prehistoriccraft.registry.PrehistoricEnumExtensions.DAWN_REDWOOD;
 
 public class PrehistoricBoatRenderer extends BoatRenderer {
     private final Map<Boat.Type, Pair<ResourceLocation, ListModel<Boat>>> boatResources = new HashMap<>();

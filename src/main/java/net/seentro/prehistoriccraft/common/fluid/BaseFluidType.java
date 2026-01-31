@@ -11,8 +11,6 @@ import net.neoforged.neoforge.fluids.FluidType;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3f;
 
-import javax.annotation.Nullable;
-
 public class BaseFluidType extends FluidType {
     private final ResourceLocation stillTexture;
     private final ResourceLocation flowingTexture;

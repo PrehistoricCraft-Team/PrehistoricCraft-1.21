@@ -2,8 +2,8 @@ package net.seentro.prehistoriccraft.compat.jei;
 
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
-import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
+import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.runtime.IJeiRuntime;
 import net.minecraft.resources.ResourceLocation;
@@ -15,9 +15,9 @@ import net.seentro.prehistoriccraft.compat.jei.guides.dnaRecombinator.DNARecombi
 import net.seentro.prehistoriccraft.compat.jei.guides.dnaRecombinator.DNARecombinatorGuideRecipe;
 import net.seentro.prehistoriccraft.compat.jei.guides.dnaSeperationFilter.DNASeparationFilterGuideCategory;
 import net.seentro.prehistoriccraft.compat.jei.guides.dnaSeperationFilter.DNASeperationFilterGuideRecipe;
-import net.seentro.prehistoriccraft.registry.PrehistoricBlocks;
-import net.seentro.prehistoriccraft.compat.jei.guides.tissueExtractionChamber.TissueExtractionChamberGuideRecipe;
 import net.seentro.prehistoriccraft.compat.jei.guides.tissueExtractionChamber.TissueExtractionChamberGuideCategory;
+import net.seentro.prehistoriccraft.compat.jei.guides.tissueExtractionChamber.TissueExtractionChamberGuideRecipe;
+import net.seentro.prehistoriccraft.registry.PrehistoricBlocks;
 
 import java.util.List;
 

@@ -29,14 +29,14 @@ public class FossiliferousStoneBlock extends Block {
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         if (!level.isClientSide() && stack.getItem() == PrehistoricItems.PLASTER_WRAP.get()) {
             DeferredBlock<?> plasteredFossil = fossilMap.get(FOSSIL_TYPE);
-            if (plasteredFossil == null) return ItemInteractionResult.CONSUME;
+            if (plasteredFossil == null) return ItemInteractionResult.FAIL;
 
             level.setBlock(pos, plasteredFossil.get().defaultBlockState(), Block.UPDATE_ALL);
             stack.consume(1, player);
             return ItemInteractionResult.SUCCESS;
         }
 
-        return ItemInteractionResult.CONSUME;
+        return ItemInteractionResult.FAIL;
     }
 
     static {

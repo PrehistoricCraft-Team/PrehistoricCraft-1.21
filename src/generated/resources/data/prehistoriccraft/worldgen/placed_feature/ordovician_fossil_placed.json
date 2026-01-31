@@ -1,0 +1,27 @@
+{
+  "feature": "prehistoriccraft:ordovician_fossil",
+  "placement": [
+    {
+      "type": "minecraft:count",
+      "count": 18
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:height_range",
+      "height": {
+        "type": "minecraft:uniform",
+        "max_inclusive": {
+          "absolute": -26
+        },
+        "min_inclusive": {
+          "absolute": -35
+        }
+      }
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

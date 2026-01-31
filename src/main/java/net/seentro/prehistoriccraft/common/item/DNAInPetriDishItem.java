@@ -10,12 +10,10 @@ import net.seentro.prehistoriccraft.PrehistoricCraft;
 import net.seentro.prehistoriccraft.data.FossilSpeciesLoader;
 import net.seentro.prehistoriccraft.registry.PrehistoricDataComponents;
 import net.seentro.prehistoriccraft.utils.FossilSpeciesData;
-
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 import java.util.stream.Collectors;
 
 public class DNAInPetriDishItem extends Item {

@@ -6,13 +6,11 @@ import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
+import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.client.renderer.entity.EntityRenderers;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.FoliageColor;
@@ -41,7 +39,6 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
-import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.seentro.prehistoriccraft.common.block.acidCleaningChamber.geckolib.AcidCleaningChamberRenderer;
 import net.seentro.prehistoriccraft.common.block.dnaRecombinator.DNARecombinatorBlockEntity;
 import net.seentro.prehistoriccraft.common.block.dnaRecombinator.geckolib.DNARecombinatorRenderer;
@@ -153,7 +150,6 @@ public class PrehistoricCraft {
         );
     }
 
-
     private void itemColorRegistrationEvent(RegisterColorHandlersEvent.Item itemEvent) {
         itemEvent.register(
                 (itemStack, color) -> {
@@ -221,10 +217,6 @@ public class PrehistoricCraft {
     }
 
     @SubscribeEvent
-    public void onServerStarting(ServerStartingEvent event) {
-    }
-
-    @SubscribeEvent
     public void onAddReloadListener(AddReloadListenerEvent event) {
         event.addListener(new TimePeriodTissueLoader());
         event.addListener(FossilSpeciesLoader.INSTANCE);
@@ -282,6 +274,7 @@ public class PrehistoricCraft {
         public static void registerClientExtensions(RegisterClientExtensionsEvent event) {
             event.registerFluidType(((BaseFluidType) PrehistoricFluidTypes.BLICE_FLUID_TYPE.get()).getClientFluidTypeExtensions(),
                     PrehistoricFluidTypes.BLICE_FLUID_TYPE.get());
+
             event.registerFluidType(((BaseFluidType) PrehistoricFluidTypes.ACID_FLUID_TYPE.get()).getClientFluidTypeExtensions(),
                     PrehistoricFluidTypes.ACID_FLUID_TYPE.get());
         }

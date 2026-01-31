@@ -13,7 +13,6 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
 import net.seentro.prehistoriccraft.registry.PrehistoricBlocks;
-import org.checkerframework.checker.units.qual.C;
 
 import java.util.Set;
 
@@ -43,6 +42,7 @@ public class PrehistoricBlockStateProvider extends BlockStateProvider {
         blockWithItem(PrehistoricBlocks.PEAT);
         blockWithItem(PrehistoricBlocks.RAW_CLAY);
         snowyHorizontalBlockWithDifferentTopAndBottomWithOverlaySides(PrehistoricBlocks.LOAM_GRASS.get(), modLoc("block/loam_grass_block_side"), mcLoc("block/grass_block_top"), blockTexture(PrehistoricBlocks.LOAM.get()), mcLoc("block/grass_block_side_overlay"), modLoc("block/loam_grass_block_snow"), mcLoc("block/grass_block_top"));
+
 
 
         //DAWN REDWOOD
