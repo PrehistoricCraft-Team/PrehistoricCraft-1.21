@@ -81,6 +81,9 @@ public class PrehistoricCreativeTabs {
                 output.accept(PrehistoricBlocks.PEAT.get());
                 output.accept(PrehistoricBlocks.RAW_CLAY.get());
 
+                output.accept(PrehistoricBlocks.NEOCALAMITES.get());
+                output.accept(PrehistoricBlocks.NEOCALAMITES_SAPLING.get());
+
                 output.accept(PrehistoricBlocks.DAWN_REDWOOD_LOG.get());
                 output.accept(PrehistoricBlocks.DAWN_REDWOOD_WOOD.get());
                 output.accept(PrehistoricBlocks.STRIPPED_DAWN_REDWOOD_LOG.get());

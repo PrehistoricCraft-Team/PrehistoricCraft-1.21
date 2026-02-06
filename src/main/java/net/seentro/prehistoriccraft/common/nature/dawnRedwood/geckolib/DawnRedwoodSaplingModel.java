@@ -6,14 +6,13 @@ import net.seentro.prehistoriccraft.common.nature.dawnRedwood.DawnRedwoodSapling
 import net.seentro.prehistoriccraft.common.nature.plantStructures.ThreeStageFlowerPlantStructure;
 import software.bernie.geckolib.model.GeoModel;
 
-@SuppressWarnings("deprecation")
 public class DawnRedwoodSaplingModel extends GeoModel<DawnRedwoodSaplingBlockEntity> {
     @Override
     public ResourceLocation getModelResource(DawnRedwoodSaplingBlockEntity animatable) {
         return switch (animatable.getBlockState().getValue(ThreeStageFlowerPlantStructure.STAGES)) {
-            case 2 -> ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID, "geo/block/nature/dawn_redwood_sapling_2.geo.json");
-            case 3 -> ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID, "geo/block/nature/dawn_redwood_sapling_3.geo.json");
-            default -> ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID, "geo/block/nature/dawn_redwood_sapling.geo.json");
+            case 2 -> ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID, "geo/block/nature/dawnredwood/dawn_redwood_sapling_2.geo.json");
+            case 3 -> ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID, "geo/block/nature/dawnredwood/dawn_redwood_sapling_3.geo.json");
+            default -> ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID, "geo/block/nature/dawnredwood/dawn_redwood_sapling.geo.json");
         };
     }
 

@@ -4,14 +4,14 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.RotatedPillarBlock;
-import net.minecraft.world.level.block.SnowyDirtBlock;
-import net.minecraft.world.level.block.TrapDoorBlock;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.neoforged.neoforge.client.model.generators.*;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
+import net.seentro.prehistoriccraft.common.nature.neocalamites.sapling.NeocalamitesSaplingBlock;
 import net.seentro.prehistoriccraft.registry.PrehistoricBlocks;
 
 import java.util.Set;
@@ -41,8 +41,11 @@ public class PrehistoricBlockStateProvider extends BlockStateProvider {
         blockWithItem(PrehistoricBlocks.LOAMY_SAND);
         blockWithItem(PrehistoricBlocks.PEAT);
         blockWithItem(PrehistoricBlocks.RAW_CLAY);
-        snowyHorizontalBlockWithDifferentTopAndBottomWithOverlaySides(PrehistoricBlocks.LOAM_GRASS.get(), modLoc("block/loam_grass_block_side"), mcLoc("block/grass_block_top"), blockTexture(PrehistoricBlocks.LOAM.get()), mcLoc("block/grass_block_side_overlay"), modLoc("block/loam_grass_block_snow"), mcLoc("block/grass_block_top"));
-
+        snowyHorizontalBlockWithDifferentTopAndBottomWithOverlaySides(PrehistoricBlocks.LOAM_GRASS.get(),
+                modLoc("block/loam_grass_block_side"), mcLoc("block/grass_block_top"),
+                blockTexture(PrehistoricBlocks.LOAM.get()), mcLoc("block/grass_block_side_overlay"),
+                modLoc("block/loam_grass_block_snow"), mcLoc("block/grass_block_top"));
+        doubleCrossPlantBlock(PrehistoricBlocks.NEOCALAMITES_SAPLING, modLoc("block/neocalamites_sapling_bottom"), modLoc("block/neocalamites_sapling"), "neocalamites_sapling");
 
 
         //DAWN REDWOOD
@@ -118,6 +121,30 @@ public class PrehistoricBlockStateProvider extends BlockStateProvider {
     }
 
     /* HELPER METHODS */
+
+    public void doubleCrossPlantBlock(DeferredBlock<?> block, ResourceLocation stemTexture, ResourceLocation texture, String itemTexture) {
+        String name = BuiltInRegistries.BLOCK.getKey(block.get()).toString();
+
+        // STEM
+        BlockModelBuilder stemModel = models().getBuilder(name + "_stem")
+                .parent(models().getExistingFile(mcLoc("block/cross")))
+                .texture("particle", texture.toString())
+                .texture("cross", stemTexture.toString())
+                .renderType("cutout");
+
+        // SAPLING
+        BlockModelBuilder model = models().getBuilder(name)
+                .parent(models().getExistingFile(mcLoc("block/cross")))
+                .texture("particle", texture.toString())
+                .texture("cross", texture.toString())
+                .renderType("cutout");
+
+        getVariantBuilder(block.get())
+                .partialState().with(NeocalamitesSaplingBlock.IS_STEM, true).addModels(new ConfiguredModel(stemModel))
+                .partialState().with(NeocalamitesSaplingBlock.IS_STEM, false).addModels(new ConfiguredModel(model));
+
+        blockItemWithBlockTexture(block, itemTexture);
+    }
 
     private void blockWithItemPlasterTexture(DeferredBlock<?> block) {
         simpleBlockWithItem(block.get(), models().cubeAll("plastered_fossiliferous_stone", modLoc("block/plastered_fossiliferous_stone")));
@@ -240,6 +267,10 @@ public class PrehistoricBlockStateProvider extends BlockStateProvider {
 
     private void blockItemWithItemTexture(DeferredBlock<?> block, String texture) {
         customBlockItem(block, modLoc("item/" + texture), mcLoc("item/generated"), "layer0");
+    }
+
+    private void blockItemWithBlockTexture(DeferredBlock<?> block, String texture) {
+        customBlockItem(block, modLoc("block/" + texture), mcLoc("item/generated"), "layer0");
     }
 
     private void customBlockItem(DeferredBlock<?> block, ResourceLocation texture, ResourceLocation parent, String textureKey) {

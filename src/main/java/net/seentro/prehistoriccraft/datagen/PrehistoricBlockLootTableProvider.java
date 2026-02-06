@@ -22,6 +22,8 @@ import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.seentro.prehistoriccraft.common.nature.dawnRedwood.DawnRedwoodSaplingBlock;
+import net.seentro.prehistoriccraft.common.nature.neocalamites.NeocalamitesBlock;
+import net.seentro.prehistoriccraft.common.nature.neocalamites.sapling.NeocalamitesSaplingBlock;
 import net.seentro.prehistoriccraft.registry.PrehistoricBlocks;
 import net.seentro.prehistoriccraft.registry.PrehistoricItems;
 
@@ -36,7 +38,8 @@ public class PrehistoricBlockLootTableProvider extends BlockLootSubProvider {
     protected void generate() {
         /* NATURE */
 
-        this.add(PrehistoricBlocks.NEOCALAMITES.get(), this::createInvisibleDrop);
+        this.add(PrehistoricBlocks.NEOCALAMITES.get(), this::createBaseOnlyDrop);
+        this.add(PrehistoricBlocks.NEOCALAMITES_SAPLING.get(), this::createDoublePlantShearsDrop);
 
         //DAWN REDWOOD
         dropSelf(PrehistoricBlocks.DAWN_REDWOOD_LOG.get());
@@ -171,6 +174,18 @@ public class PrehistoricBlockLootTableProvider extends BlockLootSubProvider {
                                 .when(
                                         LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
                                                 .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DawnRedwoodSaplingBlock.INVISIBLE, false))
+                                ).add(LootItem.lootTableItem(block))
+                );
+    }
+
+    protected LootTable.Builder createBaseOnlyDrop(Block block) {
+        return LootTable.lootTable()
+                .withPool(
+                        LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1.0F))
+                                .when(
+                                        LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+                                                .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(NeocalamitesBlock.IS_BASE, true))
                                 ).add(LootItem.lootTableItem(block))
                 );
     }

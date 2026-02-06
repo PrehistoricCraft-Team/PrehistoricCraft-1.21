@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "block": "prehistoriccraft:neocalamites",
+          "condition": "minecraft:block_state_property",
+          "properties": {
+            "is_base": "true"
+          }
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "prehistoriccraft:neocalamites"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "prehistoriccraft:blocks/neocalamites"
+}

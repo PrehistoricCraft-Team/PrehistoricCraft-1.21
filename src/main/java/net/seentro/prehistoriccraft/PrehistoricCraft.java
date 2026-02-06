@@ -51,6 +51,7 @@ import net.seentro.prehistoriccraft.common.entity.PrehistoricBoatRenderer;
 import net.seentro.prehistoriccraft.common.fluid.BaseFluidType;
 import net.seentro.prehistoriccraft.common.fluid.FluidBottleWrapper;
 import net.seentro.prehistoriccraft.common.nature.dawnRedwood.geckolib.DawnRedwoodSaplingRenderer;
+import net.seentro.prehistoriccraft.common.nature.neocalamites.geckolib.NeocalamitesRenderer;
 import net.seentro.prehistoriccraft.common.screen.acidCleaningChamber.AcidCleaningChamberScreen;
 import net.seentro.prehistoriccraft.common.screen.dnaRecombinator.DNARecombinatorScreen;
 import net.seentro.prehistoriccraft.common.screen.dnaSeparationFilter.DNASeparationFilterScreen;
@@ -228,9 +229,11 @@ public class PrehistoricCraft {
         public static void onClientSetup(FMLClientSetupEvent event) {
             BlockEntityRenderers.register(PrehistoricBlockEntityTypes.TISSUE_EXTRACTION_CHAMBER_BLOCK_ENTITY.get(), TissueExtractionChamberRenderer::new);
             BlockEntityRenderers.register(PrehistoricBlockEntityTypes.ACID_CLEANING_CHAMBER_BLOCK_ENTITY.get(), AcidCleaningChamberRenderer::new);
-            BlockEntityRenderers.register(PrehistoricBlockEntityTypes.DAWN_REDWOOD_SAPLING_BLOCK_ENTITY.get(), DawnRedwoodSaplingRenderer::new);
             BlockEntityRenderers.register(PrehistoricBlockEntityTypes.DNA_SEPARATION_FILTER_BLOCK_ENTITY.get(), DNASeparationFilterRenderer::new);
             BlockEntityRenderers.register(PrehistoricBlockEntityTypes.DNA_RECOMBINATOR_BLOCK_ENTITY.get(), DNARecombinatorRenderer::new);
+
+            BlockEntityRenderers.register(PrehistoricBlockEntityTypes.DAWN_REDWOOD_SAPLING_BLOCK_ENTITY.get(), DawnRedwoodSaplingRenderer::new);
+            BlockEntityRenderers.register(PrehistoricBlockEntityTypes.NEOCALAMITES_BLOCK_ENTITY.get(), NeocalamitesRenderer::new);
 
             EntityRenderers.register(PrehistoricDinosaurEntityTypes.DAYONGASPIS.get(), DayongaspisRenderer::new);
 

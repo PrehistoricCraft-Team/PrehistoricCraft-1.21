@@ -203,7 +203,7 @@ public class ThreeStageFlowerPlantStructure extends FlowerBlock {
         return state.getValue(STAGES).equals(3) ? state.getShape(level, pos) : Shapes.empty();
     }
 
-    // Prevent dropping the invisible parts
+    // Destroy if we can't survive
     @Override
     public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
         if (!level.isClientSide() && player.isCreative()) {
@@ -291,20 +291,19 @@ public class ThreeStageFlowerPlantStructure extends FlowerBlock {
             if (configuredFeature.place(level, chunkGenerator, random, pos)) {
                 if (level.getBlockState(pos) == blockState) {
                     BlockState invisibleState = state.setValue(INVISIBLE, true);
-                    level.sendBlockUpdated(pos.above(), invisibleState, blockState, Block.UPDATE_NONE);
-                    level.sendBlockUpdated(pos.above(2), invisibleState, blockState, Block.UPDATE_NONE);
-                    level.sendBlockUpdated(pos.above(3), invisibleState, blockState, Block.UPDATE_NONE);
-
-                    level.sendBlockUpdated(pos, state, blockState, Block.UPDATE_ALL);
+                    //level.setBlock(pos.above(), invisibleState, Block.UPDATE_CLIENTS);
+                    //level.setBlock(pos.above(2), invisibleState, Block.UPDATE_CLIENTS);
+                    //level.setBlock(pos.above(3), invisibleState, Block.UPDATE_CLIENTS);
+                    //level.setBlock(pos, state, Block.UPDATE_ALL);
                 }
 
             } else {
                 BlockState invisibleState = state.setValue(INVISIBLE, true);
-                level.setBlock(pos.above(), invisibleState, Block.UPDATE_NONE);
-                level.setBlock(pos.above(2), invisibleState, Block.UPDATE_NONE);
-                level.setBlock(pos.above(3), invisibleState, Block.UPDATE_NONE);
+                //level.setBlock(pos.above(), invisibleState, Block.UPDATE_CLIENTS);
+                //level.setBlock(pos.above(2), invisibleState, Block.UPDATE_CLIENTS);
+                //level.setBlock(pos.above(3), invisibleState, Block.UPDATE_CLIENTS);
 
-                level.setBlock(pos, state, Block.UPDATE_ALL);
+                //level.setBlock(pos, state, Block.UPDATE_ALL);
             }
         }
     }

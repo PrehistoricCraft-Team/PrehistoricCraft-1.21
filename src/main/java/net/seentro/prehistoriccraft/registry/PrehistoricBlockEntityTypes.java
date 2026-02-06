@@ -11,6 +11,7 @@ import net.seentro.prehistoriccraft.common.block.dnaSeparationFilter.DNASeparati
 import net.seentro.prehistoriccraft.common.block.fossilAnalysisTable.FossilAnalysisTableBlockEntity;
 import net.seentro.prehistoriccraft.common.block.tissueExtractionChamber.TissueExtractionChamberBlockEntity;
 import net.seentro.prehistoriccraft.common.nature.dawnRedwood.DawnRedwoodSaplingBlockEntity;
+import net.seentro.prehistoriccraft.common.nature.neocalamites.NeocalamitesBlockEntity;
 import net.seentro.prehistoriccraft.common.nature.signs.PrehistoricHangingSignBlockEntity;
 import net.seentro.prehistoriccraft.common.nature.signs.PrehistoricSignBlockEntity;
 
@@ -79,6 +80,13 @@ public class PrehistoricBlockEntityTypes {
                                                         DawnRedwoodSaplingBlockEntity::new,
                                                         PrehistoricBlocks.DAWN_REDWOOD_SAPLING.get())
                                                         .build(null));
+
+        public static final Supplier<BlockEntityType<NeocalamitesBlockEntity>> NEOCALAMITES_BLOCK_ENTITY = BLOCK_ENTITY_TYPES
+                .register("neocalamites_block_entity",
+                        () -> BlockEntityType.Builder.of(
+                                        NeocalamitesBlockEntity::new,
+                                        PrehistoricBlocks.NEOCALAMITES.get())
+                                .build(null));
 
         public static void register(IEventBus eventBus) {
                 BLOCK_ENTITY_TYPES.register(eventBus);

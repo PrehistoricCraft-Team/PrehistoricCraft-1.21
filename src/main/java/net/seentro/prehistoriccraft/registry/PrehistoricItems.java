@@ -13,6 +13,7 @@ import net.seentro.prehistoriccraft.common.block.dnaRecombinator.item.DNARecombi
 import net.seentro.prehistoriccraft.common.block.dnaSeparationFilter.item.DNASeparationFilterBlockItem;
 import net.seentro.prehistoriccraft.common.block.tissueExtractionChamber.item.TissueExtractionChamberBlockItem;
 import net.seentro.prehistoriccraft.common.item.*;
+import net.seentro.prehistoriccraft.common.nature.neocalamites.item.NeocalamitesBlockItem;
 import net.seentro.prehistoriccraft.entity.dinosaur.PrehistoricDinosaurEntityTypes;
 
 
@@ -21,6 +22,8 @@ public class PrehistoricItems {
             DeferredRegister.createItems(PrehistoricCraft.MODID);
 
     /* NATURE */
+
+    public static final DeferredItem<Item> NEOCALAMITES = ITEMS.register("neocalamites", () -> new NeocalamitesBlockItem(new Item.Properties()));
 
     //DAWN REDWOOD
     public static final DeferredItem<Item> DAWN_REDWOOD_SIGN = ITEMS.register("dawn_redwood_sign", () -> new SignItem(new Item.Properties().stacksTo(16), PrehistoricBlocks.DAWN_REDWOOD_SIGN.get(), PrehistoricBlocks.DAWN_REDWOOD_WALL_SIGN.get()));

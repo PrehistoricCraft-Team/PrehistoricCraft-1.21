@@ -23,7 +23,8 @@ import net.seentro.prehistoriccraft.common.nature.FlammableConeBlock;
 import net.seentro.prehistoriccraft.common.nature.FlammableRotatedPillarBlock;
 import net.seentro.prehistoriccraft.common.nature.dawnRedwood.DawnRedwoodSaplingBlock;
 import net.seentro.prehistoriccraft.common.nature.grass.LoamGrassBlock;
-import net.seentro.prehistoriccraft.common.nature.plantStructures.PlantStructure;
+import net.seentro.prehistoriccraft.common.nature.neocalamites.NeocalamitesBlock;
+import net.seentro.prehistoriccraft.common.nature.neocalamites.sapling.NeocalamitesSaplingBlock;
 import net.seentro.prehistoriccraft.common.nature.signs.PrehistoricHangingSignBlock;
 import net.seentro.prehistoriccraft.common.nature.signs.PrehistoricStandingSignBlock;
 import net.seentro.prehistoriccraft.common.nature.signs.PrehistoricWallHangingSignBlock;
@@ -39,7 +40,8 @@ public class PrehistoricBlocks {
 
     /* NATURE */
 
-    public static final DeferredBlock<Block> NEOCALAMITES = registerBlock("neocalamites", () -> new PlantStructure(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SAPLING)));
+    public static final DeferredBlock<Block> NEOCALAMITES = registerBlockOnly("neocalamites", () -> new NeocalamitesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES).noCollission().dynamicShape().offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY)));
+    public static final DeferredBlock<Block> NEOCALAMITES_SAPLING = registerBlock("neocalamites_sapling", () -> new NeocalamitesSaplingBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SAPLING)));
 
     //DAWN REDWOOD
     public static final DeferredBlock<Block> DAWN_REDWOOD_LOG = registerBlock("dawn_redwood_log", () -> new FlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG)));
