@@ -12,6 +12,7 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.LiquidBlockContainer;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
@@ -21,14 +22,16 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.seentro.prehistoriccraft.common.block.nature.UnderwaterBushBlock;
+import net.seentro.prehistoriccraft.registry.PrehistoricBlocks;
 import org.jetbrains.annotations.Nullable;
 
-public class NeocalamitesSaplingBlock extends UnderwaterBushBlock implements BonemealableBlock, LiquidBlockContainer {
+public class NeocalamitesSaplingBlock extends UnderwaterBushBlock implements BonemealableBlock, SimpleWaterloggedBlock {
     public static final MapCodec<NeocalamitesSaplingBlock> CODEC = simpleCodec(NeocalamitesSaplingBlock::new);
     public static final BooleanProperty IS_STEM = BooleanProperty.create("is_stem");
 
     public NeocalamitesSaplingBlock(Properties properties) {
         super(properties);
+        this.registerDefaultState(this.getStateDefinition().any().setValue(IS_STEM, false));
     }
 
     @Override
@@ -72,17 +75,7 @@ public class NeocalamitesSaplingBlock extends UnderwaterBushBlock implements Bon
     }
 
     @Override
-    public void performBonemeal(ServerLevel serverLevel, RandomSource randomSource, BlockPos blockPos, BlockState blockState) {
-
-    }
-
-    @Override
-    public boolean canPlaceLiquid(@Nullable Player player, BlockGetter blockGetter, BlockPos blockPos, BlockState blockState, Fluid fluid) {
-        return false;
-    }
-
-    @Override
-    public boolean placeLiquid(LevelAccessor levelAccessor, BlockPos blockPos, BlockState blockState, FluidState fluidState) {
-        return false;
+    public void performBonemeal(ServerLevel serverLevel, RandomSource randomSource, BlockPos pos, BlockState state) {
+        serverLevel.setBlock(pos, PrehistoricBlocks.NEOCALAMITES.get().defaultBlockState(), Block.UPDATE_ALL);
     }
 }
