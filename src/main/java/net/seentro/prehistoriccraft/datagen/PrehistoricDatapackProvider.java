@@ -7,9 +7,9 @@ import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
-import net.seentro.prehistoriccraft.worldgen.PrehistoricBiomeModifiers;
-import net.seentro.prehistoriccraft.worldgen.PrehistoricConfiguredFeatures;
-import net.seentro.prehistoriccraft.worldgen.PrehistoricPlacedFeatures;
+import net.seentro.prehistoriccraft.common.worldgen.PrehistoricBiomeModifiers;
+import net.seentro.prehistoriccraft.common.worldgen.PrehistoricConfiguredFeatures;
+import net.seentro.prehistoriccraft.common.worldgen.PrehistoricPlacedFeatures;
 
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;

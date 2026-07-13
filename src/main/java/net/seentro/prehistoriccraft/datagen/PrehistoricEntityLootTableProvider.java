@@ -12,7 +12,7 @@ import net.minecraft.world.level.storage.loot.functions.SmeltItemFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.neoforged.neoforge.registries.DeferredHolder;
-import net.seentro.prehistoriccraft.entity.dinosaur.PrehistoricDinosaurEntityTypes;
+import net.seentro.prehistoriccraft.common.entity.dinosaur.PrehistoricDinosaurEntityTypes;
 import net.seentro.prehistoriccraft.registry.PrehistoricItems;
 
 import java.util.stream.Stream;

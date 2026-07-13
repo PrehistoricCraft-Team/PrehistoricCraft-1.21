@@ -10,7 +10,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.SlotItemHandler;
-import net.seentro.prehistoriccraft.common.block.dnaSeparationFilter.DNASeparationFilterBlockEntity;
+import net.seentro.prehistoriccraft.common.block.machines.dnaSeparationFilter.DNASeparationFilterBlockEntity;
 import net.seentro.prehistoriccraft.common.screen.MachineMenu;
 import net.seentro.prehistoriccraft.common.screen.slotItemHandlers.OutputSlotItemHandler;
 import net.seentro.prehistoriccraft.registry.PrehistoricBlocks;

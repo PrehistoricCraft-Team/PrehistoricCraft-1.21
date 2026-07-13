@@ -7,7 +7,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
-import net.seentro.prehistoriccraft.data.FossilSpeciesLoader;
+import net.seentro.prehistoriccraft.core.data.FossilSpeciesLoader;
 import net.seentro.prehistoriccraft.registry.PrehistoricDataComponents;
 import net.seentro.prehistoriccraft.utils.FossilSpeciesData;
 import org.apache.commons.lang3.StringUtils;

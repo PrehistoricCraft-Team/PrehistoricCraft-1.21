@@ -8,7 +8,7 @@
           "block": "prehistoriccraft:neocalamites",
           "condition": "minecraft:block_state_property",
           "properties": {
-            "is_base": "true"
+            "segment": "base"
           }
         }
       ],

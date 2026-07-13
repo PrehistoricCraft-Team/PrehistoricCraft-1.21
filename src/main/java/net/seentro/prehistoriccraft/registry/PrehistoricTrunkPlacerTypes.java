@@ -5,7 +5,7 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
-import net.seentro.prehistoriccraft.worldgen.tree.DawnRedwoodTrunkPlacer;
+import net.seentro.prehistoriccraft.common.worldgen.tree.DawnRedwoodTrunkPlacer;
 
 import java.util.function.Supplier;
 

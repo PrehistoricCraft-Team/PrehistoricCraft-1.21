@@ -8,13 +8,13 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
-import net.seentro.prehistoriccraft.common.block.acidCleaningChamber.item.AcidCleaningChamberBlockItem;
-import net.seentro.prehistoriccraft.common.block.dnaRecombinator.item.DNARecombinatorBlockItem;
-import net.seentro.prehistoriccraft.common.block.dnaSeparationFilter.item.DNASeparationFilterBlockItem;
-import net.seentro.prehistoriccraft.common.block.tissueExtractionChamber.item.TissueExtractionChamberBlockItem;
+import net.seentro.prehistoriccraft.common.block.machines.acidCleaningChamber.item.AcidCleaningChamberBlockItem;
+import net.seentro.prehistoriccraft.common.block.machines.dnaRecombinator.item.DNARecombinatorBlockItem;
+import net.seentro.prehistoriccraft.common.block.machines.dnaSeparationFilter.item.DNASeparationFilterBlockItem;
+import net.seentro.prehistoriccraft.common.block.machines.tissueExtractionChamber.item.TissueExtractionChamberBlockItem;
 import net.seentro.prehistoriccraft.common.item.*;
-import net.seentro.prehistoriccraft.common.nature.neocalamites.item.NeocalamitesBlockItem;
-import net.seentro.prehistoriccraft.entity.dinosaur.PrehistoricDinosaurEntityTypes;
+import net.seentro.prehistoriccraft.common.block.nature.neocalamites.item.NeocalamitesBlockItem;
+import net.seentro.prehistoriccraft.common.entity.dinosaur.PrehistoricDinosaurEntityTypes;
 
 
 public class PrehistoricItems {
@@ -22,14 +22,13 @@ public class PrehistoricItems {
             DeferredRegister.createItems(PrehistoricCraft.MODID);
 
     /* NATURE */
-
     public static final DeferredItem<Item> NEOCALAMITES = ITEMS.register("neocalamites", () -> new NeocalamitesBlockItem(new Item.Properties()));
 
-    //DAWN REDWOOD
+    // DAWN REDWOOD
     public static final DeferredItem<Item> DAWN_REDWOOD_SIGN = ITEMS.register("dawn_redwood_sign", () -> new SignItem(new Item.Properties().stacksTo(16), PrehistoricBlocks.DAWN_REDWOOD_SIGN.get(), PrehistoricBlocks.DAWN_REDWOOD_WALL_SIGN.get()));
     public static final DeferredItem<Item> DAWN_REDWOOD_HANGING_SIGN = ITEMS.register("dawn_redwood_hanging_sign", () -> new HangingSignItem(PrehistoricBlocks.DAWN_REDWOOD_HANGING_SIGN.get(), PrehistoricBlocks.DAWN_REDWOOD_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16)));
-    public static final DeferredItem<Item> DAWN_REDWOOD_BOAT = ITEMS.register("dawn_redwood_boat", () -> new BoatItem(false, PrehistoricEnumExtensions.DAWN_REDWOOD.getValue(), new Item.Properties().stacksTo(1)));
-    public static final DeferredItem<Item> DAWN_REDWOOD_CHEST_BOAT = ITEMS.register("dawn_redwood_chest_boat", () -> new BoatItem(true, PrehistoricEnumExtensions.DAWN_REDWOOD.getValue(), new Item.Properties().stacksTo(1)));
+    public static final DeferredItem<Item> DAWN_REDWOOD_BOAT = ITEMS.register("dawn_redwood_boat", () -> new BoatItem(false, PrehistoricEnumExtensions.DAWN_REDWOOD_ENUM_PROXY.getValue(), new Item.Properties().stacksTo(1)));
+    public static final DeferredItem<Item> DAWN_REDWOOD_CHEST_BOAT = ITEMS.register("dawn_redwood_chest_boat", () -> new BoatItem(true, PrehistoricEnumExtensions.DAWN_REDWOOD_ENUM_PROXY.getValue(), new Item.Properties().stacksTo(1)));
     public static final DeferredItem<Item> DAWN_REDWOOD_CONE = ITEMS.register("dawn_redwood_cone", () -> new Item(new Item.Properties()));
 
     /* FOSSILS */

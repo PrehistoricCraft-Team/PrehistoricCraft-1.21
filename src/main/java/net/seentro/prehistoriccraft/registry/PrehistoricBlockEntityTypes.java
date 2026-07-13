@@ -5,15 +5,15 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
-import net.seentro.prehistoriccraft.common.block.acidCleaningChamber.AcidCleaningChamberBlockEntity;
-import net.seentro.prehistoriccraft.common.block.dnaRecombinator.DNARecombinatorBlockEntity;
-import net.seentro.prehistoriccraft.common.block.dnaSeparationFilter.DNASeparationFilterBlockEntity;
-import net.seentro.prehistoriccraft.common.block.fossilAnalysisTable.FossilAnalysisTableBlockEntity;
-import net.seentro.prehistoriccraft.common.block.tissueExtractionChamber.TissueExtractionChamberBlockEntity;
-import net.seentro.prehistoriccraft.common.nature.dawnRedwood.DawnRedwoodSaplingBlockEntity;
-import net.seentro.prehistoriccraft.common.nature.neocalamites.NeocalamitesBlockEntity;
-import net.seentro.prehistoriccraft.common.nature.signs.PrehistoricHangingSignBlockEntity;
-import net.seentro.prehistoriccraft.common.nature.signs.PrehistoricSignBlockEntity;
+import net.seentro.prehistoriccraft.common.block.machines.acidCleaningChamber.AcidCleaningChamberBlockEntity;
+import net.seentro.prehistoriccraft.common.block.machines.dnaRecombinator.DNARecombinatorBlockEntity;
+import net.seentro.prehistoriccraft.common.block.machines.dnaSeparationFilter.DNASeparationFilterBlockEntity;
+import net.seentro.prehistoriccraft.common.block.machines.fossilAnalysisTable.FossilAnalysisTableBlockEntity;
+import net.seentro.prehistoriccraft.common.block.machines.tissueExtractionChamber.TissueExtractionChamberBlockEntity;
+import net.seentro.prehistoriccraft.common.block.nature.dawnRedwood.DawnRedwoodSaplingBlockEntity;
+import net.seentro.prehistoriccraft.common.block.nature.neocalamites.NeocalamitesBlockEntity;
+import net.seentro.prehistoriccraft.common.block.nature.signs.PrehistoricHangingSignBlockEntity;
+import net.seentro.prehistoriccraft.common.block.nature.signs.PrehistoricSignBlockEntity;
 
 import java.util.function.Supplier;
 

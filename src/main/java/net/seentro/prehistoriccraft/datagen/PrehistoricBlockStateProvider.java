@@ -5,13 +5,11 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.neoforged.neoforge.client.model.generators.*;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
-import net.seentro.prehistoriccraft.common.nature.neocalamites.sapling.NeocalamitesSaplingBlock;
+import net.seentro.prehistoriccraft.common.block.nature.neocalamites.sapling.NeocalamitesSaplingBlock;
 import net.seentro.prehistoriccraft.registry.PrehistoricBlocks;
 
 import java.util.Set;
@@ -139,10 +137,12 @@ public class PrehistoricBlockStateProvider extends BlockStateProvider {
                 .texture("cross", texture.toString())
                 .renderType("cutout");
 
-        getVariantBuilder(block.get())
+        /*getVariantBuilder(block.get())
                 .partialState().with(NeocalamitesSaplingBlock.IS_STEM, true).addModels(new ConfiguredModel(stemModel))
                 .partialState().with(NeocalamitesSaplingBlock.IS_STEM, false).addModels(new ConfiguredModel(model));
+         */
 
+        simpleBlock(block.get(), model);
         blockItemWithBlockTexture(block, itemTexture);
     }
 

@@ -5,7 +5,7 @@ import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerTy
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
-import net.seentro.prehistoriccraft.worldgen.tree.DawnRedwoodFoliagePlacer;
+import net.seentro.prehistoriccraft.common.worldgen.tree.DawnRedwoodFoliagePlacer;
 
 import java.util.function.Supplier;
 

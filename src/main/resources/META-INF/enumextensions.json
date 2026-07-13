@@ -6,7 +6,7 @@
       "constructor": "(Ljava/util/function/Supplier;Ljava/lang/String;Ljava/util/function/Supplier;Ljava/util/function/Supplier;Ljava/util/function/Supplier;Z)V",
       "parameters": {
         "class": "net/seentro/prehistoriccraft/registry/PrehistoricEnumExtensions",
-        "field": "DAWN_REDWOOD"
+        "field": "DAWN_REDWOOD_ENUM_PROXY"
       }
     }
   ]

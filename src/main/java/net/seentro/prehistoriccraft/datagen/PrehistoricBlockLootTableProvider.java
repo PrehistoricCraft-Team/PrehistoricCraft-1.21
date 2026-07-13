@@ -21,9 +21,9 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePrope
 import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
-import net.seentro.prehistoriccraft.common.nature.dawnRedwood.DawnRedwoodSaplingBlock;
-import net.seentro.prehistoriccraft.common.nature.neocalamites.NeocalamitesBlock;
-import net.seentro.prehistoriccraft.common.nature.neocalamites.sapling.NeocalamitesSaplingBlock;
+import net.seentro.prehistoriccraft.common.block.nature.dawnRedwood.DawnRedwoodSaplingBlock;
+import net.seentro.prehistoriccraft.common.block.nature.neocalamites.NeocalamitesBlock;
+import net.seentro.prehistoriccraft.core.multiblock.QuadrupleInvisibleSegmentProperty;
 import net.seentro.prehistoriccraft.registry.PrehistoricBlocks;
 import net.seentro.prehistoriccraft.registry.PrehistoricItems;
 
@@ -58,7 +58,7 @@ public class PrehistoricBlockLootTableProvider extends BlockLootSubProvider {
         dropSelf(PrehistoricBlocks.DAWN_REDWOOD_PRESSURE_PLATE.get());
         dropSelf(PrehistoricBlocks.DAWN_REDWOOD_BUTTON.get());
 
-        this.add(PrehistoricBlocks.DAWN_REDWOOD_SAPLING.get(), this::createInvisibleDrop);
+        this.add(PrehistoricBlocks.DAWN_REDWOOD_SAPLING.get(), this::createNonInvisibleBlock);
         this.add(PrehistoricBlocks.POTTED_DAWN_REDWOOD_SAPLING.get(), createPotFlowerItemTable(PrehistoricBlocks.POTTED_DAWN_REDWOOD_SAPLING.get()));
 
         this.add(PrehistoricBlocks.DAWN_REDWOOD_LEAVES.get(), block ->
@@ -166,7 +166,7 @@ public class PrehistoricBlockLootTableProvider extends BlockLootSubProvider {
         this.add(block, this.createMatchingToolNumberedDrop(block, item, PrehistoricItems.EXCAVATOR_PICKAXE.get(), 1, 3));
     }
 
-    protected LootTable.Builder createInvisibleDrop(Block block) {
+    protected LootTable.Builder createNonInvisibleBlock(Block block) {
         return LootTable.lootTable()
                 .withPool(
                         LootPool.lootPool()
@@ -185,7 +185,7 @@ public class PrehistoricBlockLootTableProvider extends BlockLootSubProvider {
                                 .setRolls(ConstantValue.exactly(1.0F))
                                 .when(
                                         LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-                                                .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(NeocalamitesBlock.IS_BASE, true))
+                                                .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(NeocalamitesBlock.SEGMENT, QuadrupleInvisibleSegmentProperty.BASE))
                                 ).add(LootItem.lootTableItem(block))
                 );
     }

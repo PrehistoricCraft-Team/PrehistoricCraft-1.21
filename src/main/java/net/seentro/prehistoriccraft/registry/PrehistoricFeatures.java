@@ -6,8 +6,8 @@ import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConf
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
-import net.seentro.prehistoriccraft.worldgen.features.DawnRedwoodBigTreeFeature;
-import net.seentro.prehistoriccraft.worldgen.features.DawnRedwoodTreeFeature;
+import net.seentro.prehistoriccraft.common.worldgen.features.DawnRedwoodBigTreeFeature;
+import net.seentro.prehistoriccraft.common.worldgen.features.DawnRedwoodTreeFeature;
 
 import java.util.function.Supplier;
 

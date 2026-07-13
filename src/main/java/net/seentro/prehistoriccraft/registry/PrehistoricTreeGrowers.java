@@ -2,7 +2,7 @@ package net.seentro.prehistoriccraft.registry;
 
 import net.minecraft.world.level.block.grower.TreeGrower;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
-import net.seentro.prehistoriccraft.worldgen.PrehistoricConfiguredFeatures;
+import net.seentro.prehistoriccraft.common.worldgen.PrehistoricConfiguredFeatures;
 
 import java.util.Optional;
 
