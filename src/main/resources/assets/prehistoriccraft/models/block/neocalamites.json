@@ -1,6 +1,6 @@
 {
   "parent": "builtin/entity",
    "textures": {
-    "particle": "prehistoriccraft:block/neocalamites_stem"
+    "particle": "prehistoriccraft:block/neocalamites_sapling"
   }
 }

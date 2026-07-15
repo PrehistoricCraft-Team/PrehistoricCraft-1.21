@@ -26,7 +26,8 @@ public class FossilAnalysisTableMenu extends MachineMenu<FossilAnalysisTableBloc
     }
 
     public FossilAnalysisTableMenu(int containerId, Inventory inv, BlockEntity blockEntity, ContainerData data) {
-        super(PrehistoricMenuTypes.FOSSIL_ANALYSIS_TABLE_MENU.get(), containerId, (FossilAnalysisTableBlockEntity) blockEntity, data, 19);
+        super(PrehistoricMenuTypes.FOSSIL_ANALYSIS_TABLE_MENU.get(), containerId, (FossilAnalysisTableBlockEntity) blockEntity, data, 19,
+                10, 107, 10, 165);
         this.blockEntity = (FossilAnalysisTableBlockEntity) blockEntity;
         this.level = inv.player.level();
         this.data = data;
@@ -37,8 +38,6 @@ public class FossilAnalysisTableMenu extends MachineMenu<FossilAnalysisTableBloc
         addDataSlots(data);
 
         IItemHandler handler = this.blockEntity.itemHandler;
-
-        setPosValues(10, 107, 10, 165);
 
         /* LEFT 3x3 GRID */
         for (int col = 0; col < 3; col++) {

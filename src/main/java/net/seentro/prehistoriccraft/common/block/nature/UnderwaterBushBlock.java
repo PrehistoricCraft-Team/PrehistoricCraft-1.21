@@ -12,7 +12,6 @@ import net.minecraft.world.level.block.LiquidBlockContainer;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathComputationType;
-import net.seentro.prehistoriccraft.common.block.nature.neocalamites.sapling.NeocalamitesSaplingBlock;
 
 public abstract class UnderwaterBushBlock extends Block implements LiquidBlockContainer {
     protected UnderwaterBushBlock(BlockBehaviour.Properties properties) {

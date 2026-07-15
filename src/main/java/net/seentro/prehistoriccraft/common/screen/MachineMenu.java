@@ -7,19 +7,27 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.seentro.prehistoriccraft.PrehistoricCraft;
 import org.jetbrains.annotations.Nullable;
 
 public abstract class MachineMenu<T> extends AbstractContainerMenu {
     public final T blockEntity;
     protected final ContainerData data;
+    private final int inventoryX, inventoryY, hotbarX, hotbarY;
 
     private final int TE_INVENTORY_SLOT_COUNT;
 
-    protected MachineMenu(@Nullable MenuType<?> menuType, int containerId, T blockEntity, ContainerData data, int teInventorySlotCount) {
+    protected MachineMenu(@Nullable MenuType<?> menuType, int containerId, T blockEntity, ContainerData data, int teInventorySlotCount,
+                          int inventoryX, int inventoryY, int hotbarX, int hotbarY) {
         super(menuType, containerId);
         this.blockEntity = blockEntity;
         this.data = data;
         TE_INVENTORY_SLOT_COUNT = teInventorySlotCount;
+
+        this.inventoryX = inventoryX;
+        this.inventoryY = inventoryY;
+        this.hotbarX = hotbarX;
+        this.hotbarY = hotbarY;
     }
 
     public int getPercent() {
@@ -37,15 +45,6 @@ public abstract class MachineMenu<T> extends AbstractContainerMenu {
 
     public boolean isCrafting() {
         return data.get(0) > 0;
-    }
-
-    private static int inventoryX, inventoryY, hotbarX, hotbarY;
-
-    protected void setPosValues(int inventoryX, int inventoryY, int hotbarX,  int hotbarY) {
-        MachineMenu.inventoryX = inventoryX;
-        MachineMenu.inventoryY = inventoryY;
-        MachineMenu.hotbarX = hotbarX;
-        MachineMenu.hotbarY = hotbarY;
     }
 
     //CREDIT FOR THIS PART GOES TO: diesieben07
@@ -77,7 +76,7 @@ public abstract class MachineMenu<T> extends AbstractContainerMenu {
                 return ItemStack.EMPTY;
             }
         } else {
-            System.out.println("Invalid slotIndex:" + pIndex);
+            PrehistoricCraft.LOGGER.debug("Invalid slotIndex: {}", pIndex);
             return ItemStack.EMPTY;
         }
         // If stack size == 0 (the entire stack was moved) set slot contents to null
@@ -93,14 +92,14 @@ public abstract class MachineMenu<T> extends AbstractContainerMenu {
     protected void addPlayerInventory(Inventory playerInventory) {
         for (int row = 0; row < 3; ++row) {
             for (int column = 0; column < 9; ++column) {
-                this.addSlot(new Slot(playerInventory, column + row * 9 + 9, inventoryX + column * 18, inventoryY + row * 18));
+                this.addSlot(new Slot(playerInventory, column + row * 9 + 9, this.inventoryX + column * 18, this.inventoryY + row * 18));
             }
         }
     }
 
     protected void addPlayerHotbar(Inventory playerInventory) {
         for (int i = 0; i < 9; ++i) {
-            this.addSlot(new Slot(playerInventory, i, hotbarX + i * 18, hotbarY));
+            this.addSlot(new Slot(playerInventory, i, this.hotbarX + i * 18, this.hotbarY));
         }
     }
 }

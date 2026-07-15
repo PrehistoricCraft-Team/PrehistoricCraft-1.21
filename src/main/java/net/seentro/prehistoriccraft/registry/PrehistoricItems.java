@@ -12,9 +12,9 @@ import net.seentro.prehistoriccraft.common.block.machines.acidCleaningChamber.it
 import net.seentro.prehistoriccraft.common.block.machines.dnaRecombinator.item.DNARecombinatorBlockItem;
 import net.seentro.prehistoriccraft.common.block.machines.dnaSeparationFilter.item.DNASeparationFilterBlockItem;
 import net.seentro.prehistoriccraft.common.block.machines.tissueExtractionChamber.item.TissueExtractionChamberBlockItem;
-import net.seentro.prehistoriccraft.common.item.*;
 import net.seentro.prehistoriccraft.common.block.nature.neocalamites.item.NeocalamitesBlockItem;
 import net.seentro.prehistoriccraft.common.entity.dinosaur.PrehistoricDinosaurEntityTypes;
+import net.seentro.prehistoriccraft.common.item.*;
 
 
 public class PrehistoricItems {

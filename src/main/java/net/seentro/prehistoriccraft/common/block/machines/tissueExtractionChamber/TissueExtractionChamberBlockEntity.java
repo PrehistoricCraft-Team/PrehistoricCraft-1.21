@@ -261,7 +261,7 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
 
     private @Nullable ItemStack result;
     private int validInputSlot = -1;
-    private static final Random random = new Random();
+    private static final Random RANDOM = new Random();
 
     public void tick(Level level, BlockPos pos, BlockState state) {
         handleBlice();
@@ -343,7 +343,7 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
         if (input.isEmpty() || (!(input.is(PrehistoricTags.Items.FOSSIL_SAMPLES) && input.has(PrehistoricDataComponents.FOSSIL_QUALITY))
                 && !input.is(PrehistoricTags.Items.AMBER))) return false;
 
-        if (getFluidAmount() <= 45) return false;
+        if (getFluidAmount() < 45) return false;
 
         if (result == null) {
             result = simulateOutput(input);
@@ -357,7 +357,7 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
                 ? getWasteChance(input.getOrDefault(PrehistoricDataComponents.FOSSIL_QUALITY, "decent"))
                 : 0.5;
 
-        if (random.nextDouble() >= wasteChance) {
+        if (RANDOM.nextDouble() >= wasteChance) {
             WeightedRandom<ItemLike> waste = new WeightedRandom<>();
             waste.addItem(Blocks.GRAVEL, 35);
             waste.addItem(Items.FLINT, 35);
@@ -369,7 +369,7 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
 
         String timePeriod = getTimePeriod(input);
 
-        return getRandomTissue(timePeriod, random)
+        return getRandomTissue(timePeriod, RANDOM)
                 .map(tissueEntry -> {
                     Item tissueType = switch (tissueEntry.tissueType()) {
                         case "animal" -> PrehistoricItems.ANIMAL_TISSUE.get();
@@ -385,15 +385,18 @@ public class TissueExtractionChamberBlockEntity extends BlockEntity implements M
     }
 
     private boolean canOutput(ItemStack output) {
+        if (output.isEmpty()) return false;
         return canOutput(output, 6, 22);
     }
 
     private boolean canOutput(ItemStack output, int slot) {
+        if (output.isEmpty()) return false;
         ItemStack outputCopy = itemHandler.insertItem(slot, output.copy(), true);
         return outputCopy.isEmpty();
     }
 
     private boolean canOutput(ItemStack output, int minSlot, int maxSlot) {
+        if (output.isEmpty()) return false;
         for (int i = minSlot; i < maxSlot; i++) {
             ItemStack outputCopy = itemHandler.insertItem(i, output.copy(), true);
             if (outputCopy.isEmpty()) {

@@ -4,7 +4,10 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.SnowyDirtBlock;
+import net.minecraft.world.level.block.TrapDoorBlock;
 import net.neoforged.neoforge.client.model.generators.*;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.registries.DeferredBlock;
@@ -43,7 +46,7 @@ public class PrehistoricBlockStateProvider extends BlockStateProvider {
                 modLoc("block/loam_grass_block_side"), mcLoc("block/grass_block_top"),
                 blockTexture(PrehistoricBlocks.LOAM.get()), mcLoc("block/grass_block_side_overlay"),
                 modLoc("block/loam_grass_block_snow"), mcLoc("block/grass_block_top"));
-        doubleCrossPlantBlock(PrehistoricBlocks.NEOCALAMITES_SAPLING, modLoc("block/neocalamites_sapling_bottom"), modLoc("block/neocalamites_sapling"), "neocalamites_sapling");
+        doubleCrossPlantWithStemBlock(PrehistoricBlocks.NEOCALAMITES_SAPLING, modLoc("block/neocalamites_sapling_bottom"), modLoc("block/neocalamites_sapling"), "neocalamites_sapling");
 
 
         //DAWN REDWOOD
@@ -120,7 +123,7 @@ public class PrehistoricBlockStateProvider extends BlockStateProvider {
 
     /* HELPER METHODS */
 
-    public void doubleCrossPlantBlock(DeferredBlock<?> block, ResourceLocation stemTexture, ResourceLocation texture, String itemTexture) {
+    public void doubleCrossPlantWithStemBlock(DeferredBlock<?> block, ResourceLocation stemTexture, ResourceLocation texture, String itemTexture) {
         String name = BuiltInRegistries.BLOCK.getKey(block.get()).toString();
 
         // STEM
@@ -137,12 +140,10 @@ public class PrehistoricBlockStateProvider extends BlockStateProvider {
                 .texture("cross", texture.toString())
                 .renderType("cutout");
 
-        /*getVariantBuilder(block.get())
+        getVariantBuilder(block.get())
                 .partialState().with(NeocalamitesSaplingBlock.IS_STEM, true).addModels(new ConfiguredModel(stemModel))
                 .partialState().with(NeocalamitesSaplingBlock.IS_STEM, false).addModels(new ConfiguredModel(model));
-         */
 
-        simpleBlock(block.get(), model);
         blockItemWithBlockTexture(block, itemTexture);
     }
 

@@ -26,7 +26,8 @@ public class TissueExtractionChamberMenu extends MachineMenu<TissueExtractionCha
     }
 
     public TissueExtractionChamberMenu(int containerId, Inventory inv, BlockEntity blockEntity, ContainerData data) {
-        super(PrehistoricMenuTypes.TISSUE_EXTRACTION_CHAMBER_MENU.get(), containerId, (TissueExtractionChamberBlockEntity) blockEntity, data, 22);
+        super(PrehistoricMenuTypes.TISSUE_EXTRACTION_CHAMBER_MENU.get(), containerId, (TissueExtractionChamberBlockEntity) blockEntity, data, 22,
+                12, 113, 12, 171);
         this.blockEntity = (TissueExtractionChamberBlockEntity) blockEntity;
         this.level = inv.player.level();
         this.data = data;
@@ -37,8 +38,6 @@ public class TissueExtractionChamberMenu extends MachineMenu<TissueExtractionCha
         addDataSlots(data);
 
         IItemHandler handler = this.blockEntity.itemHandler;
-
-        setPosValues(12, 113, 12, 171);
 
         /* BOTTLE */
         this.addSlot(new SlotItemHandler(handler, 0, 12, 11));

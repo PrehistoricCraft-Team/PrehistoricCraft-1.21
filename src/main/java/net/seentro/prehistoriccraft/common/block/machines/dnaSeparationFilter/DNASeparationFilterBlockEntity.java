@@ -155,7 +155,7 @@ public class DNASeparationFilterBlockEntity extends BlockEntity implements MenuP
         }
     };
 
-    private static final Random random = new Random();
+    private static final Random RANDOM = new Random();
 
     private final HopperRules hopperRules = new HopperRules();
     private final EnumMap<Direction, IItemHandler> hopperHandlers = new EnumMap<>(Direction.class);
@@ -446,7 +446,7 @@ public class DNASeparationFilterBlockEntity extends BlockEntity implements MenuP
         int quality = calcQuality(tissue);
         boolean direct = tissue.is(PrehistoricItems.BLOOD_CELL);
         if (direct) quality = 100;
-        boolean contaminated = random.nextDouble() < CONTAMINATION_CHANCE;
+        boolean contaminated = RANDOM.nextDouble() < CONTAMINATION_CHANCE;
         String species = tissue.getOrDefault(PrehistoricDataComponents.FOSSIL_SPECIES.get(), "unknown");
         out.set(PrehistoricDataComponents.DNA_QUALITY.get(), quality);
         out.set(PrehistoricDataComponents.DNA_CONTAMINATED.get(), contaminated);
@@ -467,7 +467,7 @@ public class DNASeparationFilterBlockEntity extends BlockEntity implements MenuP
     private int calcQuality(ItemStack tissue) {
         Range r = getQualityRangeFromSpeciesJson(tissue);
         if (r.max < r.min) r.max = r.min;
-        return r.min + random.nextInt(r.max - r.min + 1);
+        return r.min + RANDOM.nextInt(r.max - r.min + 1);
     }
 
     private Range getQualityRangeFromSpeciesJson(ItemStack stack) {

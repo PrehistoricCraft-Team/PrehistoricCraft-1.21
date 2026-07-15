@@ -18,7 +18,8 @@ public class PrehistoricTags {
                 BlockTags.create(ResourceLocation.fromNamespaceAndPath("c", "silt"));
         public static final TagKey<Block> CLAY =
                 BlockTags.create(ResourceLocation.fromNamespaceAndPath("c", "clay"));
-
+        public static final TagKey<Block> NATURAL_GROWABLE =
+                BlockTags.create(ResourceLocation.fromNamespaceAndPath("c", "natural_growable"));
 
     }
 
@@ -50,9 +51,6 @@ public class PrehistoricTags {
                 ItemTags.create(ResourceLocation.fromNamespaceAndPath("c","silt"));
         public static final TagKey<Item> CLAY =
                 ItemTags.create(ResourceLocation.fromNamespaceAndPath("c", "clay"));
-
-
-
     }
 }
 

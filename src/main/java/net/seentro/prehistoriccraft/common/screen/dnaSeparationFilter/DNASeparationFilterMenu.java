@@ -24,7 +24,8 @@ public class DNASeparationFilterMenu extends MachineMenu<DNASeparationFilterBloc
     }
 
     public DNASeparationFilterMenu(int containerId, Inventory inv, BlockEntity be, ContainerData data) {
-        super(PrehistoricMenuTypes.DNA_SEPARATION_FILTER_MENU.get(), containerId, (DNASeparationFilterBlockEntity) be, data, 16);
+        super(PrehistoricMenuTypes.DNA_SEPARATION_FILTER_MENU.get(), containerId, (DNASeparationFilterBlockEntity) be, data, 16,
+                40, 135, 40, 193);
         this.level = inv.player.level();
         this.addDataSlots(data);
 
@@ -47,8 +48,6 @@ public class DNASeparationFilterMenu extends MachineMenu<DNASeparationFilterBloc
         }
 
         this.addSlot(new SlotItemHandler(handler, DNASeparationFilterBlockEntity.SLOT_FLUID_IO, 39, 103));
-
-        this.setPosValues(40, 135, 40, 193);
 
         this.addPlayerInventory(inv);
         this.addPlayerHotbar(inv);

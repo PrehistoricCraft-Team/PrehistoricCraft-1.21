@@ -23,7 +23,8 @@ public class DNARecombinatorMenu extends MachineMenu<DNARecombinatorBlockEntity>
     }
 
     public DNARecombinatorMenu(int containerId, Inventory inv, BlockEntity blockEntity, ContainerData data) {
-        super(PrehistoricMenuTypes.DNA_RECOMBINATOR_MENU.get(), containerId, (DNARecombinatorBlockEntity) blockEntity, data, 10);
+        super(PrehistoricMenuTypes.DNA_RECOMBINATOR_MENU.get(), containerId, (DNARecombinatorBlockEntity) blockEntity, data, 10,
+                12, 113, 12, 171);
         this.level = inv.player.level();
 
         addPlayerInventory(inv);
@@ -32,8 +33,6 @@ public class DNARecombinatorMenu extends MachineMenu<DNARecombinatorBlockEntity>
         addDataSlots(data);
 
         IItemHandler handler = this.blockEntity.itemHandler;
-
-        setPosValues(12, 113, 12, 171);
 
         /* PETRI DISHES */
 

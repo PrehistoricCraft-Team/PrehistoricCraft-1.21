@@ -7,6 +7,9 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
+import java.util.List;
+import java.util.Objects;
+
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -24,21 +27,31 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.common.util.TriState;
-import net.seentro.prehistoriccraft.PrehistoricCraft;
 import net.seentro.prehistoriccraft.core.multiblock.QuadrupleInvisibleSegmentProperty;
 import org.jetbrains.annotations.Nullable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import static net.seentro.prehistoriccraft.core.multiblock.QuadrupleInvisibleSegmentProperty.*;
+import java.util.Optional;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.item.Items;
+import net.seentro.prehistoriccraft.registry.PrehistoricBlocks;
+
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.WATERLOGGED;
+import static net.seentro.prehistoriccraft.core.multiblock.QuadrupleInvisibleSegmentProperty.*;
 
 public class NeocalamitesBlock extends BushBlock implements EntityBlock, SimpleWaterloggedBlock {
     public static final MapCodec<NeocalamitesBlock> CODEC = simpleCodec(NeocalamitesBlock::new);
     public static final EnumProperty<QuadrupleInvisibleSegmentProperty> SEGMENT = EnumProperty.create("segment", QuadrupleInvisibleSegmentProperty.class);
     public static final IntegerProperty MIDDLE_SEGMENT_COUNT = IntegerProperty.create("middle_segment_count", 1, 2);
+    private static final Logger LOGGER = LoggerFactory.getLogger(NeocalamitesBlock.class);
 
     public NeocalamitesBlock(Properties properties) {
         super(properties);
@@ -93,24 +106,44 @@ public class NeocalamitesBlock extends BushBlock implements EntityBlock, SimpleW
         Level level = context.getLevel();
         BlockPos pos = context.getClickedPos();
 
+        if (countUntilSurface(level, pos) > 6) return null; // ensure that we are not allowed to place if the stem count would be higher than 6
         FluidState fluidstate = level.getFluidState(pos);
+        int middleSegmentCount = getMiddleSegmentCount(level, pos);
 
+        return this.defaultBlockState().setValue(WATERLOGGED, fluidstate.is(FluidTags.WATER)).setValue(MIDDLE_SEGMENT_COUNT, middleSegmentCount);
+    }
+
+    // decide to place one or two middle segments based on the position of the block. If we cannot fit as a double, overwrite and set the middle segments to one
+    public static int getMiddleSegmentCount(Level level, BlockPos pos) {
         boolean canFitDouble = true;
         for (int i = 1; i < 5; i++) {
             if (!level.getBlockState(pos.above(i)).canBeReplaced()) canFitDouble = false;
         }
 
-        // decide to place one or two middle segments based on the position of the block. If we cannot fit as a double, overwrite and set the middle segments to one
-        int middleSegmentCount = Math.abs(pos.hashCode()) % 2 + 1;
-        if (!canFitDouble) middleSegmentCount = 1;
+        int toReturn = Math.abs(pos.hashCode()) % 2 + 1; // calculate height based on position
+        if (!canFitDouble) toReturn = 1; // if we can't fit a double, overwrite with a one high instead
 
-        PrehistoricCraft.LOGGER.info("{}: {}", level.isClientSide ? "CLIENT" : "SERVER", middleSegmentCount);
-
-        return this.defaultBlockState().setValue(WATERLOGGED, fluidstate.is(FluidTags.WATER)).setValue(MIDDLE_SEGMENT_COUNT, middleSegmentCount);
+        return toReturn;
     }
 
     @Override
     public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+        placeStemsAndPlantStructure(level, pos, findSurfacePos(level, pos), state);
+    }
+
+    // place all the stems and the main plant structure
+    public static void placeStemsAndPlantStructure(Level level, BlockPos pos, BlockPos surfacePos, BlockState state) {
+        BlockPos currentPos = pos;
+        while (currentPos.getY() < surfacePos.getY()) {
+            level.setBlock(currentPos, state.setValue(SEGMENT, STEM).setValue(WATERLOGGED, true), Block.UPDATE_CLIENTS);
+            currentPos = currentPos.above();
+        }
+
+        placePlantStructure(level, surfacePos, state.setValue(WATERLOGGED, false));
+    }
+
+    // place the main plant structure
+    public static void placePlantStructure(Level level, BlockPos pos, BlockState state) {
         if (state.getValue(SEGMENT) != BASE) return; // ensure we are placing from the base
         int aboveAddOnto = state.getValue(MIDDLE_SEGMENT_COUNT) == 2 ? 1 : 0; // if we have two middles, offset the pos.above() by one so we can place another middle
 
@@ -129,15 +162,28 @@ public class NeocalamitesBlock extends BushBlock implements EntityBlock, SimpleW
         if (isSegment(state, BASE)) {
             return isEnoughSpace(level, state, pos) && checkGround(level, state, pos);
         }
-        return true;
-    }
 
-    private boolean isEnoughSpace(LevelReader level, BlockState state, BlockPos pos) {
-        for (int i = 1; i < state.getValue(MIDDLE_SEGMENT_COUNT) + 3; i++) {
-            if (!level.getBlockState(pos.above(i)).canBeReplaced() && !level.getBlockState(pos.above(i)).is(this)) return false;
+        if (isSegment(state, STEM)) {
+            int underwaterCount = pos.getY() - findSurfacePos(level, pos).getY();
+            return underwaterCount <= 6 && checkGround(level, state, pos);
         }
 
         return true;
+    }
+
+    // check if we have enough space to place the entire plant
+    public static boolean isEnoughSpace(LevelReader level, BlockState state, BlockPos pos) {
+        for (int i = 1; i < state.getValue(MIDDLE_SEGMENT_COUNT) + 3; i++) {
+            if (!level.getBlockState(pos.above(i)).canBeReplaced()
+                    && !(level.getBlockState(pos.above(i)).getBlock() instanceof NeocalamitesBlock)) return false;
+        }
+
+        return true;
+    }
+
+    // allow the neocalamites block to be placed anywhere if it's a sturdy face (like full blocks, and trapdoors if they are closed) and isn't a magma block
+    protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
+        return state.isFaceSturdy(level, pos, Direction.UP) && !state.is(Blocks.MAGMA_BLOCK) || isSegment(state, STEM);
     }
 
     private boolean checkGround(LevelReader level, BlockState state, BlockPos pos) {
@@ -145,6 +191,30 @@ public class NeocalamitesBlock extends BushBlock implements EntityBlock, SimpleW
         BlockState belowBlockState = level.getBlockState(blockpos);
         TriState soilDecision = belowBlockState.canSustainPlant(level, blockpos, Direction.UP, state);
         return !soilDecision.isDefault() ? soilDecision.isTrue() : this.mayPlaceOn(belowBlockState, level, blockpos);
+    }
+
+    // walks upwards while in water and returns the first air block
+    private static BlockPos findSurfacePos(LevelReader level, BlockPos pos) {
+        BlockPos currentPos = pos;
+
+        while (level.getFluidState(currentPos).is(FluidTags.WATER)) {
+            currentPos = currentPos.above();
+        }
+
+        return currentPos;
+    }
+
+    // walks upwards while counting and while in water and stops when it reaches the first air block
+    private static int countUntilSurface(LevelReader level, BlockPos pos) {
+        int count = 0;
+        BlockPos currentPos = pos;
+
+        while (level.getFluidState(currentPos).is(FluidTags.WATER)) {
+            count++;
+            currentPos = currentPos.above();
+        }
+
+        return count;
     }
 
     @Override
@@ -162,37 +232,53 @@ public class NeocalamitesBlock extends BushBlock implements EntityBlock, SimpleW
     protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         // every time a tick is scheduled, check the integrity of the plant
         if (!validateSegment(level, state, pos)) {
-            breakPlant(level, pos, true); // if we can't survive, break the whole plant at once and drop the base.
+            breakPlant(level, pos, null); // if we can't survive, break the whole plant at once and drop the base.
         }
     }
 
     @Override
     public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
         if (!level.isClientSide() && player.isCreative()) {
-            breakPlant(level, pos, false); // if the player is in creative, we don't want to drop
+            breakPlant(level, pos, player); // if the player is in creative, we don't want to drop
         }
 
         return super.playerWillDestroy(level, pos, state, player);
     }
 
-    private void breakPlant(Level level, BlockPos pos, boolean shouldBreak) {
+    private void breakPlant(Level level, BlockPos pos, @Nullable Entity entity) {
         BlockPos currentPos = pos;
         // find the base block
         while (level.getBlockState(currentPos.below()).is(this)) {
             currentPos = currentPos.below();
         }
 
-        // walk upwards from the base block, breaking each block on the way
-        while (level.getBlockState(currentPos).is(this)) {
-            level.destroyBlock(currentPos, shouldBreak);
+        int plantCount = 0;
+        BlockPos basePos = null;
+
+        // walk upwards from the base block, counting up the plantCount each time
+        while (level.getBlockState(currentPos.above()).is(this)) {
+            plantCount++; // count up plantCount for later destruction
+            if (isSegment(level.getBlockState(currentPos), BASE)) basePos = currentPos; // save the base position
+
             currentPos = currentPos.above();
+        }
+
+        // instead of using dropBlock, we use the entity instead. If you pass null into the entity it won't drop.
+
+        /* This is needed because the base block would drop without it. Since it goes from bottom -> up, */
+        /* it would break the stem, thus breaking AND dropping the base, even if shouldDrop is false     */
+
+        if (basePos != null) level.destroyBlock(basePos, false, entity); // if the basePos isn't null, we destroy the base so it doesn't drop in creative
+
+        for (int i = 0; i <= plantCount; i++) {
+            level.destroyBlock(currentPos.below(i), false, entity); // go back and destroy each block now that the base is gone
         }
     }
 
     private boolean validateSegment(LevelReader level, BlockState state, BlockPos pos) {
         // switch on each of the segments and call the respective survival methods
         return switch (state.getValue(SEGMENT)) {
-            case STEM -> true;
+            case STEM -> canStemSurvive(level, pos);
             case BASE -> canBaseSurvive(level, state, pos);
             case MIDDLE -> canMiddleSurvive(level, pos);
             case TOP -> canTopSurvive(level, pos);
@@ -200,8 +286,23 @@ public class NeocalamitesBlock extends BushBlock implements EntityBlock, SimpleW
         };
     }
 
-    // the base checks the complete structure of the entire plant
+    private boolean canStemSurvive(LevelReader level, BlockPos pos) {
+        return level.getBlockState(pos.above()).is(this) && level.getFluidState(pos).is(FluidTags.WATER);
+    }
+
+    // the base checks the complete structure of the entire plant, also checking the stem height
     private boolean canBaseSurvive(LevelReader level, BlockState state, BlockPos pos) {
+        // count the stem height to ensure it isn't higher than six
+        int stemCount = 0;
+        BlockPos currentPos = pos.below();
+
+        while (isSegment(level.getBlockState(currentPos), STEM)) {
+            stemCount++;
+            currentPos = currentPos.below();
+        }
+
+        if (stemCount > 6) return false; // if the stem count is higher than six, we can't survive
+
         int middleSegmentCount = state.getValue(MIDDLE_SEGMENT_COUNT);
         int aboveAddOnto = middleSegmentCount == 2 ? 1 : 0; // if we have two middles, offset the pos.above() by one so we can check properly for each height
 

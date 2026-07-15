@@ -47,21 +47,21 @@ import net.seentro.prehistoriccraft.common.block.machines.dnaSeparationFilter.DN
 import net.seentro.prehistoriccraft.common.block.machines.dnaSeparationFilter.geckolib.DNASeparationFilterRenderer;
 import net.seentro.prehistoriccraft.common.block.machines.tissueExtractionChamber.TissueExtractionChamberBlockEntity;
 import net.seentro.prehistoriccraft.common.block.machines.tissueExtractionChamber.geckolib.TissueExtractionChamberRenderer;
-import net.seentro.prehistoriccraft.common.entity.PrehistoricBoatRenderer;
-import net.seentro.prehistoriccraft.common.fluid.BaseFluidType;
-import net.seentro.prehistoriccraft.common.fluid.FluidBottleWrapper;
 import net.seentro.prehistoriccraft.common.block.nature.dawnRedwood.geckolib.DawnRedwoodSaplingRenderer;
 import net.seentro.prehistoriccraft.common.block.nature.neocalamites.geckolib.NeocalamitesRenderer;
+import net.seentro.prehistoriccraft.common.entity.PrehistoricBoatRenderer;
+import net.seentro.prehistoriccraft.common.entity.dinosaur.PrehistoricDinosaurEntityTypes;
+import net.seentro.prehistoriccraft.common.entity.dinosaur.water.dayongaspis.DayongaspisEntity;
+import net.seentro.prehistoriccraft.common.entity.dinosaur.water.dayongaspis.DayongaspisRenderer;
+import net.seentro.prehistoriccraft.common.fluid.BaseFluidType;
+import net.seentro.prehistoriccraft.common.fluid.FluidBottleWrapper;
 import net.seentro.prehistoriccraft.common.screen.acidCleaningChamber.AcidCleaningChamberScreen;
 import net.seentro.prehistoriccraft.common.screen.dnaRecombinator.DNARecombinatorScreen;
 import net.seentro.prehistoriccraft.common.screen.dnaSeparationFilter.DNASeparationFilterScreen;
 import net.seentro.prehistoriccraft.common.screen.fossilAnalysisTable.FossilAnalysisTableScreen;
 import net.seentro.prehistoriccraft.common.screen.tissueExtractionChamber.TissueExtractionChamberScreen;
-import net.seentro.prehistoriccraft.core.json.tissueExtractionChamber.TimePeriodTissueLoader;
 import net.seentro.prehistoriccraft.core.data.FossilSpeciesLoader;
-import net.seentro.prehistoriccraft.common.entity.dinosaur.PrehistoricDinosaurEntityTypes;
-import net.seentro.prehistoriccraft.common.entity.dinosaur.water.dayongaspis.DayongaspisEntity;
-import net.seentro.prehistoriccraft.common.entity.dinosaur.water.dayongaspis.DayongaspisRenderer;
+import net.seentro.prehistoriccraft.core.json.tissueExtractionChamber.TimePeriodTissueLoader;
 import net.seentro.prehistoriccraft.registry.*;
 import org.slf4j.Logger;
 import software.bernie.geckolib.util.ClientUtil;
@@ -189,6 +189,8 @@ public class PrehistoricCraft {
     }
 
     private int getDawnRedwoodFoliageColor(BlockPos pos) {
+        if (ClientUtil.getLevel() == null) return 12451649;
+
         Holder<Biome> biome = ClientUtil.getLevel().getBiome(pos);
         if (biome.is(Tags.Biomes.IS_FOREST))
             return 7793716;
@@ -223,7 +225,7 @@ public class PrehistoricCraft {
         event.addListener(FossilSpeciesLoader.INSTANCE);
     }
 
-    @EventBusSubscriber(modid = MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+    @EventBusSubscriber(modid = MODID, value = Dist.CLIENT)
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
@@ -283,7 +285,7 @@ public class PrehistoricCraft {
         }
     }
 
-    @EventBusSubscriber(modid = MODID, bus = EventBusSubscriber.Bus.MOD)
+    @EventBusSubscriber(modid = MODID)
     public static class ModEvents {
         @SubscribeEvent
         public static void registerAttributes(EntityAttributeCreationEvent event) {

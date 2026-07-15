@@ -15,9 +15,11 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
@@ -38,7 +40,8 @@ public class PrehistoricBlockLootTableProvider extends BlockLootSubProvider {
     protected void generate() {
         /* NATURE */
 
-        this.add(PrehistoricBlocks.NEOCALAMITES.get(), this::createBaseOnlyDrop);
+        this.add(PrehistoricBlocks.NEOCALAMITES.get(), block ->
+                createShearsSaplingDrop(block, PrehistoricBlocks.NEOCALAMITES_SAPLING.get()));
         this.add(PrehistoricBlocks.NEOCALAMITES_SAPLING.get(), this::createDoublePlantShearsDrop);
 
         //DAWN REDWOOD
@@ -134,6 +137,10 @@ public class PrehistoricBlockLootTableProvider extends BlockLootSubProvider {
 
     /* HELPER METHODS */
 
+    private LootItemCondition.Builder hasShearsOrSilkTouch() {
+        return HAS_SHEARS.or(this.hasSilkTouch());
+    }
+
     protected LootTable.Builder createMultipleOreDrop(Block block, ItemLike item, float minDrops, float maxDrops) {
         HolderLookup.RegistryLookup<Enchantment> registrylookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
         return this.createSilkTouchDispatchTable(block,
@@ -178,15 +185,13 @@ public class PrehistoricBlockLootTableProvider extends BlockLootSubProvider {
                 );
     }
 
-    protected LootTable.Builder createBaseOnlyDrop(Block block) {
+    protected LootTable.Builder createShearsSaplingDrop(Block block, Block saplingBlock) {
         return LootTable.lootTable()
                 .withPool(
                         LootPool.lootPool()
                                 .setRolls(ConstantValue.exactly(1.0F))
-                                .when(
-                                        LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-                                                .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(NeocalamitesBlock.SEGMENT, QuadrupleInvisibleSegmentProperty.BASE))
-                                ).add(LootItem.lootTableItem(block))
+                                .add(LootItem.lootTableItem(saplingBlock).when(this.hasShearsOrSilkTouch().invert()))
+                                .add(LootItem.lootTableItem(block).when(this.hasShearsOrSilkTouch()))
                 );
     }
 

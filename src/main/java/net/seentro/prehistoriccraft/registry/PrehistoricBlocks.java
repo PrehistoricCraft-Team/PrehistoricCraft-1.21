@@ -11,12 +11,12 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
+import net.seentro.prehistoriccraft.common.block.gypsumCrystal.GypsumCrystalBlock;
 import net.seentro.prehistoriccraft.common.block.machines.acidCleaningChamber.AcidCleaningChamberBlock;
 import net.seentro.prehistoriccraft.common.block.machines.dnaRecombinator.DNARecombinatorBlock;
 import net.seentro.prehistoriccraft.common.block.machines.dnaSeparationFilter.DNASeparationFilterBlock;
 import net.seentro.prehistoriccraft.common.block.machines.fossilAnalysisTable.FossilAnalysisTableBlock;
 import net.seentro.prehistoriccraft.common.block.machines.fossiliferousStone.FossiliferousStoneBlock;
-import net.seentro.prehistoriccraft.common.block.gypsumCrystal.GypsumCrystalBlock;
 import net.seentro.prehistoriccraft.common.block.machines.tissueExtractionChamber.TissueExtractionChamberBlock;
 import net.seentro.prehistoriccraft.common.block.nature.FlammableBlock;
 import net.seentro.prehistoriccraft.common.block.nature.FlammableConeBlock;
@@ -40,7 +40,7 @@ public class PrehistoricBlocks {
 
     /* NATURE */
 
-    public static final DeferredBlock<Block> NEOCALAMITES = registerBlockOnly("neocalamites", () -> new NeocalamitesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES).noCollission().dynamicShape().offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY)));
+    public static final DeferredBlock<Block> NEOCALAMITES = registerBlockOnly("neocalamites", () -> new NeocalamitesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.ROSE_BUSH).dynamicShape()));
     public static final DeferredBlock<Block> NEOCALAMITES_SAPLING = registerBlock("neocalamites_sapling", () -> new NeocalamitesSaplingBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SAPLING)));
 
     //DAWN REDWOOD

@@ -18,9 +18,9 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlac
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
-import net.seentro.prehistoriccraft.registry.PrehistoricBlocks;
 import net.seentro.prehistoriccraft.common.worldgen.tree.DawnRedwoodFoliagePlacer;
 import net.seentro.prehistoriccraft.common.worldgen.tree.DawnRedwoodTrunkPlacer;
+import net.seentro.prehistoriccraft.registry.PrehistoricBlocks;
 
 import java.util.List;
 

@@ -93,6 +93,15 @@ public class PrehistoricBlockTagProvider extends BlockTagsProvider {
 
                 .add(PrehistoricBlocks.FOSSIL_ANALYSIS_TABLE.get());
 
+        tag(PrehistoricTags.Blocks.NATURAL_GROWABLE)
+                .addTag(BlockTags.DIRT)
+                .addTag(BlockTags.SAND)
+                .addTag(PrehistoricTags.Blocks.CLAY)
+                .addTag(PrehistoricTags.Blocks.LOAM)
+                .addTag(PrehistoricTags.Blocks.SILT)
+                .add(Blocks.CLAY)
+                .add(Blocks.GRAVEL);
+
         tag(BlockTags.DIRT)
                 .add(PrehistoricBlocks.CRACKED_DIRT.get());
         tag(PrehistoricTags.Blocks.LOAM)
@@ -104,8 +113,6 @@ public class PrehistoricBlockTagProvider extends BlockTagsProvider {
         tag(PrehistoricTags.Blocks.CLAY)
                 .add(Blocks.CLAY)
                 .add(PrehistoricBlocks.RAW_CLAY.get());
-
-
 
         tag(PrehistoricTags.Blocks.PLASTERED_FOSSIL)
                 .add(PrehistoricBlocks.PLASTERED_PRECAMBRIAN_FOSSILIFEROUS_STONE.get())
