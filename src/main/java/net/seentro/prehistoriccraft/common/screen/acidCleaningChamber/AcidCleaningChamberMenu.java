@@ -24,7 +24,8 @@ public class AcidCleaningChamberMenu extends MachineMenu<AcidCleaningChamberBloc
     }
 
     public AcidCleaningChamberMenu(int containerId, Inventory inv, BlockEntity blockEntity, ContainerData data) {
-        super(PrehistoricMenuTypes.ACID_CLEANING_CHAMBER_MENU.get(), containerId, (AcidCleaningChamberBlockEntity) blockEntity, data, 13);
+        super(PrehistoricMenuTypes.ACID_CLEANING_CHAMBER_MENU.get(), containerId, (AcidCleaningChamberBlockEntity) blockEntity, data, 13,
+                12, 93, 12, 151);
         this.level = inv.player.level();
 
         addPlayerInventory(inv);
@@ -33,8 +34,6 @@ public class AcidCleaningChamberMenu extends MachineMenu<AcidCleaningChamberBloc
         addDataSlots(data);
 
         IItemHandler handler = this.blockEntity.itemHandler;
-
-        setPosValues(12, 93, 12, 151);
 
         /* BOTTLE */
         this.addSlot(new SlotItemHandler(handler, 0, 143, 34));

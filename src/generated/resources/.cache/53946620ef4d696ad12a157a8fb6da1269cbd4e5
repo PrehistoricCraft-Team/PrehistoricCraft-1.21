@@ -1,6 +1,7 @@
-// 1.21.1	2025-12-01T19:30:52.6626024	Tags for minecraft:block mod id prehistoriccraft
+// 1.21.1	2026-07-15T20:01:14.9516902	Tags for minecraft:block mod id prehistoriccraft
 851bf1d1ac4551a968a02f4aa137f0da29eed2d3 data/c/tags/block/clay.json
 890abd4f48ea1648194d9c2345d0dfd4ab33b883 data/c/tags/block/loam.json
+dd76e4931b411a17b7a00630261c71328825d95a data/c/tags/block/natural_growable.json
 43e800ec954a4cd3d209f72ef1f043239939a2e9 data/c/tags/block/silt.json
 b480fe8880e87b886cd76df2071acd98a3b1ce9a data/minecraft/tags/block/ceiling_hanging_signs.json
 4a241edf276a5567a70457f7458bca703f30aa19 data/minecraft/tags/block/dirt.json

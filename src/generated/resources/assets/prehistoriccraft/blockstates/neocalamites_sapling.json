@@ -1,7 +1,10 @@
 {
   "variants": {
-    "": {
+    "is_stem=false": {
       "model": "prehistoriccraft:block/neocalamites_sapling"
+    },
+    "is_stem=true": {
+      "model": "prehistoriccraft:block/neocalamites_sapling_stem"
     }
   }
 }
