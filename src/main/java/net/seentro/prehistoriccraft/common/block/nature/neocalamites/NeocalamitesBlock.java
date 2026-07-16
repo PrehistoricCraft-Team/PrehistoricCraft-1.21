@@ -35,7 +35,9 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.common.util.TriState;
+import net.seentro.prehistoriccraft.PrehistoricCraft;
 import net.seentro.prehistoriccraft.core.multiblock.QuadrupleInvisibleSegmentProperty;
+import net.seentro.prehistoriccraft.utils.MultiblockHelper;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -244,24 +246,24 @@ public class NeocalamitesBlock extends BushBlock implements EntityBlock, SimpleW
 
     @Override
     protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        if (level.isClientSide()) return;
         // every time a tick is scheduled, check the integrity of the plant
         if (!validateSegment(level, state, pos)) {
-            breakPlant(level, pos, null, false); // if we can't survive, break the whole plant at once and drop the base.
+            breakPlant(level, pos, null, true); // if we can't survive, break the whole plant at once and drop the base.
         }
     }
 
     @Override
-    public boolean playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
+    public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
         if (!level.isClientSide()) {
             breakPlant(level, pos, player, !player.isCreative());
-            return false; // prevent default block drop
         }
         return super.playerWillDestroy(level, pos, state, player);
     }
 
-    // break the whole plant. Pass in null as the entity to drop and pass in an entity to not drop.
+    // break the whole plant. Pass in the player as the entity to get correct drops.
     private void breakPlant(Level level, BlockPos pos, @Nullable Entity entity, boolean shouldDrop) {
-        // Find the bottom of the plant
+        // find the bottom of the plant
         BlockPos currentPos = pos;
         while (level.getBlockState(currentPos.below()).is(this)) {
             currentPos = currentPos.below();
@@ -270,38 +272,30 @@ public class NeocalamitesBlock extends BushBlock implements EntityBlock, SimpleW
         int plantCount = 0;
         BlockPos basePos = null;
 
-        // Walk up the plant to count height and find the base
-        while (level.getBlockState(currentPos.above()).is(this)) {
+        // walk up the plant to count height and find the base
+        while (level.getBlockState(currentPos).is(this)) {
             plantCount++;
-            if (isSegment(level.getBlockState(currentPos), BASE)) {
-                basePos = currentPos;
-            }
+            if (isSegment(level.getBlockState(currentPos), BASE)) basePos = currentPos;
             currentPos = currentPos.above();
         }
 
-        // Determine if we should drop the block itself (shears/silk touch) or just a sapling
-        boolean dropSelf = false;
-        if (shouldDrop && !level.isClientSide() && entity instanceof net.minecraft.world.entity.player.Player player) {
-            net.minecraft.world.item.ItemStack mainhand = player.getMainHandItem();
-            if (mainhand.is(Items.SHEARS) ||
-                    EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, mainhand) > 0) {
-                dropSelf = true;
+        if (basePos == null) return;
+
+        // if we want to drop, check if we have a player. If we do, drop with tools, otherwise drop sapling. If we don't want to drop, don't drop.
+        if (shouldDrop) {
+            if (entity instanceof Player player) {
+                MultiblockHelper.destroyBlockWithTool(level, basePos, player);
+            } else {
+                level.destroyBlock(basePos, true);
             }
+        } else {
+            level.destroyBlock(basePos, false);
         }
 
-        // Drop the appropriate item if needed
-        if (dropSelf && basePos != null) {
-            net.minecraft.world.item.ItemStack stack = new net.minecraft.world.item.ItemStack(PrehistoricBlocks.NEOCALAMITES.get());
-            net.minecraft.world.level.block.Block.popResource(level, basePos, stack);
-        } else if (!dropSelf && basePos != null) {
-            net.minecraft.world.item.ItemStack stack = new net.minecraft.world.item.ItemStack(PrehistoricBlocks.NEOCALAMITES_SAPLING.get());
-            net.minecraft.world.level.block.Block.popResource(level, basePos, stack);
-        }
-
-        // Remove all plant blocks without dropping additional items
+        // remove all the blocks
         for (int i = 0; i <= plantCount; i++) {
-            BlockPos posToRemove = currentPos.below(i);
-            level.removeBlock(posToRemove, false);
+            if (basePos.equals(currentPos.below(i))) continue;
+            level.destroyBlock(currentPos.below(i), false);
         }
     }
 

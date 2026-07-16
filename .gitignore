@@ -25,5 +25,8 @@ run-data
 
 repo
 
-#VS code
+# VS code
 .vscode
+
+# caches
+src/generated/resources/.cache
