@@ -44,6 +44,8 @@ public class PrehistoricBlockLootTableProvider extends BlockLootSubProvider {
                 createShearsSaplingDrop(block, PrehistoricBlocks.NEOCALAMITES_SAPLING.get()));
         this.add(PrehistoricBlocks.NEOCALAMITES_SAPLING.get(), this::createDoublePlantShearsDrop);
 
+        dropSelf(PrehistoricBlocks.KERPIA.get());
+
         //DAWN REDWOOD
         dropSelf(PrehistoricBlocks.DAWN_REDWOOD_LOG.get());
         dropSelf(PrehistoricBlocks.DAWN_REDWOOD_WOOD.get());

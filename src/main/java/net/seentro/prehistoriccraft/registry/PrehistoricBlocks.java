@@ -29,6 +29,7 @@ import net.seentro.prehistoriccraft.common.block.nature.signs.PrehistoricHanging
 import net.seentro.prehistoriccraft.common.block.nature.signs.PrehistoricStandingSignBlock;
 import net.seentro.prehistoriccraft.common.block.nature.signs.PrehistoricWallHangingSignBlock;
 import net.seentro.prehistoriccraft.common.block.nature.signs.PrehistoricWallSignBlock;
+import net.seentro.prehistoriccraft.common.block.nature.simplePlants.kerpia.KerpiaBlock;
 
 import java.util.function.Supplier;
 
@@ -39,9 +40,10 @@ public class PrehistoricBlocks {
             DeferredRegister.createBlocks(PrehistoricCraft.MODID);
 
     /* NATURE */
-
     public static final DeferredBlock<Block> NEOCALAMITES = registerBlockOnly("neocalamites", () -> new NeocalamitesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.ROSE_BUSH).dynamicShape()));
     public static final DeferredBlock<Block> NEOCALAMITES_SAPLING = registerBlock("neocalamites_sapling", () -> new NeocalamitesSaplingBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SAPLING)));
+
+    public static final DeferredBlock<Block> KERPIA = registerBlock("kerpia", () -> new KerpiaBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.ROSE_BUSH).dynamicShape()));
 
     //DAWN REDWOOD
     public static final DeferredBlock<Block> DAWN_REDWOOD_LOG = registerBlock("dawn_redwood_log", () -> new FlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG)));

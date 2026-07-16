@@ -14,6 +14,7 @@ import net.seentro.prehistoriccraft.common.block.nature.dawnRedwood.DawnRedwoodS
 import net.seentro.prehistoriccraft.common.block.nature.neocalamites.NeocalamitesBlockEntity;
 import net.seentro.prehistoriccraft.common.block.nature.signs.PrehistoricHangingSignBlockEntity;
 import net.seentro.prehistoriccraft.common.block.nature.signs.PrehistoricSignBlockEntity;
+import net.seentro.prehistoriccraft.common.block.nature.simplePlants.kerpia.KerpiaBlockEntity;
 
 import java.util.function.Supplier;
 
@@ -86,6 +87,13 @@ public class PrehistoricBlockEntityTypes {
                         () -> BlockEntityType.Builder.of(
                                         NeocalamitesBlockEntity::new,
                                         PrehistoricBlocks.NEOCALAMITES.get())
+                                .build(null));
+
+        public static final Supplier<BlockEntityType<KerpiaBlockEntity>> KERPIA_BLOCK_ENTITY = BLOCK_ENTITY_TYPES
+                .register("kerpia_block_entity",
+                        () -> BlockEntityType.Builder.of(
+                                        KerpiaBlockEntity::new,
+                                        PrehistoricBlocks.KERPIA.get())
                                 .build(null));
 
         public static void register(IEventBus eventBus) {

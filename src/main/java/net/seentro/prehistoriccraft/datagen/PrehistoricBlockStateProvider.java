@@ -47,7 +47,7 @@ public class PrehistoricBlockStateProvider extends BlockStateProvider {
                 blockTexture(PrehistoricBlocks.LOAM.get()), mcLoc("block/grass_block_side_overlay"),
                 modLoc("block/loam_grass_block_snow"), mcLoc("block/grass_block_top"));
         doubleCrossPlantWithStemBlock(PrehistoricBlocks.NEOCALAMITES_SAPLING, modLoc("block/neocalamites_sapling_bottom"), modLoc("block/neocalamites_sapling"), "neocalamites_sapling");
-
+        blockItem(PrehistoricBlocks.KERPIA);
 
         //DAWN REDWOOD
         logBlock((RotatedPillarBlock) PrehistoricBlocks.DAWN_REDWOOD_LOG.get());
