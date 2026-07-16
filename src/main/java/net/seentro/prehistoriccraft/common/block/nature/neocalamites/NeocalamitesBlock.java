@@ -7,6 +7,8 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
+
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -159,14 +161,14 @@ public class NeocalamitesBlock extends BushBlock implements EntityBlock, SimpleW
 
     @Override
     protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
-        if (isSegment(state, BASE)) {
-            return isEnoughSpace(level, state, pos) && checkGround(level, state, pos);
+        /*if (isSegment(state, BASE)) {
+            return isEnoughSpace(level, state, pos) && hasWaterBlockCloseBy(level, pos, 4) && checkGround(level, state, pos);
         }
 
         if (isSegment(state, STEM)) {
             int underwaterCount = pos.getY() - findSurfacePos(level, pos).getY();
             return underwaterCount <= 6 && checkGround(level, state, pos);
-        }
+        }*/
 
         return true;
     }
@@ -179,6 +181,18 @@ public class NeocalamitesBlock extends BushBlock implements EntityBlock, SimpleW
         }
 
         return true;
+    }
+
+    public static boolean hasWaterBlockCloseBy(LevelReader level, BlockPos pos, int range) {
+        for (int x = -range; x <= range; x++) {
+            for (int y = -range; y <= range; y++) {
+                for (int z = -range; z <= range; z++) {
+                    if (level.getFluidState(pos.offset(x, y, z)).is(FluidTags.WATER)) return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     // allow the neocalamites block to be placed anywhere if it's a sturdy face (like full blocks, and trapdoors if they are closed) and isn't a magma block
@@ -232,22 +246,23 @@ public class NeocalamitesBlock extends BushBlock implements EntityBlock, SimpleW
     protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         // every time a tick is scheduled, check the integrity of the plant
         if (!validateSegment(level, state, pos)) {
-            breakPlant(level, pos, null); // if we can't survive, break the whole plant at once and drop the base.
+            breakPlant(level, pos, null, false); // if we can't survive, break the whole plant at once and drop the base.
         }
     }
 
     @Override
-    public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
-        if (!level.isClientSide() && player.isCreative()) {
-            breakPlant(level, pos, player); // if the player is in creative, we don't want to drop
+    public boolean playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
+        if (!level.isClientSide()) {
+            breakPlant(level, pos, player, !player.isCreative());
+            return false; // prevent default block drop
         }
-
         return super.playerWillDestroy(level, pos, state, player);
     }
 
-    private void breakPlant(Level level, BlockPos pos, @Nullable Entity entity) {
+    // break the whole plant. Pass in null as the entity to drop and pass in an entity to not drop.
+    private void breakPlant(Level level, BlockPos pos, @Nullable Entity entity, boolean shouldDrop) {
+        // Find the bottom of the plant
         BlockPos currentPos = pos;
-        // find the base block
         while (level.getBlockState(currentPos.below()).is(this)) {
             currentPos = currentPos.below();
         }
@@ -255,23 +270,38 @@ public class NeocalamitesBlock extends BushBlock implements EntityBlock, SimpleW
         int plantCount = 0;
         BlockPos basePos = null;
 
-        // walk upwards from the base block, counting up the plantCount each time
+        // Walk up the plant to count height and find the base
         while (level.getBlockState(currentPos.above()).is(this)) {
-            plantCount++; // count up plantCount for later destruction
-            if (isSegment(level.getBlockState(currentPos), BASE)) basePos = currentPos; // save the base position
-
+            plantCount++;
+            if (isSegment(level.getBlockState(currentPos), BASE)) {
+                basePos = currentPos;
+            }
             currentPos = currentPos.above();
         }
 
-        // instead of using dropBlock, we use the entity instead. If you pass null into the entity it won't drop.
+        // Determine if we should drop the block itself (shears/silk touch) or just a sapling
+        boolean dropSelf = false;
+        if (shouldDrop && !level.isClientSide() && entity instanceof net.minecraft.world.entity.player.Player player) {
+            net.minecraft.world.item.ItemStack mainhand = player.getMainHandItem();
+            if (mainhand.is(Items.SHEARS) ||
+                    EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, mainhand) > 0) {
+                dropSelf = true;
+            }
+        }
 
-        /* This is needed because the base block would drop without it. Since it goes from bottom -> up, */
-        /* it would break the stem, thus breaking AND dropping the base, even if shouldDrop is false     */
+        // Drop the appropriate item if needed
+        if (dropSelf && basePos != null) {
+            net.minecraft.world.item.ItemStack stack = new net.minecraft.world.item.ItemStack(PrehistoricBlocks.NEOCALAMITES.get());
+            net.minecraft.world.level.block.Block.popResource(level, basePos, stack);
+        } else if (!dropSelf && basePos != null) {
+            net.minecraft.world.item.ItemStack stack = new net.minecraft.world.item.ItemStack(PrehistoricBlocks.NEOCALAMITES_SAPLING.get());
+            net.minecraft.world.level.block.Block.popResource(level, basePos, stack);
+        }
 
-        if (basePos != null) level.destroyBlock(basePos, false, entity); // if the basePos isn't null, we destroy the base so it doesn't drop in creative
-
+        // Remove all plant blocks without dropping additional items
         for (int i = 0; i <= plantCount; i++) {
-            level.destroyBlock(currentPos.below(i), false, entity); // go back and destroy each block now that the base is gone
+            BlockPos posToRemove = currentPos.below(i);
+            level.removeBlock(posToRemove, false);
         }
     }
 
@@ -287,7 +317,9 @@ public class NeocalamitesBlock extends BushBlock implements EntityBlock, SimpleW
     }
 
     private boolean canStemSurvive(LevelReader level, BlockPos pos) {
-        return level.getBlockState(pos.above()).is(this) && level.getFluidState(pos).is(FluidTags.WATER);
+        return level.getBlockState(pos.above()).is(this) &&
+                (level.getBlockState(pos.below()).is(this) || level.getBlockState(pos.below()).isFaceSturdy(level, pos, Direction.UP))
+                && level.getFluidState(pos).is(FluidTags.WATER);
     }
 
     // the base checks the complete structure of the entire plant, also checking the stem height
@@ -312,7 +344,8 @@ public class NeocalamitesBlock extends BushBlock implements EntityBlock, SimpleW
 
         if (!isSegment(level.getBlockState(pos.above(3 + aboveAddOnto)), INVISIBLE)) return false; // check for invisible, offset by middle segment count
         if (!isSegment(level.getBlockState(pos.above(2 + aboveAddOnto)), TOP)) return false; // check for top, offset by middle segment count
-        return isSegment(level.getBlockState(pos.above()), MIDDLE); // check for middle
+        if (!isSegment(level.getBlockState(pos.above()), MIDDLE)) return false; // check for middle
+        return checkGround(level, state, pos);
     }
 
     // the middle segment can survive if the block below is a base / middle segment and the block above is a top / middle segment
