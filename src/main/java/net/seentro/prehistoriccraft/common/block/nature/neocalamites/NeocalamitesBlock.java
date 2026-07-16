@@ -55,7 +55,7 @@ public class NeocalamitesBlock extends BushBlock implements EntityBlock, SimpleW
     public static final MapCodec<NeocalamitesBlock> CODEC = simpleCodec(NeocalamitesBlock::new);
     public static final EnumProperty<QuadrupleInvisibleSegmentProperty> SEGMENT = EnumProperty.create("segment", QuadrupleInvisibleSegmentProperty.class);
     public static final IntegerProperty MIDDLE_SEGMENT_COUNT = IntegerProperty.create("middle_segment_count", 1, 2);
-    private static final Logger LOGGER = LoggerFactory.getLogger(NeocalamitesBlock.class);
+    private static final int MAX_STEM_COUNT = 6;
 
     public NeocalamitesBlock(Properties properties) {
         super(properties);
@@ -98,6 +98,7 @@ public class NeocalamitesBlock extends BushBlock implements EntityBlock, SimpleW
 
     public static final SoundType SILENT = new SoundType(-1.0F, 1.0F, SoundEvents.AMETHYST_BLOCK_BREAK, SoundEvents.AMETHYST_BLOCK_BREAK, SoundEvents.AMETHYST_BLOCK_BREAK, SoundEvents.AMETHYST_BLOCK_BREAK, SoundEvents.AMETHYST_BLOCK_BREAK);
 
+    // we don't want the non-base blocks to have a sound as that spams sounds when we break the plant
     @Override
     public SoundType getSoundType(BlockState state, LevelReader level, BlockPos pos, @Nullable Entity entity) {
         return state.getValue(SEGMENT) != BASE ? SILENT : super.getSoundType(state, level, pos, entity); // ensure we only play a sound for the base block
@@ -110,7 +111,7 @@ public class NeocalamitesBlock extends BushBlock implements EntityBlock, SimpleW
         Level level = context.getLevel();
         BlockPos pos = context.getClickedPos();
 
-        if (countUntilSurface(level, pos) > 6) return null; // ensure that we are not allowed to place if the stem count would be higher than 6
+        if (countUntilSurface(level, pos) > MAX_STEM_COUNT) return null; // ensure that we are not allowed to place if the stem count would be higher than MAX_STEM_COUNT
         FluidState fluidstate = level.getFluidState(pos);
         int middleSegmentCount = getMiddleSegmentCount(level, pos);
 
@@ -161,18 +162,18 @@ public class NeocalamitesBlock extends BushBlock implements EntityBlock, SimpleW
         level.setBlock(pos, state.setValue(SEGMENT, BASE), Block.UPDATE_ALL); // base
     }
 
+    // basic can survive checks for base and stem
     @Override
     protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
-        /*if (isSegment(state, BASE)) {
-            return isEnoughSpace(level, state, pos) && hasWaterBlockCloseBy(level, pos, 4) && checkGround(level, state, pos);
+        if (isSegment(state, BASE)) {
+            return isEnoughSpace(level, state, pos) && hasWaterBlockCloseBy(level, pos);
+        } else if (isSegment(state, STEM)) {
+            int underwaterCount = pos.getY() - findSurfacePos(level, pos).getY();
+            return underwaterCount <= MAX_STEM_COUNT;
         }
 
-        if (isSegment(state, STEM)) {
-            int underwaterCount = pos.getY() - findSurfacePos(level, pos).getY();
-            return underwaterCount <= 6 && checkGround(level, state, pos);
-        }*/
 
-        return true;
+        return !isSegment(state, BASE) || isEnoughSpace(level, state, pos) && hasWaterBlockCloseBy(level, pos);
     }
 
     // check if we have enough space to place the entire plant
@@ -185,7 +186,9 @@ public class NeocalamitesBlock extends BushBlock implements EntityBlock, SimpleW
         return true;
     }
 
-    public static boolean hasWaterBlockCloseBy(LevelReader level, BlockPos pos, int range) {
+    // searches in a range for any water blocks
+    public static boolean hasWaterBlockCloseBy(LevelReader level, BlockPos pos) {
+        int range = 4; // search from -4 to 4 blocks around pos
         for (int x = -range; x <= range; x++) {
             for (int y = -range; y <= range; y++) {
                 for (int z = -range; z <= range; z++) {
@@ -256,7 +259,7 @@ public class NeocalamitesBlock extends BushBlock implements EntityBlock, SimpleW
     @Override
     public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
         if (!level.isClientSide()) {
-            breakPlant(level, pos, player, !player.isCreative());
+            breakPlant(level, pos, player, !player.isCreative()); // break the plant and ensure no drops in creative
         }
         return super.playerWillDestroy(level, pos, state, player);
     }
@@ -302,7 +305,7 @@ public class NeocalamitesBlock extends BushBlock implements EntityBlock, SimpleW
     private boolean validateSegment(LevelReader level, BlockState state, BlockPos pos) {
         // switch on each of the segments and call the respective survival methods
         return switch (state.getValue(SEGMENT)) {
-            case STEM -> canStemSurvive(level, pos);
+            case STEM -> canStemSurvive(level, state, pos);
             case BASE -> canBaseSurvive(level, state, pos);
             case MIDDLE -> canMiddleSurvive(level, pos);
             case TOP -> canTopSurvive(level, pos);
@@ -310,9 +313,10 @@ public class NeocalamitesBlock extends BushBlock implements EntityBlock, SimpleW
         };
     }
 
-    private boolean canStemSurvive(LevelReader level, BlockPos pos) {
+    // the stem segment can survive if the block above it is equal to this, the ground is sturdy or equal to this, and it is in water
+    private boolean canStemSurvive(LevelReader level, BlockState state, BlockPos pos) {
         return level.getBlockState(pos.above()).is(this) &&
-                (level.getBlockState(pos.below()).is(this) || level.getBlockState(pos.below()).isFaceSturdy(level, pos, Direction.UP))
+                checkGround(level, state, pos)
                 && level.getFluidState(pos).is(FluidTags.WATER);
     }
 
@@ -327,7 +331,7 @@ public class NeocalamitesBlock extends BushBlock implements EntityBlock, SimpleW
             currentPos = currentPos.below();
         }
 
-        if (stemCount > 6) return false; // if the stem count is higher than six, we can't survive
+        if (stemCount > MAX_STEM_COUNT) return false; // if the stem count is higher than six, we can't survive
 
         int middleSegmentCount = state.getValue(MIDDLE_SEGMENT_COUNT);
         int aboveAddOnto = middleSegmentCount == 2 ? 1 : 0; // if we have two middles, offset the pos.above() by one so we can check properly for each height

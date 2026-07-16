@@ -92,6 +92,7 @@ public class NeocalamitesSaplingBlock extends UnderwaterBushBlock implements Bon
                 .setValue(NeocalamitesBlock.MIDDLE_SEGMENT_COUNT, NeocalamitesBlock.getMiddleSegmentCount(serverLevel, lastWaterBlock));
 
         if (!NeocalamitesBlock.isEnoughSpace(serverLevel, neocalamitesState, pos)) return;
+        if (!NeocalamitesBlock.hasWaterBlockCloseBy(serverLevel, pos)) return;
 
         breakPlant(serverLevel, pos, false, true);
 
@@ -226,11 +227,15 @@ public class NeocalamitesSaplingBlock extends UnderwaterBushBlock implements Bon
         /* This is needed because the base block would drop without it. Since it goes from bottom -> up, */
         /* it would break the stem, thus breaking AND dropping the base, even if shouldDrop is false     */
 
-        if (basePos != null) level.destroyBlock(basePos, shouldDrop); // if the basePos isn't null, we destroy the base so it doesn't drop in creative
+        if (basePos != null) { // if the basePos isn't null, we destroy the base so it doesn't drop in creative
+            if (silent) {
+                level.removeBlock(currentPos, false);
+            } else level.destroyBlock(basePos, shouldDrop);
+        } 
 
         for (int i = 0; i <= plantCount; i++) {
             if (silent) {
-                level.setBlock(currentPos.below(i), Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
+                level.removeBlock(currentPos.below(i), false); // go back and destroy each block now that the base is gone
             } else {
                 level.destroyBlock(currentPos.below(i), shouldDrop); // go back and destroy each block now that the base is gone
             }
