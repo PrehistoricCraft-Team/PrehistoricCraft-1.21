@@ -1,4 +1,4 @@
-package net.seentro.prehistoriccraft.common.block.nature.dawnRedwood;
+package net.seentro.prehistoriccraft.common.block.nature.plantStructures.dawnRedwood;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.grower.TreeGrower;
 import net.minecraft.world.level.block.state.BlockState;
-import net.seentro.prehistoriccraft.common.block.nature.plantStructures.ThreeStageFlowerPlantStructure;
+import net.seentro.prehistoriccraft.common.block.nature.templates.plantStructures.ThreeStageFlowerPlantStructure;
 import org.jetbrains.annotations.Nullable;
 
 public class DawnRedwoodSaplingBlock extends ThreeStageFlowerPlantStructure implements BonemealableBlock, EntityBlock {

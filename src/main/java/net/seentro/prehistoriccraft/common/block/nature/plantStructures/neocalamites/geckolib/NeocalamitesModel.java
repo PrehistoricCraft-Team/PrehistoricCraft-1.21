@@ -1,9 +1,9 @@
-package net.seentro.prehistoriccraft.common.block.nature.neocalamites.geckolib;
+package net.seentro.prehistoriccraft.common.block.nature.plantStructures.neocalamites.geckolib;
 
 import net.minecraft.resources.ResourceLocation;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
-import net.seentro.prehistoriccraft.common.block.nature.neocalamites.NeocalamitesBlock;
-import net.seentro.prehistoriccraft.common.block.nature.neocalamites.NeocalamitesBlockEntity;
+import net.seentro.prehistoriccraft.common.block.nature.plantStructures.neocalamites.NeocalamitesBlock;
+import net.seentro.prehistoriccraft.common.block.nature.plantStructures.neocalamites.NeocalamitesBlockEntity;
 import net.seentro.prehistoriccraft.core.multiblock.QuadrupleInvisibleSegmentProperty;
 import software.bernie.geckolib.model.GeoModel;
 

@@ -27,6 +27,3 @@ repo
 
 # VS code
 .vscode
-
-# caches
-/src/generated/resources/.cache

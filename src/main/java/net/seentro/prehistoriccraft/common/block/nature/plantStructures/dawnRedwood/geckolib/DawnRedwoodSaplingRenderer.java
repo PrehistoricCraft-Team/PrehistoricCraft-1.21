@@ -1,4 +1,4 @@
-package net.seentro.prehistoriccraft.common.block.nature.dawnRedwood.geckolib;
+package net.seentro.prehistoriccraft.common.block.nature.plantStructures.dawnRedwood.geckolib;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -13,8 +13,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
-import net.seentro.prehistoriccraft.common.block.nature.dawnRedwood.DawnRedwoodSaplingBlock;
-import net.seentro.prehistoriccraft.common.block.nature.dawnRedwood.DawnRedwoodSaplingBlockEntity;
+import net.seentro.prehistoriccraft.common.block.nature.plantStructures.dawnRedwood.DawnRedwoodSaplingBlock;
+import net.seentro.prehistoriccraft.common.block.nature.plantStructures.dawnRedwood.DawnRedwoodSaplingBlockEntity;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.renderer.specialty.DynamicGeoBlockRenderer;

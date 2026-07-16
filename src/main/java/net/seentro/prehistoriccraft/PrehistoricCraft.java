@@ -47,8 +47,9 @@ import net.seentro.prehistoriccraft.common.block.machines.dnaSeparationFilter.DN
 import net.seentro.prehistoriccraft.common.block.machines.dnaSeparationFilter.geckolib.DNASeparationFilterRenderer;
 import net.seentro.prehistoriccraft.common.block.machines.tissueExtractionChamber.TissueExtractionChamberBlockEntity;
 import net.seentro.prehistoriccraft.common.block.machines.tissueExtractionChamber.geckolib.TissueExtractionChamberRenderer;
-import net.seentro.prehistoriccraft.common.block.nature.dawnRedwood.geckolib.DawnRedwoodSaplingRenderer;
-import net.seentro.prehistoriccraft.common.block.nature.neocalamites.geckolib.NeocalamitesRenderer;
+import net.seentro.prehistoriccraft.common.block.nature.plantStructures.dawnRedwood.geckolib.DawnRedwoodSaplingRenderer;
+import net.seentro.prehistoriccraft.common.block.nature.plantStructures.neocalamites.geckolib.NeocalamitesRenderer;
+import net.seentro.prehistoriccraft.common.block.nature.simplePlants.horsetail.woodHorsetail.WoodHorsetailRenderer;
 import net.seentro.prehistoriccraft.common.block.nature.simplePlants.kerpia.geckolib.KerpiaRenderer;
 import net.seentro.prehistoriccraft.common.entity.PrehistoricBoatRenderer;
 import net.seentro.prehistoriccraft.common.entity.dinosaur.PrehistoricDinosaurEntityTypes;
@@ -238,6 +239,7 @@ public class PrehistoricCraft {
             BlockEntityRenderers.register(PrehistoricBlockEntityTypes.DAWN_REDWOOD_SAPLING_BLOCK_ENTITY.get(), DawnRedwoodSaplingRenderer::new);
             BlockEntityRenderers.register(PrehistoricBlockEntityTypes.NEOCALAMITES_BLOCK_ENTITY.get(), NeocalamitesRenderer::new);
             BlockEntityRenderers.register(PrehistoricBlockEntityTypes.KERPIA_BLOCK_ENTITY.get(), KerpiaRenderer::new);
+            BlockEntityRenderers.register(PrehistoricBlockEntityTypes.WOOD_HORSETAIL_BLOCK_ENTITY.get(), WoodHorsetailRenderer::new);
 
             EntityRenderers.register(PrehistoricDinosaurEntityTypes.DAYONGASPIS.get(), DayongaspisRenderer::new);
 

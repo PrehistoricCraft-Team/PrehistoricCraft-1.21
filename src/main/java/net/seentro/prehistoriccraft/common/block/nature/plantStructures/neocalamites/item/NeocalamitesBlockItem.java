@@ -1,4 +1,4 @@
-package net.seentro.prehistoriccraft.common.block.nature.neocalamites.item;
+package net.seentro.prehistoriccraft.common.block.nature.plantStructures.neocalamites.item;
 
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.world.item.BlockItem;

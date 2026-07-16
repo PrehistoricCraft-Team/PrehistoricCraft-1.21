@@ -12,7 +12,7 @@ import net.neoforged.neoforge.client.model.generators.*;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
-import net.seentro.prehistoriccraft.common.block.nature.neocalamites.sapling.NeocalamitesSaplingBlock;
+import net.seentro.prehistoriccraft.common.block.nature.plantStructures.neocalamites.sapling.NeocalamitesSaplingBlock;
 import net.seentro.prehistoriccraft.registry.PrehistoricBlocks;
 
 import java.util.Set;
@@ -48,6 +48,7 @@ public class PrehistoricBlockStateProvider extends BlockStateProvider {
                 modLoc("block/loam_grass_block_snow"), mcLoc("block/grass_block_top"));
         doubleCrossPlantWithStemBlock(PrehistoricBlocks.NEOCALAMITES_SAPLING, modLoc("block/neocalamites_sapling_bottom"), modLoc("block/neocalamites_sapling"), "neocalamites_sapling");
         blockItem(PrehistoricBlocks.KERPIA);
+        blockItemWithBlockTexture(PrehistoricBlocks.WOOD_HORSETAIL, "wood_horsetail_1");
 
         //DAWN REDWOOD
         logBlock((RotatedPillarBlock) PrehistoricBlocks.DAWN_REDWOOD_LOG.get());

@@ -1,4 +1,4 @@
-// 1.21.1	2026-07-15T20:01:14.9501572	Block States: prehistoriccraft
+// 1.21.1	2026-07-17T00:08:31.0960352	Block States: prehistoriccraft
 ed3f56cac858cef5cc27b0c2d6997ad6a06041b6 assets/prehistoriccraft/blockstates/amber_block.json
 5e428450ad3de518d553fc7091efdfdeb282545e assets/prehistoriccraft/blockstates/cambrian_fossiliferous_stone.json
 49ed35c379dd7d65adc4ec9363437d42303ca477 assets/prehistoriccraft/blockstates/carboniferous_fossiliferous_stone.json
@@ -151,6 +151,7 @@ ca400f7fe28fc2ae28e5ef5f831c701e9fe75d73 assets/prehistoriccraft/models/item/dee
 81245f682b1d20c45426b1cdcd3f6287ea3cda7f assets/prehistoriccraft/models/item/gypsum_crystal.json
 1b5543552989150291bc351aeaf5cf7684900cea assets/prehistoriccraft/models/item/gypsum_crystal_block.json
 2c1adcb6ebe297cb411a114aa4f50efa2270a700 assets/prehistoriccraft/models/item/jurassic_fossiliferous_stone.json
+bc98c4c59df8b392118d2a4ba478631b242a3c7f assets/prehistoriccraft/models/item/kerpia.json
 f71648c4abb4f203daad61340d49b1bc9c42b2bf assets/prehistoriccraft/models/item/loam.json
 a5f52bd5d0324046779eef49f66ca71731314feb assets/prehistoriccraft/models/item/loamy_sand.json
 786e7d92d57aef89420bf372a05f5b54a3ab6eed assets/prehistoriccraft/models/item/loamy_silt.json
@@ -182,3 +183,4 @@ cb65506b26f3ee71d69d78a6584863a41eb5ae17 assets/prehistoriccraft/models/item/str
 79a9fa9a11002a28980ef519f2d95050cf138e8d assets/prehistoriccraft/models/item/stripped_dawn_redwood_wood.json
 562729501f17f385eb6c06e99d92ed5453dfe288 assets/prehistoriccraft/models/item/sulfur_ore.json
 0ae654d7daae3b6f78ceebc9a168a55f09f91cd4 assets/prehistoriccraft/models/item/triassic_fossiliferous_stone.json
+1e992b6dc1f74754d590e987ffb4597c13d375ed assets/prehistoriccraft/models/item/wood_horsetail.json

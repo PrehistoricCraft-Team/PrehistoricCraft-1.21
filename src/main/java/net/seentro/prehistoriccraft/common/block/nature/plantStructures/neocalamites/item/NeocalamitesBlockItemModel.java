@@ -1,4 +1,4 @@
-package net.seentro.prehistoriccraft.common.block.nature.neocalamites.item;
+package net.seentro.prehistoriccraft.common.block.nature.plantStructures.neocalamites.item;
 
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.model.GeoModel;

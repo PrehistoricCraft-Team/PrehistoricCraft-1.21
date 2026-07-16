@@ -15,7 +15,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
-import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
@@ -23,9 +22,7 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
-import net.seentro.prehistoriccraft.common.block.nature.dawnRedwood.DawnRedwoodSaplingBlock;
-import net.seentro.prehistoriccraft.common.block.nature.neocalamites.NeocalamitesBlock;
-import net.seentro.prehistoriccraft.core.multiblock.QuadrupleInvisibleSegmentProperty;
+import net.seentro.prehistoriccraft.common.block.nature.plantStructures.dawnRedwood.DawnRedwoodSaplingBlock;
 import net.seentro.prehistoriccraft.registry.PrehistoricBlocks;
 import net.seentro.prehistoriccraft.registry.PrehistoricItems;
 
@@ -45,6 +42,7 @@ public class PrehistoricBlockLootTableProvider extends BlockLootSubProvider {
         this.add(PrehistoricBlocks.NEOCALAMITES_SAPLING.get(), this::createDoublePlantShearsDrop);
 
         dropSelf(PrehistoricBlocks.KERPIA.get());
+        dropWhenShearsOrSilkTouch(PrehistoricBlocks.WOOD_HORSETAIL.get());
 
         //DAWN REDWOOD
         dropSelf(PrehistoricBlocks.DAWN_REDWOOD_LOG.get());
@@ -143,18 +141,34 @@ public class PrehistoricBlockLootTableProvider extends BlockLootSubProvider {
         return HAS_SHEARS.or(this.hasSilkTouch());
     }
 
-    protected LootTable.Builder createMultipleOreDrop(Block block, ItemLike item, float minDrops, float maxDrops) {
-        HolderLookup.RegistryLookup<Enchantment> registrylookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
-        return this.createSilkTouchDispatchTable(block,
-                this.applyExplosionDecay(block, LootItem.lootTableItem(item)
-                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(minDrops, maxDrops)))
-                                .apply(ApplyBonusCount.addOreBonusCount(registrylookup.getOrThrow(Enchantments.FORTUNE)))
-                )
-        );
+    protected void dropWhenShearsOrSilkTouch(Block block) {
+        this.add(block, this.createSilkTouchOrShearsOnlyTable(block));
     }
 
     protected void dropMultipleItems(Block block, ItemLike item, float minDrops, float maxDrops) {
         this.add(block, this.createMultipleOreDrop(block, item, minDrops, maxDrops));
+    }
+
+    protected void dropOtherToolMatching(Block block, ItemLike item, ItemLike tool, float minDrops, float maxDrops) {
+        this.add(block, this.createMatchingToolNumberedDrop(block, item, tool, minDrops, maxDrops));
+    }
+
+    protected void dropFossilToolMatching(Block block, ItemLike item) {
+        this.add(block, this.createMatchingToolNumberedDrop(block, item, PrehistoricItems.EXCAVATOR_PICKAXE.get(), 1, 3));
+    }
+
+    protected LootTable.Builder createSilkTouchOrShearsOnlyTable(ItemLike item) {
+        return LootTable.lootTable().withPool(LootPool.lootPool().when(this.hasShearsOrSilkTouch()).setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(item)));
+    }
+
+    protected LootTable.Builder createMultipleOreDrop(Block block, ItemLike item, float minDrops, float maxDrops) {
+        HolderLookup.RegistryLookup<Enchantment> registrylookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
+        return this.createSilkTouchDispatchTable(block,
+                this.applyExplosionDecay(block, LootItem.lootTableItem(item)
+                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(minDrops, maxDrops)))
+                        .apply(ApplyBonusCount.addOreBonusCount(registrylookup.getOrThrow(Enchantments.FORTUNE)))
+                )
+        );
     }
 
     protected LootTable.Builder createMatchingToolNumberedDrop(Block block, ItemLike item, ItemLike tool, float minDrops, float maxDrops) {
@@ -165,14 +179,6 @@ public class PrehistoricBlockLootTableProvider extends BlockLootSubProvider {
                                 .when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(tool)))
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(minDrops, maxDrops)))
                                 .otherwise(this.applyExplosionDecay(block, LootItem.lootTableItem(block)))));
-    }
-
-    protected void dropOtherToolMatching(Block block, ItemLike item, ItemLike tool, float minDrops, float maxDrops) {
-        this.add(block, this.createMatchingToolNumberedDrop(block, item, tool, minDrops, maxDrops));
-    }
-
-    protected void dropFossilToolMatching(Block block, ItemLike item) {
-        this.add(block, this.createMatchingToolNumberedDrop(block, item, PrehistoricItems.EXCAVATOR_PICKAXE.get(), 1, 3));
     }
 
     protected LootTable.Builder createNonInvisibleBlock(Block block) {

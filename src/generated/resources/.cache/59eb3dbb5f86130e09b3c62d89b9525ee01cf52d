@@ -1,4 +1,4 @@
-// 1.21.1	2026-07-16T19:02:09.3169708	Loot Tables
+// 1.21.1	2026-07-17T00:08:31.0945096	Loot Tables
 530a518e5e91a900a501df1344123a80a9fa3e9f data/prehistoriccraft/loot_table/blocks/acid_cleaning_chamber.json
 3c34bb7179c80d80367a3e0663f64b25dc563fc4 data/prehistoriccraft/loot_table/blocks/amber_block.json
 8c82406a1df7c83712890ce2a9671fe7a4cbb0ca data/prehistoriccraft/loot_table/blocks/cambrian_fossiliferous_stone.json
@@ -32,6 +32,7 @@ d7c364ce3f97224e7de29110c1798501318e9e16 data/prehistoriccraft/loot_table/blocks
 16c7139d4cee82d888ab18905ba2f01a63951565 data/prehistoriccraft/loot_table/blocks/gypsum_crystal.json
 802c397582abfc597e512da07832b3497868fa7e data/prehistoriccraft/loot_table/blocks/gypsum_crystal_block.json
 80976e02c2d6944cb90cd7167d1e7791900083f4 data/prehistoriccraft/loot_table/blocks/jurassic_fossiliferous_stone.json
+946ed1460be19df261e4ebda2baa4b469af77446 data/prehistoriccraft/loot_table/blocks/kerpia.json
 f2c48419874e6fc2ba1ea9e91cb06162add1d64a data/prehistoriccraft/loot_table/blocks/loam.json
 37782e82c2738d784c8e726534da079db57d4e22 data/prehistoriccraft/loot_table/blocks/loamy_sand.json
 145cd28f14885d151b74749ab51e45dbd789c3b2 data/prehistoriccraft/loot_table/blocks/loamy_silt.json
@@ -66,4 +67,5 @@ d39f4aa709058889c59849405033d2ca97bace23 data/prehistoriccraft/loot_table/blocks
 fce7d49c40a911b616356236d765f9db21afc86f data/prehistoriccraft/loot_table/blocks/sulfur_ore.json
 7b2840d1ddb39e6fc757af1858738a8b0655daa0 data/prehistoriccraft/loot_table/blocks/tissue_extraction_chamber.json
 2f319941fe72c291b4866acb6f1ed09ff1075545 data/prehistoriccraft/loot_table/blocks/triassic_fossiliferous_stone.json
+f71d5d86361d2bf029bbb9dd25cbbb1b08b5448c data/prehistoriccraft/loot_table/blocks/wood_horsetail.json
 a2c49a571dca76cb0f47cf653c945767aefa87ca data/prehistoriccraft/loot_table/entities/dayongaspis.json

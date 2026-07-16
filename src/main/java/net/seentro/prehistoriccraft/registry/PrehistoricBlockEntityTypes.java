@@ -10,10 +10,11 @@ import net.seentro.prehistoriccraft.common.block.machines.dnaRecombinator.DNARec
 import net.seentro.prehistoriccraft.common.block.machines.dnaSeparationFilter.DNASeparationFilterBlockEntity;
 import net.seentro.prehistoriccraft.common.block.machines.fossilAnalysisTable.FossilAnalysisTableBlockEntity;
 import net.seentro.prehistoriccraft.common.block.machines.tissueExtractionChamber.TissueExtractionChamberBlockEntity;
-import net.seentro.prehistoriccraft.common.block.nature.dawnRedwood.DawnRedwoodSaplingBlockEntity;
-import net.seentro.prehistoriccraft.common.block.nature.neocalamites.NeocalamitesBlockEntity;
+import net.seentro.prehistoriccraft.common.block.nature.plantStructures.dawnRedwood.DawnRedwoodSaplingBlockEntity;
+import net.seentro.prehistoriccraft.common.block.nature.plantStructures.neocalamites.NeocalamitesBlockEntity;
 import net.seentro.prehistoriccraft.common.block.nature.signs.PrehistoricHangingSignBlockEntity;
 import net.seentro.prehistoriccraft.common.block.nature.signs.PrehistoricSignBlockEntity;
+import net.seentro.prehistoriccraft.common.block.nature.simplePlants.horsetail.woodHorsetail.WoodHorsetailBlockEntity;
 import net.seentro.prehistoriccraft.common.block.nature.simplePlants.kerpia.KerpiaBlockEntity;
 
 import java.util.function.Supplier;
@@ -94,6 +95,13 @@ public class PrehistoricBlockEntityTypes {
                         () -> BlockEntityType.Builder.of(
                                         KerpiaBlockEntity::new,
                                         PrehistoricBlocks.KERPIA.get())
+                                .build(null));
+
+        public static final Supplier<BlockEntityType<WoodHorsetailBlockEntity>> WOOD_HORSETAIL_BLOCK_ENTITY = BLOCK_ENTITY_TYPES
+                .register("wood_horsetail_block_entity",
+                        () -> BlockEntityType.Builder.of(
+                                        WoodHorsetailBlockEntity::new,
+                                        PrehistoricBlocks.WOOD_HORSETAIL.get())
                                 .build(null));
 
         public static void register(IEventBus eventBus) {

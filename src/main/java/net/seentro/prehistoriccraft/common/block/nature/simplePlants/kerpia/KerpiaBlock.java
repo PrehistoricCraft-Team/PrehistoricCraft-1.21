@@ -2,12 +2,10 @@ package net.seentro.prehistoriccraft.common.block.nature.simplePlants.kerpia;
 
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.seentro.prehistoriccraft.common.block.nature.neocalamites.NeocalamitesBlock;
 import org.jetbrains.annotations.Nullable;
 
 // TODO: Finish Kerpia

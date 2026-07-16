@@ -1,4 +1,4 @@
-package net.seentro.prehistoriccraft.common.block.nature.neocalamites.sapling;
+package net.seentro.prehistoriccraft.common.block.nature.plantStructures.neocalamites.sapling;
 
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
@@ -27,7 +27,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.common.util.TriState;
 import net.seentro.prehistoriccraft.common.block.nature.UnderwaterBushBlock;
-import net.seentro.prehistoriccraft.common.block.nature.neocalamites.NeocalamitesBlock;
+import net.seentro.prehistoriccraft.common.block.nature.plantStructures.neocalamites.NeocalamitesBlock;
 import net.seentro.prehistoriccraft.registry.PrehistoricBlocks;
 import net.seentro.prehistoriccraft.registry.PrehistoricTags;
 import org.jetbrains.annotations.Nullable;

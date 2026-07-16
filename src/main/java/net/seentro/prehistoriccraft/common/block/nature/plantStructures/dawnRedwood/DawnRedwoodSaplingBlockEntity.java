@@ -1,4 +1,4 @@
-package net.seentro.prehistoriccraft.common.block.nature.neocalamites;
+package net.seentro.prehistoriccraft.common.block.nature.plantStructures.dawnRedwood;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -9,10 +9,10 @@ import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.AnimatableManager;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class NeocalamitesBlockEntity extends BlockEntity implements GeoBlockEntity {
+public class DawnRedwoodSaplingBlockEntity extends BlockEntity implements GeoBlockEntity {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
-    public NeocalamitesBlockEntity(BlockPos pos, BlockState blockState) {
-        super(PrehistoricBlockEntityTypes.NEOCALAMITES_BLOCK_ENTITY.get(), pos, blockState);
+    public DawnRedwoodSaplingBlockEntity(BlockPos pos, BlockState blockState) {
+        super(PrehistoricBlockEntityTypes.DAWN_REDWOOD_SAPLING_BLOCK_ENTITY.get(), pos, blockState);
     }
 
     @Override

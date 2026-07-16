@@ -1,4 +1,4 @@
-package net.seentro.prehistoriccraft.common.block.nature.plantStructures;
+package net.seentro.prehistoriccraft.common.block.nature.templates.plantStructures;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

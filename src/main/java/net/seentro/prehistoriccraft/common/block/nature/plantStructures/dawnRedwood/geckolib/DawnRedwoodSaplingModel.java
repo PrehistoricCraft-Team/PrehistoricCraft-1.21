@@ -1,9 +1,9 @@
-package net.seentro.prehistoriccraft.common.block.nature.dawnRedwood.geckolib;
+package net.seentro.prehistoriccraft.common.block.nature.plantStructures.dawnRedwood.geckolib;
 
 import net.minecraft.resources.ResourceLocation;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
-import net.seentro.prehistoriccraft.common.block.nature.dawnRedwood.DawnRedwoodSaplingBlockEntity;
-import net.seentro.prehistoriccraft.common.block.nature.plantStructures.ThreeStageFlowerPlantStructure;
+import net.seentro.prehistoriccraft.common.block.nature.plantStructures.dawnRedwood.DawnRedwoodSaplingBlockEntity;
+import net.seentro.prehistoriccraft.common.block.nature.templates.plantStructures.ThreeStageFlowerPlantStructure;
 import software.bernie.geckolib.model.GeoModel;
 
 public class DawnRedwoodSaplingModel extends GeoModel<DawnRedwoodSaplingBlockEntity> {

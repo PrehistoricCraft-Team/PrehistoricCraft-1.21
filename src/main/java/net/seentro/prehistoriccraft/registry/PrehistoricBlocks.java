@@ -21,14 +21,15 @@ import net.seentro.prehistoriccraft.common.block.machines.tissueExtractionChambe
 import net.seentro.prehistoriccraft.common.block.nature.FlammableBlock;
 import net.seentro.prehistoriccraft.common.block.nature.FlammableConeBlock;
 import net.seentro.prehistoriccraft.common.block.nature.FlammableRotatedPillarBlock;
-import net.seentro.prehistoriccraft.common.block.nature.dawnRedwood.DawnRedwoodSaplingBlock;
+import net.seentro.prehistoriccraft.common.block.nature.plantStructures.dawnRedwood.DawnRedwoodSaplingBlock;
 import net.seentro.prehistoriccraft.common.block.nature.grass.LoamGrassBlock;
-import net.seentro.prehistoriccraft.common.block.nature.neocalamites.NeocalamitesBlock;
-import net.seentro.prehistoriccraft.common.block.nature.neocalamites.sapling.NeocalamitesSaplingBlock;
+import net.seentro.prehistoriccraft.common.block.nature.plantStructures.neocalamites.NeocalamitesBlock;
+import net.seentro.prehistoriccraft.common.block.nature.plantStructures.neocalamites.sapling.NeocalamitesSaplingBlock;
 import net.seentro.prehistoriccraft.common.block.nature.signs.PrehistoricHangingSignBlock;
 import net.seentro.prehistoriccraft.common.block.nature.signs.PrehistoricStandingSignBlock;
 import net.seentro.prehistoriccraft.common.block.nature.signs.PrehistoricWallHangingSignBlock;
 import net.seentro.prehistoriccraft.common.block.nature.signs.PrehistoricWallSignBlock;
+import net.seentro.prehistoriccraft.common.block.nature.simplePlants.horsetail.woodHorsetail.WoodHorsetailBlock;
 import net.seentro.prehistoriccraft.common.block.nature.simplePlants.kerpia.KerpiaBlock;
 
 import java.util.function.Supplier;
@@ -44,6 +45,7 @@ public class PrehistoricBlocks {
     public static final DeferredBlock<Block> NEOCALAMITES_SAPLING = registerBlock("neocalamites_sapling", () -> new NeocalamitesSaplingBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SAPLING)));
 
     public static final DeferredBlock<Block> KERPIA = registerBlock("kerpia", () -> new KerpiaBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.ROSE_BUSH).dynamicShape()));
+    public static final DeferredBlock<Block> WOOD_HORSETAIL = registerBlock("wood_horsetail", () -> new WoodHorsetailBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.ROSE_BUSH).dynamicShape().noOcclusion()));
 
     //DAWN REDWOOD
     public static final DeferredBlock<Block> DAWN_REDWOOD_LOG = registerBlock("dawn_redwood_log", () -> new FlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG)));

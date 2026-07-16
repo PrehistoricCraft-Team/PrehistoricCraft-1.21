@@ -1,4 +1,4 @@
-package net.seentro.prehistoriccraft.common.block.nature.neocalamites;
+package net.seentro.prehistoriccraft.common.block.nature.plantStructures.neocalamites;
 
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
@@ -7,10 +7,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
 
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -29,24 +25,13 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.level.storage.loot.LootParams;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.common.util.TriState;
-import net.seentro.prehistoriccraft.PrehistoricCraft;
 import net.seentro.prehistoriccraft.core.multiblock.QuadrupleInvisibleSegmentProperty;
 import net.seentro.prehistoriccraft.utils.MultiblockHelper;
 import org.jetbrains.annotations.Nullable;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.util.Optional;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.item.Items;
-import net.seentro.prehistoriccraft.registry.PrehistoricBlocks;
 
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.WATERLOGGED;
 import static net.seentro.prehistoriccraft.core.multiblock.QuadrupleInvisibleSegmentProperty.*;
