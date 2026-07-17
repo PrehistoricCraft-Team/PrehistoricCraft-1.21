@@ -1,4 +1,4 @@
-package net.seentro.prehistoriccraft.datagen;
+package net.seentro.prehistoriccraft.datagen.server;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.loot.EntityLootSubProvider;
@@ -18,7 +18,7 @@ import net.seentro.prehistoriccraft.registry.PrehistoricItems;
 import java.util.stream.Stream;
 
 public class PrehistoricEntityLootTableProvider extends EntityLootSubProvider {
-    protected PrehistoricEntityLootTableProvider(HolderLookup.Provider registries) {
+    public PrehistoricEntityLootTableProvider(HolderLookup.Provider registries) {
         super(FeatureFlags.DEFAULT_FLAGS, registries);
     }
 

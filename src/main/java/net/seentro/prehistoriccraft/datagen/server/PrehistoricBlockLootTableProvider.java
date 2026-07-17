@@ -1,4 +1,4 @@
-package net.seentro.prehistoriccraft.datagen;
+package net.seentro.prehistoriccraft.datagen.server;
 
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
@@ -29,7 +29,7 @@ import net.seentro.prehistoriccraft.registry.PrehistoricItems;
 import java.util.Set;
 
 public class PrehistoricBlockLootTableProvider extends BlockLootSubProvider {
-    protected PrehistoricBlockLootTableProvider(HolderLookup.Provider registries) {
+    public PrehistoricBlockLootTableProvider(HolderLookup.Provider registries) {
         super(Set.of(), FeatureFlags.REGISTRY.allFlags(), registries);
     }
 

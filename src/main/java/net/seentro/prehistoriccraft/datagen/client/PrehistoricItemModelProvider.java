@@ -1,4 +1,4 @@
-package net.seentro.prehistoriccraft.datagen;
+package net.seentro.prehistoriccraft.datagen.client;
 
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;

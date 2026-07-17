@@ -1,4 +1,4 @@
-package net.seentro.prehistoriccraft.datagen;
+package net.seentro.prehistoriccraft.datagen.client;
 
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;

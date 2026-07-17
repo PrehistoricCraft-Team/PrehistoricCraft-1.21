@@ -11,6 +11,10 @@ import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
+import net.seentro.prehistoriccraft.datagen.client.PrehistoricBlockStateProvider;
+import net.seentro.prehistoriccraft.datagen.client.PrehistoricItemModelProvider;
+import net.seentro.prehistoriccraft.datagen.client.PrehistoricLanguageProvider;
+import net.seentro.prehistoriccraft.datagen.server.*;
 
 import java.util.Collections;
 import java.util.List;
@@ -39,5 +43,9 @@ public class DataGenerators {
 
         generator.addProvider(event.includeClient(), new PrehistoricBlockStateProvider(packOutput, existingFileHelper));
         generator.addProvider(event.includeClient(), new PrehistoricItemModelProvider(packOutput, existingFileHelper));
+
+        // lang
+        generator.addProvider(event.includeClient(), new PrehistoricLanguageProvider(packOutput, "en_us"));
+        generator.addProvider(event.includeClient(), new PrehistoricLanguageProvider(packOutput, "pl_pl"));
     }
 }

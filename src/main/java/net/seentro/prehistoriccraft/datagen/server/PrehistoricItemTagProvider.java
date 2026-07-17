@@ -1,4 +1,4 @@
-package net.seentro.prehistoriccraft.datagen;
+package net.seentro.prehistoriccraft.datagen.server;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
