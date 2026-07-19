@@ -21,16 +21,9 @@ import net.seentro.prehistoriccraft.common.block.nature.templates.DoubleVariantB
 import org.jetbrains.annotations.Nullable;
 
 public class WoodHorsetailBlock extends DoubleVariantBushBlock implements EntityBlock {
-    public static final MapCodec<WoodHorsetailBlock> CODEC = simpleCodec(WoodHorsetailBlock::new);
     public WoodHorsetailBlock(Properties properties) {
         super(properties);
     }
-
-    @Override
-    protected MapCodec<? extends BushBlock> codec() {
-        return CODEC;
-    }
-
 
     @Override
     public @Nullable BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {

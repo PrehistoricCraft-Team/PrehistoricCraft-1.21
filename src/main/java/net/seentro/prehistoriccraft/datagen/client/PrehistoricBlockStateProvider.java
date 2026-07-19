@@ -48,9 +48,14 @@ public class PrehistoricBlockStateProvider extends BlockStateProvider {
                 modLoc("block/loam_grass_block_snow"), mcLoc("block/grass_block_top"));
         doubleCrossPlantWithStemBlock(PrehistoricBlocks.NEOCALAMITES_SAPLING, modLoc("block/neocalamites_sapling_bottom"), modLoc("block/neocalamites_sapling"), "neocalamites_sapling");
         blockItem(PrehistoricBlocks.KERPIA);
-        blockItemWithBlockTexture(PrehistoricBlocks.WOOD_HORSETAIL, "wood_horsetail_1");
 
-        //DAWN REDWOOD
+        // HORSETAILS
+        blockItemWithBlockTexture(PrehistoricBlocks.WOOD_HORSETAIL, "wood_horsetail_1");
+        blockItemWithBlockTexture(PrehistoricBlocks.ARID_HORSETAIL, "arid_horsetail_1");
+        blockItemWithBlockTexture(PrehistoricBlocks.ROUGH_HORSETAIL, "rough_horsetail_1");
+        blockItemWithBlockTexture(PrehistoricBlocks.MARSH_HORSETAIL, "marsh_horsetail_1");
+
+        // DAWN REDWOOD
         logBlock((RotatedPillarBlock) PrehistoricBlocks.DAWN_REDWOOD_LOG.get());
         axisBlock((RotatedPillarBlock) PrehistoricBlocks.DAWN_REDWOOD_WOOD.get(), blockTexture(PrehistoricBlocks.DAWN_REDWOOD_LOG.get()), blockTexture(PrehistoricBlocks.DAWN_REDWOOD_LOG.get()));
         logBlock((RotatedPillarBlock) PrehistoricBlocks.STRIPPED_DAWN_REDWOOD_LOG.get());

@@ -49,6 +49,9 @@ import net.seentro.prehistoriccraft.common.block.machines.tissueExtractionChambe
 import net.seentro.prehistoriccraft.common.block.machines.tissueExtractionChamber.geckolib.TissueExtractionChamberRenderer;
 import net.seentro.prehistoriccraft.common.block.nature.plantStructures.dawnRedwood.geckolib.DawnRedwoodSaplingRenderer;
 import net.seentro.prehistoriccraft.common.block.nature.plantStructures.neocalamites.geckolib.NeocalamitesRenderer;
+import net.seentro.prehistoriccraft.common.block.nature.simplePlants.horsetail.aridHorsetail.AridHorsetailRenderer;
+import net.seentro.prehistoriccraft.common.block.nature.simplePlants.horsetail.marshHorsetail.MarshHorsetailRenderer;
+import net.seentro.prehistoriccraft.common.block.nature.simplePlants.horsetail.roughHorsetail.RoughHorsetailRenderer;
 import net.seentro.prehistoriccraft.common.block.nature.simplePlants.horsetail.woodHorsetail.WoodHorsetailRenderer;
 import net.seentro.prehistoriccraft.common.block.nature.simplePlants.kerpia.geckolib.KerpiaRenderer;
 import net.seentro.prehistoriccraft.common.entity.PrehistoricBoatRenderer;
@@ -231,15 +234,22 @@ public class PrehistoricCraft {
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
+            /* MACHINES */
             BlockEntityRenderers.register(PrehistoricBlockEntityTypes.TISSUE_EXTRACTION_CHAMBER_BLOCK_ENTITY.get(), TissueExtractionChamberRenderer::new);
             BlockEntityRenderers.register(PrehistoricBlockEntityTypes.ACID_CLEANING_CHAMBER_BLOCK_ENTITY.get(), AcidCleaningChamberRenderer::new);
             BlockEntityRenderers.register(PrehistoricBlockEntityTypes.DNA_SEPARATION_FILTER_BLOCK_ENTITY.get(), DNASeparationFilterRenderer::new);
             BlockEntityRenderers.register(PrehistoricBlockEntityTypes.DNA_RECOMBINATOR_BLOCK_ENTITY.get(), DNARecombinatorRenderer::new);
 
+            /* NATURE */
             BlockEntityRenderers.register(PrehistoricBlockEntityTypes.DAWN_REDWOOD_SAPLING_BLOCK_ENTITY.get(), DawnRedwoodSaplingRenderer::new);
             BlockEntityRenderers.register(PrehistoricBlockEntityTypes.NEOCALAMITES_BLOCK_ENTITY.get(), NeocalamitesRenderer::new);
             BlockEntityRenderers.register(PrehistoricBlockEntityTypes.KERPIA_BLOCK_ENTITY.get(), KerpiaRenderer::new);
+
+            // HORSETAILS
             BlockEntityRenderers.register(PrehistoricBlockEntityTypes.WOOD_HORSETAIL_BLOCK_ENTITY.get(), WoodHorsetailRenderer::new);
+            BlockEntityRenderers.register(PrehistoricBlockEntityTypes.ARID_HORSETAIL_BLOCK_ENTITY.get(), AridHorsetailRenderer::new);
+            BlockEntityRenderers.register(PrehistoricBlockEntityTypes.ROUGH_HORSETAIL_BLOCK_ENTITY.get(), RoughHorsetailRenderer::new);
+            BlockEntityRenderers.register(PrehistoricBlockEntityTypes.MARSH_HORSETAIL_BLOCK_ENTITY.get(), MarshHorsetailRenderer::new);
 
             EntityRenderers.register(PrehistoricDinosaurEntityTypes.DAYONGASPIS.get(), DayongaspisRenderer::new);
 
@@ -273,8 +283,8 @@ public class PrehistoricCraft {
 
         @SubscribeEvent
         public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
-            event.registerBlockEntityRenderer(PrehistoricBlockEntityTypes.PREHISTORIC_SIGN.get(), SignRenderer::new);
-            event.registerBlockEntityRenderer(PrehistoricBlockEntityTypes.PREHISTORIC_HANGING_SIGN.get(), HangingSignRenderer::new);
+            event.registerBlockEntityRenderer(PrehistoricBlockEntityTypes.PREHISTORIC_SIGN_BLOCK_ENTITY.get(), SignRenderer::new);
+            event.registerBlockEntityRenderer(PrehistoricBlockEntityTypes.PREHISTORIC_HANGING_SIGN_BLOCK_ENTITY.get(), HangingSignRenderer::new);
 
             event.registerEntityRenderer(EntityType.BOAT, context -> new PrehistoricBoatRenderer(context, false));
         }

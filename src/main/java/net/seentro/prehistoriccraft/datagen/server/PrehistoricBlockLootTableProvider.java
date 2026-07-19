@@ -42,9 +42,14 @@ public class PrehistoricBlockLootTableProvider extends BlockLootSubProvider {
         this.add(PrehistoricBlocks.NEOCALAMITES_SAPLING.get(), this::createDoublePlantShearsDrop);
 
         dropSelf(PrehistoricBlocks.KERPIA.get());
-        dropWhenShearsOrSilkTouch(PrehistoricBlocks.WOOD_HORSETAIL.get());
 
-        //DAWN REDWOOD
+        // HORSETAIL
+        dropWhenShearsOrSilkTouch(PrehistoricBlocks.WOOD_HORSETAIL.get());
+        dropWhenShearsOrSilkTouch(PrehistoricBlocks.ARID_HORSETAIL.get());
+        dropWhenShearsOrSilkTouch(PrehistoricBlocks.ROUGH_HORSETAIL.get());
+        dropWhenShearsOrSilkTouch(PrehistoricBlocks.MARSH_HORSETAIL.get());
+
+        // DAWN REDWOOD
         dropSelf(PrehistoricBlocks.DAWN_REDWOOD_LOG.get());
         dropSelf(PrehistoricBlocks.DAWN_REDWOOD_WOOD.get());
         this.add(PrehistoricBlocks.DAWN_REDWOOD_CONES.get(), block ->

@@ -13,6 +13,6 @@ public class PrehistoricHangingSignBlockEntity extends HangingSignBlockEntity {
 
     @Override
     public BlockEntityType<?> getType() {
-        return PrehistoricBlockEntityTypes.PREHISTORIC_HANGING_SIGN.get();
+        return PrehistoricBlockEntityTypes.PREHISTORIC_HANGING_SIGN_BLOCK_ENTITY.get();
     }
 }

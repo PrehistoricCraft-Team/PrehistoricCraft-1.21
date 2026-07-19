@@ -29,6 +29,9 @@ import net.seentro.prehistoriccraft.common.block.nature.signs.PrehistoricHanging
 import net.seentro.prehistoriccraft.common.block.nature.signs.PrehistoricStandingSignBlock;
 import net.seentro.prehistoriccraft.common.block.nature.signs.PrehistoricWallHangingSignBlock;
 import net.seentro.prehistoriccraft.common.block.nature.signs.PrehistoricWallSignBlock;
+import net.seentro.prehistoriccraft.common.block.nature.simplePlants.horsetail.aridHorsetail.AridHorsetailBlock;
+import net.seentro.prehistoriccraft.common.block.nature.simplePlants.horsetail.marshHorsetail.MarshHorsetailBlock;
+import net.seentro.prehistoriccraft.common.block.nature.simplePlants.horsetail.roughHorsetail.RoughHorsetailBlock;
 import net.seentro.prehistoriccraft.common.block.nature.simplePlants.horsetail.woodHorsetail.WoodHorsetailBlock;
 import net.seentro.prehistoriccraft.common.block.nature.simplePlants.kerpia.KerpiaBlock;
 
@@ -44,10 +47,15 @@ public class PrehistoricBlocks {
     public static final DeferredBlock<Block> NEOCALAMITES = registerBlockOnly("neocalamites", () -> new NeocalamitesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.ROSE_BUSH).dynamicShape()));
     public static final DeferredBlock<Block> NEOCALAMITES_SAPLING = registerBlock("neocalamites_sapling", () -> new NeocalamitesSaplingBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SAPLING)));
 
-    public static final DeferredBlock<Block> KERPIA = registerBlock("kerpia", () -> new KerpiaBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.ROSE_BUSH).dynamicShape()));
-    public static final DeferredBlock<Block> WOOD_HORSETAIL = registerBlock("wood_horsetail", () -> new WoodHorsetailBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.ROSE_BUSH).dynamicShape().noOcclusion()));
+    public static final DeferredBlock<Block> KERPIA = registerBlock("kerpia", () -> new KerpiaBlock(BlockBehaviour.Properties.ofFullCopy(NEOCALAMITES.get())));
 
-    //DAWN REDWOOD
+    // HORSETAILS
+    public static final DeferredBlock<Block> WOOD_HORSETAIL = registerBlock("wood_horsetail", () -> new WoodHorsetailBlock(BlockBehaviour.Properties.ofFullCopy(NEOCALAMITES.get())));
+    public static final DeferredBlock<Block> ARID_HORSETAIL = registerBlock("arid_horsetail", () -> new AridHorsetailBlock(BlockBehaviour.Properties.ofFullCopy(NEOCALAMITES.get())));
+    public static final DeferredBlock<Block> ROUGH_HORSETAIL = registerBlock("rough_horsetail", () -> new RoughHorsetailBlock(BlockBehaviour.Properties.ofFullCopy(NEOCALAMITES.get())));
+    public static final DeferredBlock<Block> MARSH_HORSETAIL = registerBlock("marsh_horsetail", () -> new MarshHorsetailBlock(BlockBehaviour.Properties.ofFullCopy(NEOCALAMITES.get())));
+
+    // DAWN REDWOOD
     public static final DeferredBlock<Block> DAWN_REDWOOD_LOG = registerBlock("dawn_redwood_log", () -> new FlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG)));
     public static final DeferredBlock<Block> DAWN_REDWOOD_WOOD = registerBlock("dawn_redwood_wood", () -> new FlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WOOD)));
     public static final DeferredBlock<Block> STRIPPED_DAWN_REDWOOD_LOG = registerBlock("stripped_dawn_redwood_log", () -> new FlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_LOG)));

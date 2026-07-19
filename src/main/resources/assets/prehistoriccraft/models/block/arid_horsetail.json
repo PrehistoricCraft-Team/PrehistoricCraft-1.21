@@ -1,0 +1,6 @@
+{
+  "parent": "builtin/entity",
+   "textures": {
+    "particle": "prehistoriccraft:block/arid_horsetail_1"
+  }
+}

@@ -105,6 +105,9 @@ public class PrehistoricCreativeTabs {
                 output.accept(PrehistoricBlocks.NEOCALAMITES.get());
                 output.accept(PrehistoricBlocks.NEOCALAMITES_SAPLING.get());
                 output.accept(PrehistoricBlocks.WOOD_HORSETAIL.get());
+                output.accept(PrehistoricBlocks.ARID_HORSETAIL.get());
+                output.accept(PrehistoricBlocks.ROUGH_HORSETAIL.get());
+                output.accept(PrehistoricBlocks.MARSH_HORSETAIL.get());
             }).build());
 
     public static final Supplier<CreativeModeTab> PREHISTORICCRAFT_ITEMS = CREATIVE_MODE_TABS.register("prehistoriccraft_items", () -> CreativeModeTab.builder().icon(() -> new ItemStack(PrehistoricItems.EXCAVATOR_PICKAXE.get()))

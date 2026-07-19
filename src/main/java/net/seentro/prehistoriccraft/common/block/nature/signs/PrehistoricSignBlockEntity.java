@@ -8,11 +8,11 @@ import net.seentro.prehistoriccraft.registry.PrehistoricBlockEntityTypes;
 
 public class PrehistoricSignBlockEntity extends SignBlockEntity {
     public PrehistoricSignBlockEntity(BlockPos pos, BlockState blockState) {
-        super(PrehistoricBlockEntityTypes.PREHISTORIC_SIGN.get(), pos, blockState);
+        super(PrehistoricBlockEntityTypes.PREHISTORIC_SIGN_BLOCK_ENTITY.get(), pos, blockState);
     }
 
     @Override
     public BlockEntityType<?> getType() {
-        return PrehistoricBlockEntityTypes.PREHISTORIC_SIGN.get();
+        return PrehistoricBlockEntityTypes.PREHISTORIC_SIGN_BLOCK_ENTITY.get();
     }
 }
