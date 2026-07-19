@@ -22,6 +22,7 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+import net.seentro.prehistoriccraft.PrehistoricCraft;
 import net.seentro.prehistoriccraft.common.block.nature.plantStructures.dawnRedwood.DawnRedwoodSaplingBlock;
 import net.seentro.prehistoriccraft.registry.PrehistoricBlocks;
 import net.seentro.prehistoriccraft.registry.PrehistoricItems;
@@ -48,6 +49,7 @@ public class PrehistoricBlockLootTableProvider extends BlockLootSubProvider {
         dropWhenShearsOrSilkTouch(PrehistoricBlocks.ARID_HORSETAIL.get());
         dropWhenShearsOrSilkTouch(PrehistoricBlocks.ROUGH_HORSETAIL.get());
         dropWhenShearsOrSilkTouch(PrehistoricBlocks.MARSH_HORSETAIL.get());
+        this.add(PrehistoricBlocks.GREAT_HORSETAIL.get(), this::createDoublePlantShearsDrop);
 
         // DAWN REDWOOD
         dropSelf(PrehistoricBlocks.DAWN_REDWOOD_LOG.get());

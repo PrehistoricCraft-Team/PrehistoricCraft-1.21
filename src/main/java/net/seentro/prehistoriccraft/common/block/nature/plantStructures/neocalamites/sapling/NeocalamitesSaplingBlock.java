@@ -140,7 +140,8 @@ public class NeocalamitesSaplingBlock extends UnderwaterBushBlock implements Bon
     @Override
     protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
         int underwaterCount = pos.getY() - findSurfacePos(level, pos).getY();
-        return state.getValue(IS_STEM) ? underwaterCount <= 6 && checkGround(level, state, pos) : checkGround(level, state, pos);
+        return state.getValue(IS_STEM) ? underwaterCount <= 6 && checkGround(level, state, pos) : checkGround(level, state, pos)
+                && NeocalamitesBlock.hasWaterBlockCloseBy(level, pos);
     }
 
     protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {

@@ -4,13 +4,13 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.world.phys.Vec3;
-import net.seentro.prehistoriccraft.common.block.nature.simplePlants.horsetail.roughHorsetail.RoughHorsetailBlockEntity;
-import net.seentro.prehistoriccraft.common.block.nature.templates.SingleGeoModel;
+import net.seentro.prehistoriccraft.common.block.nature.templates.DoubleVariantTemplateGeoModel;
 import software.bernie.geckolib.renderer.GeoBlockRenderer;
 
 public class MarshHorsetailRenderer extends GeoBlockRenderer<MarshHorsetailBlockEntity> {
     public MarshHorsetailRenderer(BlockEntityRendererProvider.Context context) {
-        super(new SingleGeoModel<>("textures/block/marsh_horsetail_1.png", "textures/block/marsh_horsetail_2.png"));
+        super(new DoubleVariantTemplateGeoModel<>("textures/block/marsh_horsetail_1.png",
+                "textures/block/marsh_horsetail_2.png", "geo/block/templates/18x16_plant.geo.json"));
     }
 
     @Override

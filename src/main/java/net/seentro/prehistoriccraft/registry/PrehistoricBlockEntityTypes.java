@@ -14,6 +14,7 @@ import net.seentro.prehistoriccraft.common.block.machines.dnaSeparationFilter.DN
 import net.seentro.prehistoriccraft.common.block.machines.fossilAnalysisTable.FossilAnalysisTableBlockEntity;
 import net.seentro.prehistoriccraft.common.block.machines.tissueExtractionChamber.TissueExtractionChamberBlockEntity;
 import net.seentro.prehistoriccraft.common.block.nature.plantStructures.dawnRedwood.DawnRedwoodSaplingBlockEntity;
+import net.seentro.prehistoriccraft.common.block.nature.plantStructures.greatHorsetail.GreatHorsetailBlockEntity;
 import net.seentro.prehistoriccraft.common.block.nature.plantStructures.neocalamites.NeocalamitesBlockEntity;
 import net.seentro.prehistoriccraft.common.block.nature.signs.PrehistoricHangingSignBlockEntity;
 import net.seentro.prehistoriccraft.common.block.nature.signs.PrehistoricSignBlockEntity;
@@ -77,6 +78,9 @@ public class PrehistoricBlockEntityTypes {
 
         public static final Supplier<BlockEntityType<MarshHorsetailBlockEntity>> MARSH_HORSETAIL_BLOCK_ENTITY =
                 createBlockEntity("marsh_horsetail", MarshHorsetailBlockEntity::new, PrehistoricBlocks.MARSH_HORSETAIL);
+
+        public static final Supplier<BlockEntityType<GreatHorsetailBlockEntity>> GREAT_HORSETAIL_BLOCK_ENTITY =
+                createBlockEntity("great_horsetail", GreatHorsetailBlockEntity::new, PrehistoricBlocks.GREAT_HORSETAIL);
 
         @SafeVarargs
         private static <T extends BlockEntity> Supplier<BlockEntityType<T>> createBlockEntity(String name, BlockEntityType.BlockEntitySupplier<T> blockEntity, DeferredBlock<? extends Block>... block) {

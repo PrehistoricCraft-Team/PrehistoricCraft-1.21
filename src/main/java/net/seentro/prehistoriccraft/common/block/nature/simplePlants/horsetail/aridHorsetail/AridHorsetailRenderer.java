@@ -3,15 +3,14 @@ package net.seentro.prehistoriccraft.common.block.nature.simplePlants.horsetail.
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.phys.Vec3;
-import net.seentro.prehistoriccraft.common.block.nature.simplePlants.horsetail.woodHorsetail.WoodHorsetailBlockEntity;
-import net.seentro.prehistoriccraft.common.block.nature.templates.SingleGeoModel;
+import net.seentro.prehistoriccraft.common.block.nature.templates.DoubleVariantTemplateGeoModel;
 import software.bernie.geckolib.renderer.GeoBlockRenderer;
 
 public class AridHorsetailRenderer extends GeoBlockRenderer<AridHorsetailBlockEntity> {
     public AridHorsetailRenderer(BlockEntityRendererProvider.Context context) {
-        super(new SingleGeoModel<>("textures/block/arid_horsetail_1.png", "textures/block/arid_horsetail_2.png"));
+        super(new DoubleVariantTemplateGeoModel<>("textures/block/arid_horsetail_1.png",
+                "textures/block/arid_horsetail_2.png", "geo/block/templates/18x16_plant.geo.json"));
     }
 
     @Override

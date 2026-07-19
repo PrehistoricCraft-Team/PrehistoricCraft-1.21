@@ -7,17 +7,19 @@ import net.seentro.prehistoriccraft.common.block.nature.simplePlants.horsetail.w
 import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.model.GeoModel;
 
-public class SingleGeoModel<T extends BlockEntity & GeoAnimatable> extends GeoModel<T> {
+public class DoubleVariantTemplateGeoModel<T extends BlockEntity & GeoAnimatable> extends GeoModel<T> {
     private final String textureLocation;
     private final String textureLocationSecondVariant;
-    public SingleGeoModel(String textureLocation, String textureLocationSecondVariant) {
+    private final String templateLocation;
+    public DoubleVariantTemplateGeoModel(String textureLocation, String textureLocationSecondVariant, String templateLocation) {
         this.textureLocation = textureLocation;
         this.textureLocationSecondVariant = textureLocationSecondVariant;
+        this.templateLocation = templateLocation;
     }
 
     @Override
     public ResourceLocation getModelResource(T animatable) {
-        return ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID, "geo/block/nature/18x16_plant.geo.json");
+        return ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID, templateLocation);
     }
 
     @Override
