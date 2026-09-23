@@ -1,3 +1,5 @@
+import net.neoforged.moddevgradle.dsl.RunModel
+
 plugins {
     id 'java-library'
     id 'idea'
@@ -44,6 +46,7 @@ neoForge {
         configureEach {
             systemProperty 'forge.logging.markers', 'REGISTRIES'
             logLevel = org.slf4j.event.Level.DEBUG
+            sourceSet = sourceSets.main
         }
 
         client {
@@ -53,7 +56,6 @@ neoForge {
 
         server {
             server()
-            programArgument '--nogui'
             systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
         }
 

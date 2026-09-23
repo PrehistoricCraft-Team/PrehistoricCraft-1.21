@@ -110,7 +110,7 @@ public class NeocalamitesBlock extends BushBlock implements EntityBlock, SimpleW
             if (!level.getBlockState(pos.above(i)).canBeReplaced()) canFitDouble = false;
         }
 
-        int toReturn = Math.abs(pos.hashCode()) % 2 + 1; // calculate height based on position
+        int toReturn = Math.floorMod(pos.hashCode(), 2) + 1; // calculate height based on position
         if (!canFitDouble) toReturn = 1; // if we can't fit a double, overwrite with a one high instead
 
         return toReturn;

@@ -22,7 +22,6 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
-import net.seentro.prehistoriccraft.PrehistoricCraft;
 import net.seentro.prehistoriccraft.common.block.nature.plantStructures.dawnRedwood.DawnRedwoodSaplingBlock;
 import net.seentro.prehistoriccraft.registry.PrehistoricBlocks;
 import net.seentro.prehistoriccraft.registry.PrehistoricItems;
@@ -40,7 +39,7 @@ public class PrehistoricBlockLootTableProvider extends BlockLootSubProvider {
 
         this.add(PrehistoricBlocks.NEOCALAMITES.get(), block ->
                 createShearsSaplingDrop(block, PrehistoricBlocks.NEOCALAMITES_SAPLING.get()));
-        this.add(PrehistoricBlocks.NEOCALAMITES_SAPLING.get(), this::createDoublePlantShearsDrop);
+        this.add(PrehistoricBlocks.NEOCALAMITES_SAPLING.get(), this::createPlantShearsDrop);
 
         dropSelf(PrehistoricBlocks.KERPIA.get());
 
@@ -49,7 +48,8 @@ public class PrehistoricBlockLootTableProvider extends BlockLootSubProvider {
         dropWhenShearsOrSilkTouch(PrehistoricBlocks.ARID_HORSETAIL.get());
         dropWhenShearsOrSilkTouch(PrehistoricBlocks.ROUGH_HORSETAIL.get());
         dropWhenShearsOrSilkTouch(PrehistoricBlocks.MARSH_HORSETAIL.get());
-        this.add(PrehistoricBlocks.GREAT_HORSETAIL.get(), this::createDoublePlantShearsDrop);
+        this.add(PrehistoricBlocks.GREAT_HORSETAIL.get(), this::createPlantShearsDrop);
+        this.add(PrehistoricBlocks.WATER_HORSETAIL.get(), this::createPlantShearsDrop);
 
         // DAWN REDWOOD
         dropSelf(PrehistoricBlocks.DAWN_REDWOOD_LOG.get());
@@ -150,6 +150,10 @@ public class PrehistoricBlockLootTableProvider extends BlockLootSubProvider {
 
     protected void dropWhenShearsOrSilkTouch(Block block) {
         this.add(block, this.createSilkTouchOrShearsOnlyTable(block));
+    }
+
+    protected LootTable.Builder createPlantShearsDrop(Block sheared) {
+        return LootTable.lootTable().withPool(LootPool.lootPool().when(HAS_SHEARS).add(LootItem.lootTableItem(sheared).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)))));
     }
 
     protected void dropMultipleItems(Block block, ItemLike item, float minDrops, float maxDrops) {

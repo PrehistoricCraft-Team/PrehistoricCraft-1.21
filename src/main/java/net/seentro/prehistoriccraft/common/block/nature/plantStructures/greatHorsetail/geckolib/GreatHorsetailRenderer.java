@@ -5,13 +5,8 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
-import net.minecraft.world.level.block.state.properties.Half;
 import net.minecraft.world.phys.Vec3;
 import net.seentro.prehistoriccraft.common.block.nature.plantStructures.greatHorsetail.GreatHorsetailBlockEntity;
-import net.seentro.prehistoriccraft.common.block.nature.plantStructures.neocalamites.NeocalamitesBlock;
-import net.seentro.prehistoriccraft.common.block.nature.plantStructures.neocalamites.NeocalamitesBlockEntity;
-import net.seentro.prehistoriccraft.common.block.nature.plantStructures.neocalamites.geckolib.NeocalamitesModel;
-import net.seentro.prehistoriccraft.core.multiblock.QuadrupleInvisibleSegmentProperty;
 import software.bernie.geckolib.renderer.GeoBlockRenderer;
 
 public class GreatHorsetailRenderer extends GeoBlockRenderer<GreatHorsetailBlockEntity> {

@@ -18,7 +18,6 @@ import net.seentro.prehistoriccraft.common.block.nature.plantStructures.greatHor
 import net.seentro.prehistoriccraft.common.block.nature.plantStructures.neocalamites.NeocalamitesBlockEntity;
 import net.seentro.prehistoriccraft.common.block.nature.signs.PrehistoricHangingSignBlockEntity;
 import net.seentro.prehistoriccraft.common.block.nature.signs.PrehistoricSignBlockEntity;
-import net.seentro.prehistoriccraft.common.block.nature.simplePlants.horsetail.aridHorsetail.AridHorsetailBlockEntity;
 import net.seentro.prehistoriccraft.common.block.nature.simplePlants.horsetail.marshHorsetail.MarshHorsetailBlockEntity;
 import net.seentro.prehistoriccraft.common.block.nature.simplePlants.horsetail.roughHorsetail.RoughHorsetailBlockEntity;
 import net.seentro.prehistoriccraft.common.block.nature.simplePlants.horsetail.woodHorsetail.WoodHorsetailBlockEntity;
@@ -69,9 +68,6 @@ public class PrehistoricBlockEntityTypes {
 
         public static final Supplier<BlockEntityType<WoodHorsetailBlockEntity>> WOOD_HORSETAIL_BLOCK_ENTITY =
                 createBlockEntity("wood_horsetail", WoodHorsetailBlockEntity::new, PrehistoricBlocks.WOOD_HORSETAIL);
-
-        public static final Supplier<BlockEntityType<AridHorsetailBlockEntity>> ARID_HORSETAIL_BLOCK_ENTITY =
-                createBlockEntity("arid_horsetail", AridHorsetailBlockEntity::new, PrehistoricBlocks.ARID_HORSETAIL);
 
         public static final Supplier<BlockEntityType<RoughHorsetailBlockEntity>> ROUGH_HORSETAIL_BLOCK_ENTITY =
                 createBlockEntity("rough_horsetail", RoughHorsetailBlockEntity::new, PrehistoricBlocks.ROUGH_HORSETAIL);

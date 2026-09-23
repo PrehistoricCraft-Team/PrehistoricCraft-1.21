@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "is_stem=false,variant=1": {
+      "model": "prehistoriccraft:block/water_horsetail_1"
+    },
+    "is_stem=false,variant=2": {
+      "model": "prehistoriccraft:block/water_horsetail_2"
+    },
+    "is_stem=true,variant=1": {
+      "model": "prehistoriccraft:block/water_horsetail_stem_1"
+    },
+    "is_stem=true,variant=2": {
+      "model": "prehistoriccraft:block/water_horsetail_stem_2"
+    }
+  }
+}

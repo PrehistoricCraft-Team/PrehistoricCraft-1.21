@@ -50,7 +50,6 @@ import net.seentro.prehistoriccraft.common.block.machines.tissueExtractionChambe
 import net.seentro.prehistoriccraft.common.block.nature.plantStructures.dawnRedwood.geckolib.DawnRedwoodSaplingRenderer;
 import net.seentro.prehistoriccraft.common.block.nature.plantStructures.greatHorsetail.geckolib.GreatHorsetailRenderer;
 import net.seentro.prehistoriccraft.common.block.nature.plantStructures.neocalamites.geckolib.NeocalamitesRenderer;
-import net.seentro.prehistoriccraft.common.block.nature.simplePlants.horsetail.aridHorsetail.AridHorsetailRenderer;
 import net.seentro.prehistoriccraft.common.block.nature.simplePlants.horsetail.marshHorsetail.MarshHorsetailRenderer;
 import net.seentro.prehistoriccraft.common.block.nature.simplePlants.horsetail.roughHorsetail.RoughHorsetailRenderer;
 import net.seentro.prehistoriccraft.common.block.nature.simplePlants.horsetail.woodHorsetail.WoodHorsetailRenderer;
@@ -248,7 +247,6 @@ public class PrehistoricCraft {
 
             // HORSETAILS
             BlockEntityRenderers.register(PrehistoricBlockEntityTypes.WOOD_HORSETAIL_BLOCK_ENTITY.get(), WoodHorsetailRenderer::new);
-            BlockEntityRenderers.register(PrehistoricBlockEntityTypes.ARID_HORSETAIL_BLOCK_ENTITY.get(), AridHorsetailRenderer::new);
             BlockEntityRenderers.register(PrehistoricBlockEntityTypes.ROUGH_HORSETAIL_BLOCK_ENTITY.get(), RoughHorsetailRenderer::new);
             BlockEntityRenderers.register(PrehistoricBlockEntityTypes.MARSH_HORSETAIL_BLOCK_ENTITY.get(), MarshHorsetailRenderer::new);
             BlockEntityRenderers.register(PrehistoricBlockEntityTypes.GREAT_HORSETAIL_BLOCK_ENTITY.get(), GreatHorsetailRenderer::new);

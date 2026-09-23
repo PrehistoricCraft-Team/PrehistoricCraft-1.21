@@ -13,6 +13,8 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
 import net.seentro.prehistoriccraft.common.block.nature.plantStructures.neocalamites.sapling.NeocalamitesSaplingBlock;
+import net.seentro.prehistoriccraft.common.block.nature.plantStructures.waterHorsetail.WaterHorsetailBlock;
+import net.seentro.prehistoriccraft.common.block.nature.templates.DoubleVariantBushBlock;
 import net.seentro.prehistoriccraft.registry.PrehistoricBlocks;
 
 import java.util.Set;
@@ -51,9 +53,12 @@ public class PrehistoricBlockStateProvider extends BlockStateProvider {
 
         // HORSETAILS
         blockItemWithBlockTexture(PrehistoricBlocks.WOOD_HORSETAIL, "wood_horsetail_1");
-        blockItemWithBlockTexture(PrehistoricBlocks.ARID_HORSETAIL, "arid_horsetail_1");
+        crossBlockWithItemDoubleVariant(PrehistoricBlocks.ARID_HORSETAIL, modLoc("block/arid_horsetail_1"), modLoc("block/arid_horsetail_2"));
         blockItemWithBlockTexture(PrehistoricBlocks.ROUGH_HORSETAIL, "rough_horsetail_1");
         blockItemWithBlockTexture(PrehistoricBlocks.MARSH_HORSETAIL, "marsh_horsetail_1");
+        blockItemWithBlockTexture(PrehistoricBlocks.GREAT_HORSETAIL, "great_horsetail_1");
+        doubleCrossPlantWithStemBlockDoubleVariant(PrehistoricBlocks.WATER_HORSETAIL, modLoc("block/water_horsetail_stem_1"), modLoc("block/water_horsetail_1"),
+                modLoc("block/water_horsetail_stem_2"), modLoc("block/water_horsetail_2"));
 
         // DAWN REDWOOD
         logBlock((RotatedPillarBlock) PrehistoricBlocks.DAWN_REDWOOD_LOG.get());
@@ -153,6 +158,44 @@ public class PrehistoricBlockStateProvider extends BlockStateProvider {
         blockItemWithBlockTexture(block, itemTexture);
     }
 
+    public void doubleCrossPlantWithStemBlockDoubleVariant(DeferredBlock<?> block, ResourceLocation stemTexture, ResourceLocation texture, ResourceLocation stemTexture2, ResourceLocation texture2) {
+        String name = BuiltInRegistries.BLOCK.getKey(block.get()).toString();
+
+        // STEM
+        BlockModelBuilder stemModel1 = models().getBuilder(name + "_stem_1")
+                .parent(models().getExistingFile(mcLoc("block/cross")))
+                .texture("particle", texture.toString())
+                .texture("cross", stemTexture.toString())
+                .renderType("cutout");
+
+        BlockModelBuilder stemModel2 = models().getBuilder(name + "_stem_2")
+                .parent(models().getExistingFile(mcLoc("block/cross")))
+                .texture("particle", texture2.toString())
+                .texture("cross", stemTexture2.toString())
+                .renderType("cutout");
+
+        // MAIN
+        BlockModelBuilder model1 = models().getBuilder(name + "_1")
+                .parent(models().getExistingFile(mcLoc("block/cross")))
+                .texture("particle", texture.toString())
+                .texture("cross", texture.toString())
+                .renderType("cutout");
+
+        BlockModelBuilder model2 = models().getBuilder(name + "_2")
+                .parent(models().getExistingFile(mcLoc("block/cross")))
+                .texture("particle", texture2.toString())
+                .texture("cross", texture2.toString())
+                .renderType("cutout");
+
+        getVariantBuilder(block.get())
+                .partialState().with(WaterHorsetailBlock.IS_STEM, true).with(WaterHorsetailBlock.VARIANT, 1).addModels(new ConfiguredModel(stemModel1))
+                .partialState().with(WaterHorsetailBlock.IS_STEM, false).with(WaterHorsetailBlock.VARIANT, 1).addModels(new ConfiguredModel(model1))
+                .partialState().with(WaterHorsetailBlock.IS_STEM, true).with(WaterHorsetailBlock.VARIANT, 2).addModels(new ConfiguredModel(stemModel2))
+                .partialState().with(WaterHorsetailBlock.IS_STEM, false).with(WaterHorsetailBlock.VARIANT, 2).addModels(new ConfiguredModel(model2));
+
+        blockItemWithBlockTexture(block, texture);
+    }
+
     private void blockWithItemPlasterTexture(DeferredBlock<?> block) {
         simpleBlockWithItem(block.get(), models().cubeAll("plastered_fossiliferous_stone", modLoc("block/plastered_fossiliferous_stone")));
     }
@@ -182,6 +225,7 @@ public class PrehistoricBlockStateProvider extends BlockStateProvider {
         getVariantBuilder(block)
                 .partialState().with(SnowyDirtBlock.SNOWY, false).addModels(new ConfiguredModel(model))
                 .partialState().with(SnowyDirtBlock.SNOWY, true).addModels(new ConfiguredModel(models().cubeBottomTop(name(block) + "_snow", snowySide, bottom, snowyTop)));
+
         simpleBlockItem(block, model);
     }
 
@@ -248,12 +292,43 @@ public class PrehistoricBlockStateProvider extends BlockStateProvider {
         blockItemWithItemTexture(block, "dawn_redwood_cones_item");
     }
 
-    private void saplingBlock(DeferredBlock<?> block) {
-        simpleBlock(block.get(), models().cross(block.getId().getPath(), blockTexture(block.get())).renderType("cutout"));
+    private void crossBlockWithItem(DeferredBlock<?> block) {
+        simpleBlockWithItem(block.get(), models().cross(block.getId().getPath(), blockTexture(block.get())).renderType("cutout"));
+    }
+
+    private void crossBlockWithItem(DeferredBlock<?> block, String texture) {
+        simpleBlockWithItem(block.get(), models().cross(block.getId().getPath(), modLoc("block/" + texture)).renderType("cutout"));
+    }
+
+    private void crossBlockWithItemDoubleVariant(DeferredBlock<?> block, ResourceLocation variant1, ResourceLocation variant2) {
+        String name = BuiltInRegistries.BLOCK.getKey(block.get()).toString();
+
+        BlockModelBuilder modelVariant1 = models().getBuilder(name + "_1")
+                .parent(models().getExistingFile(mcLoc("block/cross")))
+                .texture("particle", variant1.toString())
+                .texture("cross", variant1.toString())
+                .renderType("cutout");
+
+        // SAPLING
+        BlockModelBuilder modelVariant2 = models().getBuilder(name + "_2")
+                .parent(models().getExistingFile(mcLoc("block/cross")))
+                .texture("particle", variant2.toString())
+                .texture("cross", variant2.toString())
+                .renderType("cutout");
+
+        getVariantBuilder(block.get())
+                .partialState().with(DoubleVariantBushBlock.VARIANT, 1).addModels(new ConfiguredModel(modelVariant1))
+                .partialState().with(DoubleVariantBushBlock.VARIANT, 2).addModels(new ConfiguredModel(modelVariant2));
+
+        blockItemWithBlockTexture(block, variant1);
     }
 
     private void blockWithItem(DeferredBlock<?> block) {
         simpleBlockWithItem(block.get(), cubeAll(block.get()));
+    }
+
+    private void blockWithItem(DeferredBlock<?> block, String texture) {
+        simpleBlockWithItem(block.get(), models().cubeAll(name(block.get()), modLoc("block/" + texture)));
     }
 
     private void blockItem(DeferredBlock<?> block) {
@@ -278,6 +353,10 @@ public class PrehistoricBlockStateProvider extends BlockStateProvider {
 
     private void blockItemWithBlockTexture(DeferredBlock<?> block, String texture) {
         customBlockItem(block, modLoc("block/" + texture), mcLoc("item/generated"), "layer0");
+    }
+
+    private void blockItemWithBlockTexture(DeferredBlock<?> block, ResourceLocation texture) {
+        customBlockItem(block, texture, mcLoc("item/generated"), "layer0");
     }
 
     private void customBlockItem(DeferredBlock<?> block, ResourceLocation texture, ResourceLocation parent, String textureKey) {

@@ -21,20 +21,21 @@ import net.seentro.prehistoriccraft.common.block.machines.tissueExtractionChambe
 import net.seentro.prehistoriccraft.common.block.nature.FlammableBlock;
 import net.seentro.prehistoriccraft.common.block.nature.FlammableConeBlock;
 import net.seentro.prehistoriccraft.common.block.nature.FlammableRotatedPillarBlock;
-import net.seentro.prehistoriccraft.common.block.nature.plantStructures.dawnRedwood.DawnRedwoodSaplingBlock;
 import net.seentro.prehistoriccraft.common.block.nature.grass.LoamGrassBlock;
+import net.seentro.prehistoriccraft.common.block.nature.plantStructures.dawnRedwood.DawnRedwoodSaplingBlock;
 import net.seentro.prehistoriccraft.common.block.nature.plantStructures.greatHorsetail.GreatHorsetailBlock;
 import net.seentro.prehistoriccraft.common.block.nature.plantStructures.neocalamites.NeocalamitesBlock;
 import net.seentro.prehistoriccraft.common.block.nature.plantStructures.neocalamites.sapling.NeocalamitesSaplingBlock;
+import net.seentro.prehistoriccraft.common.block.nature.plantStructures.waterHorsetail.WaterHorsetailBlock;
 import net.seentro.prehistoriccraft.common.block.nature.signs.PrehistoricHangingSignBlock;
 import net.seentro.prehistoriccraft.common.block.nature.signs.PrehistoricStandingSignBlock;
 import net.seentro.prehistoriccraft.common.block.nature.signs.PrehistoricWallHangingSignBlock;
 import net.seentro.prehistoriccraft.common.block.nature.signs.PrehistoricWallSignBlock;
-import net.seentro.prehistoriccraft.common.block.nature.simplePlants.horsetail.aridHorsetail.AridHorsetailBlock;
 import net.seentro.prehistoriccraft.common.block.nature.simplePlants.horsetail.marshHorsetail.MarshHorsetailBlock;
 import net.seentro.prehistoriccraft.common.block.nature.simplePlants.horsetail.roughHorsetail.RoughHorsetailBlock;
 import net.seentro.prehistoriccraft.common.block.nature.simplePlants.horsetail.woodHorsetail.WoodHorsetailBlock;
 import net.seentro.prehistoriccraft.common.block.nature.simplePlants.kerpia.KerpiaBlock;
+import net.seentro.prehistoriccraft.common.block.nature.templates.DoubleVariantBushBlock;
 
 import java.util.function.Supplier;
 
@@ -52,10 +53,11 @@ public class PrehistoricBlocks {
 
     // HORSETAILS
     public static final DeferredBlock<Block> WOOD_HORSETAIL = registerBlock("wood_horsetail", () -> new WoodHorsetailBlock(BlockBehaviour.Properties.ofFullCopy(NEOCALAMITES.get())));
-    public static final DeferredBlock<Block> ARID_HORSETAIL = registerBlock("arid_horsetail", () -> new AridHorsetailBlock(BlockBehaviour.Properties.ofFullCopy(NEOCALAMITES.get())));
+    public static final DeferredBlock<Block> ARID_HORSETAIL = registerBlock("arid_horsetail", () -> new DoubleVariantBushBlock(BlockBehaviour.Properties.ofFullCopy(NEOCALAMITES.get())));
     public static final DeferredBlock<Block> ROUGH_HORSETAIL = registerBlock("rough_horsetail", () -> new RoughHorsetailBlock(BlockBehaviour.Properties.ofFullCopy(NEOCALAMITES.get())));
     public static final DeferredBlock<Block> MARSH_HORSETAIL = registerBlock("marsh_horsetail", () -> new MarshHorsetailBlock(BlockBehaviour.Properties.ofFullCopy(NEOCALAMITES.get())));
     public static final DeferredBlock<Block> GREAT_HORSETAIL = registerBlock("great_horsetail", () -> new GreatHorsetailBlock(BlockBehaviour.Properties.ofFullCopy(NEOCALAMITES.get())));
+    public static final DeferredBlock<Block> WATER_HORSETAIL = registerBlock("water_horsetail", () -> new WaterHorsetailBlock(BlockBehaviour.Properties.ofFullCopy(NEOCALAMITES.get())));
 
     // DAWN REDWOOD
     public static final DeferredBlock<Block> DAWN_REDWOOD_LOG = registerBlock("dawn_redwood_log", () -> new FlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG)));

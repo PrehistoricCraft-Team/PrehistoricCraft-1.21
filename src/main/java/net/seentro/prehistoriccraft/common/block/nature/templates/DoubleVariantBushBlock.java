@@ -6,7 +6,6 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BushBlock;
-import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
@@ -18,7 +17,7 @@ import org.jetbrains.annotations.Nullable;
 public class DoubleVariantBushBlock extends BushBlock {
     public static final MapCodec<DoubleVariantBushBlock> CODEC = simpleCodec(DoubleVariantBushBlock::new);
     public static final IntegerProperty VARIANT = IntegerProperty.create("variant", 1, 2);
-    protected DoubleVariantBushBlock(Properties properties) {
+    public DoubleVariantBushBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.getStateDefinition().any().setValue(VARIANT, 1));
     }
@@ -42,12 +41,8 @@ public class DoubleVariantBushBlock extends BushBlock {
     }
 
     @Override
-    protected RenderShape getRenderShape(BlockState state) {
-        return RenderShape.ENTITYBLOCK_ANIMATED;
-    }
-
-    @Override
     public @Nullable BlockState getStateForPlacement(BlockPlaceContext context) {
-        return defaultBlockState().setValue(VARIANT, context.getLevel().random.nextBoolean() ? 1 : 2);
+        int variant = Math.floorMod(context.getClickedPos().hashCode(), 2) + 1; // calculate variant based on position
+        return defaultBlockState().setValue(VARIANT, variant);
     }
 }

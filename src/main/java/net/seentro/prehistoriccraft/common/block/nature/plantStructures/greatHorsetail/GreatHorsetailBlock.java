@@ -4,7 +4,9 @@ import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.DoublePlantBlock;
+import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -13,7 +15,6 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.seentro.prehistoriccraft.common.block.nature.plantStructures.neocalamites.NeocalamitesBlock;
 import org.jetbrains.annotations.Nullable;
 
 public class GreatHorsetailBlock extends DoublePlantBlock implements EntityBlock {
@@ -22,7 +23,6 @@ public class GreatHorsetailBlock extends DoublePlantBlock implements EntityBlock
 
     public GreatHorsetailBlock(Properties properties) {
         super(properties);
-        //this.registerDefaultState(this.getStateDefinition().any().setValue(VARIANT, 1));
     }
 
     @Override
@@ -30,7 +30,7 @@ public class GreatHorsetailBlock extends DoublePlantBlock implements EntityBlock
         return CODEC;
     }
 
-    protected static final VoxelShape SHAPE = Block.box(2.0F, 0.0F, 2.0F, 14.0F, 13.0F, 14.0F);
+    protected static final VoxelShape SHAPE = Block.box(2.0F, 0.0F, 2.0F, 14.0F, 16.0F, 14.0F);
 
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
@@ -50,6 +50,7 @@ public class GreatHorsetailBlock extends DoublePlantBlock implements EntityBlock
 
     @Override
     public @Nullable BlockState getStateForPlacement(BlockPlaceContext context) {
-        return this.defaultBlockState().setValue(VARIANT, context.getLevel().random.nextInt(1, 4));
+        int variant = Math.floorMod(context.getClickedPos().hashCode(), 3) + 1; // calculate variant based on position
+        return this.defaultBlockState().setValue(VARIANT, variant);
     }
 }
