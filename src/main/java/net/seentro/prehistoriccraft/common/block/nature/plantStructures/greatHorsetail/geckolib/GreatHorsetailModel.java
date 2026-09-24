@@ -2,8 +2,8 @@ package net.seentro.prehistoriccraft.common.block.nature.plantStructures.greatHo
 
 import net.minecraft.resources.ResourceLocation;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
-import net.seentro.prehistoriccraft.common.block.nature.plantStructures.greatHorsetail.GreatHorsetailBlock;
 import net.seentro.prehistoriccraft.common.block.nature.plantStructures.greatHorsetail.GreatHorsetailBlockEntity;
+import net.seentro.prehistoriccraft.registry.PrehistoricBlockStateProperties;
 import software.bernie.geckolib.model.GeoModel;
 
 public class GreatHorsetailModel extends GeoModel<GreatHorsetailBlockEntity> {
@@ -14,7 +14,7 @@ public class GreatHorsetailModel extends GeoModel<GreatHorsetailBlockEntity> {
 
     @Override
     public ResourceLocation getTextureResource(GreatHorsetailBlockEntity animatable) {
-        return switch(animatable.getBlockState().getValue(GreatHorsetailBlock.VARIANT)) {
+        return switch(animatable.getBlockState().getValue(PrehistoricBlockStateProperties.VARIANT_TRIPLE)) {
             case 2 -> ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID, "textures/block/great_horsetail_2.png");
             case 3 -> ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID, "textures/block/great_horsetail_3.png");
             default -> ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID, "textures/block/great_horsetail_1.png");

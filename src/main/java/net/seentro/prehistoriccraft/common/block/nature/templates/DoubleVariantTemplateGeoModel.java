@@ -4,6 +4,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
 import net.seentro.prehistoriccraft.common.block.nature.simplePlants.horsetail.woodHorsetail.WoodHorsetailBlock;
+import net.seentro.prehistoriccraft.registry.PrehistoricBlockStateProperties;
 import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.model.GeoModel;
 
@@ -24,7 +25,7 @@ public class DoubleVariantTemplateGeoModel<T extends BlockEntity & GeoAnimatable
 
     @Override
     public ResourceLocation getTextureResource(T animatable) {
-        if (animatable.getBlockState().getValue(WoodHorsetailBlock.VARIANT) == 2) {
+        if (animatable.getBlockState().getValue(PrehistoricBlockStateProperties.VARIANT_DOUBLE) == 2) {
             return ResourceLocation.fromNamespaceAndPath(PrehistoricCraft.MODID, textureLocationSecondVariant);
         }
 

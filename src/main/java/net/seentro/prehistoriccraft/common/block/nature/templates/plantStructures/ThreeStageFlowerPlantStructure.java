@@ -38,22 +38,24 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.BiPredicate;
 
+import static net.seentro.prehistoriccraft.registry.PrehistoricBlockStateProperties.STAGES_TRIPLE;
+import static net.seentro.prehistoriccraft.registry.PrehistoricBlockStateProperties.INVISIBLE;
+import static net.seentro.prehistoriccraft.registry.PrehistoricBlockStateProperties.TWO_BY_TWO;
+
 public class ThreeStageFlowerPlantStructure extends FlowerBlock {
     public static final MapCodec<ThreeStageFlowerPlantStructure> CODEC = RecordCodecBuilder.mapCodec(
             blockInstance -> blockInstance.group(
                             EFFECTS_FIELD.forGetter(FlowerBlock::getSuspiciousEffects), TreeGrower.CODEC.fieldOf("tree").forGetter(Structure -> Structure.treeGrower), propertiesCodec())
                     .apply(blockInstance, ThreeStageFlowerPlantStructure::new));
 
-    public static final IntegerProperty STAGES = IntegerProperty.create("stages", 1, 3);
-    public static final BooleanProperty INVISIBLE = BooleanProperty.create("invisible");
-    public static final BooleanProperty TWO_BY_TWO = BooleanProperty.create("two_by_two");
+
 
     protected final TreeGrower treeGrower;
 
     public ThreeStageFlowerPlantStructure(SuspiciousStewEffects effects, TreeGrower treeGrower, Properties properties) {
         super(effects, properties);
         this.treeGrower = treeGrower;
-        this.registerDefaultState(this.getStateDefinition().any().setValue(STAGES, 1).setValue(INVISIBLE, false).setValue(TWO_BY_TWO, false));
+        this.registerDefaultState(this.getStateDefinition().any().setValue(STAGES_TRIPLE, 1).setValue(INVISIBLE, false).setValue(TWO_BY_TWO, false));
     }
 
     private static final VoxelShape STAGE_1 = Block.box(4.0, 0.0, 4.0, 12.0, 14.0, 12.0);
@@ -63,7 +65,7 @@ public class ThreeStageFlowerPlantStructure extends FlowerBlock {
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         Vec3 offset = state.getOffset(level, pos);
 
-        if (state.getValue(STAGES).equals(1)) {
+        if (state.getValue(STAGES_TRIPLE).equals(1)) {
             return STAGE_1.move(offset.x, offset.y, offset.z);
         }
 
@@ -72,7 +74,7 @@ public class ThreeStageFlowerPlantStructure extends FlowerBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(STAGES, INVISIBLE, TWO_BY_TWO);
+        builder.add(STAGES_TRIPLE, INVISIBLE, TWO_BY_TWO);
     }
 
     // Randomly tick, growing the tree
@@ -88,7 +90,7 @@ public class ThreeStageFlowerPlantStructure extends FlowerBlock {
 
     // Grow the tree to the next stage / place tree
     public void advanceTree(ServerLevel level, BlockPos pos, BlockState state, RandomSource random) {
-        int stage = state.getValue(STAGES);
+        int stage = state.getValue(STAGES_TRIPLE);
         if (stage >= 3) {
 
             this.growTree(level, level.getChunkSource().getGenerator(), pos, state, random);
@@ -124,14 +126,14 @@ public class ThreeStageFlowerPlantStructure extends FlowerBlock {
             }
         }
 
-        BlockState toPlaceState = state.setValue(STAGES, nextStage).setValue(TWO_BY_TWO, isTwoByTwo);
+        BlockState toPlaceState = state.setValue(STAGES_TRIPLE, nextStage).setValue(TWO_BY_TWO, isTwoByTwo);
         BlockState invisibleState = toPlaceState.setValue(INVISIBLE, true);
 
         for (int i = requiredHeight; i >= 1; i--) {
             BlockPos offsetPos = pos.above(i);
             BlockState offsetState = level.getBlockState(offsetPos);
 
-            if (offsetState.getBlock() == this && offsetState.getValue(INVISIBLE) && offsetState.getValue(STAGES) == nextStage)
+            if (offsetState.getBlock() == this && offsetState.getValue(INVISIBLE) && offsetState.getValue(STAGES_TRIPLE) == nextStage)
                 continue;
 
             level.setBlock(offsetPos, invisibleState, Block.UPDATE_CLIENTS);
@@ -150,7 +152,7 @@ public class ThreeStageFlowerPlantStructure extends FlowerBlock {
     @Override
     public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
         boolean isInvisible = state.getValue(INVISIBLE);
-        int requiredHeight = requiredInvisibleForStage(state.getValue(STAGES));
+        int requiredHeight = requiredInvisibleForStage(state.getValue(STAGES_TRIPLE));
 
         // Can the base sapling block survive on ground?
         BiPredicate<BlockState, BlockPos> canSaplingSurvive = (soilState, soilPos) -> {
@@ -176,7 +178,7 @@ public class ThreeStageFlowerPlantStructure extends FlowerBlock {
         // Check if all blocks are present below
         // Only runs for the invisible blocks
 
-        for (int i = 0; i <= STAGES.getPossibleValues().size(); i++) {
+        for (int i = 0; i <= STAGES_TRIPLE.getPossibleValues().size(); i++) {
             BlockPos offsetPos = pos.below(i);
             BlockState offsetState = level.getBlockState(offsetPos);
 
@@ -200,7 +202,7 @@ public class ThreeStageFlowerPlantStructure extends FlowerBlock {
 
     @Override
     protected VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return state.getValue(STAGES).equals(3) ? state.getShape(level, pos) : Shapes.empty();
+        return state.getValue(STAGES_TRIPLE).equals(3) ? state.getShape(level, pos) : Shapes.empty();
     }
 
     // Destroy if we can't survive
@@ -249,10 +251,10 @@ public class ThreeStageFlowerPlantStructure extends FlowerBlock {
         BlockPos offsetY = pos.offset(xOffset, 0, yOffset + 1);
         BlockPos offsetXY = pos.offset(xOffset + 1, 0, yOffset + 1);
 
-        return level.getBlockState(offset).is(block) && level.getBlockState(offset).getValue(STAGES) == 1
-                && level.getBlockState(offsetX).is(block) && level.getBlockState(offsetX).getValue(STAGES) == 1
-                && level.getBlockState(offsetY).is(block) && level.getBlockState(offsetY).getValue(STAGES) == 1
-                && level.getBlockState(offsetXY).is(block) && level.getBlockState(offsetXY).getValue(STAGES) == 1;
+        return level.getBlockState(offset).is(block) && level.getBlockState(offset).getValue(STAGES_TRIPLE) == 1
+                && level.getBlockState(offsetX).is(block) && level.getBlockState(offsetX).getValue(STAGES_TRIPLE) == 1
+                && level.getBlockState(offsetY).is(block) && level.getBlockState(offsetY).getValue(STAGES_TRIPLE) == 1
+                && level.getBlockState(offsetXY).is(block) && level.getBlockState(offsetXY).getValue(STAGES_TRIPLE) == 1;
     }
 
     private void destroyTwoByTwoSaplings(ServerLevel level, BlockPos pos, int xOffset, int yOffset) {

@@ -32,9 +32,10 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.seentro.prehistoriccraft.registry.PrehistoricBlockEntityTypes;
 import org.jetbrains.annotations.Nullable;
 
+import static net.minecraft.world.level.block.HorizontalDirectionalBlock.FACING;
+import static net.minecraft.world.level.block.state.properties.BlockStateProperties.WATERLOGGED;
+
 public class FossilAnalysisTableBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
-    public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
-    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final MapCodec<FossilAnalysisTableBlock> CODEC = simpleCodec(FossilAnalysisTableBlock::new);
     private static final VoxelShape BOUNDING_BOX = Shapes.or(
             Block.box(0, 12, 0, 16, 16, 16),

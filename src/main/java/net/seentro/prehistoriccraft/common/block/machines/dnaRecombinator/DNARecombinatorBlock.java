@@ -26,8 +26,9 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.seentro.prehistoriccraft.registry.PrehistoricBlockEntityTypes;
 import org.jetbrains.annotations.Nullable;
 
+import static net.minecraft.world.level.block.HorizontalDirectionalBlock.FACING;
+
 public class DNARecombinatorBlock extends BaseEntityBlock {
-    public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
     public static final MapCodec<DNARecombinatorBlock> CODEC = simpleCodec(DNARecombinatorBlock::new);
 
     private static final VoxelShape BOUNDING_BOX_NORTH = Shapes.or(

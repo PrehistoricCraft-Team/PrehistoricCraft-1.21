@@ -20,6 +20,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
@@ -112,9 +113,8 @@ public class PrehistoricCraft {
                         return null;
                     }
 
-                    BlockPos bottomPos = state.getValue(DNASeparationFilterBlock.HALF) == DoubleBlockHalf.UPPER
-                            ? pos.below()
-                            : pos;
+                    BlockPos bottomPos = state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.UPPER
+                            ? pos.below() : pos;
 
                     BlockEntity realBe = level.getBlockEntity(bottomPos);
                     if (realBe instanceof DNASeparationFilterBlockEntity filter) {

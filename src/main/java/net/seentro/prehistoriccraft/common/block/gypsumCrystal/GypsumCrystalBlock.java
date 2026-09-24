@@ -36,24 +36,22 @@ public class GypsumCrystalBlock extends Block implements SimpleWaterloggedBlock 
                 map.put(Direction.EAST, box( 0,  4,  4,  5, 12, 12));
             }
     );
-    public static final DirectionProperty FACING = BlockStateProperties.FACING;
-    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     public GypsumCrystalBlock(Properties properties) {
         super(properties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, Boolean.FALSE));
+        this.registerDefaultState(this.stateDefinition.any().setValue(BlockStateProperties.FACING, Direction.NORTH).setValue(BlockStateProperties.WATERLOGGED, Boolean.FALSE));
     }
 
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return BOUNDING_BOXES.get(state.getValue(FACING));
+        return BOUNDING_BOXES.get(state.getValue(BlockStateProperties.FACING));
     }
 
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         BlockState state = this.defaultBlockState()
-                .setValue(WATERLOGGED, context.getLevel().getFluidState(context.getClickedPos()).getType() == Fluids.WATER);
+                .setValue(BlockStateProperties.WATERLOGGED, context.getLevel().getFluidState(context.getClickedPos()).getType() == Fluids.WATER);
 
         LevelReader level = context.getLevel();
         BlockPos pos = context.getClickedPos();
@@ -61,7 +59,7 @@ public class GypsumCrystalBlock extends Block implements SimpleWaterloggedBlock 
 
         for (Direction direction : directions) {
                 Direction direction1 = direction.getOpposite();
-                state = state.setValue(FACING, direction1);
+                state = state.setValue(BlockStateProperties.FACING, direction1);
                 if (state.canSurvive(level, pos)) {
                     return state;
                 }
@@ -81,12 +79,12 @@ public class GypsumCrystalBlock extends Block implements SimpleWaterloggedBlock 
 
     @Override
     protected VoxelShape getVisualShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return BOUNDING_BOXES.get(state.getValue(FACING));
+        return BOUNDING_BOXES.get(state.getValue(BlockStateProperties.FACING));
     }
 
     @Override
     protected BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
-        if (state.getValue(WATERLOGGED)) {
+        if (state.getValue(BlockStateProperties.WATERLOGGED)) {
             level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
 
@@ -95,7 +93,7 @@ public class GypsumCrystalBlock extends Block implements SimpleWaterloggedBlock 
 
     @Override
     protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
-        return canSurvive(level, pos, state.getValue(FACING));
+        return canSurvive(level, pos, state.getValue(BlockStateProperties.FACING));
     }
 
     public static boolean canSurvive(LevelReader level, BlockPos pos, Direction facing) {
@@ -106,20 +104,20 @@ public class GypsumCrystalBlock extends Block implements SimpleWaterloggedBlock 
 
     @Override
     protected FluidState getFluidState(BlockState state) {
-        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
+        return state.getValue(BlockStateProperties.WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 
     @Override
     protected BlockState rotate(BlockState state, Rotation rotation) {
-        return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
+        return state.setValue(BlockStateProperties.FACING, rotation.rotate(state.getValue(BlockStateProperties.FACING)));
     }
     @Override
     protected BlockState mirror(BlockState state, Mirror mirror) {
-        return state.rotate(mirror.getRotation(state.getValue(FACING)));
+        return state.rotate(mirror.getRotation(state.getValue(BlockStateProperties.FACING)));
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, WATERLOGGED);
+        builder.add(BlockStateProperties.FACING, BlockStateProperties.WATERLOGGED);
     }
 }

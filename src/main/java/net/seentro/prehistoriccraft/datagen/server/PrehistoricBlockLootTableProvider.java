@@ -23,6 +23,7 @@ import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.seentro.prehistoriccraft.common.block.nature.plantStructures.dawnRedwood.DawnRedwoodSaplingBlock;
+import net.seentro.prehistoriccraft.registry.PrehistoricBlockStateProperties;
 import net.seentro.prehistoriccraft.registry.PrehistoricBlocks;
 import net.seentro.prehistoriccraft.registry.PrehistoricItems;
 
@@ -199,7 +200,7 @@ public class PrehistoricBlockLootTableProvider extends BlockLootSubProvider {
                                 .setRolls(ConstantValue.exactly(1.0F))
                                 .when(
                                         LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-                                                .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DawnRedwoodSaplingBlock.INVISIBLE, false))
+                                                .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(PrehistoricBlockStateProperties.INVISIBLE, false))
                                 ).add(LootItem.lootTableItem(block))
                 );
     }

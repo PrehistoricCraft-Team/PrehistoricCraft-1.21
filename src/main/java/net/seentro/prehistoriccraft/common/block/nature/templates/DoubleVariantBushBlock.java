@@ -14,12 +14,13 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
+import static net.seentro.prehistoriccraft.registry.PrehistoricBlockStateProperties.VARIANT_DOUBLE;
+
 public class DoubleVariantBushBlock extends BushBlock {
     public static final MapCodec<DoubleVariantBushBlock> CODEC = simpleCodec(DoubleVariantBushBlock::new);
-    public static final IntegerProperty VARIANT = IntegerProperty.create("variant", 1, 2);
     public DoubleVariantBushBlock(Properties properties) {
         super(properties);
-        this.registerDefaultState(this.getStateDefinition().any().setValue(VARIANT, 1));
+        this.registerDefaultState(this.getStateDefinition().any().setValue(VARIANT_DOUBLE, 1));
     }
 
     protected static final VoxelShape SHAPE = Block.box(2.0F, 0.0F, 2.0F, 14.0F, 13.0F, 14.0F);
@@ -32,7 +33,7 @@ public class DoubleVariantBushBlock extends BushBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(VARIANT);
+        builder.add(VARIANT_DOUBLE);
     }
 
     @Override
@@ -43,6 +44,6 @@ public class DoubleVariantBushBlock extends BushBlock {
     @Override
     public @Nullable BlockState getStateForPlacement(BlockPlaceContext context) {
         int variant = Math.floorMod(context.getClickedPos().hashCode(), 2) + 1; // calculate variant based on position
-        return defaultBlockState().setValue(VARIANT, variant);
+        return defaultBlockState().setValue(VARIANT_DOUBLE, variant);
     }
 }

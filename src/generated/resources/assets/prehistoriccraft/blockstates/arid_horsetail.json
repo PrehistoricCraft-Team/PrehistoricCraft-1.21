@@ -1,9 +1,9 @@
 {
   "variants": {
-    "variant=1": {
+    "variant_double=1": {
       "model": "prehistoriccraft:block/arid_horsetail_1"
     },
-    "variant=2": {
+    "variant_double=2": {
       "model": "prehistoriccraft:block/arid_horsetail_2"
     }
   }

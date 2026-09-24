@@ -14,6 +14,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.seentro.prehistoriccraft.common.block.nature.templates.plantStructures.ThreeStageFlowerPlantStructure;
 import org.jetbrains.annotations.Nullable;
 
+import static net.seentro.prehistoriccraft.registry.PrehistoricBlockStateProperties.INVISIBLE;
+
 public class DawnRedwoodSaplingBlock extends ThreeStageFlowerPlantStructure implements BonemealableBlock, EntityBlock {
     public DawnRedwoodSaplingBlock(SuspiciousStewEffects effects, TreeGrower treeGrower, Properties properties) {
         super(effects, treeGrower, properties);

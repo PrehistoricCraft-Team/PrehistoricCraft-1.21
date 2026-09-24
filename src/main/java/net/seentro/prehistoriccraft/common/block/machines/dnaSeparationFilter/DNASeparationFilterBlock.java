@@ -34,10 +34,10 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.seentro.prehistoriccraft.registry.PrehistoricBlockEntityTypes;
 import org.jetbrains.annotations.Nullable;
 
+import static net.minecraft.world.level.block.HorizontalDirectionalBlock.FACING;
+import static net.minecraft.world.level.block.state.properties.BlockStateProperties.DOUBLE_BLOCK_HALF;
 
 public class DNASeparationFilterBlock extends BaseEntityBlock {
-    public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
-    public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
     public static final MapCodec<DNASeparationFilterBlock> CODEC = simpleCodec(DNASeparationFilterBlock::new);
 
     private static final VoxelShape BOUNDING_BOX_NORTH = Shapes.or(
@@ -153,12 +153,12 @@ public class DNASeparationFilterBlock extends BaseEntityBlock {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any()
                 .setValue(FACING, Direction.NORTH)
-                .setValue(HALF, DoubleBlockHalf.LOWER));
+                .setValue(DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER));
     }
 
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        if (state.getValue(HALF) == DoubleBlockHalf.LOWER) {
+        if (state.getValue(DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER) {
             return switch (state.getValue(FACING)) {
                 case SOUTH -> BOUNDING_BOX_SOUTH;
                 case WEST -> BOUNDING_BOX_WEST;
@@ -177,12 +177,12 @@ public class DNASeparationFilterBlock extends BaseEntityBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, HALF);
+        builder.add(FACING, DOUBLE_BLOCK_HALF);
     }
 
     @Override
     protected RenderShape getRenderShape(BlockState state) {
-        return state.getValue(HALF) == DoubleBlockHalf.LOWER ? RenderShape.ENTITYBLOCK_ANIMATED : RenderShape.INVISIBLE;
+        return state.getValue(DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER ? RenderShape.ENTITYBLOCK_ANIMATED : RenderShape.INVISIBLE;
     }
 
     @Override
@@ -199,10 +199,10 @@ public class DNASeparationFilterBlock extends BaseEntityBlock {
 
     @Override
     protected BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor level, BlockPos currentPos, BlockPos facingPos) {
-        DoubleBlockHalf doubleblockhalf = state.getValue(HALF);
+        DoubleBlockHalf doubleblockhalf = state.getValue(DOUBLE_BLOCK_HALF);
         if (facing.getAxis() != Direction.Axis.Y
                 || doubleblockhalf == DoubleBlockHalf.LOWER != (facing == Direction.UP)
-                || facingState.is(this) && facingState.getValue(HALF) != doubleblockhalf) {
+                || facingState.is(this) && facingState.getValue(DOUBLE_BLOCK_HALF) != doubleblockhalf) {
             return doubleblockhalf == DoubleBlockHalf.LOWER && facing == Direction.DOWN && !state.canSurvive(level, currentPos)
                     ? Blocks.AIR.defaultBlockState()
                     : super.updateShape(state, facing, facingState, level, currentPos, facingPos);
@@ -219,7 +219,7 @@ public class DNASeparationFilterBlock extends BaseEntityBlock {
         if (blockpos.getY() < level.getMaxBuildHeight() - 1 && level.getBlockState(blockpos.above()).canBeReplaced(context)) {
             return this.defaultBlockState()
                     .setValue(FACING, context.getHorizontalDirection().getOpposite())
-                    .setValue(HALF, DoubleBlockHalf.LOWER);
+                    .setValue(DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER);
         }
         return null;
     }
@@ -227,17 +227,17 @@ public class DNASeparationFilterBlock extends BaseEntityBlock {
     @Override
     public void setPlacedBy(Level level, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
         BlockPos blockpos = pos.above();
-        level.setBlock(blockpos, state.setValue(HALF, DoubleBlockHalf.UPPER), 3);
+        level.setBlock(blockpos, state.setValue(DOUBLE_BLOCK_HALF, DoubleBlockHalf.UPPER), 3);
     }
 
     @Override
     protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
-        if (state.getValue(HALF) != DoubleBlockHalf.UPPER) {
+        if (state.getValue(DOUBLE_BLOCK_HALF) != DoubleBlockHalf.UPPER) {
             return super.canSurvive(state, level, pos);
         } else {
             BlockState blockstate = level.getBlockState(pos.below());
             if (state.getBlock() != this) return super.canSurvive(state, level, pos); //Forge: This function is called during world gen and placement, before this block is set, so if we are not 'here' then assume it's the pre-check.
-            return blockstate.is(this) && blockstate.getValue(HALF) == DoubleBlockHalf.LOWER;
+            return blockstate.is(this) && blockstate.getValue(DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER;
         }
     }
 
@@ -260,11 +260,11 @@ public class DNASeparationFilterBlock extends BaseEntityBlock {
     }
 
     protected static void preventDropFromBottomPart(Level level, BlockPos pos, BlockState state, Player player) {
-        DoubleBlockHalf doubleblockhalf = state.getValue(HALF);
+        DoubleBlockHalf doubleblockhalf = state.getValue(DOUBLE_BLOCK_HALF);
         if (doubleblockhalf == DoubleBlockHalf.UPPER) {
             BlockPos blockpos = pos.below();
             BlockState blockstate = level.getBlockState(blockpos);
-            if (blockstate.is(state.getBlock()) && blockstate.getValue(HALF) == DoubleBlockHalf.LOWER) {
+            if (blockstate.is(state.getBlock()) && blockstate.getValue(DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER) {
                 BlockState blockstate1 = blockstate.getFluidState().is(Fluids.WATER) ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState();
                 level.setBlock(blockpos, blockstate1, 35);
                 level.levelEvent(player, 2001, blockpos, Block.getId(blockstate));
@@ -277,7 +277,7 @@ public class DNASeparationFilterBlock extends BaseEntityBlock {
 
     @Override
     public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return state.getValue(HALF) == DoubleBlockHalf.LOWER
+        return state.getValue(DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER
                 ? new DNASeparationFilterBlockEntity(pos, state)
                 : null;
     }
@@ -296,9 +296,9 @@ public class DNASeparationFilterBlock extends BaseEntityBlock {
     @Override
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
 
-        BlockPos bottomPos = state.getValue(HALF) == DoubleBlockHalf.UPPER ? pos.below() : pos;
+        BlockPos bottomPos = state.getValue(DOUBLE_BLOCK_HALF) == DoubleBlockHalf.UPPER ? pos.below() : pos;
 
-        if (state.getValue(HALF) == DoubleBlockHalf.UPPER &&stack.is(Items.WATER_BUCKET)) {
+        if (state.getValue(DOUBLE_BLOCK_HALF) == DoubleBlockHalf.UPPER &&stack.is(Items.WATER_BUCKET)) {
             if (!level.isClientSide() && level.getBlockEntity(bottomPos) instanceof DNASeparationFilterBlockEntity blockEntity) {
                 if (blockEntity.tryInsertWaterFromBucket(player, hand)) {
                     return ItemInteractionResult.SUCCESS;
@@ -325,7 +325,7 @@ public class DNASeparationFilterBlock extends BaseEntityBlock {
     @Override
     protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
         if (state.getBlock() != newState.getBlock()) {
-            if (state.getValue(HALF) == DoubleBlockHalf.LOWER) {
+            if (state.getValue(DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER) {
                 if (level.getBlockEntity(pos) instanceof DNASeparationFilterBlockEntity blockEntity) {
                     blockEntity.drop();
                     level.updateNeighbourForOutputSignal(pos, this);

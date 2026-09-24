@@ -11,15 +11,15 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
+import static net.seentro.prehistoriccraft.registry.PrehistoricBlockStateProperties.VARIANT_TRIPLE;
+
 public class GreatHorsetailBlock extends DoublePlantBlock implements EntityBlock {
     public static final MapCodec<GreatHorsetailBlock> CODEC = simpleCodec(GreatHorsetailBlock::new);
-    public static final IntegerProperty VARIANT = IntegerProperty.create("variant", 1, 3);
 
     public GreatHorsetailBlock(Properties properties) {
         super(properties);
@@ -40,7 +40,7 @@ public class GreatHorsetailBlock extends DoublePlantBlock implements EntityBlock
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(BlockStateProperties.DOUBLE_BLOCK_HALF, VARIANT);
+        builder.add(BlockStateProperties.DOUBLE_BLOCK_HALF, VARIANT_TRIPLE);
     }
 
     @Override
@@ -51,6 +51,6 @@ public class GreatHorsetailBlock extends DoublePlantBlock implements EntityBlock
     @Override
     public @Nullable BlockState getStateForPlacement(BlockPlaceContext context) {
         int variant = Math.floorMod(context.getClickedPos().hashCode(), 3) + 1; // calculate variant based on position
-        return this.defaultBlockState().setValue(VARIANT, variant);
+        return this.defaultBlockState().setValue(VARIANT_TRIPLE, variant);
     }
 }

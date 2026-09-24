@@ -7,6 +7,7 @@ import net.minecraft.world.phys.Vec3;
 import net.seentro.prehistoriccraft.common.block.nature.plantStructures.neocalamites.NeocalamitesBlock;
 import net.seentro.prehistoriccraft.common.block.nature.plantStructures.neocalamites.NeocalamitesBlockEntity;
 import net.seentro.prehistoriccraft.core.multiblock.QuadrupleInvisibleSegmentProperty;
+import net.seentro.prehistoriccraft.registry.PrehistoricBlockStateProperties;
 import software.bernie.geckolib.renderer.GeoBlockRenderer;
 
 public class NeocalamitesRenderer extends GeoBlockRenderer<NeocalamitesBlockEntity> {
@@ -24,6 +25,6 @@ public class NeocalamitesRenderer extends GeoBlockRenderer<NeocalamitesBlockEnti
 
     @Override
     public boolean shouldRender(NeocalamitesBlockEntity blockEntity, Vec3 cameraPos) {
-        return blockEntity.getBlockState().getValue(NeocalamitesBlock.SEGMENT) != QuadrupleInvisibleSegmentProperty.INVISIBLE;
+        return blockEntity.getBlockState().getValue(PrehistoricBlockStateProperties.QUAD_INV_SEGMENT) != QuadrupleInvisibleSegmentProperty.INVISIBLE;
     }
 }

@@ -32,11 +32,12 @@ import net.seentro.prehistoriccraft.registry.PrehistoricBlocks;
 import net.seentro.prehistoriccraft.registry.PrehistoricTags;
 import org.jetbrains.annotations.Nullable;
 
+import static net.seentro.prehistoriccraft.registry.PrehistoricBlockStateProperties.MIDDLE_SEGMENT_2;
+import static net.seentro.prehistoriccraft.registry.PrehistoricBlockStateProperties.IS_STEM;
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.WATERLOGGED;
 
 public class NeocalamitesSaplingBlock extends UnderwaterBushBlock implements BonemealableBlock, SimpleWaterloggedBlock {
     public static final MapCodec<NeocalamitesSaplingBlock> CODEC = simpleCodec(NeocalamitesSaplingBlock::new);
-    public static final BooleanProperty IS_STEM = BooleanProperty.create("is_stem");
 
     public NeocalamitesSaplingBlock(Properties properties) {
         super(properties);
@@ -89,7 +90,7 @@ public class NeocalamitesSaplingBlock extends UnderwaterBushBlock implements Bon
         BlockPos surfacePos = findSurfacePos(serverLevel, pos);
 
         BlockState neocalamitesState = PrehistoricBlocks.NEOCALAMITES.get().defaultBlockState()
-                .setValue(NeocalamitesBlock.MIDDLE_SEGMENT_COUNT, NeocalamitesBlock.getMiddleSegmentCount(serverLevel, lastWaterBlock));
+                .setValue(MIDDLE_SEGMENT_2, NeocalamitesBlock.getMiddleSegmentCount(serverLevel, lastWaterBlock));
 
         if (!NeocalamitesBlock.isEnoughSpace(serverLevel, neocalamitesState, pos)) return;
         if (!NeocalamitesBlock.hasWaterBlockCloseBy(serverLevel, pos)) return;

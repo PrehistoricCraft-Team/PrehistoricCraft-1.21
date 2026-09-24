@@ -21,6 +21,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
@@ -548,7 +549,7 @@ public class DNASeparationFilterBlockEntity extends BlockEntity implements MenuP
     public @Nullable IItemHandler getHopperItemHandler(@Nullable Direction worldSide) {
         if (worldSide == null) return itemHandler;
 
-        Direction facing = this.getBlockState().getValue(DNASeparationFilterBlock.FACING);
+        Direction facing = this.getBlockState().getValue(HorizontalDirectionalBlock.FACING);
         Direction logicalSide;
 
         if (worldSide == Direction.UP || worldSide == Direction.DOWN) {

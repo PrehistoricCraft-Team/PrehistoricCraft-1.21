@@ -22,8 +22,6 @@ import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.common.util.TriState;
@@ -32,15 +30,15 @@ import net.seentro.prehistoriccraft.registry.PrehistoricTags;
 import org.jetbrains.annotations.Nullable;
 
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.WATERLOGGED;
+import static net.seentro.prehistoriccraft.registry.PrehistoricBlockStateProperties.IS_STEM;
+import static net.seentro.prehistoriccraft.registry.PrehistoricBlockStateProperties.VARIANT_DOUBLE;
 
 public class WaterHorsetailBlock extends UnderwaterBushBlock implements SimpleWaterloggedBlock {
     public static final MapCodec<WaterHorsetailBlock> CODEC = simpleCodec(WaterHorsetailBlock::new);
-    public static final BooleanProperty IS_STEM = BooleanProperty.create("is_stem");
-    public static final IntegerProperty VARIANT = IntegerProperty.create("variant", 1, 2);
 
     public WaterHorsetailBlock(Properties properties) {
         super(properties);
-        this.registerDefaultState(this.getStateDefinition().any().setValue(IS_STEM, false).setValue(VARIANT, 1));
+        this.registerDefaultState(this.getStateDefinition().any().setValue(IS_STEM, false).setValue(VARIANT_DOUBLE, 1));
     }
 
     @Override
@@ -50,7 +48,7 @@ public class WaterHorsetailBlock extends UnderwaterBushBlock implements SimpleWa
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(IS_STEM, WATERLOGGED, VARIANT);
+        builder.add(IS_STEM, WATERLOGGED, VARIANT_DOUBLE);
     }
 
     @Override
@@ -80,7 +78,7 @@ public class WaterHorsetailBlock extends UnderwaterBushBlock implements SimpleWa
 
         int variant = Math.floorMod(context.getClickedPos().hashCode(), 2) + 1; // calculate variant based on position
 
-        return this.defaultBlockState().setValue(WATERLOGGED, fluidstate.is(FluidTags.WATER)).setValue(VARIANT, variant);
+        return this.defaultBlockState().setValue(WATERLOGGED, fluidstate.is(FluidTags.WATER)).setValue(VARIANT_DOUBLE, variant);
     }
 
     @Override

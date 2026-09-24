@@ -12,9 +12,8 @@ import net.neoforged.neoforge.client.model.generators.*;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.seentro.prehistoriccraft.PrehistoricCraft;
-import net.seentro.prehistoriccraft.common.block.nature.plantStructures.neocalamites.sapling.NeocalamitesSaplingBlock;
-import net.seentro.prehistoriccraft.common.block.nature.plantStructures.waterHorsetail.WaterHorsetailBlock;
 import net.seentro.prehistoriccraft.common.block.nature.templates.DoubleVariantBushBlock;
+import net.seentro.prehistoriccraft.registry.PrehistoricBlockStateProperties;
 import net.seentro.prehistoriccraft.registry.PrehistoricBlocks;
 
 import java.util.Set;
@@ -152,8 +151,8 @@ public class PrehistoricBlockStateProvider extends BlockStateProvider {
                 .renderType("cutout");
 
         getVariantBuilder(block.get())
-                .partialState().with(NeocalamitesSaplingBlock.IS_STEM, true).addModels(new ConfiguredModel(stemModel))
-                .partialState().with(NeocalamitesSaplingBlock.IS_STEM, false).addModels(new ConfiguredModel(model));
+                .partialState().with(PrehistoricBlockStateProperties.IS_STEM, true).addModels(new ConfiguredModel(stemModel))
+                .partialState().with(PrehistoricBlockStateProperties.IS_STEM, false).addModels(new ConfiguredModel(model));
 
         blockItemWithBlockTexture(block, itemTexture);
     }
@@ -188,10 +187,17 @@ public class PrehistoricBlockStateProvider extends BlockStateProvider {
                 .renderType("cutout");
 
         getVariantBuilder(block.get())
-                .partialState().with(WaterHorsetailBlock.IS_STEM, true).with(WaterHorsetailBlock.VARIANT, 1).addModels(new ConfiguredModel(stemModel1))
-                .partialState().with(WaterHorsetailBlock.IS_STEM, false).with(WaterHorsetailBlock.VARIANT, 1).addModels(new ConfiguredModel(model1))
-                .partialState().with(WaterHorsetailBlock.IS_STEM, true).with(WaterHorsetailBlock.VARIANT, 2).addModels(new ConfiguredModel(stemModel2))
-                .partialState().with(WaterHorsetailBlock.IS_STEM, false).with(WaterHorsetailBlock.VARIANT, 2).addModels(new ConfiguredModel(model2));
+                .partialState().with(PrehistoricBlockStateProperties.IS_STEM, true).with(PrehistoricBlockStateProperties.VARIANT_DOUBLE, 1)
+                .addModels(new ConfiguredModel(stemModel1))
+
+                .partialState().with(PrehistoricBlockStateProperties.IS_STEM, false).with(PrehistoricBlockStateProperties.VARIANT_DOUBLE, 1)
+                .addModels(new ConfiguredModel(model1))
+
+                .partialState().with(PrehistoricBlockStateProperties.IS_STEM, true).with(PrehistoricBlockStateProperties.VARIANT_DOUBLE, 2)
+                .addModels(new ConfiguredModel(stemModel2))
+
+                .partialState().with(PrehistoricBlockStateProperties.IS_STEM, false).with(PrehistoricBlockStateProperties.VARIANT_DOUBLE, 2)
+                .addModels(new ConfiguredModel(model2));
 
         blockItemWithBlockTexture(block, texture);
     }
@@ -317,8 +323,8 @@ public class PrehistoricBlockStateProvider extends BlockStateProvider {
                 .renderType("cutout");
 
         getVariantBuilder(block.get())
-                .partialState().with(DoubleVariantBushBlock.VARIANT, 1).addModels(new ConfiguredModel(modelVariant1))
-                .partialState().with(DoubleVariantBushBlock.VARIANT, 2).addModels(new ConfiguredModel(modelVariant2));
+                .partialState().with(PrehistoricBlockStateProperties.VARIANT_DOUBLE, 1).addModels(new ConfiguredModel(modelVariant1))
+                .partialState().with(PrehistoricBlockStateProperties.VARIANT_DOUBLE, 2).addModels(new ConfiguredModel(modelVariant2));
 
         blockItemWithBlockTexture(block, variant1);
     }
